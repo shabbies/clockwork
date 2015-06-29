@@ -256,7 +256,7 @@ aside {
 }
 
 .job-entry-apply{
-   padding:8px;
+ padding:8px;
 }
 
 .job-entry-apply:hover{
@@ -269,6 +269,16 @@ aside {
   padding-left: 0;
   margin-left: 0px;
   list-style: none;
+}
+
+@media(max-width:535px) {
+.header-content-btn #btnwork{
+        margin-top: 20px;
+    }
+
+    .header-content-btn #btnjob{
+        margin-top: 10px;
+    }
 }
 
 header {
