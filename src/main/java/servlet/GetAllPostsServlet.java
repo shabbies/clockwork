@@ -1,5 +1,6 @@
 package servlet;
 
+import controller.PostController;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -17,35 +18,33 @@ import org.apache.http.util.EntityUtils;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
+import model.Post;
 import org.apache.commons.io.IOUtils;
 
-@WebServlet(
-        name = "MyServlet",
-        urlPatterns = {"/hello"}
-    )
 public class GetAllPostsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("https://clockwork-api.herokuapp.com/api/v1/posts/all.json");
         CloseableHttpResponse response1 = httpclient.execute(httpGet);
+        ArrayList <Post> postList;
         try {
             HttpEntity entity1 = response1.getEntity();
             StringWriter writer = new StringWriter();
             IOUtils.copy(entity1.getContent(), writer, "UTF-8");
             String theString = writer.toString();
-            /*PostController postController = new PostController();
-            ArrayList <Post> postList = postController.createPostFromJSON(theString);
-            for (Post post : postList){
-                out.println(post.getHeader());
-            }*/
+            PostController postController = new PostController();
+            postList = postController.createPostFromJSON(theString);
             EntityUtils.consume(entity1);
         } finally {
             response1.close();
         }
+        session.setAttribute("postList", postList);
+        response.sendRedirect("/index.jsp");
 
         
         /*CloseableHttpClient httpclient = HttpClients.createDefault();

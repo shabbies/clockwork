@@ -1,4 +1,4 @@
-/*package model;
+package model;
 
 import java.util.Date;
 
@@ -87,6 +87,4 @@ public class Post {
     public void setJobDate(Date jobDate) {
         this.jobDate = jobDate;
     }
-    
-    
-}*/
+}

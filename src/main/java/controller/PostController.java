@@ -1,4 +1,4 @@
-/*package controller;
+package controller;
 
 import java.util.ArrayList;
 import model.PostManager;
@@ -15,4 +15,3 @@ public class PostController {
         return postManager.createPostArrayFromJSON(JSONString);
     }
 }
-*/
