@@ -26,3 +26,5 @@ public class Main {
         tomcat.getServer().await();
     }
 }
+
+// dont touch this file, needed to run maven
