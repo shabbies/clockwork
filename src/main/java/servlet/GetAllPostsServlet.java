@@ -4,7 +4,6 @@ import controller.PostController;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +14,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
@@ -44,7 +42,7 @@ public class GetAllPostsServlet extends HttpServlet {
             response1.close();
         }
         session.setAttribute("postList", postList);
-        response.sendRedirect("/index.jsp");
+        response.sendRedirect("/posts.jsp");
 
         
         /*CloseableHttpClient httpclient = HttpClients.createDefault();

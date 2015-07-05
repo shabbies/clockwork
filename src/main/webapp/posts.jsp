@@ -37,6 +37,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 
+<%
+    ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList");
+%>
 <body id="page-top">
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -95,9 +98,32 @@
         <div class="content">
             <div class="container">
                 <div class="col-lg-12 search-label"> 
-                    <form action="/GetAllPostsServlet" method="GET">
-                        <input type="submit" value="Login">
-                    </form>                         
+                    <h3>Search Results for "<span>goodie bag</span>"</h3>                             
+                </div>
+
+                
+                <div class="col-lg-4">
+                    <%for (Post post : postList){%>
+                    <div class="job-entry">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h4><%=post.getHeader()%></h4>
+                            </div>
+                            <span class="job-entry-price pull-right primary"><strong>$<%=post.getSalary()%>.00</strong></span>   
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h5><%=post.getDescription()%></h5>
+                            </div>
+                        </div>
+
+                        <div class="row job-entry-apply">
+                            <a href="" class="btn btn-primary btn pull-right">Apply now <i class="fa fa-check"></i></a>
+                        </div>
+
+                    </div>
+                    <%}%>
                 </div>
             </div>
         </div>

@@ -37,6 +37,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 
+<%
+    ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList");
+%>
 <body id="page-top">
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -71,34 +74,42 @@
                 <h1>Lets Begin!</h1>
                     <div class="header-content-btn">
                         <a href="" id="btnwork" class="btn btn-primary btn-xl">Find Work (Register now)</a>
-                        <a href="/create_post.jsp" id="btnjob" class="btn btn-primary btn-xl">Post your Job (It's free)</a>
+                        <a href="" id="btnjob" class="btn btn-primary btn-xl">Post your Job (It's free)</a>
                     </div>
             </div>
         </div>
     </header>
 
     <section id="jobs" ng-controller="jobListCtrl">
-        <div class="job-search text-center">
-            <div class="container">
-                <form id="searchForm">
-                    <div class="input-group input-group-lg stylish-input-group">
-                        <input type="text" class="form-control" id="searchText" autocomplete="off" placeholder="search keyword...">
-                        <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button"> FIND JOBS <span class="glyphicon glyphicon-search"></span></button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </div>
-
 
         <div class="content">
             <div class="container">
                 <div class="col-lg-12 search-label"> 
-                    <form action="/GetAllPostsServlet" method="GET">
-                        <input type="submit" value="Login">
-                    </form>                         
+                    <h3>Create New Post</h3>                             
                 </div>
+                <form action="/CreatePostServlet" method="POST">
+                    Job Title:
+                    <input type="text" name="header">
+                    <br>
+                    Company:
+                    <input type="text" name="company">
+                    <br>
+                    Salary:
+                    <input type="number" name="salary">
+                    <br>
+                    Description:
+                    <textarea name="description"></textarea>
+                    <br>
+                    Job Location:
+                    <input type="text" name="location">
+                    <br>
+                    Job Date:
+                    <input type="date" name="job_date">
+                    <br>
+                    <input type="submit" value="Submit">
+                </form>
+                
+                
             </div>
         </div>
 
@@ -146,6 +157,5 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="js/clockwork.js"></script>
-
 </body>
 </html>
