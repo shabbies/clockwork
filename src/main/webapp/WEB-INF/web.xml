@@ -9,6 +9,10 @@
     <servlet-name>CreatePostServlet</servlet-name>
     <servlet-class>servlet.CreatePostServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>RegisterAccountServlet</servlet-name>
+    <servlet-class>servlet.RegisterAccountServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -17,5 +21,9 @@
   <servlet-mapping>
     <servlet-name>CreatePostServlet</servlet-name>
     <url-pattern>/CreatePostServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RegisterAccountServlet</servlet-name>
+    <url-pattern>/RegisterAccountServlet</url-pattern>
   </servlet-mapping>
 </web-app>    

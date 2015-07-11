@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<%@ page import="java.util.ArrayList" %>
-<%@page import="model.Post"%>
 <html ng-app="clockworkApp" lang="en">
 
 <head>
@@ -37,46 +35,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 
-<%
-    ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList");
-%>
 <body id="page-top">
-    <jsp:include page="_header.jsp" />
+<jsp:include page="_header.jsp" />
 
-    <section id="jobs" ng-controller="jobListCtrl">
-
-        <div class="content">
-            <div class="container">
-                <div class="col-lg-12 search-label"> 
-                    <h3>Create New Post</h3>                             
-                </div>
-                <form action="/CreatePostServlet" method="POST">
-                    Job Title:
-                    <input type="text" name="header">
-                    <br>
-                    Company:
-                    <input type="text" name="company">
-                    <br>
-                    Salary:
-                    <input type="number" name="salary">
-                    <br>
-                    Description:
-                    <textarea name="description"></textarea>
-                    <br>
-                    Job Location:
-                    <input type="text" name="location">
-                    <br>
-                    Job Date:
-                    <input type="date" name="job_date">
-                    <br>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
+<div>
+    <div>
+        <div>
+            <h3>Employer Login</h3>
+            <form action="/" method="POST">
+                Username / Email : <input type="text"/><br>
+                Password : <input type="password"/><br>
+                <input type="submit" value="Submit"/>
+            </form>
         </div>
-
+        <div>
+            <form action="/register_employer.jsp" method=""><input type="submit" value="Register Employer Account" /></form>
+        </div>
+    </div>
 </div>
-
-</section>
 
 <hr class="grey">
 <footer>
@@ -118,5 +94,6 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="js/clockwork.js"></script>
+
 </body>
 </html>
