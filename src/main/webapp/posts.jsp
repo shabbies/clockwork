@@ -37,20 +37,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 
-<%
-    ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList");
-%>
+<% ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList"); %>
 <body id="page-top">
     <jsp:include page="_header.jsp" />
 
+
     <section id="jobs" ng-controller="jobListCtrl">
         <div class="job-search text-center">
+
+
             <div class="container">
                 <form id="searchForm">
                     <div class="input-group input-group-lg stylish-input-group">
                         <input type="text" class="form-control" id="searchText" autocomplete="off" placeholder="search keyword...">
                         <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button"> FIND JOBS <span class="glyphicon glyphicon-search"></span></button>
+                            <button class="btn btn-primary" type="button"> FIND JOBS <span class="glyphicon glyphicon-search"></span></button>
                         </span>
                     </div>
                 </form>
@@ -58,21 +59,25 @@
         </div>
 
 
-        <div class="content">
+        <div class="main">
             <div class="container">
+
                 <div class="col-lg-12 search-label"> 
                     <h3>Search Results for "<span>goodie bag</span>"</h3>                             
                 </div>
 
-                
+                <%for (Post post : postList){%>
+
                 <div class="col-lg-4">
-                    <%for (Post post : postList){%>
+
                     <div class="job-entry">
+
                         <div class="row">
                             <div class="col-lg-9">
                                 <h4><%=post.getHeader()%></h4>
                             </div>
-                            <span class="job-entry-price pull-right primary"><strong>$<%=post.getSalary()%>.00</strong></span>   
+
+                            <span class="job-entry-price pull-right primary"><strong>$<%=post.getSalary()%>/hr</strong></span>   
                         </div>
 
                         <div class="row">
@@ -86,12 +91,15 @@
                         </div>
 
                     </div>
-                    <%}%>
+
                 </div>
+
+                <%}%>
+
             </div>
         </div>
 
-</div>
+    </div>
 
 </section>
 
@@ -104,15 +112,20 @@
             </div>
             <div class="col-md-4">
                 <ul class="list-inline social-buttons text-center">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                    </li>
                 </ul>
             </div>
             <div class="col-md-4">
                 <ul class="list-inline quicklinks pull-right">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a>
+                    </li>
+                    <li><a href="#">Terms of Use</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -137,4 +150,12 @@
 <script src="js/clockwork.js"></script>
 
 </body>
+
 </html>
+
+
+
+
+
+
+
