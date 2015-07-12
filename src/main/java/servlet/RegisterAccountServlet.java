@@ -31,10 +31,12 @@ public class RegisterAccountServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String email = (String)request.getParameter("email");
-        String username = (String)request.getParameter("username");
+        //TODO: remove username from db. username should be the email. One less field for user to enter
+        String username = email;
         String companyName = (String)request.getParameter("company_name");
         String password = (String)request.getParameter("password");
-        String passwordConfirmation = (String)request.getParameter("password_confirmation");
+        //TODO: remove password confirmation. if need to change pw. the user can forget password.
+        String passwordConfirmation = password;
         String accountType = (String)request.getParameter("account_type");
         
         CloseableHttpClient httpclient = HttpClients.createDefault();

@@ -36,75 +36,54 @@
 </head>
 
 <body id="page-top">
-<jsp:include page="_header.jsp" />
+    <jsp:include page="_nav.jsp" />
 
-<div class="content">
-    <div class="container">
-        <div class="col-lg-12 search-label"> 
-            <h3>Create New Employer Account</h3>                             
-        </div>
-        <form action="/RegisterAccountServlet" method="POST">
-            Email:
-            <input type="text" name="email">
-            <br>
-            Username:
-            <input type="text" name="username">
-            <br>
-            Company Name:
-            <input type="text" name="company_name">
-            <br>
-            Password:
-            <input type="password" name="password">
-            <br>
-            Confirm Password:
-            <input type="password" name="password_confirmation">
-            <br>
-            <input type="hidden" name="account_type" value="employer">
-            <input type="submit" value="Submit">
-        </form>
-    </div>
-</div>
+    <header style="min-height: 100%; background-color: #ac1d39; background-image:none;">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h2 class="text-center">Hello!</h2>
+                <h3 class="text-center">Hiring on Clockwork is simple & effective. Give it a go!</h3>
 
-<hr class="grey">
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <span class="copyright">Copyright © Clockwork 2015</span>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline social-buttons text-center">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline quicklinks pull-right">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Use</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
 
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
+                                <form class="form form-signup" action="/RegisterAccountServlet" method="POST" role="form">
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+                                    <div class="form-group form-group-lg col-md-12 text-left"> 
+                                       <label for="register-company" class="control-label">Company Name</label> 
+                                       <div class="input-group"> 
+                                           <div class="input-group-addon"><i class="fa fa-building fa-lg fa-fw"></i></div> 
+                                           <input id="register-company" class="form-control" type="text" placeholder="Company Name..." name="company_name" required> </div> 
+                                       </div>
 
-<!-- Plugin JavaScript -->
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/jquery.fittext.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/angular.min.js"></script>
+                                       <div class="form-group form-group-lg col-md-12 text-left"> 
+                                           <label for="register-email" class="control-label">Email Address</label> 
+                                           <div class="input-group"> 
+                                               <div class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></div> 
+                                               <input id="register-email" class="form-control" type="email" placeholder="Email address…" name="email" required> </div> 
+                                           </div>
 
-<script src="js/controllers.js"></script>
+                                           <div class="form-group form-group-lg col-md-12 text-left"> 
+                                               <label for="register-password" class="control-label">Password</label> 
+                                               <div class="input-group"> 
+                                                   <div class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></div> 
+                                                   <input id="register-password" class="form-control" type="pasword" placeholder="Password…" name="password" required> </div> 
+                                               </div>
 
-<!-- Custom Theme JavaScript -->
-<script src="js/clockwork.js"></script>
+                                               <input type="hidden" name="account_type" value="employer">
+                                               <input class="btn btn-lg btn-primary" type="submit" value="Create Account">
 
-</body>
-</html>
+
+                                           </div>
+                                       </form>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </header>
+
+           <jsp:include page="_footer.jsp" />
