@@ -28,7 +28,10 @@ public class CreatePostServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String header = (String)request.getParameter("header");
-        String company = (String)request.getParameter("company");
+
+        //TODO: pull from user variable
+        String company = "company";
+
         int salary = Integer.parseInt(request.getParameter("salary"));
         String description = (String)request.getParameter("description");
         String location = (String)request.getParameter("location");

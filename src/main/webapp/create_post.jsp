@@ -38,85 +38,65 @@
 </head>
 
 <%
-    ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList");
+ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList");
 %>
 <body id="page-top">
-    <jsp:include page="_header.jsp" />
 
-    <section id="jobs" ng-controller="jobListCtrl">
+ <jsp:include page="_nav.jsp" />
 
-        <div class="content">
-            <div class="container">
-                <div class="col-lg-12 search-label"> 
-                    <h3>Create New Post</h3>                             
-                </div>
-                <form action="/CreatePostServlet" method="POST">
-                    Job Title:
-                    <input type="text" name="header">
-                    <br>
-                    Company:
-                    <input type="text" name="company">
-                    <br>
-                    Salary:
-                    <input type="number" name="salary">
-                    <br>
-                    Description:
-                    <textarea name="description"></textarea>
-                    <br>
-                    Job Location:
-                    <input type="text" name="location">
-                    <br>
-                    Job Date:
-                    <input type="date" name="job_date">
-                    <br>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-        </div>
 
-</div>
+ <header style="min-height: 100%; background-color: #ac1d39; background-image:none;">
+    <div class="header-content">
+        <div class="header-content-inner">
+            <h2 class="text-center">Let's Create a new listing!</h2>
 
-</section>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form class="form form-signup" action="/CreatePostServlet" method="POST" role="form">
 
-<hr class="grey">
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <span class="copyright">Copyright © Clockwork 2015</span>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline social-buttons text-center">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline quicklinks pull-right">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Use</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
+                                <div class="form-group form-group-lg col-md-12 text-left"> 
+                                   <label for="job-title" class="control-label">Job Title</label> 
+                                   <input id="job-title" class="form-control" type="text" placeholder="" name="header" required> 
+                               </div>
 
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
+                               <div class="form-group col-md-12 text-left"> 
+                                   <label for="job-desc" class="control-label">Job Description</label> 
+                                   <textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required></textarea> 
+                               </div>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+                               <div class="form-group form-group-lg col-md-12 text-left"> 
+                                   <label for="job-pay" class="control-label">Job Location</label> 
+                                   <input id="job-pay" class="form-control" type="text" placeholder="" name="location" required>  
+                               </div>
 
-<!-- Plugin JavaScript -->
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/jquery.fittext.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/angular.min.js"></script>
+                               <div class="form-group form-group-lg col-md-6 text-left"> 
+                                   <label for="job-pay" class="control-label">Job Date</label> 
+                                   <div class="input-group"> 
+                                       <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
+                                       <input id="job-pay" class="form-control" type="text" placeholder="" name="job_date" required> </div> 
+                                   </div>
 
-<script src="js/controllers.js"></script>
+                                   <div class="form-group form-group-lg col-md-6 text-left"> 
+                                       <label for="job-pay" class="control-label">Pay</label> 
+                                       <div class="input-group"> 
+                                           <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
+                                           <input id="job-pay" class="form-control" type="number" placeholder="" name="salary" required> </div> 
+                                       </div>
 
-<!-- Custom Theme JavaScript -->
-<script src="js/clockwork.js"></script>
-</body>
-</html>
+
+                                       <input type="submit" class="btn btn-lg btn-primary" value="Next >>">
+
+                                   </a>
+                               </div>
+                           </form>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</header>
+
+<jsp:include page="_footer.jsp" />
