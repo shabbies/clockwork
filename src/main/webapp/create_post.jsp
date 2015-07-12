@@ -1,7 +1,7 @@
 <jsp:include page="_header.jsp" />
 <jsp:include page="_nav.jsp" />
 
-<header style="min-height: 100%; background-color: #ac1d39; background-image:none;">
+<header class="main">
   <div class="header-content">
     <div class="header-content-inner">
       <h2 class="text-center">Let's Create a new listing!</h2>

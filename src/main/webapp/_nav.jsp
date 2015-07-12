@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="#page-top">clockwork</a>
+            <a class="navbar-brand page-scroll" href="/index.jsp">clockwork</a>
             <% if (session.getAttribute("currentUser") != null) {
             User currentUser = (User)session.getAttribute("currentUser"); %>
             Welcome <%=currentUser.getUsername()%>

@@ -272,7 +272,7 @@ aside {
 }
 
 .job-entry-apply{
-   padding:8px;
+ padding:8px;
 }
 
 .job-entry-apply:hover{
@@ -309,6 +309,12 @@ header {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+}
+
+.main{
+    min-height: 100%; 
+    background-color: #ac1d39; 
+    background-image:none;
 }
 
 header .header-content {
@@ -369,7 +375,7 @@ header .header-content .header-content-inner p {
         font-size: 18px;
     }
 
-     .content {
+    .content {
         position: absolute;
         top: 50%;
         padding: 0 50px;
