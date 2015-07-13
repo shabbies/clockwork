@@ -47,8 +47,8 @@
                     </div>
                 </div>
 
-                <div class="row job-entry-apply">
-                    <a href="" class="btn btn-primary btn pull-right">Apply now <i class="fa fa-check"></i></a>
+                <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr">
+                    <a href="#"  class="btn btn-primary btn pull-right">Apply now <i class="fa fa-check"></i></a>
                 </div>
 
             </div>
@@ -89,6 +89,46 @@
         </div>
     </div>
 </footer>
+
+
+
+<!-- Job Modal -->
+<div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+    </div>
+    <div class="modal-body">
+     <h4 id="modalHeader"></h4>
+     <h5 id="modalDesc"></h5>
+     <h5 id="modalSalary"></h5>
+ </div>
+ <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Apply</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+$(document).on("click", "#open-jobModal", function() {
+    var headerText = $(this).data('header');
+    var descText = $(this).data('desc');
+    var salaryText = $(this).data('salary');
+
+    $('#jobModalLabel').html(headerText);
+    $('#modalHeader').html(headerText);
+    $('#modalDesc').html(descText);
+    $('#modalSalary').html(salaryText);
+
+    $('#jobModal').modal('show');
+});
+</script>
+<!-- End of Job Modal -->
+
 
 
 <jsp:include page="_footer.jsp" />

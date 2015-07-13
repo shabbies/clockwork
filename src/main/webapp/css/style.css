@@ -272,7 +272,7 @@ aside {
 }
 
 .job-entry-apply{
- padding:8px;
+   padding:8px;
 }
 
 .job-entry-apply:hover{
@@ -628,4 +628,12 @@ img::-moz-selection {
 
 body {
     webkit-tap-highlight-color: #222;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-footer {
+ border-top: none;
 }

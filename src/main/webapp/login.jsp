@@ -88,9 +88,6 @@
 <script src="js/jquery.easing.min.js"></script>
 <script src="js/jquery.fittext.js"></script>
 <script src="js/wow.min.js"></script>
-<script src="js/angular.min.js"></script>
-
-<script src="js/controllers.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="js/clockwork.js"></script>
