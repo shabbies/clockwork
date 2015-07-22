@@ -28,13 +28,13 @@
              </div>
 
              <div class="form-group form-group-lg col-md-12 text-left"> 
-                 <input type="submit" class="btn btn-lg btn-block btn-primary" value="Login"/>
+                 <input type="submit" class="btn btn-lg btn-block btn-primary btn-srad" value="Login"/>
              </div>
 
          </form>
 
          <div class="form-group form-group-lg col-md-12 text-left"> 
-          <a href="/register_employer.jsp" class="btn btn-lg btn-block btn-default">New to Clockwork? Click Here</a>
+          <a href="/register_employer.jsp" class="btn btn-lg btn-block btn-default btn-srad">New to Clockwork? Click Here</a>
       </div>
 
 

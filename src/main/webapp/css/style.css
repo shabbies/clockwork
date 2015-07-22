@@ -596,10 +596,14 @@ fieldset[disabled] .btn-primary.active {
 
 .btn {
     border: 0;
-    /*border-radius: 300px;*/
+    border-radius: 300px;
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
+}
+
+.btn-srad {
+    border-radius: 4px;
 }
 
 .btn-xl {
