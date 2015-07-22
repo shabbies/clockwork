@@ -272,7 +272,7 @@ aside {
 }
 
 .job-entry-apply{
-   padding:8px;
+ padding:8px;
 }
 
 .job-entry-apply:hover{
@@ -654,7 +654,7 @@ body {
 }
 
 .modal-footer {
- border-top: none;
+   border-top: none;
 }
 
 .cursor-pointer{
@@ -665,4 +665,12 @@ body {
 .whitelink:hover{
     color: #FFF;
     text-decoration: none;
+}
+
+.detailIcons{
+    border-radius: 300px;
+    padding: 8px;
+    width: 30px;
+    text-align: center;
+    background-color: #ee4054;
 }
