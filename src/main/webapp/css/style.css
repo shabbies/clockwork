@@ -487,9 +487,11 @@ label{
 }
 
 .btn-default {
-    border-color: #fff;
+    border-color: #ccc;
+    background-color: #eee;
     color: #222;
-    background-color: #fff;
+    /*border-color: #fff;
+    background-color: #fff;*/
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -594,7 +596,7 @@ fieldset[disabled] .btn-primary.active {
 
 .btn {
     border: 0;
-    border-radius: 300px;
+    /*border-radius: 300px;*/
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
