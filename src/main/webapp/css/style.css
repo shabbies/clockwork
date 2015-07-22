@@ -636,10 +636,33 @@ body {
     webkit-tap-highlight-color: #222;
 }
 
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
 .modal-header {
   border-bottom: none;
 }
 
 .modal-footer {
  border-top: none;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.whitelink, 
+.whitelink:hover{
+    color: #FFF;
+    text-decoration: none;
 }
