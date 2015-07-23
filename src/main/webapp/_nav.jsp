@@ -25,10 +25,15 @@
                 <li><a class="page-scroll" href="#about">Work</a></li>
                 <li><a class="page-scroll" href="#services">Hire</a></li>
                 <li><a class="page-scroll" href="#portfolio">How it works</a></li>
+                <% if (session.getAttribute("currentUser") == null){ %>
                 <li><button class="btn btn-primary wow tada" onclick="location.href='/login.jsp'">Login / Register</button></li>
+                <% } else { %>
+                <li><button class="btn btn-primary wow tada" onclick="$('#logout_form').submit();">Logout</button></li>
+                <% } %>
             </ul>
         </div>
             <!-- /.navbar-collapse -->
     </div>
             <!-- /.container-fluid -->
 </nav>
+            <form id="logout_form" action="/LogoutServlet" method="POST" style="display: none;"></form>

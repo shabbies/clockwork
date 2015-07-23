@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpSession;
+import model.User;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -27,11 +29,20 @@ public class CreatePostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        User currentUser = (User)session.getAttribute("currentUser");
+        if (currentUser == null){
+            session.setAttribute("error", "Please login or register first before posting a job");
+            response.sendRedirect("/login.jsp");
+            return;
+        } else if (!currentUser.getAccountType().equals("employer")){
+            session.setAttribute("error", "Only an employer account is able to post a job!");
+            response.sendRedirect("/index.jsp");
+            return;
+        }
         String header = (String)request.getParameter("header");
-
-        //TODO: pull from user variable
-        String company = "company";
-
+        String company = currentUser.getUsername();
         int salary = Integer.parseInt(request.getParameter("salary"));
         String description = (String)request.getParameter("description");
         String location = (String)request.getParameter("location");

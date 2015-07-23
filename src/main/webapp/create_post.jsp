@@ -1,6 +1,19 @@
 <jsp:include page="_header.jsp" />
 <jsp:include page="_nav.jsp" />
 
+<%@ page import="model.User"%>
+
+<%User currentUser = (User)session.getAttribute("currentUser");
+    if (currentUser == null){
+        session.setAttribute("error", "Please login or register first before posting a job");
+        response.sendRedirect("/login.jsp");
+        return;
+    } else if (!currentUser.getAccountType().equals("employer")){
+        session.setAttribute("error", "Only an employer account is able to post a job!");
+        response.sendRedirect("/index.jsp");
+        return;
+    }%>
+
 <header class="main">
   <div class="header-content">
     <div class="header-content-inner">
