@@ -38,7 +38,7 @@
                                  </div>
 
                                  <input type="hidden" name="account_type" value="employer">
-                                 <input class="btn btn-lg btn-primary" type="submit" value="Create Account"/>
+                                 <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Create Account"/>
 
                              </form>
                          </div>

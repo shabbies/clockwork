@@ -272,7 +272,7 @@ aside {
 }
 
 .job-entry-apply{
-   padding:8px;
+ padding:8px;
 }
 
 .job-entry-apply:hover{
@@ -487,9 +487,11 @@ label{
 }
 
 .btn-default {
-    border-color: #fff;
+    border-color: #ccc;
+    background-color: #eee;
     color: #222;
-    background-color: #fff;
+    /*border-color: #fff;
+    background-color: #fff;*/
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -600,6 +602,10 @@ fieldset[disabled] .btn-primary.active {
     font-weight: 700;
 }
 
+.btn-srad {
+    border-radius: 4px;
+}
+
 .btn-xl {
     padding: 15px 30px;
 }
@@ -630,10 +636,41 @@ body {
     webkit-tap-highlight-color: #222;
 }
 
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
 .modal-header {
   border-bottom: none;
 }
 
 .modal-footer {
- border-top: none;
+   border-top: none;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.whitelink, 
+.whitelink:hover{
+    color: #FFF;
+    text-decoration: none;
+}
+
+.detailIcons{
+    border-radius: 300px;
+    padding: 8px;
+    width: 30px;
+    text-align: center;
+    background-color: #ee4054;
 }

@@ -48,7 +48,18 @@
                 </div>
 
                 <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr">
-                    <a href="#"  class="btn btn-primary btn pull-right">Apply now <i class="fa fa-check"></i></a>
+                    <div class="col-md-6"> 
+                        <div class="detailIconsDiv">
+                            <ul class="list-inline text-left">
+                                <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-dollar"></i></a></li>
+                                <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-cutlery"></i></a></li>
+                                <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-compass"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="#"  class="btn btn-primary btn pull-right">Apply now <i class="fa fa-check"></i></a>
+                    </div>
                 </div>
 
             </div>
@@ -101,11 +112,11 @@
 
     </div>
     <div class="modal-body">
-     <h4 id="modalHeader"></h4>
-     <h5 id="modalDesc"></h5>
-     <h5 id="modalSalary"></h5>
- </div>
- <div class="modal-footer">
+       <h4 id="modalHeader"></h4>
+       <h5 id="modalDesc"></h5>
+       <h5 id="modalSalary"></h5>
+   </div>
+   <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     <button type="button" class="btn btn-primary">Apply</button>
 </div>
