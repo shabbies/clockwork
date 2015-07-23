@@ -31,7 +31,7 @@
                  <label for="job-pay" class="control-label">Job Date</label> 
                  <div class="input-group"> 
                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
-                   <input id="job-pay" class="form-control" type="text" placeholder="" name="job_date" required> 
+                   <input id="job-pay" class="form-control" type="date" placeholder="" name="job_date" required> 
                  </div> 
                </div>
 

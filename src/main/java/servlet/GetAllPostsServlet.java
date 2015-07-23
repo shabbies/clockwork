@@ -2,6 +2,7 @@ package servlet;
 
 import controller.PostController;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,21 +29,23 @@ public class GetAllPostsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("https://clockwork-api.herokuapp.com/api/v1/posts/all.json");
-        CloseableHttpResponse response1 = httpclient.execute(httpGet);
+        CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
         ArrayList <Post> postList;
         try {
-            HttpEntity entity1 = response1.getEntity();
+            HttpEntity entity = httpResponse.getEntity();
             StringWriter writer = new StringWriter();
-            IOUtils.copy(entity1.getContent(), writer, "UTF-8");
+            InputStream readingStream = entity.getContent();
+            IOUtils.copy(readingStream, writer, "UTF-8");
             String theString = writer.toString();
             PostController postController = new PostController();
             postList = postController.createPostFromJSON(theString);
-            EntityUtils.consume(entity1);
+            EntityUtils.consume(entity);
+            IOUtils.closeQuietly(readingStream);
         } finally {
-            response1.close();
+            httpResponse.close();
         }
         session.setAttribute("postList", postList);
-        response.sendRedirect("/posts.jsp");
+        response.sendRedirect("/index.jsp");
 
         
         /*CloseableHttpClient httpclient = HttpClients.createDefault();

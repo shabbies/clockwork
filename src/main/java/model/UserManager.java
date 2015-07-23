@@ -22,14 +22,14 @@ public class UserManager {
         Gson gson = new Gson();
         Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
         HashMap userHash = gson.fromJson(jsonString, hashType);
-        System.out.println("BYE");
-        System.out.println(jsonString);
-        int id = (Integer)userHash.get("id");
+        Double idDouble = (Double)userHash.get("id");
+        int id = idDouble.intValue();
         String username = (String)userHash.get("username");
         String email = (String)userHash.get("email");
         String companyName = (String)userHash.get("company_name");
         String accountType = (String)userHash.get("account_type");
-        User user = new User(id, username, email, companyName, accountType);
+        String authenticationToken = (String)userHash.get("authentication_token");
+        User user = new User(id, username, email, companyName, accountType, authenticationToken);
         return user;
     }
 }

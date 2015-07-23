@@ -13,7 +13,9 @@
             <a class="navbar-brand page-scroll" href="/index.jsp">clockwork</a>
             <% if (session.getAttribute("currentUser") != null) {
             User currentUser = (User)session.getAttribute("currentUser"); %>
-            Welcome <%=currentUser.getUsername()%>
+            <!-- Gerald TODO: styling -->
+            <div style="color: rgba(255,255,255,.7); float: left;">Welcome <%=currentUser.getUsername()%></div>
+            <!-- END -->
             <% } %>
         </div>
 

@@ -40,8 +40,17 @@
 
 <div>
     <div>
-        <form action="/employer_login.jsp" method=""><input type="submit" value="Employers click here" /></form>
-        <form action="/job_seeker_login.jsp" method=""><input type="submit" value="Job Seekers click here" /></form>
+        <div>
+            <h3>Employer Login</h3>
+            <form action="/LoginServlet" method="POST">
+                Username / Email : <input type="text" name="email"/><br>
+                Password : <input type="password" name="password"/><br>
+                <input type="submit" value="Submit"/>
+            </form>
+        </div>
+        <div>
+            <form action="/register_employer.jsp" method=""><input type="submit" value="Register Employer Account" /></form>
+        </div>
     </div>
 </div>
 

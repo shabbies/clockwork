@@ -13,6 +13,10 @@
     <servlet-name>RegisterAccountServlet</servlet-name>
     <servlet-class>servlet.RegisterAccountServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>servlet.LoginServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -25,5 +29,9 @@
   <servlet-mapping>
     <servlet-name>RegisterAccountServlet</servlet-name>
     <url-pattern>/RegisterAccountServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
 </web-app>    

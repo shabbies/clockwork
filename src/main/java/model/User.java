@@ -6,20 +6,24 @@ public class User {
     private String email;
     private String companyName;
     private String accountType;
+    private String authenticationToken;
 
-    public User(int id, String username, String email, String companyName, String accountType) {
+    public User(int id, String username, String email, String companyName, String accountType, String authenticationToken) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.companyName = companyName;
         this.accountType = accountType;
+        this.authenticationToken = authenticationToken;
     }
 
-    public User(String username, String email, String accountType) {
+    public User(int id, String username, String email, String accountType, String authenticationToken) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.accountType = accountType;
         companyName = null;
+        this.authenticationToken = authenticationToken;
     }
 
     public User(String email, String accountType) {
@@ -60,4 +64,12 @@ public class User {
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }   
+    
+    public String getAuthenticationToken(){
+        return authenticationToken;
+    }
+    
+    public void setAuthenticationToken(String authenticationToken){
+        this.authenticationToken = authenticationToken;
+    }
 }

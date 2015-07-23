@@ -1,71 +1,66 @@
-<!DOCTYPE html>
+<jsp:include page="_header.jsp" />
+
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Post"%>
-<html ng-app="clockworkApp" lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<%  ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList"); 
+    if (postList == null){%>
+        <jsp:forward page="/GetAllPostsServlet" />
+<%}%>
 
-    <title>clockwork - Start Bootstrap Theme</title>
+<jsp:include page="_nav.jsp" />
+<jsp:include page="_hero.jsp" />
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+<section id="jobs" ng-controller="jobListCtrl">
+    <div class="job-search text-center">
 
-    <!-- Custom Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
-
-    <!-- Plugin CSS -->
-    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Javascript Imports -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-</head>
-
-<body id="page-top">
-    <jsp:include page="_header.jsp" />
-
-    <section id="jobs" ng-controller="jobListCtrl">
-        <div class="job-search text-center">
-            <div class="container">
-                <form id="searchForm">
-                    <div class="input-group input-group-lg stylish-input-group">
-                        <input type="text" class="form-control" id="searchText" autocomplete="off" placeholder="search keyword...">
-                        <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button"> FIND JOBS <span class="glyphicon glyphicon-search"></span></button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-
-        <div class="content">
-            <div class="container">
-                <div class="col-lg-12 search-label"> 
-                    <form action="/GetAllPostsServlet" method="GET">
-                        <input type="submit" value="Login">
-                    </form>                         
+        <div class="container">
+            <form id="searchForm">
+                <div class="input-group input-group-lg stylish-input-group">
+                    <input type="text" class="form-control" id="searchText" autocomplete="off" placeholder="search keyword...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button"> FIND JOBS <span class="glyphicon glyphicon-search"></span></button>
+                    </span>
                 </div>
-            </div>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="col-lg-12 search-label"> 
+            <h3>Search Results for "<span>goodie bag</span>"</h3>                             
         </div>
 
-</div>
+        <%for (Post post : postList){%>
+
+        <div class="col-lg-4">
+
+            <div class="job-entry">
+
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h4><%=post.getHeader()%></h4>
+                    </div>
+                    <span class="job-entry-price pull-right primary"><strong>$<%=post.getSalary()%>/hr</strong></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h5><%=post.getDescription()%></h5>
+                    </div>
+                </div>
+
+                <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr">
+                    <a href="#"  class="btn btn-primary btn pull-right">Apply now <i class="fa fa-check"></i></a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <%}%>
+
+    </div>
 
 </section>
 
@@ -78,34 +73,71 @@
             </div>
             <div class="col-md-4">
                 <ul class="list-inline social-buttons text-center">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                    </li>
                 </ul>
             </div>
             <div class="col-md-4">
                 <ul class="list-inline quicklinks pull-right">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a>
+                    </li>
+                    <li><a href="#">Terms of Use</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
 
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
 
-<!-- Plugin JavaScript -->
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/jquery.fittext.js"></script>
-<script src="js/wow.min.js"></script>
+<!-- Job Modal -->
+<div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-<!-- Custom Theme JavaScript -->
-<script src="js/clockwork.js"></script>
+    </div>
+    <div class="modal-body">
+     <h4 id="modalHeader"></h4>
+     <h5 id="modalDesc"></h5>
+     <h5 id="modalSalary"></h5>
+ </div>
+ <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Apply</button>
+</div>
+</div>
+</div>
+</div>
 
-</body>
-</html>
+<script>
+$(document).on("click", "#open-jobModal", function() {
+    var headerText = $(this).data('header');
+    var descText = $(this).data('desc');
+    var salaryText = $(this).data('salary');
+
+    $('#jobModalLabel').html(headerText);
+    $('#modalHeader').html(headerText);
+    $('#modalDesc').html(descText);
+    $('#modalSalary').html(salaryText);
+
+    $('#jobModal').modal('show');
+});
+</script>
+<!-- End of Job Modal -->
+
+
+
+<jsp:include page="_footer.jsp" />
+
+
+
+
+
+

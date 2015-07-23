@@ -25,7 +25,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
-public class RegisterAccountServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -33,31 +33,24 @@ public class RegisterAccountServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
         String email = (String)request.getParameter("email");
-        //TODO: remove username from db. username should be the email. One less field for user to enter
-        String username = email;
-        String companyName = (String)request.getParameter("company_name");
         String password = (String)request.getParameter("password");
-        //TODO: remove password confirmation. if need to change pw. the user can forget password.
-        String passwordConfirmation = password;
-        String accountType = (String)request.getParameter("account_type");
         
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/users");
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/users/sign_in.json");
         httpPost.setHeader("Accept", "application/json");
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("user[email]", email));
-        nvps.add(new BasicNameValuePair("user[username]", username));
-        nvps.add(new BasicNameValuePair("user[company_name]", companyName));
         nvps.add(new BasicNameValuePair("user[password]", password));
-        nvps.add(new BasicNameValuePair("user[password_confirmation]", passwordConfirmation));
-        nvps.add(new BasicNameValuePair("user[account_type]",accountType));
-
+        
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-        CloseableHttpResponse response2 = httpclient.execute(httpPost);
+        //httpclient.getParams().setAuthenticationPreemptive(true);
+        CloseableHttpResponse response2 = httpClient.execute(httpPost);
         User user;
 
         try {
             HttpEntity entity2 = response2.getEntity();   
+            out.println(response2.getStatusLine());
+            out.println(entity2.getContent());
             StringWriter writer = new StringWriter();
             IOUtils.copy(entity2.getContent(), writer, "UTF-8");
             String theString = writer.toString();
@@ -69,7 +62,7 @@ public class RegisterAccountServlet extends HttpServlet {
         }
         
         session.setAttribute("currentUser", user);
-        response.sendRedirect("/GetAllPostsServlet");
+        response.sendRedirect("/index.jsp");
     }
 
 }
