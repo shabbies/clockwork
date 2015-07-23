@@ -26,10 +26,9 @@ public class UserManager {
         int id = idDouble.intValue();
         String username = (String)userHash.get("username");
         String email = (String)userHash.get("email");
-        String companyName = (String)userHash.get("company_name");
         String accountType = (String)userHash.get("account_type");
         String authenticationToken = (String)userHash.get("authentication_token");
-        User user = new User(id, username, email, companyName, accountType, authenticationToken);
+        User user = new User(id, username, email, accountType, authenticationToken);
         return user;
     }
 }

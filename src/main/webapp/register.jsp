@@ -9,7 +9,7 @@
      <div class="row row-centered register-div">
       <div class="col-md-4 col-centered">
         <div class="text-right">
-         <a class="whitelink" href=""><h3>I'm a Job Seeker</h3></a> 
+         <a class="whitelink" href="register_job_seeker.jsp"><h3>I'm a Job Seeker</h3></a> 
        </div>
      </div>
      <div class="col-md-1 col-centered">

@@ -10,6 +10,9 @@
         <div class="col-md-6 col-md-offset-3">
           <div class="panel panel-default">
             <div class="panel-body">
+              <%if (session.getAttribute("error") != null){%>
+              <h4 style="color: black;">  <%=session.getAttribute("error")%></h4>   
+                    <%session.removeAttribute("error");}%>
               <h2 class="text-center primary">Login</h2>
               <form action="/LoginServlet" method="POST" role="form">
 

@@ -4,9 +4,7 @@
 <%@ page import="model.Post"%>
 
 <%  ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList"); 
-    if (postList == null){%>
-        <jsp:forward page="/GetAllPostsServlet" />
-<%}%>
+    if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
 
 <jsp:include page="_nav.jsp" />
 <jsp:include page="_hero.jsp" />

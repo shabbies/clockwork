@@ -5,7 +5,7 @@
     <div class="header-content">
         <div class="header-content-inner">
             <h2 class="text-center">Hello!</h2>
-            <h3 class="text-center">Hiring on Clockwork is simple & effective. Give it a go!</h3>
+            <h3 class="text-center">Finding a job that suits you has never been easier!</h3>
 
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
@@ -15,10 +15,10 @@
                             <form class="form form-signup" action="/RegisterAccountServlet" method="POST" role="form">
 
                                 <div class="form-group form-group-lg col-md-12 text-left"> 
-                                 <label for="register-company" class="control-label">Company Name</label> 
+                                 <label for="register-company" class="control-label">Full Name</label> 
                                  <div class="input-group"> 
                                      <div class="input-group-addon"><i class="fa fa-building fa-lg fa-fw"></i></div> 
-                                     <input id="register-company" class="form-control" type="text" placeholder="Company Name..." name="username" required> 
+                                     <input id="register-company" class="form-control" type="text" placeholder="Full name" name="username" required> 
                                  </div> 
                              </div>
 

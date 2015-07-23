@@ -33,11 +33,9 @@ public class RegisterAccountServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
         String email = (String)request.getParameter("email");
-        //TODO: remove username from db. username should be the email. One less field for user to enter
-        String username = email;
-        String companyName = (String)request.getParameter("company_name");
+        String username = (String)request.getParameter("username");
         String password = (String)request.getParameter("password");
-        //TODO: remove password confirmation. if need to change pw. the user can forget password.
+        //password confirmation is to make sure that user remembers what he types, since password is censored
         String passwordConfirmation = password;
         String accountType = (String)request.getParameter("account_type");
         
@@ -47,7 +45,6 @@ public class RegisterAccountServlet extends HttpServlet {
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("user[email]", email));
         nvps.add(new BasicNameValuePair("user[username]", username));
-        nvps.add(new BasicNameValuePair("user[company_name]", companyName));
         nvps.add(new BasicNameValuePair("user[password]", password));
         nvps.add(new BasicNameValuePair("user[password_confirmation]", passwordConfirmation));
         nvps.add(new BasicNameValuePair("user[account_type]",accountType));

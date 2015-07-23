@@ -43,14 +43,17 @@ public class LoginServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("user[password]", password));
         
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-        //httpclient.getParams().setAuthenticationPreemptive(true);
         CloseableHttpResponse response2 = httpClient.execute(httpPost);
         User user;
 
         try {
             HttpEntity entity2 = response2.getEntity();   
-            out.println(response2.getStatusLine());
-            out.println(entity2.getContent());
+            if(response2.getStatusLine().getStatusCode() == 401){
+                String error = "The email / password is invalid, please try again.";
+                session.setAttribute("error", error);
+                response.sendRedirect("/login.jsp");
+                return;
+            }
             StringWriter writer = new StringWriter();
             IOUtils.copy(entity2.getContent(), writer, "UTF-8");
             String theString = writer.toString();
