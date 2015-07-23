@@ -11,7 +11,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h2 class="text-center primary">Login</h2>
-              <form action="/" method="POST" role="form">
+              <form action="/LoginServlet" method="POST" role="form">
 
                 <div class="form-group form-group-lg col-md-12 text-left"> 
                   <div class="input-group"> 
