@@ -2,7 +2,6 @@ package servlet;
 
 import controller.UserController;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import javax.servlet.ServletException;
@@ -30,7 +29,6 @@ public class RegisterAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
         String email = (String)request.getParameter("email");
         String username = (String)request.getParameter("username");
@@ -66,7 +64,14 @@ public class RegisterAccountServlet extends HttpServlet {
         }
         
         session.setAttribute("currentUser", user);
-        response.sendRedirect("/GetAllPostsServlet");
+        
+        // Redirection based on initial location
+        if (session.getAttribute("loginSource").equals("create_new_post")){
+            session.removeAttribute("loginSource");
+            response.sendRedirect("/create_post.jsp");
+            return;
+        }
+        response.sendRedirect("/index.jsp");
     }
 
 }

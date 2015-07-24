@@ -12,7 +12,8 @@
             <div class="panel-body">
               <%if (session.getAttribute("error") != null){%>
               <h4 style="color: black;">  <%=session.getAttribute("error")%></h4>   
-                    <%session.removeAttribute("error");}%>
+                    <%  session.removeAttribute("error");
+                        session.setAttribute("loginSource", "create_new_post");}%>
               <h2 class="text-center primary">Login</h2>
               <form action="/LoginServlet" method="POST" role="form">
 
