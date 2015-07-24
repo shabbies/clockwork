@@ -50,4 +50,5 @@
         </div>
     </div>
 </header>
+<jsp:include page="_javascript_checker.jsp" />
 <jsp:include page="_footer.jsp" />
