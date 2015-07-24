@@ -15,38 +15,40 @@
                             <form class="form form-signup" action="/RegisterAccountServlet" method="POST" role="form">
 
                                 <div class="form-group form-group-lg col-md-12 text-left"> 
-                                 <label for="register-company" class="control-label">Full Name</label> 
-                                 <div class="input-group"> 
-                                     <div class="input-group-addon"><i class="fa fa-building fa-lg fa-fw"></i></div> 
-                                     <input id="register-company" class="form-control" type="text" placeholder="Full name" name="username" required> 
-                                 </div> 
-                             </div>
+                                    <label for="register-company" class="control-label">Full Name</label> 
+                                    <div class="input-group"> 
+                                        <div class="input-group-addon"><i class="fa fa-building fa-lg fa-fw"></i></div> 
+                                        <input id="register-company" class="form-control" type="text" placeholder="Full name" name="username" required> 
+                                    </div> 
+                                </div>
 
-                             <div class="form-group form-group-lg col-md-12 text-left"> 
-                                 <label for="register-email" class="control-label">Email Address</label> 
-                                 <div class="input-group"> 
-                                     <div class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></div> 
-                                     <input id="register-email" class="form-control" type="email" placeholder="Email address…" name="email" required> </div> 
-                                 </div>
+                                <div class="form-group form-group-lg col-md-12 text-left"> 
+                                    <label for="register-email" class="control-label">Email Address</label> 
+                                    <div class="input-group"> 
+                                        <div class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></div> 
+                                        <input id="register-email" class="form-control" type="email" placeholder="Email address" name="email" required> 
+                                    </div> 
+                                </div>
 
-                                 <div class="form-group form-group-lg col-md-12 text-left"> 
-                                     <label for="register-password" class="control-label">Password</label> 
-                                     <div class="input-group"> 
-                                         <div class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></div> 
-                                         <input id="register-password" class="form-control" type="pasword" placeholder="Password…" name="password" required> 
-                                     </div> 
-                                 </div>
+                                <!-- Gerald TODO: style the error message -->
+                                <div class="password_length_error" style="display:none;">Password should contain at least 8 characters</div>
+                                <!-- END -->
+                                <div class="form-group form-group-lg col-md-12 text-left"> 
+                                    <label for="register-password" class="control-label">Password</label> 
+                                    <div class="input-group"> 
+                                        <div class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></div>            
+                                        <input id="register-password" class="form-control" type="pasword" placeholder="Password" name="password" required> 
+                                    </div> 
+                                </div>
 
-                                 <input type="hidden" name="account_type" value="job_seeker">
-                                 <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Create Account"/>
-
-                             </form>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- </header>
-
- <jsp:include page="_footer.jsp" />
+                                <input type="hidden" name="account_type" value="job_seeker">
+                                <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Create Account">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<jsp:include page="_footer.jsp" />

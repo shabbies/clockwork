@@ -38,7 +38,7 @@ public class RegisterAccountServlet extends HttpServlet {
         String accountType = (String)request.getParameter("account_type");
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/users");
+        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/users.json");
         httpPost.setHeader("Accept", "application/json");
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("user[email]", email));
@@ -49,17 +49,30 @@ public class RegisterAccountServlet extends HttpServlet {
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response2 = httpclient.execute(httpPost);
-        User user;
-
+        User user = null;
+        HttpEntity entity = null;
         try {
-            HttpEntity entity2 = response2.getEntity();   
+            entity = response2.getEntity();  
             StringWriter writer = new StringWriter();
-            IOUtils.copy(entity2.getContent(), writer, "UTF-8");
-            String theString = writer.toString();
-            UserController userController = new UserController();
-            user = userController.createUserFromJSON(theString);
-            EntityUtils.consume(entity2);
+            IOUtils.copy(entity.getContent(), writer, "UTF-8");
+            String responseString = writer.toString();
+            if (response2.getStatusLine().getStatusCode() == 201){
+                UserController userController = new UserController();
+                user = userController.createUserFromJSON(responseString);
+            } else {
+                String error;
+                if (responseString.contains("email")){
+                    error = "This email address has already been taken, please use an alternative.";
+                } else {
+                    error = "This password is too short, please ensure that it is at least 8 characters long";
+                }
+                session.setAttribute("error", error);
+                response.sendRedirect("/index.jsp");
+                return;
+            }
+            
         } finally {
+            EntityUtils.consume(entity);
             response2.close();
         }
         
