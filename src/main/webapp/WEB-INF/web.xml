@@ -21,6 +21,10 @@
     <servlet-name>LogoutServlet</servlet-name>
     <servlet-class>servlet.LogoutServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>FacebookLoginServlet</servlet-name>
+    <servlet-class>servlet.FacebookLoginServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -41,5 +45,9 @@
   <servlet-mapping>
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FacebookLoginServlet</servlet-name>
+    <url-pattern>/FacebookLoginServlet</url-pattern>
   </servlet-mapping>
 </web-app>    
