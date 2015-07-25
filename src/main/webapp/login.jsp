@@ -54,8 +54,8 @@ var facebookLoginWindow;
 var loginWindowTimer;
 function facebookLogin()
 {
-	var popupWidth=1000;
-	var popupHeight=600;
+	var popupWidth=500;
+	var popupHeight=500;
 	var xPosition=($(window).width()-popupWidth)/2;
 	var yPosition=($(window).height()-popupHeight)/2;
 	var loginUrl="http://www.facebook.com/dialog/oauth/?"+
