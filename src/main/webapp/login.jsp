@@ -60,15 +60,10 @@ function facebookLogin()
 	var yPosition=($(window).height()-popupHeight)/2;
 	var loginUrl="http://www.facebook.com/dialog/oauth/?"+
 		"client_id="+879787135436221+"&"+
-		"redirect_uri=http://clockworksmu.herokuapp.com/FacebookLoginServlet"+
-		"display=dialog";
+		"redirect_uri=http://clockworksmu.herokuapp.com/FacebookLoginServlet";
 	
 	facebookLoginWindow=window.open(loginUrl, "LoginWindow", 
-		"location=1,scrollbars=1,"+
-		"width="+popupWidth+",height="+popupHeight+","+
-		"left="+xPosition+",top="+yPosition);
-		
-	loginWindowTimer=setInterval(onTimerCallbackToCheckLoginWindowClosure, 1000);
+		"location=1,scrollbars=1,");
 }
 </script>
 <jsp:include page="_footer.jsp" />
