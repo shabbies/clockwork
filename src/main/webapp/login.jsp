@@ -56,9 +56,10 @@ function facebookLogin() {
             $.ajax({
                 type: "POST",
                 url: "/FacebookLoginServlet",
+                //data: { "access_token" : response.authResponse.accessToken, "user_id" : response.authResponse.userID },
                 data: { "access_token" : response.authResponse.accessToken, "user_id" : response.authResponse.userID },
                 success: function(){
-                    window.location.href ="/index.jsp";
+                    //window.location.href ="/index.jsp";
                 }
             });
         } else if (response.status === 'not_authorized') {
