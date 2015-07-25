@@ -61,7 +61,7 @@ function facebookLogin()
 	var loginUrl="http://www.facebook.com/dialog/oauth/?"+
 		"client_id="+879787135436221+"&"+
 		"redirect_uri=http://clockworksmu.herokuapp.com/FacebookLoginServlet"+
-		"display=popup";
+		"display=dialog";
 	
 	facebookLoginWindow=window.open(loginUrl, "LoginWindow", 
 		"location=1,scrollbars=1,"+
