@@ -36,7 +36,7 @@
                                 </div>
                             </form>
                             <div class="form-group form-group-lg col-md-12 text-left"> 
-                                <button href="" class="btn btn-lg btn-block btn-info btn-srad" onclick="checkLoginState();">Login thru Facebook</button>
+                                <button href="" class="btn btn-lg btn-block btn-info btn-srad" onclick="facebookLogin();">Login thru Facebook</button>
                             </div>
                             <div class="form-group form-group-lg col-md-12 text-left"> 
                                 <a href="/register.jsp" class="btn btn-lg btn-block btn-default btn-srad">New to Clockwork? Click Here</a>
@@ -50,37 +50,17 @@
 </header>                     
                                 
 <script>
-function statusChangeCallback(response) {
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      alert("logged in");
-    } else {
-        FB.login(function(response) {
-            if (response.status === 'connected') {
-                console.log(response);
-            } else if (response.status === 'not_authorized') {
-                //console.log(response);
-            } else {
-                alert("???");
-            }
-        }, {scope: 'public_profile,email'});
-    }
-}
-
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
+function facebookLogin() {
     FB.login(function(response) {
-            if (response.status === 'connected') {
-                console.log(response);
-            } else if (response.status === 'not_authorized') {
-                //console.log(response);
-            } else {
-                alert("???");
-            }
-        }, {scope: 'public_profile,email'});
-  }
+        if (response.status === 'connected') {
+            console.log(response);
+        } else if (response.status === 'not_authorized') {
+            //console.log(response);
+        } else {
+            alert("???");
+        }
+    }, {scope: 'public_profile,email'});
+}
 
   window.fbAsyncInit = function() {
   FB.init({
