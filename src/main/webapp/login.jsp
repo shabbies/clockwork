@@ -53,12 +53,17 @@
 function facebookLogin() {
     FB.login(function(response) {
         if (response.status === 'connected') {
-            console.log(response);
+            $.ajax({
+                type: "POST",
+                url: "/FacebookLoginServlet",
+                data: { "access_token" : response.authResponse.accessToken, "user_id" : response.authResponse.userID },
+                success: function(){
+                    window.location.href ="/index.jsp";
+                }
+            });
         } else if (response.status === 'not_authorized') {
             //console.log(response);
-        } else {
-            alert("???");
-        }
+        } 
     }, {scope: 'public_profile,email'});
 }
 
