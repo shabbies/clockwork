@@ -36,7 +36,7 @@
                                 </div>
                             </form>
                             <div class="form-group form-group-lg col-md-12 text-left"> 
-                                <a href="" class="btn btn-lg btn-block btn-info btn-srad" target="_blank">Login thru Facebook</a>
+                                <button href="" class="btn btn-lg btn-block btn-info btn-srad" onclick="facebookLogin();">Login thru Facebook</button>
                             </div>
                             <div class="form-group form-group-lg col-md-12 text-left"> 
                                 <a href="/register.jsp" class="btn btn-lg btn-block btn-default btn-srad">New to Clockwork? Click Here</a>
