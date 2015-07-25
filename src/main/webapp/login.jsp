@@ -71,9 +71,15 @@ function statusChangeCallback(response) {
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
   function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
+    FB.login(function(response) {
+            if (response.status === 'connected') {
+                console.log(response);
+            } else if (response.status === 'not_authorized') {
+                //console.log(response);
+            } else {
+                alert("???");
+            }
+        }, {scope: 'public_profile,email'});
   }
 
   window.fbAsyncInit = function() {
