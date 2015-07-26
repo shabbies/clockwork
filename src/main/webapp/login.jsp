@@ -53,15 +53,17 @@
 function facebookLogin() {
     FB.login(function(response) {
         if (response.status === 'connected') {
-            $.ajax({
-                type: "POST",
-                url: "/FacebookLoginServlet",
-                //data: { "access_token" : response.authResponse.accessToken, "user_id" : response.authResponse.userID },
-                data: { "access_token" : response.authResponse.accessToken, "user_id" : response.authResponse.userID },
-                success: function(){
-                    //window.location.href ="/index.jsp";
-                }
-            });
+//            $.ajax({
+//                type: "POST",
+//                url: "/FacebookLoginServlet",
+//                //data: { "access_token" : response.authResponse.accessToken, "user_id" : response.authResponse.userID },
+//                data: { "access_token" : response.authResponse.accessToken, "user_id" : response.authResponse.userID },
+//                success: function(){
+//                    window.location.href ="/index.jsp";
+//                }
+//            });
+            console.log(response.authResponse.accessToken);
+            console.log(response.authResponse.userID);
         } else if (response.status === 'not_authorized') {
             //console.log(response);
         } 
