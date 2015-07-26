@@ -68,9 +68,11 @@ public class FacebookLoginServlet extends HttpServlet {
         }
         
         // Grabbing user profile from FB
+        System.out.println("BYE1");
         CloseableHttpClient httpclient2 = HttpClients.createDefault();
         HttpGet httpGet2 = new HttpGet("https://graph.facebook.com/me?" + accessToken + "&access_token=" + appID + "|" + appSecret);
         CloseableHttpResponse httpResponse2 = httpclient2.execute(httpGet2);
+        System.out.println("BYE2");
         try {
             HttpEntity entity = httpResponse2.getEntity();
             StringWriter writer = new StringWriter();
