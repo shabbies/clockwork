@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -56,7 +57,7 @@ public class FacebookLoginServlet extends HttpServlet {
         
         // Checking validity of accessToken
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("https://graph.facebook.com/debug_token?input_token=" + accessToken + "&access_token=" + appID + "\\|" + appSecret);
+        HttpGet httpGet = new HttpGet("https://graph.facebook.com/debug_token?input_token=" + accessToken + "&access_token=" + appID + URLEncoder.encode("|", "UTF-8") + appSecret);
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
         try {
             HttpEntity entity = httpResponse.getEntity();
