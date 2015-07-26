@@ -68,7 +68,7 @@ public class FacebookLoginServlet extends HttpServlet {
             Gson gson = new Gson();
             Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
             HashMap fullHash = gson.fromJson(responseString, hashType);
-            HashMap dataHash = gson.fromJson((String)fullHash.get("data"), hashType);
+            HashMap dataHash = (HashMap)fullHash.get("data");
             String retrievedAppID = (String)dataHash.get("app_id");
             String retrievedUserID = (String)dataHash.get("user_id");
             if (!retrievedAppID.equals(appID) || !retrievedUserID.equals(userID)){
