@@ -24,6 +24,16 @@
   <servlet>  
     <servlet-name>FacebookLoginServlet</servlet-name>
     <servlet-class>servlet.FacebookLoginServlet</servlet-class>
+    <init-param>
+        <param-name>facebookAppID</param-name>
+        <param-value>879787135436221</param-value>
+        <load-on-startup>1</load-on-startup>
+    </init-param>
+    <init-param>
+        <param-name>facebookAppSecret</param-name>
+        <param-value>3d9e32b868319f0066f7f2958af45f80</param-value>
+        <load-on-startup>1</load-on-startup>
+    </init-param>
   </servlet>
 
   <servlet-mapping>
