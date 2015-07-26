@@ -67,10 +67,13 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("currentUser", user);
         
         // Redirection based on initial location
-        if (session.getAttribute("loginSource").equals("create_new_post")){
-            session.removeAttribute("loginSource");
-            response.sendRedirect("/create_post.jsp");
-            return;
+        String loginSource = (String)session.getAttribute("loginSource");
+        if (loginSource != null){
+            if (loginSource.equals("create_new_post")){
+                session.removeAttribute("loginSource");
+                response.sendRedirect("/create_post.jsp");
+                return;
+            }
         }
         
         response.sendRedirect("/index.jsp");
