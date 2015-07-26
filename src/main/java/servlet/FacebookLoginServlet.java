@@ -46,34 +46,40 @@ public class FacebookLoginServlet extends HttpServlet {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("https://graph.facebook.com/debug_token?input_token=" + accessToken + "&access_token=" + appID + URLEncoder.encode("|", "UTF-8") + appSecret);
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
-  
-        HttpEntity entity = httpResponse.getEntity();
-        StringWriter writer = new StringWriter();
-        InputStream readingStream = entity.getContent();
-        IOUtils.copy(readingStream, writer, "UTF-8");
-        String responseString = writer.toString();
-        Gson gson = new Gson();
-        Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
-        HashMap fullHash = gson.fromJson(responseString, hashType);
-        HashMap dataHash = gson.fromJson(((LinkedTreeMap)fullHash.get("data")).toString(), hashType);
-        String retrievedAppID = ((Double)dataHash.get("app_id")).toString();
-        String retrievedUserID = ((Double)dataHash.get("user_id")).toString();
-        if (!retrievedAppID.equals(appID) || !retrievedUserID.equals(userID)){
-            response.sendRedirect("/index.jsp");
-            return;
+        try {
+            HttpEntity entity = httpResponse.getEntity();
+            StringWriter writer = new StringWriter();
+            InputStream readingStream = entity.getContent();
+            IOUtils.copy(readingStream, writer, "UTF-8");
+            String responseString = writer.toString();
+            Gson gson = new Gson();
+            Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
+            HashMap fullHash = gson.fromJson(responseString, hashType);
+            HashMap dataHash = gson.fromJson(((LinkedTreeMap)fullHash.get("data")).toString(), hashType);
+            String retrievedAppID = ((Double)dataHash.get("app_id")).toString();
+            String retrievedUserID = ((Double)dataHash.get("user_id")).toString();
+            if (!retrievedAppID.equals(appID) || !retrievedUserID.equals(userID)){
+                response.sendRedirect("/index.jsp");
+                return;
+            }
+            EntityUtils.consume(entity);
+        } finally {
+            httpResponse.close();
         }
-        EntityUtils.consume(entity);
         
         // Grabbing user profile from FB
-        httpGet = new HttpGet("https://graph.facebook.com/me?" + accessToken + "&access_token=" + appID + "|" + appSecret);
-        httpResponse = httpclient.execute(httpGet);
+        CloseableHttpClient httpclient2 = HttpClients.createDefault();
+        HttpGet httpGet2 = new HttpGet("https://graph.facebook.com/me?" + accessToken + "&access_token=" + appID + "|" + appSecret);
+        CloseableHttpResponse httpResponse2 = httpclient2.execute(httpGet2);
         try {
-            entity = httpResponse.getEntity();
-            writer = new StringWriter();
-            readingStream = entity.getContent();
+            HttpEntity entity = httpResponse2.getEntity();
+            StringWriter writer = new StringWriter();
+            InputStream readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
-            responseString = writer.toString();
-            fullHash = gson.fromJson(responseString, hashType);
+            String responseString = writer.toString();
+            Gson gson = new Gson();
+            Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
+            HashMap fullHash = gson.fromJson(responseString, hashType);
             System.out.println("BYE");
             System.out.println((String)fullHash.get("email"));
             
