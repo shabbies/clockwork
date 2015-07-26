@@ -53,17 +53,18 @@
 function facebookLogin() {
     FB.login(function(response) {
         if (response.status === 'connected') {
-//            $.ajax({
-//                type: "POST",
-//                url: "/FacebookLoginServlet",
-//                //data: { "access_token" : response.authResponse.accessToken, "user_id" : response.authResponse.userID },
-//                data: { "access_token" : response.authResponse.accessToken, "user_id" : response.authResponse.userID },
-//                success: function(){
-//                    window.location.href ="/index.jsp";
-//                }
-//            });
-            console.log(response.authResponse.accessToken);
-            console.log(response.authResponse.userID);
+//            var accessToken = response.authResponse.accessToken;
+//            var userID = response.authResponse.userID;
+            var accessToken = CAAMgKWevhb0BABztG1J69usQbLZAaxyZAQwCOZAdAY0uFZBrIi5bs076KwtepS2p1i6CZCvjYJRCbTLZAdv5dtNq7iRPuK9ifzD9bLHmC8EBbXR4GoHrmZBdStXjuGPqpfAad0oxjkPYZC1TIHT80eIUefxJnK5HScFLriZCHh3uNNyY7LSajAZCVM33StD0SHZBHBBSsj1awh6UehywwZBBElO4pbVH5CT2ZBLMZD;
+            var userID = 903019319757275;
+            $.ajax({
+                type: "POST",
+                url: "/FacebookLoginServlet",
+                data: { "access_token" : accessToken, "user_id" : userID },
+                success: function(){
+                    window.location.href ="/index.jsp";
+                }
+            });
         } else if (response.status === 'not_authorized') {
             //console.log(response);
         } 
