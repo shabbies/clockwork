@@ -55,7 +55,7 @@ function facebookLogin() {
         if (response.status === 'connected') {
 //            var accessToken = response.authResponse.accessToken;
 //            var userID = response.authResponse.userID;
-            var accessToken = CAAMgKWevhb0BABztG1J69usQbLZAaxyZAQwCOZAdAY0uFZBrIi5bs076KwtepS2p1i6CZCvjYJRCbTLZAdv5dtNq7iRPuK9ifzD9bLHmC8EBbXR4GoHrmZBdStXjuGPqpfAad0oxjkPYZC1TIHT80eIUefxJnK5HScFLriZCHh3uNNyY7LSajAZCVM33StD0SHZBHBBSsj1awh6UehywwZBBElO4pbVH5CT2ZBLMZD;
+            var accessToken = "CAAMgKWevhb0BABztG1J69usQbLZAaxyZAQwCOZAdAY0uFZBrIi5bs076KwtepS2p1i6CZCvjYJRCbTLZAdv5dtNq7iRPuK9ifzD9bLHmC8EBbXR4GoHrmZBdStXjuGPqpfAad0oxjkPYZC1TIHT80eIUefxJnK5HScFLriZCHh3uNNyY7LSajAZCVM33StD0SHZBHBBSsj1awh6UehywwZBBElO4pbVH5CT2ZBLMZD";
             var userID = 903019319757275;
             $.ajax({
                 type: "POST",
