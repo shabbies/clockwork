@@ -57,7 +57,7 @@ public class FacebookLoginServlet extends HttpServlet {
             HashMap fullHash = gson.fromJson(responseString, hashType);
             HashMap dataHash = gson.fromJson(((LinkedTreeMap)fullHash.get("data")).toString(), hashType);
             String retrievedAppID = ((Double)dataHash.get("app_id")).toString();
-            String retrievedUserID = (String)dataHash.get("user_id");
+            String retrievedUserID = ((Double)dataHash.get("user_id")).toString();
             if (!retrievedAppID.equals(appID) || !retrievedUserID.equals(userID)){
                 response.sendRedirect("/index.jsp");
                 return;
