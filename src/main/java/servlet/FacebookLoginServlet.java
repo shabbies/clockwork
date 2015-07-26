@@ -1,6 +1,7 @@
 package servlet;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import controller.PostController;
 import java.io.IOException;
@@ -68,7 +69,7 @@ public class FacebookLoginServlet extends HttpServlet {
             Gson gson = new Gson();
             Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
             HashMap fullHash = gson.fromJson(responseString, hashType);
-            HashMap dataHash = (HashMap)fullHash.get("data");
+            HashMap dataHash = gson.fromJson(((LinkedTreeMap)fullHash.get("data")).toString(), hashType);
             String retrievedAppID = (String)dataHash.get("app_id");
             String retrievedUserID = (String)dataHash.get("user_id");
             if (!retrievedAppID.equals(appID) || !retrievedUserID.equals(userID)){
