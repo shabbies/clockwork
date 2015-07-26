@@ -3,10 +3,8 @@ package servlet;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
-import controller.PostController;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
@@ -21,22 +19,10 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import javax.servlet.ServletConfig;
-import javax.servlet.http.HttpSession;
-import model.Post;
-import model.User;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.message.BasicNameValuePair;
 
 public class FacebookLoginServlet extends HttpServlet {
 
@@ -70,7 +56,7 @@ public class FacebookLoginServlet extends HttpServlet {
             Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
             HashMap fullHash = gson.fromJson(responseString, hashType);
             HashMap dataHash = gson.fromJson(((LinkedTreeMap)fullHash.get("data")).toString(), hashType);
-            String retrievedAppID = (String)dataHash.get("app_id");
+            String retrievedAppID = ((Double)dataHash.get("app_id")).toString();
             String retrievedUserID = (String)dataHash.get("user_id");
             if (!retrievedAppID.equals(appID) || !retrievedUserID.equals(userID)){
                 response.sendRedirect("/index.jsp");
