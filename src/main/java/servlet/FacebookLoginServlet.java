@@ -59,6 +59,8 @@ public class FacebookLoginServlet extends HttpServlet {
             String retrievedAppID = ((Double)dataHash.get("app_id")).toString();
             String retrievedUserID = ((Double)dataHash.get("user_id")).toString();
             if (!retrievedAppID.equals(appID) || !retrievedUserID.equals(userID)){
+                System.out.println(!retrievedAppID.equals(appID));
+                System.out.println(!retrievedUserID.equals(userID));
                 response.sendRedirect("/index.jsp");
                 return;
             }
