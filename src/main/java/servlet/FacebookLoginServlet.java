@@ -26,12 +26,12 @@ import org.apache.http.client.methods.HttpGet;
 
 public class FacebookLoginServlet extends HttpServlet {
 
-    private String appID = null;
-    private String appSecret = null;
+    private double appID;
+    private String appSecret;
     
     @Override
     public void init(ServletConfig servletConfig) throws ServletException{
-        appID = servletConfig.getInitParameter("facebookAppID");
+        appID = Double.parseDouble(servletConfig.getInitParameter("facebookAppID"));
         appSecret = servletConfig.getInitParameter("facebookAppSecret");
     }
 
@@ -40,7 +40,7 @@ public class FacebookLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String accessToken = request.getParameter("access_token");
-        String userID = request.getParameter("user_id");
+        double userID = Double.parseDouble(request.getParameter("user_id"));
         
         // Checking validity of accessToken
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -56,9 +56,9 @@ public class FacebookLoginServlet extends HttpServlet {
             Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
             HashMap fullHash = gson.fromJson(responseString, hashType);
             HashMap dataHash = gson.fromJson(((LinkedTreeMap)fullHash.get("data")).toString(), hashType);
-            String retrievedAppID = ((Double)dataHash.get("app_id")).toString();
-            String retrievedUserID = ((Double)dataHash.get("user_id")).toString();
-            if (!retrievedAppID.equals(appID) || !retrievedUserID.equals(userID)){
+            double retrievedAppID = (Double)dataHash.get("app_id");
+            double retrievedUserID = (Double)dataHash.get("user_id");
+            if (retrievedAppID != appID || retrievedUserID != userID){
                 System.out.println(retrievedAppID);
                 System.out.println(appID);
                 System.out.println(retrievedUserID);
