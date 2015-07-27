@@ -26,12 +26,12 @@ import org.apache.http.client.methods.HttpGet;
 
 public class FacebookLoginServlet extends HttpServlet {
 
-    private double appID;
-    private String appSecret;
+    private String appID = null;
+    private String appSecret = null;
     
     @Override
     public void init(ServletConfig servletConfig) throws ServletException{
-        appID = Double.parseDouble(servletConfig.getInitParameter("facebookAppID"));
+        appID = servletConfig.getInitParameter("facebookAppID");
         appSecret = servletConfig.getInitParameter("facebookAppSecret");
     }
 
@@ -40,7 +40,7 @@ public class FacebookLoginServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String accessToken = request.getParameter("access_token");
-        double userID = Double.parseDouble(request.getParameter("user_id"));
+        String userID = request.getParameter("user_id");
         
         // Checking validity of accessToken
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -55,11 +55,10 @@ public class FacebookLoginServlet extends HttpServlet {
             Gson gson = new Gson();
             Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
             HashMap fullHash = gson.fromJson(responseString, hashType);
-            System.out.println(responseString);
             HashMap dataHash = gson.fromJson(((LinkedTreeMap)fullHash.get("data")).toString(), hashType);
-            double retrievedAppID = (Double)dataHash.get("app_id");
-            double retrievedUserID = (Double)dataHash.get("user_id");
-            if (retrievedAppID != appID || retrievedUserID != userID){
+            String retrievedAppID = String.valueOf(((Double)dataHash.get("app_id")).intValue());
+            String retrievedUserID = String.valueOf(((Double)dataHash.get("user_id")).intValue());
+            if (!retrievedAppID.equals(appID) || !retrievedUserID.equals(userID)){
                 System.out.println(retrievedAppID);
                 System.out.println(appID);
                 System.out.println(retrievedUserID);
