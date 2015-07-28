@@ -60,9 +60,10 @@ public class FacebookLoginServlet extends HttpServlet {
             String retrievedUserAppID = String.valueOf(((Double)dataHash.get("app_id")).intValue());
             String retrievedUserID = String.valueOf(((Double)dataHash.get("user_id")).intValue());
             if (!retrievedUserID.equals(userID)){
+                System.out.println(retrievedUserID.equals(userID));
                 String errorMessage = "There is a problem with your Facebook login, please try again.";
                 session.setAttribute("error", errorMessage);
-                response.sendRedirect("/index.jsp");
+                response.sendRedirect("/login.jsp");
                 return;
             }
             EntityUtils.consume(entity);
