@@ -21,6 +21,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.util.HashMap;
 import javax.servlet.ServletConfig;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.HttpGet;
 
@@ -38,7 +39,7 @@ public class FacebookLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
         String accessToken = request.getParameter("access_token");
         String userID = request.getParameter("user_id");
         
@@ -56,13 +57,11 @@ public class FacebookLoginServlet extends HttpServlet {
             Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
             HashMap fullHash = gson.fromJson(responseString, hashType);
             HashMap dataHash = gson.fromJson(((LinkedTreeMap)fullHash.get("data")).toString(), hashType);
-            String retrievedAppID = String.valueOf(((Double)dataHash.get("app_id")).intValue());
+            String retrievedUserAppID = String.valueOf(((Double)dataHash.get("app_id")).intValue());
             String retrievedUserID = String.valueOf(((Double)dataHash.get("user_id")).intValue());
-            if (!retrievedAppID.equals(appID) || !retrievedUserID.equals(userID)){
-                System.out.println(retrievedAppID);
-                System.out.println(appID);
-                System.out.println(retrievedUserID);
-                System.out.println(userID);
+            if (!retrievedUserID.equals(userID)){
+                String errorMessage = "There is a problem with your Facebook login, please try again.";
+                session.setAttribute("error", errorMessage);
                 response.sendRedirect("/index.jsp");
                 return;
             }
@@ -72,7 +71,6 @@ public class FacebookLoginServlet extends HttpServlet {
         }
         
         // Grabbing user profile from FB
-        System.out.println("BYE1");
         CloseableHttpClient httpclient2 = HttpClients.createDefault();
         HttpGet httpGet2 = new HttpGet("https://graph.facebook.com/me?" + accessToken + "&access_token=" + appID + "|" + appSecret);
         CloseableHttpResponse httpResponse2 = httpclient2.execute(httpGet2);
