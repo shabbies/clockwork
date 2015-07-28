@@ -39,7 +39,6 @@ public class FacebookLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
         String accessToken = request.getParameter("access_token");
         String userID = request.getParameter("user_id");
         
@@ -60,31 +59,21 @@ public class FacebookLoginServlet extends HttpServlet {
             String retrievedUserAppID = String.valueOf(((Double)dataHash.get("app_id")).intValue());
             String retrievedUserID = String.valueOf(((Double)dataHash.get("user_id")).intValue());
             if (!retrievedUserID.equals(userID)){
-                System.out.println(retrievedUserID.equals(userID));
                 String errorMessage = "There is a problem with your Facebook login, please try again.";
-                session.setAttribute("error", errorMessage);
-                response.sendRedirect("/login.jsp");
+                response.sendError(500, errorMessage);
                 return;
             }
-            EntityUtils.consume(entity);
-        } finally {
-            httpResponse.close();
-        }
-        
-        // Grabbing user profile from FB
-        CloseableHttpClient httpclient2 = HttpClients.createDefault();
-        HttpGet httpGet2 = new HttpGet("https://graph.facebook.com/me?" + accessToken + "&access_token=" + appID + "|" + appSecret);
-        CloseableHttpResponse httpResponse2 = httpclient2.execute(httpGet2);
-        System.out.println("BYE2");
-        try {
-            HttpEntity entity = httpResponse2.getEntity();
-            StringWriter writer = new StringWriter();
-            InputStream readingStream = entity.getContent();
+            
+            // Grabbing user profile from FB
+            httpGet = new HttpGet("https://graph.facebook.com/me?" + accessToken + "&access_token=" + accessToken);
+            httpResponse = httpclient.execute(httpGet);
+            System.out.println("BYE2");
+            entity = httpResponse.getEntity();
+            writer = new StringWriter();
+            readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
-            String responseString = writer.toString();
-            Gson gson = new Gson();
-            Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
-            HashMap fullHash = gson.fromJson(responseString, hashType);
+            responseString = writer.toString();
+            fullHash = gson.fromJson(responseString, hashType);
             System.out.println("BYE");
             System.out.println((String)fullHash.get("email"));
             
@@ -93,5 +82,4 @@ public class FacebookLoginServlet extends HttpServlet {
             httpResponse.close();
         }
     }
-
 }
