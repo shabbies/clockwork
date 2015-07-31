@@ -39,14 +39,16 @@ public class FacebookLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String accessToken = request.getParameter("access_token");
+        HttpSession session = request.getSession();
+        String shortAccessToken = request.getParameter("access_token");
         String userID = request.getParameter("user_id");
+        String longAccessToken = null;
         
         Gson gson = new Gson();
         Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + URLEncoder.encode(appID, "UTF-8") + "&client_secret=" + URLEncoder.encode(appSecret, "UTF-8") + "&fb_exchange_token=" + URLEncoder.encode(accessToken, "UTF-8"));
+        HttpGet httpGet = new HttpGet("https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + URLEncoder.encode(appID, "UTF-8") + "&client_secret=" + URLEncoder.encode(appSecret, "UTF-8") + "&fb_exchange_token=" + URLEncoder.encode(shortAccessToken, "UTF-8"));
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
         try {
             HttpEntity entity = httpResponse.getEntity();
@@ -54,11 +56,21 @@ public class FacebookLoginServlet extends HttpServlet {
             InputStream readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
             String responseString = writer.toString();
-            System.out.println(responseString);
-            HashMap fullHash = gson.fromJson(responseString, hashType);
+            longAccessToken = responseString.substring(responseString.indexOf("=") + 1, responseString.indexOf("&"));
+            session.setAttribute("accessToken", longAccessToken); 
             
+            // Getting user profile
+            httpGet = new HttpGet("https://graph.facebook.com/me?fields=id,name,email&access_token=" + URLEncoder.encode(longAccessToken, "UTF-8"));
+            httpResponse = httpclient.execute(httpGet);
+            writer = new StringWriter();
+            readingStream = entity.getContent();
+            IOUtils.copy(readingStream, writer, "UTF-8");
+            responseString = writer.toString();
+            System.out.println(responseString);
         } finally {
             httpResponse.close();
         }
+        
+        
     }
 }
