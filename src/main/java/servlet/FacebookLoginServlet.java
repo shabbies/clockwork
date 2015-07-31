@@ -63,6 +63,7 @@ public class FacebookLoginServlet extends HttpServlet {
                 String errorMessage = "There is a problem with your Facebook login, please try again.";
                 response.sendError(500, errorMessage);
             }
+            response.setStatus(200);
         } finally {
             httpResponse.close();
         }

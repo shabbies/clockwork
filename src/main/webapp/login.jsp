@@ -64,6 +64,7 @@ function facebookLogin() {
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log(textStatus, errorThrown);
+                    console.log(jqXHR);
                 }
             });
         } else if (response.status === 'not_authorized') {
