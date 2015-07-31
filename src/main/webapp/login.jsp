@@ -61,6 +61,9 @@ function facebookLogin() {
                 data: { "access_token" : accessToken, "user_id" : userID },
                 success: function(){
                     window.location.href ="/index.jsp";
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
                 }
             });
         } else if (response.status === 'not_authorized') {

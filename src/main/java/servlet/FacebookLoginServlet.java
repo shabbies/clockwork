@@ -66,7 +66,6 @@ public class FacebookLoginServlet extends HttpServlet {
             }
         } finally {
             httpResponse.close();
-            System.out.println("BYE3");
         }
             System.out.println("BYE2");
         try {
