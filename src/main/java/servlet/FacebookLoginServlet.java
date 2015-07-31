@@ -47,6 +47,7 @@ public class FacebookLoginServlet extends HttpServlet {
         Gson gson = new Gson();
         Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
         
+        // Extending access token
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + URLEncoder.encode(appID, "UTF-8") + "&client_secret=" + URLEncoder.encode(appSecret, "UTF-8") + "&fb_exchange_token=" + URLEncoder.encode(shortAccessToken, "UTF-8"));
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
@@ -57,18 +58,23 @@ public class FacebookLoginServlet extends HttpServlet {
             IOUtils.copy(readingStream, writer, "UTF-8");
             String responseString = writer.toString();
             longAccessToken = responseString.substring(responseString.indexOf("=") + 1, responseString.indexOf("&"));
-            session.setAttribute("accessToken", longAccessToken); 
-            
-            // Getting user profile
-            httpGet = new HttpGet("https://graph.facebook.com/me?fields=id,name,email&access_token=" + URLEncoder.encode(longAccessToken, "UTF-8"));
-            httpResponse = httpclient.execute(httpGet);
-            writer = new StringWriter();
-            readingStream = entity.getContent();
-            IOUtils.copy(readingStream, writer, "UTF-8");
-            responseString = writer.toString();
-            System.out.println(responseString);
+            session.setAttribute("accessToken", longAccessToken);
         } finally {
             httpResponse.close();
+        }
+        
+        // Getting user profile
+        httpGet = new HttpGet("https://graph.facebook.com/me?fields=id,name,email&access_token=" + URLEncoder.encode(longAccessToken, "UTF-8"));
+        CloseableHttpResponse httpResponse2 = httpclient.execute(httpGet);
+        try {
+            HttpEntity entity = httpResponse2.getEntity();
+            StringWriter writer = new StringWriter();
+            InputStream readingStream = entity.getContent();
+            IOUtils.copy(readingStream, writer, "UTF-8");
+            String responseString = writer.toString();
+            System.out.println(responseString);
+        } finally {
+            httpResponse2.close();
         }
         
         
