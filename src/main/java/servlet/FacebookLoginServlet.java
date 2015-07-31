@@ -66,20 +66,21 @@ public class FacebookLoginServlet extends HttpServlet {
             }
         } finally {
             httpResponse.close();
+            System.out.println("BYE3");
         }
-            
+            System.out.println("BYE2");
         try {
             // Grabbing user profile from FB
             httpGet = new HttpGet("https://graph.facebook.com/me?" + accessToken + "&access_token=" + accessToken);
             httpResponse = httpclient.execute(httpGet);
-            System.out.println("BYE2");
+            //System.out.println("BYE2");
             HttpEntity entity = httpResponse.getEntity();
             StringWriter writer = new StringWriter();
             InputStream readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
             String responseString = writer.toString();
             HashMap fullHash = gson.fromJson(responseString, hashType);
-            System.out.println("BYE");
+            //System.out.println("BYE");
             System.out.println((String)fullHash.get("email"));
             
             EntityUtils.consume(entity);
