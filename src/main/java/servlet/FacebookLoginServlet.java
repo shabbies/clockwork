@@ -42,6 +42,9 @@ public class FacebookLoginServlet extends HttpServlet {
         String accessToken = request.getParameter("access_token");
         String userID = request.getParameter("user_id");
         
+        Gson gson = new Gson();
+        Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
+        
         // Checking validity of accessToken
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("https://graph.facebook.com/debug_token?input_token=" + accessToken + "&access_token=" + appID + URLEncoder.encode("|", "UTF-8") + appSecret);
@@ -52,8 +55,6 @@ public class FacebookLoginServlet extends HttpServlet {
             InputStream readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
             String responseString = writer.toString();
-            Gson gson = new Gson();
-            Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
             HashMap fullHash = gson.fromJson(responseString, hashType);
             HashMap dataHash = gson.fromJson(((LinkedTreeMap)fullHash.get("data")).toString(), hashType);
             String retrievedUserAppID = String.valueOf(((Double)dataHash.get("app_id")).intValue());
@@ -63,17 +64,21 @@ public class FacebookLoginServlet extends HttpServlet {
                 response.sendError(500, errorMessage);
                 return;
             }
+        } finally {
+            httpResponse.close();
+        }
             
+        try {
             // Grabbing user profile from FB
             httpGet = new HttpGet("https://graph.facebook.com/me?" + accessToken + "&access_token=" + accessToken);
             httpResponse = httpclient.execute(httpGet);
             System.out.println("BYE2");
-            entity = httpResponse.getEntity();
-            writer = new StringWriter();
-            readingStream = entity.getContent();
+            HttpEntity entity = httpResponse.getEntity();
+            StringWriter writer = new StringWriter();
+            InputStream readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
-            responseString = writer.toString();
-            fullHash = gson.fromJson(responseString, hashType);
+            String responseString = writer.toString();
+            HashMap fullHash = gson.fromJson(responseString, hashType);
             System.out.println("BYE");
             System.out.println((String)fullHash.get("email"));
             
