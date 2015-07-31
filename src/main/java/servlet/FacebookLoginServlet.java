@@ -62,27 +62,7 @@ public class FacebookLoginServlet extends HttpServlet {
             if (!retrievedUserID.equals(userID)){
                 String errorMessage = "There is a problem with your Facebook login, please try again.";
                 response.sendError(500, errorMessage);
-                return;
             }
-        } finally {
-            httpResponse.close();
-        }
-            System.out.println("BYE2");
-        try {
-            // Grabbing user profile from FB
-            httpGet = new HttpGet("https://graph.facebook.com/me?" + accessToken + "&access_token=" + accessToken);
-            httpResponse = httpclient.execute(httpGet);
-            //System.out.println("BYE2");
-            HttpEntity entity = httpResponse.getEntity();
-            StringWriter writer = new StringWriter();
-            InputStream readingStream = entity.getContent();
-            IOUtils.copy(readingStream, writer, "UTF-8");
-            String responseString = writer.toString();
-            HashMap fullHash = gson.fromJson(responseString, hashType);
-            //System.out.println("BYE");
-            System.out.println((String)fullHash.get("email"));
-            
-            EntityUtils.consume(entity);
         } finally {
             httpResponse.close();
         }
