@@ -45,9 +45,8 @@ public class FacebookLoginServlet extends HttpServlet {
         Gson gson = new Gson();
         Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
         
-        // Checking validity of accessToken
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("https://graph.facebook.com/debug_token?input_token=" + accessToken + "&access_token=" + appID + URLEncoder.encode("|", "UTF-8") + appSecret);
+        HttpGet httpGet = new HttpGet("https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + URLEncoder.encode(appID, "UTF-8") + "&client_secret=" + URLEncoder.encode(appSecret, "UTF-8") + "&fb_exchange_token=" + URLEncoder.encode(accessToken, "UTF-8"));
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
         try {
             HttpEntity entity = httpResponse.getEntity();
@@ -55,17 +54,9 @@ public class FacebookLoginServlet extends HttpServlet {
             InputStream readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
             String responseString = writer.toString();
+            System.out.println(responseString);
             HashMap fullHash = gson.fromJson(responseString, hashType);
-            HashMap dataHash = gson.fromJson(((LinkedTreeMap)fullHash.get("data")).toString(), hashType);
-            String retrievedUserAppID = String.valueOf(((Double)dataHash.get("app_id")).intValue());
-            String retrievedUserID = String.valueOf(((Double)dataHash.get("user_id")).intValue());
-            if (!retrievedUserID.equals(userID)){
-                System.out.println(userID);
-                System.out.println(retrievedUserID);
-                String errorMessage = "There is a problem with your Facebook login, please try again.";
-                response.sendError(500, errorMessage);
-            }
-            response.setStatus(200);
+            
         } finally {
             httpResponse.close();
         }
