@@ -144,12 +144,6 @@ $(document).on("click", "#open-jobModal", function() {
 </script>
 <!-- End of Job Modal -->
 
-<!-- look here kenenth! -->
-<link href='fc/fullcalendar.css' rel='stylesheet' />
-<link href='fc/fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src='fc/lib/moment.min.js'></script>
-<script src='fc/lib/jquery.min.js'></script>
-<script src='fc/fullcalendar.min.js'></script>
 
 <script>
 
