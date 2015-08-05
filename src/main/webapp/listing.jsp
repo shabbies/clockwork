@@ -57,31 +57,31 @@
                                 <td>Adam</td>
                                 <td>4 star</td>
                                 <td>Pending</td>
-                                <td><a href="/dashboard/jobs?page=1" class="btn btn-success">Hire</a></td>
+                                <td><button class="btn btn-success btn-hire">Hire</button></td>
                             </tr>
                             <tr> 
                                 <td>Suan</td>
                                 <td>3 star</td>
                                 <td>Pending</td>
-                                <td><a href="/dashboard/jobs?page=1" class="btn btn-success">Hire</a></td>
+                                <td><button class="btn btn-success btn-hire">Hire</button></td>
                             </tr>
                             <tr> 
                                 <td>Adam</td>
                                 <td>4 star</td>
                                 <td>Hired</td>
-                                <td><a href="/dashboard/jobs?page=1" class="btn btn-warning">Message</a></td>
+                                <td><a href="#" class="btn btn-warning">Message</a></td>
                             </tr>
                             <tr> 
                                 <td>Suan</td>
                                 <td>3 star</td>
                                 <td>Pending</td>
-                                <td><a href="/dashboard/jobs?page=1" class="btn btn-success">Hire</a></td>
+                                <td><button class="btn btn-success btn-hire">Hire</button></td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><a href="/dashboard/jobs?page=1" class="btn btn-lg btn-primary"><span class="badge">3</span> Hire All</a></td>
+                                <td><button class="btn btn-lg btn-primary btn-hire"><span class="badge">3</span> Hire All</button></td>
                             </tr>
                         </tbody>
 
@@ -96,6 +96,38 @@
 
     </div>
 </header>
+
+
+<!-- Hire Modal -->
+<div class="modal fade" id="hireModal" tabindex="-1" role="dialog" aria-labelledby="hireModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+    </div>
+    <div class="modal-body payment-mode text-center">
+
+     <h4>Choose your preferred mode of payment</h4>
+
+     <button class="btn btn-lg btn-primary">Credit Card</button>
+     <button class="btn btn-lg btn-primary">iBanking</button>
+     <button class="btn btn-lg btn-primary">Paypal</button>
+ </div>
+ <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+
+$(document).on("click", ".btn-hire", function() {
+    $('#hireModal').modal('show');
+});
+</script>
+<!-- End of Hire Modal -->
 
 
 <jsp:include page="_javascript_checker.jsp" />
