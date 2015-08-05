@@ -107,22 +107,27 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
 
 <!-- Job Modal -->
 <div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
     </div>
     <div class="modal-body">
-        <div id="calendar"></div>
+
+       <div class="col-md-7">
         <h4 id="modalHeader"></h4>
         <h5 id="modalDesc"></h5>
         <h5 id="modalSalary"></h5>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Apply</button>
+    <div class="col-md-5">
+        <div id="calendar"></div>
     </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Apply</button>
+</div>
 </div>
 </div>
 </div>
@@ -139,6 +144,7 @@ $(document).on("click", "#open-jobModal", function() {
     $('#modalDesc').html(descText);
     $('#modalSalary').html(salaryText);
 
+
     $('#jobModal').modal('show');
 });
 </script>
@@ -147,76 +153,35 @@ $(document).on("click", "#open-jobModal", function() {
 
 <script>
 
-    $(document).ready(function() {
-        
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            defaultDate: '2015-02-12',
-            editable: true,
-            eventLimit: true, // allow "more" link when too many events
-            events: [
-                {
-                    title: 'All Day Event',
-                    start: '2015-02-01'
-                },
-                {
-                    title: 'Long Event',
-                    start: '2015-02-07',
-                    end: '2015-02-10'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2015-02-09T16:00:00'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2015-02-16T16:00:00'
-                },
-                {
-                    title: 'Conference',
-                    start: '2015-02-11',
-                    end: '2015-02-13'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2015-02-12T10:30:00',
-                    end: '2015-02-12T12:30:00'
-                },
-                {
-                    title: 'Lunch',
-                    start: '2015-02-12T12:00:00'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2015-02-12T14:30:00'
-                },
-                {
-                    title: 'Happy Hour',
-                    start: '2015-02-12T17:30:00'
-                },
-                {
-                    title: 'Dinner',
-                    start: '2015-02-12T20:00:00'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: '2015-02-13T07:00:00'
-                },
-                {
-                    title: 'Click for Google',
-                    url: 'http://google.com/',
-                    start: '2015-02-28'
-                }
-            ]
-        });
-        
+$(document).ready(function() {
+
+    $('#calendar').fullCalendar({
+        editable: false,
+        allDayDefault: true,
+        contentHeight: 300,
+        titleFormat: 'MMMM',
+        events: [
+        {
+            title: 'A Event',
+            start: '2015-08-05',
+        },
+        {
+            title: 'C Event',
+            start: '2015-08-07',
+        },
+        {
+            title: 'B Event',
+            start: '2015-08-6',
+        },
+        {
+            title: 'D Event',
+            start: '2015-08-2',
+            end: '2015-08-4',
+        }
+        ]
     });
+
+});
 
 </script>
 

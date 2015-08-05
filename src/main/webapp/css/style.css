@@ -272,8 +272,8 @@ aside {
 }
 
 .job-entry-apply{
-   padding-top:8px;
-   padding-bottom: 8px;
+ padding-top:8px;
+ padding-bottom: 8px;
 }
 
 .job-entry-apply:hover{
@@ -655,7 +655,7 @@ body {
 }
 
 .modal-footer {
- border-top: none;
+   border-top: none;
 }
 
 .cursor-pointer{
@@ -674,4 +674,17 @@ body {
     width: 30px;
     text-align: center;
     background-color: #ee4054;
+}
+
+#calendar{
+ margin-top: 10px;
+ margin-bottom: 10px;
+}
+
+.fc h2 {
+   font-size: 20px;
+}
+
+ .fc-today {
+    background: none !important;
 }
