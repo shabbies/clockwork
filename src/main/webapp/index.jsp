@@ -4,7 +4,7 @@
 <%@ page import="model.Post"%>
 
 <%  ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList"); 
-    if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
+if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
 
 <jsp:include page="_nav.jsp" />
 <jsp:include page="_hero.jsp" />
@@ -49,6 +49,16 @@
                 </div>
 
                 <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr">
+                   <div class="col-md-6"> 
+                    <div class="detailIconsDiv">
+                        <ul class="list-inline text-left">
+                            <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-dollar"></i></a></li>
+                            <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-cutlery"></i></a></li>
+                            <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-compass"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <a href="#"  class="btn btn-primary btn pull-right">Apply now <i class="fa fa-check"></i></a>
                 </div>
 
@@ -56,9 +66,11 @@
 
         </div>
 
-        <%}%>
-
     </div>
+
+    <%}%>
+
+</div>
 
 </section>
 
@@ -102,19 +114,21 @@
 
     </div>
     <div class="modal-body">
-     <h4 id="modalHeader"></h4>
-     <h5 id="modalDesc"></h5>
-     <h5 id="modalSalary"></h5>
- </div>
- <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Apply</button>
-</div>
+        <div id="calendar"></div>
+        <h4 id="modalHeader"></h4>
+        <h5 id="modalDesc"></h5>
+        <h5 id="modalSalary"></h5>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Apply</button>
+    </div>
 </div>
 </div>
 </div>
 
 <script>
+
 $(document).on("click", "#open-jobModal", function() {
     var headerText = $(this).data('header');
     var descText = $(this).data('desc');
@@ -130,6 +144,87 @@ $(document).on("click", "#open-jobModal", function() {
 </script>
 <!-- End of Job Modal -->
 
+<!-- look here kenenth! -->
+<link href='fc/fullcalendar.css' rel='stylesheet' />
+<link href='fc/fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='fc/lib/moment.min.js'></script>
+<script src='fc/lib/jquery.min.js'></script>
+<script src='fc/fullcalendar.min.js'></script>
+
+<script>
+
+    $(document).ready(function() {
+        
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            defaultDate: '2015-02-12',
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2015-02-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2015-02-07',
+                    end: '2015-02-10'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2015-02-09T16:00:00'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2015-02-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2015-02-11',
+                    end: '2015-02-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2015-02-12T10:30:00',
+                    end: '2015-02-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2015-02-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2015-02-12T14:30:00'
+                },
+                {
+                    title: 'Happy Hour',
+                    start: '2015-02-12T17:30:00'
+                },
+                {
+                    title: 'Dinner',
+                    start: '2015-02-12T20:00:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2015-02-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2015-02-28'
+                }
+            ]
+        });
+        
+    });
+
+</script>
 
 
 <jsp:include page="_footer.jsp" />
