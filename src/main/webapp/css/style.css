@@ -685,6 +685,41 @@ body {
    font-size: 20px;
 }
 
- .fc-today {
+.fc-today {
     background: none !important;
 }
+
+.panel>.panel-collapse>.table, .panel>.table, .panel>.table-responsive>.table {
+    margin-bottom: inherit;
+}
+
+
+.db-user-info{
+    color:#000;
+    text-align: left;
+    margin-top:5px;
+    margin-bottom: 15px;
+}
+
+.db-user-pic {
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.db-default-badge{
+    border-radius: 300px;
+    text-transform: uppercase;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-weight: 700;
+    padding: 6px 12px;
+    font-size: 14px;
+    width: 150px;
+}
+
+.db-job-table a{
+    width: 150px;
+}
+
+
