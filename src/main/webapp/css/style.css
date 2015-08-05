@@ -272,7 +272,8 @@ aside {
 }
 
 .job-entry-apply{
- padding:8px;
+   padding-top:8px;
+   padding-bottom: 8px;
 }
 
 .job-entry-apply:hover{
@@ -654,7 +655,7 @@ body {
 }
 
 .modal-footer {
-   border-top: none;
+ border-top: none;
 }
 
 .cursor-pointer{
