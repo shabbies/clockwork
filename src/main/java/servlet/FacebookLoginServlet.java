@@ -1,7 +1,6 @@
 package servlet;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +17,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import java.util.HashMap;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpSession;
@@ -43,6 +41,9 @@ public class FacebookLoginServlet extends HttpServlet {
         String shortAccessToken = request.getParameter("access_token");
         String userID = request.getParameter("user_id");
         String longAccessToken = null;
+        String facebookAppID = null;
+        String fullname = null;
+        String email = null;
         
         Gson gson = new Gson();
         Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
@@ -72,7 +73,10 @@ public class FacebookLoginServlet extends HttpServlet {
             InputStream readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
             String responseString = writer.toString();
-            System.out.println(responseString);
+            HashMap userHash = gson.fromJson(responseString, hashType);
+            facebookAppID = (String)userHash.get("id");
+            fullname = (String)userHash.get("name");
+            email = (String)userHash.get("email");
         } finally {
             httpResponse2.close();
         }
