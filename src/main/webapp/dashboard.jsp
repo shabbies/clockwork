@@ -28,14 +28,21 @@
                             <tr> 
                                 <td>Bellboy</td>
                                 <td>20/08/2015</td>
-                                <td><a href="/edit_post.jsp" class="btn btn-warning">Edit Job</a></td>
                                 <td><span class="badge db-default-badge">No Applicants</span></td>
+                                <td><a href="/edit_post.jsp" class="btn btn-warning">Edit Job</a></td>
                             </tr>
                             <tr> 
                                 <td>Bellboy</td>
                                 <td>21/08/2015</td>
-                                <td><span class="badge db-default-badge">Edit Job</span></td>
+                                <td><span class="badge db-default-badge">Ongoing</span></td>
                                 <td><a href="/listing.jsp" class="btn btn-primary"> <span class="badge">4</span> Click to Hire</a></td>
+                               
+                            </tr>
+                             <tr> 
+                                <td>Bellboy</td>
+                                <td>18/08/2015</td>
+                                <td><span class="badge db-default-badge">Completed</span></td>
+                                <td><a href="/listing.jsp?completed=true" class="btn btn-success"> Click to Review</a></td>
                                
                             </tr>
                         </tbody>

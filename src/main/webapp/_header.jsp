@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link href='fc/fullcalendar.css' rel='stylesheet' />
     <link href='fc/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <link href='rating/jquery.raty.css' rel='stylesheet' />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,6 +37,7 @@
     <script src='fc/lib/moment.min.js'></script>
     <script src='fc/lib/jquery.min.js'></script>
     <script src='fc/fullcalendar.min.js'></script>
+    <script src='rating/jquery.raty.js'></script>
 
 </head>
 
