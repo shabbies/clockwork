@@ -2,11 +2,13 @@ package servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import controller.UserController;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,10 +20,17 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpSession;
+import model.User;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 public class FacebookLoginServlet extends HttpServlet {
 
@@ -44,6 +53,7 @@ public class FacebookLoginServlet extends HttpServlet {
         String facebookAppID = null;
         String fullname = null;
         String email = null;
+        String accountType = "job_seeker";
         
         Gson gson = new Gson();
         Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
@@ -60,6 +70,7 @@ public class FacebookLoginServlet extends HttpServlet {
             String responseString = writer.toString();
             longAccessToken = responseString.substring(responseString.indexOf("=") + 1, responseString.indexOf("&"));
             session.setAttribute("accessToken", longAccessToken);
+            EntityUtils.consume(entity);
         } finally {
             httpResponse.close();
         }
@@ -77,10 +88,34 @@ public class FacebookLoginServlet extends HttpServlet {
             facebookAppID = (String)userHash.get("id");
             fullname = (String)userHash.get("name");
             email = (String)userHash.get("email");
+            EntityUtils.consume(entity);
         } finally {
             httpResponse2.close();
         }
         
+        // Registering user
+        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/users.json");
+        httpPost.setHeader("Accept", "application/json");
+        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+        nvps.add(new BasicNameValuePair("user[email]", email));
+        nvps.add(new BasicNameValuePair("user[username]", fullname));
+        nvps.add(new BasicNameValuePair("user[account_type]",accountType));
         
+        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        CloseableHttpResponse response3 = httpclient.execute(httpPost);
+        User user = null;
+        try {
+            HttpEntity entity = response3.getEntity();  
+            StringWriter writer = new StringWriter();
+            IOUtils.copy(entity.getContent(), writer, "UTF-8");
+            String responseString = writer.toString();
+            UserController userController = new UserController();
+            user = userController.createUserFromJSON(responseString);
+            EntityUtils.consume(entity);
+        } finally {
+            response3.close();
+        }
+        
+        session.setAttribute("currentUser", user);
     }
 }
