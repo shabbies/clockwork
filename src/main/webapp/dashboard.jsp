@@ -10,7 +10,7 @@
 
 
                     <div class="panel-heading"> 
-                        <h4>Your Applications</h4> 
+                        <h4>Your Job Listings</h4> 
                     </div> 
 
                     <table class="table db-job-table"> 
@@ -18,28 +18,32 @@
                         <thead> 
                             <tr> 
                                 <th>Job</th>
-                                <th>Company</th>
+                                <th>Date</th>
                                 <th>Status</th>
+                                 <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody> 
                             <tr> 
                                 <td>Bellboy</td>
-                                <td>ABC Company</td>
+                                <td>20/08/2015</td>
+                                <td><a href="/edit_post.jsp" class="btn btn-warning">Edit Job</a></td>
                                 <td><span class="badge db-default-badge">No Applicants</span></td>
                             </tr>
                             <tr> 
                                 <td>Bellboy</td>
-                                <td>ABC Company</td>
+                                <td>21/08/2015</td>
+                                <td><span class="badge db-default-badge">Edit Job</span></td>
                                 <td><a href="/listing.jsp" class="btn btn-primary"> <span class="badge">4</span> Click to Hire</a></td>
+                               
                             </tr>
                         </tbody>
 
                     </table>
 
                     <div>
-                        <a href="/dashboard/jobs?id=2" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Add a New Listing</a>
+                        <a href="/create_post.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Add a New Listing</a>
                     </div>
                 </div> 
             </div>

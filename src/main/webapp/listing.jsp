@@ -27,7 +27,7 @@
                                 Assist Manager/Supervisor in daily operational matters.
                             </h5>
                         </div>
-                        <a href="/" class="btn btn-primary btn-block"><i class="fa fa-fw fa-pencil"></i> Edit Listing</a>
+                        <a href="/edit_post.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-pencil"></i> Edit Listing</a>
                     </div>
                 </div>
             </div>
