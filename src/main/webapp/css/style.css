@@ -272,8 +272,8 @@ aside {
 }
 
 .job-entry-apply{
-   padding-top:8px;
-   padding-bottom: 8px;
+ padding-top:8px;
+ padding-bottom: 8px;
 }
 
 .job-entry-apply:hover{
@@ -655,7 +655,7 @@ body {
 }
 
 .modal-footer {
- border-top: none;
+   border-top: none;
 }
 
 .cursor-pointer{
@@ -675,3 +675,59 @@ body {
     text-align: center;
     background-color: #ee4054;
 }
+
+#calendar{
+ margin-top: 10px;
+ margin-bottom: 10px;
+}
+
+.fc h2 {
+   font-size: 20px;
+}
+
+.fc-today {
+    background: none !important;
+}
+
+.panel>.panel-collapse>.table, .panel>.table, .panel>.table-responsive>.table {
+    margin-bottom: inherit;
+}
+
+
+.db-user-info{
+    color:#000;
+    text-align: left;
+    margin-top:5px;
+    margin-bottom: 15px;
+}
+
+.db-user-pic {
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.db-default-badge{
+ display: inline-block;
+ border-radius: 300px;
+ text-transform: uppercase;
+ font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+ font-weight: 700;
+ padding: 9px 12px;
+ font-size: 14px;
+ width: 150px;
+ cursor: default;
+}
+
+.db-job-table a, .btn-hire{
+    width: 150px;
+}
+
+.payment-mode button{
+    margin:5px;
+    margin-top: 20px;
+    width: 150px;
+}
+
+
