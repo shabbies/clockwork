@@ -86,8 +86,14 @@ public class RegisterAccountServlet extends HttpServlet {
                 response.sendRedirect("/create_post.jsp");
                 return;
             }
+        } else {
+            if (user.getAccountType().equals("employer")){
+                response.sendRedirect("/dashboard.jsp");
+                return;
+            } else {
+                response.sendRedirect("/index.jsp");
+            }
         }
-        response.sendRedirect("/index.jsp");
     }
 
 }
