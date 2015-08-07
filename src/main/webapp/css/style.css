@@ -296,8 +296,8 @@ aside {
 }
 
 .job-entry-apply{
- padding-top:8px;
- padding-bottom: 8px;
+   padding-top:8px;
+   padding-bottom: 8px;
 }
 
 .job-entry-apply:hover{
@@ -679,7 +679,7 @@ body {
 }
 
 .modal-footer {
-   border-top: none;
+ border-top: none;
 }
 
 .cursor-pointer{
@@ -701,12 +701,12 @@ body {
 }
 
 #calendar{
- margin-top: 10px;
- margin-bottom: 10px;
+   margin-top: 10px;
+   margin-bottom: 10px;
 }
 
 .fc h2 {
-   font-size: 20px;
+ font-size: 20px;
 }
 
 .fc-today {
@@ -733,15 +733,15 @@ body {
 }
 
 .db-default-badge{
- display: inline-block;
- border-radius: 300px;
- text-transform: uppercase;
- font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
- font-weight: 700;
- padding: 9px 12px;
- font-size: 14px;
- width: 150px;
- cursor: default;
+   display: inline-block;
+   border-radius: 300px;
+   text-transform: uppercase;
+   font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+   font-weight: 700;
+   padding: 9px 12px;
+   font-size: 14px;
+   width: 150px;
+   cursor: default;
 }
 
 .db-job-table a, .btn-hire{
@@ -755,8 +755,8 @@ body {
 }
 
 .alert{
- margin-bottom: 0;
- text-align: center;   
+   margin-bottom: 0;
+   text-align: center;   
 }
 
 .password_length_error {
