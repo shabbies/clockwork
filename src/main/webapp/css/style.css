@@ -5,7 +5,9 @@ body {
 }
 
 body {
-    font-family: Merriweather,'Helvetica Neue',Arial,sans-serif;
+    /*font-family: Merriweather,'Helvetica Neue',Arial,sans-serif;*/
+    font-family: 'Raleway', sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 hr {
@@ -44,7 +46,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+   font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; 
 }
 
 p {
@@ -87,16 +89,16 @@ aside {
     padding: 10px 15px;
     text-transform: uppercase;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 900;
     padding-top: 15px;
     padding-bottom: 15px;
     line-height: 20px;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
     color:#ee4054;
 }
 
 .navbar-nav i {
- color:#ee4054 !important;
+   color:#ee4054 !important;
 } 
 
 .navbar {
@@ -105,7 +107,7 @@ aside {
 
 .navbar-default, .navbar-primary {
     border-color: rgba(34,34,34,.05);
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
     background-color: #fff;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
@@ -135,8 +137,8 @@ aside {
 
 .navbar-default .navbar-header .navbar-brand, .navbar-primary .navbar-header .navbar-brand {
     text-transform: uppercase;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    font-weight: 700;
+    /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
+    font-weight: 900;
     color: #ee4054;
 }
 
@@ -162,7 +164,7 @@ aside {
 .navbar-primary .nav > li>a,
 .navbar-primary .nav>li>a:focus {
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     color: #222;
 }
@@ -300,8 +302,8 @@ aside {
 }
 
 .job-entry-apply{
- padding-top:8px;
- padding-bottom: 8px;
+   padding-top:8px;
+   padding-bottom: 8px;
 }
 
 .job-entry-apply:hover{
@@ -424,7 +426,7 @@ header .header-content .header-content-inner p {
 }
 
 label{
-    color:#000;
+    color:#4c4c4c;
 }
 
 .panel {
@@ -475,7 +477,7 @@ label{
 .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category,
 .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
     padding: 0 15px;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
 }
 
 .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
@@ -627,8 +629,8 @@ fieldset[disabled] .btn-primary.active {
     border: 0;
     border-radius: 300px;
     text-transform: uppercase;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    font-weight: 700;
+    /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
+    font-weight: 900;
 }
 
 .btn-srad {
@@ -683,7 +685,7 @@ body {
 }
 
 .modal-footer {
-   border-top: none;
+ border-top: none;
 }
 
 .cursor-pointer{
@@ -705,12 +707,12 @@ body {
 }
 
 #calendar{
- margin-top: 10px;
- margin-bottom: 10px;
+   margin-top: 10px;
+   margin-bottom: 10px;
 }
 
 .fc h2 {
-   font-size: 20px;
+ font-size: 20px;
 }
 
 .fc-today {
@@ -737,15 +739,15 @@ body {
 }
 
 .db-default-badge{
- display: inline-block;
- border-radius: 300px;
- text-transform: uppercase;
- font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
- font-weight: 700;
- padding: 9px 12px;
- font-size: 14px;
- width: 150px;
- cursor: default;
+   display: inline-block;
+   border-radius: 300px;
+   text-transform: uppercase;
+   /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
+   font-weight: 700;
+   padding: 9px 12px;
+   font-size: 14px;
+   width: 150px;
+   cursor: default;
 }
 
 .db-job-table a, .btn-hire{
@@ -759,8 +761,8 @@ body {
 }
 
 .alert{
- margin-bottom: 0;
- text-align: center;   
+   margin-bottom: 0;
+   text-align: center;   
 }
 
 .password_length_error {
@@ -779,7 +781,7 @@ body {
 }
 
 .profile-div .panel{
- padding: 0px;
+   padding: 0px;
 }
 
 .profile-div img{
