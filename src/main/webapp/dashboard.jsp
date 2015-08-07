@@ -67,7 +67,7 @@
                             <h2>Hi User!</h2> 
                             <span>What would you like to do today?</span>
                         </div>
-                        <a href="/" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
+                        <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
                     </div>
                 </div>
             </div>
