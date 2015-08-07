@@ -33,7 +33,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <header class="main">
   <div class="header-content">
     <div class="header-content-inner">
-      <h2 class="text-center">Update Listing</h2>
+      <h2 class="text-center">Bellboy @ RWS</h2>
 
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -74,8 +74,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
                </div>
 
                <input type="submit" class="btn btn-lg btn-primary btn-srad" value="Update Listing"/>
+             
 
              </form>
+              <a href="" class="btn btn-lg btn-default btn-srad">Remove Listing</a>
            </div>
          </div>
        </div>
