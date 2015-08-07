@@ -79,6 +79,22 @@ aside {
     padding: 0;
 }
 
+
+.navbar-nav li span{
+    cursor: default;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    color:#ee4054;
+}
+
 .navbar {
   border: none;
 }
@@ -195,6 +211,10 @@ aside {
         color: #fff;
     }
 
+    .navbar-nav li span{
+        color:#fff;
+    }
+
     .navbar-default.affix {
         border-color: rgba(34,34,34,.05);
         background-color: #fff;
@@ -219,6 +239,10 @@ aside {
     .navbar-default.affix .nav > li>a:hover,
     .navbar-default.affix .nav>li>a:focus:hover {
         color: #ee4054;
+    }
+
+    .navbar-default.affix .nav > li> span{
+        color:#ee4054;
     }
 
 }
@@ -730,4 +754,13 @@ body {
     width: 150px;
 }
 
+.alert{
+ margin-bottom: 0;
+ text-align: center;   
+}
 
+.password_length_error {
+    color: #ee4054;
+    text-align: center;
+    margin-top: 8px;
+}
