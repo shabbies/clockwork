@@ -764,3 +764,20 @@ body {
     text-align: center;
     margin-top: 8px;
 }
+
+.success{
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.profile-div{
+    margin-top: 40px;
+}
+
+.profile-div .panel{
+   padding: 0px;
+}
+
+.profile-div img{
+    margin-bottom:10px;
+}
