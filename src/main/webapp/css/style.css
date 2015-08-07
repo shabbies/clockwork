@@ -781,3 +781,7 @@ body {
 .profile-div img{
     margin-bottom:10px;
 }
+
+.cursorpointer{
+    cursor: pointer;
+}
