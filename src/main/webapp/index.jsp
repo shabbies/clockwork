@@ -115,18 +115,34 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
     </div>
     <div class="modal-body">
 
-       <div class="col-md-7">
-        <h4 id="modalHeader"></h4>
-        <h5 id="modalDesc"></h5>
-        <h5 id="modalSalary"></h5>
+       <div class="col-md-7 modal-job-details">
+           <div class="col-md-4 text-center">
+            <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
+            
+            <h2 id="modalSalary">$10/hr</h2>
+        </div>
+
+        <div class="col-md-8">
+            <h4 id="modalHeader"><strong>Bellboy</strong> @ HardRock Hotel</h4>
+            <h5>Resort World Singapore</h5>
+            <h5>21/08/2015</h5>
+
+            <h5 id="modalDesc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.
+            </h5>
+        </div>
+
     </div>
-    <div class="col-md-5">
+
+    <div class="col-md-5 modal-job-calendar">
+        <h4><strong>Schedule for the Month</strong></h4>
         <div id="calendar"></div>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Apply</button>
+   <div class="pull-right" style="padding-right: 15px;">
+    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary btn-lg">Apply for Job</button>
+</div>
 </div>
 </div>
 </div>
@@ -147,6 +163,10 @@ $(document).on("click", "#open-jobModal", function() {
 
     $('#jobModal').modal('show');
 });
+
+$('#jobModal').on('shown.bs.modal', function () {
+   $("#calendar").fullCalendar('render');
+});
 </script>
 <!-- End of Job Modal -->
 
@@ -154,32 +174,37 @@ $(document).on("click", "#open-jobModal", function() {
 <script>
 
 $(document).ready(function() {
-
-    $('#calendar').fullCalendar({
-        editable: false,
-        allDayDefault: true,
-        contentHeight: 300,
-        titleFormat: 'MMMM',
-        events: [
-        {
-            title: 'A Event',
-            start: '2015-08-05',
-        },
-        {
-            title: 'C Event',
-            start: '2015-08-07',
-        },
-        {
-            title: 'B Event',
-            start: '2015-08-6',
-        },
-        {
-            title: 'D Event',
-            start: '2015-08-2',
-            end: '2015-08-4',
-        }
-        ]
-    });
+   $('#jobModal').modal('show');
+   $('#calendar').fullCalendar({
+    editable: false,
+    allDayDefault: true,
+    contentHeight: 240,
+    titleFormat: 'MMMM',
+    eventColor: '#ee4054',
+    eventAfterRender: function(event, element, view) {
+                      $(element).css('height','30px');
+                      $(element).css('font-weight','700');
+                    },
+    events: [
+    {
+        title: 'A Event',
+        start: '2015-08-05',
+    },
+    {
+        title: 'C Event',
+        start: '2015-08-07',
+    },
+    {
+        title: 'B Event',
+        start: '2015-08-6',
+    },
+    {
+        title: 'D Event',
+        start: '2015-08-2',
+        end: '2015-08-4',
+    }
+    ]
+});
 
 });
 

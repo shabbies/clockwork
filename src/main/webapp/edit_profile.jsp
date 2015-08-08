@@ -14,7 +14,7 @@
                             <form class="form form-signup" action="/RegisterAccountServlet" method="POST" role="form">
 
                              <div class="text-center">
-                                <img src="http://placehold.it/120x120" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
+                                <img src="http://placehold.it/120x120" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
                             </div>
 
 

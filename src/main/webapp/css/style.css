@@ -118,6 +118,15 @@ aside {
     .navbar-default, .navbar-primary {
       border-bottom: 3px solid #de142b;
   }
+
+  .modal-job-details{
+     padding-right: 0px;
+     padding-left: 0px;
+ }
+
+ .modal-job-calendar{
+    margin-top: 40px;
+}
 }
 
 .navbar-default .navbar-toggle, .navbar-primary .navbar-toggle{
@@ -790,4 +799,17 @@ body {
 
 .cursorpointer{
     cursor: pointer;
+}
+
+#modalSalary{
+    font-weight: 700;
+    color: #ee4054;
+    margin-top: 8px;
+    margin-bottom:20px;
+}
+
+.fc h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ee4054;
 }
