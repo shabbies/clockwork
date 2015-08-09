@@ -79,12 +79,21 @@ public class RegisterAccountServlet extends HttpServlet {
         session.setAttribute("currentUser", user);
         
         // Redirection based on initial location
-        if (session.getAttribute("loginSource") != null && session.getAttribute("loginSource").equals("create_new_post")){
-            session.removeAttribute("loginSource");
-            response.sendRedirect("/create_post.jsp");
-            return;
+        String loginSource = String.valueOf(session.getAttribute("loginSource"));
+        if (loginSource != null){
+            if (loginSource.equals("create_new_post")){
+                session.removeAttribute("loginSource");
+                response.sendRedirect("/create_post.jsp");
+                return;
+            }
+        } else {
+            if (user.getAccountType().equals("employer")){
+                response.sendRedirect("/dashboard.jsp");
+                return;
+            } else {
+                response.sendRedirect("/index.jsp");
+            }
         }
-        response.sendRedirect("/index.jsp");
     }
 
 }

@@ -100,6 +100,7 @@ public class FacebookLoginServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("user[email]", email));
         nvps.add(new BasicNameValuePair("user[username]", fullname));
         nvps.add(new BasicNameValuePair("user[account_type]",accountType));
+        nvps.add(new BasicNameValuePair("user[facebook_id]", facebookAppID));
         
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response3 = httpclient.execute(httpPost);
