@@ -176,40 +176,46 @@ $('#jobModal').on('shown.bs.modal', function () {
 <script>
 
 $(document).ready(function() {
-     $('#jobModal').modal('show');
+ $('#jobModal').modal('show');
  $('#calendar').fullCalendar({
     editable: false,
     allDayDefault: true,
     contentHeight: 240,
     titleFormat: 'MMMM',
     eventColor: '#ee4054',
+    events: [
+    {
+        title: 'A Event',
+        start: '2015-08-05',
+        end: '2015-08-05'
+    },
+    {
+        title: 'C Event',
+        start: '2015-08-07',
+        end: '2015-08-07'
+    },
+    {
+        title: 'B Event',
+        start: '2015-08-06',
+        end: '2015-08-06'
+    },
+    {
+        title: 'D Event',
+        start: '2015-08-02',
+        end: '2015-08-05'
+    }
+    ],
     eventAfterRender: function(event, element, view) {
       $(element).css('height','30px');
       $(element).css('font-weight','700');
-  },
-  events: [
-  {
-    title: 'A Event',
-    start: '2015-08-05',
-},
-{
-    title: 'C Event',
-    start: '2015-08-07',
-},
-{
-    title: 'B Event',
-    start: '2015-08-6',
-},
-{
-    title: 'D Event',
-    start: '2015-08-2',
-    end: '2015-08-4',
-}
-]
+  }/*, eventRender: function (event, element, view) { 
+        var dateString = event.start.format("YYYY-MM-DD");
+        $(view.el[0]).find('.fc-day[data-date="' + dateString + '"]').css('background-color', '#ee4054');
+    }*/
 });
 
 
- $(".job-entry-desc").dotdotdot({
+$(".job-entry-desc").dotdotdot({
     /*  The text to add as ellipsis. */
     ellipsis    : '... ',
     /*  How to cut off the text/html: 'word'/'letter'/'children' */
