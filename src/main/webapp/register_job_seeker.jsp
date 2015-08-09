@@ -15,10 +15,10 @@
                             <form class="form form-signup" action="/RegisterAccountServlet" method="POST" role="form">
 
                                 <div class="form-group form-group-lg col-md-12 text-left"> 
-                                    <label for="register-company" class="control-label">Full Name</label> 
+                                    <label for="register-company" class="control-label">Name</label> 
                                     <div class="input-group"> 
-                                        <div class="input-group-addon"><i class="fa fa-building fa-lg fa-fw"></i></div> 
-                                        <input id="register-company" class="form-control" type="text" placeholder="Full name" name="username" required> 
+                                        <div class="input-group-addon"><i class="fa fa-user fa-lg fa-fw"></i></div> 
+                                        <input id="register-company" class="form-control" type="text" placeholder="Name" name="username" required> 
                                     </div> 
                                 </div>
 
@@ -30,15 +30,18 @@
                                     </div> 
                                 </div>
 
-                                <!-- Gerald TODO: style the error message -->
-                                <div class="password_length_error" style="display:none;">Password should contain at least 8 characters</div>
-                                <!-- END -->
                                 <div class="form-group form-group-lg col-md-12 text-left"> 
                                     <label for="register-password" class="control-label">Password</label> 
                                     <div class="input-group"> 
-                                        <div class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></div>            
+                                        <div id="register-password-icon" class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></div>            
                                         <input id="register-password" class="form-control" type="pasword" placeholder="Password" name="password" required> 
                                     </div> 
+
+                                    <div class="password_length_error" style="display:none;">  
+                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                        Password should contain at least 8 characters
+                                    </div>
+
                                 </div>
 
                                 <input type="hidden" name="account_type" value="job_seeker">

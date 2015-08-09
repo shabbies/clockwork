@@ -5,7 +5,9 @@ body {
 }
 
 body {
-    font-family: Merriweather,'Helvetica Neue',Arial,sans-serif;
+    /*font-family: Merriweather,'Helvetica Neue',Arial,sans-serif;*/
+    font-family: 'Raleway', sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 hr {
@@ -44,7 +46,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+ font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; 
 }
 
 p {
@@ -79,13 +81,33 @@ aside {
     padding: 0;
 }
 
+
+.navbar-nav li span{
+    cursor: default;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 900;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
+    color:#ee4054;
+}
+
+.navbar-nav i {
+ color:#ee4054 !important;
+} 
+
 .navbar {
   border: none;
 }
 
 .navbar-default, .navbar-primary {
     border-color: rgba(34,34,34,.05);
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
     background-color: #fff;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
@@ -96,6 +118,15 @@ aside {
     .navbar-default, .navbar-primary {
       border-bottom: 3px solid #de142b;
   }
+
+  .modal-job-details{
+   padding-right: 0px;
+   padding-left: 0px;
+}
+
+.modal-job-calendar{
+    margin-top: 40px;
+}
 }
 
 .navbar-default .navbar-toggle, .navbar-primary .navbar-toggle{
@@ -115,8 +146,8 @@ aside {
 
 .navbar-default .navbar-header .navbar-brand, .navbar-primary .navbar-header .navbar-brand {
     text-transform: uppercase;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    font-weight: 700;
+    /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
+    font-weight: 900;
     color: #ee4054;
 }
 
@@ -142,7 +173,7 @@ aside {
 .navbar-primary .nav > li>a,
 .navbar-primary .nav>li>a:focus {
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     color: #222;
 }
@@ -195,6 +226,10 @@ aside {
         color: #fff;
     }
 
+    .navbar-nav li span{
+        color:#fff;
+    }
+
     .navbar-default.affix {
         border-color: rgba(34,34,34,.05);
         background-color: #fff;
@@ -219,6 +254,10 @@ aside {
     .navbar-default.affix .nav > li>a:hover,
     .navbar-default.affix .nav>li>a:focus:hover {
         color: #ee4054;
+    }
+
+    .navbar-default.affix .nav > li> span{
+        color:#ee4054;
     }
 
 }
@@ -249,6 +288,7 @@ aside {
 
 .job-entry{
   min-height: 20px;
+  height:200px;
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 16px;
@@ -281,6 +321,10 @@ aside {
     cursor: pointer;
 }
 
+
+.job-entry-desc {
+    height:150px;
+}
 
 .list-inline {
   padding-left: 0;
@@ -321,7 +365,7 @@ header {
 header .header-content {
     position: relative;
     width: 100%;
-    padding: 100px 15px;
+    padding: 60px 15px;
     text-align: center;
 }
 
@@ -396,7 +440,7 @@ header .header-content .header-content-inner p {
 }
 
 label{
-    color:#000;
+    color:#4c4c4c;
 }
 
 .panel {
@@ -447,7 +491,7 @@ label{
 .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category,
 .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
     padding: 0 15px;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
 }
 
 .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
@@ -488,8 +532,8 @@ label{
 }
 
 .btn-default {
-    border-color: #ccc;
-    background-color: #eee;
+    border-color: #b2b2b2;
+    background-color: #dedede;
     color: #222;
     /*border-color: #fff;
     background-color: #fff;*/
@@ -506,7 +550,7 @@ label{
 .open > .dropdown-toggle.btn-default {
     border-color: #ededed;
     color: #222;
-    background-color: #f2f2f2;
+    background-color: #b2b2b2;
 }
 
 .btn-default:active,
@@ -599,8 +643,8 @@ fieldset[disabled] .btn-primary.active {
     border: 0;
     border-radius: 300px;
     text-transform: uppercase;
-    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
-    font-weight: 700;
+    /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
+    font-weight: 900;
 }
 
 .btn-srad {
@@ -712,7 +756,7 @@ body {
  display: inline-block;
  border-radius: 300px;
  text-transform: uppercase;
- font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+ /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
  font-weight: 700;
  padding: 9px 12px;
  font-size: 14px;
@@ -730,4 +774,47 @@ body {
     width: 150px;
 }
 
+.alert{
+ margin-bottom: 0;
+ text-align: center;   
+}
 
+.password_length_error {
+    color: #ee4054;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.success{
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.profile-div{
+    margin-top: 40px;
+}
+
+.profile-div .panel{
+ padding: 0px;
+}
+
+.profile-div img{
+    margin-bottom:10px;
+}
+
+.cursorpointer{
+    cursor: pointer;
+}
+
+#modalSalary{
+    font-weight: 700;
+    color: #ee4054;
+    margin-top: 8px;
+    margin-bottom:20px;
+}
+
+.fc h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ee4054;
+}

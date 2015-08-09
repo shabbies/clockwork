@@ -19,12 +19,7 @@
                             <h2>Bellboy</h2> 
                             <h4>Join our team at Maison Ikkoku!</h4>
                             <h5>
-                                Singaporeans / PRs preferred.</br>
-                                Provide impeccable service and exceeding customer's expectations.</br>
-                                Prepare and serve beverages</br>
-                                Table setting and maintain cleanliness environment</br>
-                                Take order and deliver food to customers</br>
-                                Assist Manager/Supervisor in daily operational matters.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias harum, sunt nulla, temporibus labore vitae sequi, quidem enim facere saepe eum ducimus magnam fugiat neque pariatur odit laboriosam soluta non.
                             </h5>
                         </div>
                         <% if (request.getParameter("completed") == null) { %>
@@ -37,7 +32,6 @@
 
             <div class="col-md-7">
                 <div class="panel panel-default">
-
 
                     <div class="panel-heading"> 
                         <h4>Your Applications</h4> 
@@ -113,21 +107,35 @@
                                 <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                             </tr>
                             <tr> 
-                               <td>Susan</td>
-                               <td>Completed</td>
-                               <td><div class="score" data-score="3"></div></td>
-                               <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
-                           </tr>
-                           <tr> 
+                             <td>Susan</td>
+                             <td>Completed</td>
+                             <td><div class="score" data-score="3"></div></td>
+                             <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
+                         </tr>
+                         <tr> 
                             <td>David</td>
                             <td>Completed</td>
-                            <td><div class="score" data-score="2"></div></td>
+                            <td><div class="score" data-score="0"></div></td>
+                            <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
+                        </tr>
+                         <tr> 
+                            <td>Steve</td>
+                            <td>Completed</td>
+                            <td><div class="score" data-score="0"></div></td>
+                            <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
+                        </tr>
+                         <tr> 
+                            <td>Malcom</td>
+                            <td>Completed</td>
+                            <td><div class="score" data-score="0"></div></td>
                             <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                         </tr>
 
                     </tbody>
 
                 </table>
+
+                <a href="/edit_profile.jsp" class="btn btn-primary btn-lg">Submit My Ratings</a>
 
                 <% } %>
 
@@ -151,13 +159,13 @@
     </div>
     <div class="modal-body payment-mode text-center">
 
-       <h4>Choose your preferred mode of payment</h4>
+     <h4>Choose your preferred mode of payment</h4>
 
-       <button class="btn btn-lg btn-primary">Credit Card</button>
-       <button class="btn btn-lg btn-primary">iBanking</button>
-       <button class="btn btn-lg btn-primary">Paypal</button>
-   </div>
-   <div class="modal-footer">
+     <button class="btn btn-lg btn-primary">Credit Card</button>
+     <button class="btn btn-lg btn-primary">iBanking</button>
+     <button class="btn btn-lg btn-primary">Paypal</button>
+ </div>
+ <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 </div>
 </div>
@@ -185,14 +193,14 @@ $(document).on("click", ".btn-hire", function() {
     </div>
     <div class="modal-body payment-mode text-center">
 
-       <h4>Leave a comment</h4>
+     <h4>Leave a comment</h4>
 
-       <textarea class="form-control" style="min-width: 100%"></textarea>
-   </div>
-   <div class="modal-footer">
-     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-     <button type="button" class="btn btn-primary">Submit</button>
+     <textarea class="form-control" style="min-width: 100%"></textarea>
  </div>
+ <div class="modal-footer">
+   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   <button type="button" class="btn btn-primary">Submit</button>
+</div>
 </div>
 </div>
 </div>
