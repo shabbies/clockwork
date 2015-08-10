@@ -36,7 +36,7 @@
 </head>
 
 <body id="page-top">
-<jsp:include page="_header.jsp" />
+<%@include file="_header.jsp"%>
 
 <div>
     <div>

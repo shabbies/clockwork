@@ -1,5 +1,5 @@
-<jsp:include page="_header.jsp" />
-<jsp:include page="_nav.jsp" />
+<%@include file="_header.jsp"%>
+<%@include file="_nav.jsp"%>
 
 <header class="main">
     <div class="header-content">
@@ -34,7 +34,7 @@
                                     <label for="register-password" class="control-label">Password</label> 
                                     <div class="input-group"> 
                                         <div id="register-password-icon" class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></div>            
-                                        <input id="register-password" class="form-control" type="pasword" placeholder="Password" name="password" required> 
+                                        <input id="register-password" class="form-control" type="password" placeholder="Password" name="password" required> 
                                     </div> 
 
                                     <div class="password_length_error" style="display:none;">  

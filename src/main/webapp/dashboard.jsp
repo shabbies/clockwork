@@ -1,5 +1,5 @@
-<jsp:include page="_header.jsp" />
-<jsp:include page="_nav.jsp" />
+<%@include file="_header.jsp"%>
+<%@include file="_nav.jsp"%>
 
 <header class="main">
     <div class="header-content">
