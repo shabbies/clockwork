@@ -54,9 +54,12 @@ public class CreatePostServlet extends HttpServlet {
         } catch (ParseException ex){
             ex.printStackTrace();
         }
+        String email = currentUser.getEmail();
+        String token = currentUser.getAuthenticationToken();
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/new");
+        httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("header", header));
         nvps.add(new BasicNameValuePair("company", company));
@@ -64,6 +67,7 @@ public class CreatePostServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("description", description));
         nvps.add(new BasicNameValuePair("location", location));
         nvps.add(new BasicNameValuePair("job_date",jobDate.toString()));
+        nvps.add(new BasicNameValuePair("email", email));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response2 = httpclient.execute(httpPost);
@@ -71,9 +75,15 @@ public class CreatePostServlet extends HttpServlet {
         try {
             // System.out.println(response2.getStatusLine());
             HttpEntity entity2 = response2.getEntity();
-            // do something useful with the response body
-            // and ensure it is fully consumed
-            EntityUtils.consume(entity2);
+            if(response2.getStatusLine().getStatusCode() == 401){
+                String error = "A system error has occurred, please try again";
+                session.setAttribute("error", error);
+                EntityUtils.consume(entity2);
+                response.sendRedirect("/index.jsp");
+                return;
+            } else {
+                EntityUtils.consume(entity2);
+            }
         } finally {
             response2.close();
         }
