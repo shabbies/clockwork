@@ -79,8 +79,8 @@ public class RegisterAccountServlet extends HttpServlet {
         session.setAttribute("currentUser", user);
         
         // Redirection based on initial location
-        String loginSource = String.valueOf(session.getAttribute("loginSource"));
-        if (loginSource != null){
+        if (session.getAttribute("loginSource") != null){
+            String loginSource = (String)session.getAttribute("loginSource");
             if (loginSource.equals("create_new_post")){
                 session.removeAttribute("loginSource");
                 response.sendRedirect("/create_post.jsp");
