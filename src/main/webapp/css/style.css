@@ -818,3 +818,23 @@ body {
     font-weight: 700;
     color: #ee4054;
 }
+
+.register-icon-emp:hover{
+     content: url('../img/register-emp-selected.png');
+}
+
+.register-icon-js:hover{
+     content: url('../img/register-js-selected.png');
+}
+
+
+.register-icon:hover {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.register-icon{
+    border-radius: 300px;          
+    transition: transform .5s,box-shadow .5s;
+}

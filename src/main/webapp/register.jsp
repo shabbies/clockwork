@@ -8,8 +8,11 @@
 
      <div class="row row-centered register-div">
       <div class="col-md-4 col-centered">
-        <div class="text-right">
-         <a class="whitelink" href="register_job_seeker.jsp"><h3>I'm a Job Seeker</h3></a> 
+        <div class="text-center">
+         <a class="whitelink" href="register_job_seeker.jsp">
+           <img src="img/register-js.png" alt="" class="register-icon register-icon-js img-responsive"/>
+           <h3>I'm a Job Seeker</h3>
+         </a> 
        </div>
      </div>
      <div class="col-md-1 col-centered">
@@ -18,8 +21,11 @@
        </div>
      </div>
      <div class="col-md-4 col-centered">
-       <div class="text-left">
-        <a class="whitelink" href="register_employer.jsp"><h3>I'm a Employer</h3></a> 
+       <div class="text-center">
+        <a class="whitelink" href="register_employer.jsp">
+          <img src="img/register-emp.png" alt="" class="register-icon register-icon-emp img-responsive"/>
+          <h3>I'm an Employer</h3>
+        </a> 
       </div>
     </div>
   </div>
