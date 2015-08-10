@@ -1,6 +1,15 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
 
+<!-- Gerald TODO: -->
+<% if (session.getAttribute("error") != null){%>
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  <%=session.getAttribute("error")%>
+</div>
+<!-- END -->
+<%session.removeAttribute("error");}%>
 <header class="main">
     <div class="header-content">
         <div class="header-content-inner">

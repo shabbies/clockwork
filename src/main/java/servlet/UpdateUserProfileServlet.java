@@ -1,8 +1,6 @@
 package servlet;
 
-import controller.UserController;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -21,10 +19,9 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.User;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.message.BasicNameValuePair;
 
 public class UpdateUserProfileServlet extends HttpServlet {
@@ -33,7 +30,6 @@ public class UpdateUserProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String email = (String)request.getParameter("email");
         String username = (String)request.getParameter("username");
         int contactNumber = Integer.parseInt(request.getParameter("contact_number"));
         String address = (String)request.getParameter("address");
@@ -46,38 +42,36 @@ public class UpdateUserProfileServlet extends HttpServlet {
             ex.printStackTrace();
         } 
         
+        User user = (User)session.getAttribute("currentUser");
+  
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/users.json");
-        httpPost.setHeader("Accept", "application/json");
+        HttpPut httpPut = new HttpPut("https://clockwork-api.herokuapp.com/users.json");
+        httpPut.setHeader("Accept", "application/json");
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("user[email]", email));
         nvps.add(new BasicNameValuePair("user[username]", username));
-        nvps.add(new BasicNameValuePair("user[password]", password));
-        nvps.add(new BasicNameValuePair("user[password_confirmation]", passwordConfirmation));
-        nvps.add(new BasicNameValuePair("user[account_type]",accountType));
+        nvps.add(new BasicNameValuePair("user[address]", address));
+        nvps.add(new BasicNameValuePair("user[date_of_birth]", dateOfBirthString));
+        nvps.add(new BasicNameValuePair("user[contact_number]",String.valueOf(contactNumber)));
 
-        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-        CloseableHttpResponse response2 = httpclient.execute(httpPost);
-        User user = null;
+        httpPut.setEntity(new UrlEncodedFormEntity(nvps));
+        CloseableHttpResponse response2 = httpclient.execute(httpPut);
         HttpEntity entity = null;
         try {
             entity = response2.getEntity();  
-            StringWriter writer = new StringWriter();
-            IOUtils.copy(entity.getContent(), writer, "UTF-8");
-            String responseString = writer.toString();
-            if (response2.getStatusLine().getStatusCode() == 201){
-                UserController userController = new UserController();
-                user = userController.createUserFromJSON(responseString);
+            int statusCode = response2.getStatusLine().getStatusCode();
+            if (statusCode == 200){
+                user.setAddress(address);
+                user.setContactNumber(contactNumber);
+                user.setDateOfBirth(dateOfBirth);
+                user.setUsername(username);
             } else {
                 String error;
-                if (responseString.contains("email")){
-                    error = "This email address has already been taken, please use an alternative.";
+                if (statusCode == 401){
+                    error = "The authentication token is invalid.";
                 } else {
-                    error = "This password is too short, please ensure that it is at least 8 characters long";
+                    error = "The email address is in used, please use a different one.";
                 }
                 session.setAttribute("error", error);
-                response.sendRedirect("/index.jsp");
-                return;
             }
             
         } finally {
@@ -85,24 +79,7 @@ public class UpdateUserProfileServlet extends HttpServlet {
             response2.close();
         }
         
-        session.setAttribute("currentUser", user);
-        
-        // Redirection based on initial location
-        if (session.getAttribute("loginSource") != null){
-            String loginSource = (String)session.getAttribute("loginSource");
-            if (loginSource.equals("create_new_post")){
-                session.removeAttribute("loginSource");
-                response.sendRedirect("/create_post.jsp");
-                return;
-            }
-        } else {
-            if (user.getAccountType().equals("employer")){
-                response.sendRedirect("/dashboard.jsp");
-                return;
-            } else {
-                response.sendRedirect("/mydashboard.jsp");
-            }
-        }
+        response.sendRedirect("/dashboard.jsp");
     }
 
 }

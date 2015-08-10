@@ -35,6 +35,10 @@
         <load-on-startup>1</load-on-startup>
     </init-param>
   </servlet>
+  <servlet>  
+    <servlet-name>UpdateUserProfileServlet</servlet-name>
+    <servlet-class>servlet.UpdateUserProfileServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -59,5 +63,9 @@
   <servlet-mapping>
     <servlet-name>FacebookLoginServlet</servlet-name>
     <url-pattern>/FacebookLoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateUserProfileServlet</servlet-name>
+    <url-pattern>/UpdateUserProfileServlet</url-pattern>
   </servlet-mapping>
 </web-app>    
