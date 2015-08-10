@@ -91,7 +91,7 @@ public class RegisterAccountServlet extends HttpServlet {
                 response.sendRedirect("/dashboard.jsp");
                 return;
             } else {
-                response.sendRedirect("/index.jsp");
+                response.sendRedirect("/mydashboard.jsp");
             }
         }
     }
