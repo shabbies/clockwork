@@ -21,10 +21,9 @@
 
                 <li><a class="page-scroll" href="/dashboard.jsp">Hire</a></li>
                 <li><a class="page-scroll" href="#portfolio">How it works</a></li>
-                <% if (session.getAttribute("currentUser") == null){ %>
+                <% if (currentUser == null){ %>
                 <li><button class="btn btn-primary wow tada" onclick="location.href='/login.jsp'">Login / Register</button></li>
-                <% } else { 
-                User currentUser = (User)session.getAttribute("currentUser"); %>
+                <% } else {  %>
                 <li><span>Welcome, <%=currentUser.getUsername()%></span></li>
                 <li><button class="btn btn-primary wow tada" onclick="$('#logout_form').submit();">Logout</button></li>
                 <% } %>

@@ -1,4 +1,4 @@
-<jsp:include page="_header.jsp" />
+<%@include file="_header.jsp"%>
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Post"%>
@@ -6,7 +6,7 @@
 <%  ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList"); 
 if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
 
-<jsp:include page="_nav.jsp" />
+<%@include file="_nav.jsp"%>
 <jsp:include page="_hero.jsp" />
 
 <section id="jobs" ng-controller="jobListCtrl">

@@ -1,3 +1,4 @@
+<%@page import="model.User"%>
 <html>
 
 <head>
@@ -41,6 +42,11 @@
     <script src='fc/fullcalendar.min.js'></script>
     <script src='rating/jquery.raty.js'></script>
 
+    <%  User currentUser = null;
+        if (session.getAttribute("currentUser") != null) {
+            currentUser = (User)session.getAttribute("currentUser");
+        }
+    %>
 </head>
 
 <body id="page-top">
