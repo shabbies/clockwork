@@ -38,39 +38,44 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
                     <div class="row">
                         <div class="col-xs-9">
                             <h4><strong><%=post.getHeader()%></strong></h4>
-                            <h5>Resort World Singapore</h5>
-                        </div>
-                        <span class="job-entry-price pull-right primary"><strong>$<%=post.getSalary()%>/hr</strong></span>
+                            <h5>Resort World Singapore
+                            </br>
+                            <i class="fa fa-map-marker primary"></i> 
+                            Bishan
+                        </h5>
                     </div>
-
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h5><%=post.getDescription()%> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</h5>
-                        </div>
-                    </div>
+                    <span class="job-entry-price pull-right primary"><strong>$<%=post.getSalary()%>/hr</strong></span>
                 </div>
 
-                <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr">
-                 <div class="col-xs-6"> 
-                    <div class="detailIconsDiv">
-                        <ul class="list-inline text-left">
-                            <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-dollar"></i></a></li>
-                            <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-cutlery"></i></a></li>
-                            <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-compass"></i></a></li>
-                        </ul>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5><%=post.getDescription()%> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</h5>
                     </div>
                 </div>
-                <div class="col-xs-6">
-                    <a href="#"  class="btn btn-primary btn pull-right">Apply now <i class="fa fa-check"></i></a>
-                </div>
+            </div>
 
+            <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr">
+
+               <div class="col-xs-6"> 
+                <div class="detailIconsDiv">
+                    <ul class="list-inline text-left">
+                        <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-dollar"></i></a></li>
+                        <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-cutlery"></i></a></li>
+                        <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-compass"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <a href="#"  class="btn btn-primary btn pull-right">Apply now <i class="fa fa-check"></i></a>
             </div>
 
         </div>
 
     </div>
 
-    <%}%>
+</div>
+
+<%}%>
 
 </div>
 
@@ -117,8 +122,8 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
     </div>
     <div class="modal-body">
 
-     <div class="col-md-7 modal-job-details">
-         <div class="col-md-4 text-center">
+       <div class="col-md-7 modal-job-details">
+           <div class="col-md-4 text-center">
             <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
             
             <h2 id="modalSalary">$10/hr</h2>
@@ -141,7 +146,7 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
     </div>
 </div>
 <div class="modal-footer">
- <div class="pull-right" style="padding-right: 15px;">
+   <div class="pull-right" style="padding-right: 15px;">
     <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
     <button type="button" class="btn btn-primary btn-lg">Apply for Job</button>
 </div>
@@ -167,7 +172,7 @@ $(document).on("click", "#open-jobModal", function() {
 });
 
 $('#jobModal').on('shown.bs.modal', function () {
- $("#calendar").fullCalendar('render');
+   $("#calendar").fullCalendar('render');
 });
 </script>
 <!-- End of Job Modal -->
@@ -176,8 +181,8 @@ $('#jobModal').on('shown.bs.modal', function () {
 <script>
 
 $(document).ready(function() {
- $('#jobModal').modal('show');
- $('#calendar').fullCalendar({
+   $('#jobModal').modal('show');
+   $('#calendar').fullCalendar({
     editable: false,
     allDayDefault: true,
     contentHeight: 240,
@@ -215,7 +220,7 @@ $(document).ready(function() {
 });
 
 
-$(".job-entry-desc").dotdotdot({
+   $(".job-entry-desc").dotdotdot({
     /*  The text to add as ellipsis. */
     ellipsis    : '... ',
     /*  How to cut off the text/html: 'word'/'letter'/'children' */
