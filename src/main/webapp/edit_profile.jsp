@@ -20,22 +20,28 @@
 
                             <div class="form-group col-sm-12 text-left"> 
                                 <label for="full-name" class="control-label">Full Name*</label> 
-                                <input id="full-name" class="form-control" type="text" placeholder="Name" name="username" required> 
+                                <input id="full-name" class="form-control" type="text" placeholder="Name" name="username" value="<%=currentUser.getUsername()%>" required> 
                             </div>
 
                             <div class="form-group col-sm-12 text-left"> 
                                 <label for="email" class="control-label">Email Address*</label> 
-                                <input id="email" class="form-control" type="email" placeholder="Email address" name="email" required> 
+                                <input id="email" class="form-control" type="email" placeholder="Email address" name="email" value="<%=currentUser.getEmail()%>" required> 
                             </div>
 
                             <div class="form-group col-sm-12 text-left"> 
                                 <label for="contactnumber" class="control-label">Contact Number</label> 
-                                <input id="contactnumber" class="form-control" type="text" name="contactnumber"> 
+                                <% if (currentUser.getContactNumber() == 0){ %>
+                                <input id="contactnumber" class="form-control" type="text" name="contact_number"> 
+                                <% } else { %>
+                                <input id="contactnumber" class="form-control" type="text" name="contact_number" value="<%=currentUser.getContactNumber()%>" > <%}%>
                             </div>
 
                             <div class="form-group col-sm-12 text-left"> 
                                 <label for="street-address" class="control-label">Street Address</label> 
+                                <% if (currentUser.getAddress() == null){ %>
                                 <input id="street-address" class="form-control" type="text" name="address"> 
+                                <% } else { %>
+                                <input id="street-address" class="form-control" type="text" name="address" value="<%=currentUser.getAddress()%>"><%}%> 
                             </div>
 
 
@@ -43,7 +49,10 @@
                              <label for="dob-date" class="control-label">Date of Birth</label> 
                              <div class="input-group"> 
                                <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
+                               <% if (currentUser.getDateOfBirth() == null){ %>
                                <input id="dob-date" class="form-control" type="date" name="dob_date" required> 
+                               <% } else { %>
+                               <input id="dob-date" class="form-control" type="date" name="dob_date" value="<%=currentUser.getDateOfBirth()%>"required> <% } %>
                            </div> 
                        </div>
 

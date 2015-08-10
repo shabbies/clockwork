@@ -181,7 +181,6 @@ $('#jobModal').on('shown.bs.modal', function () {
 <script>
 
 $(document).ready(function() {
-   $('#jobModal').modal('show');
    $('#calendar').fullCalendar({
     editable: false,
     allDayDefault: true,
