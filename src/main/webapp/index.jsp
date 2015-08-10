@@ -55,6 +55,7 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
             </div>
 
             <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr">
+
                <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
                     <ul class="list-inline text-left">
