@@ -75,6 +75,7 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
         } else {
+            System.out.println(user.getAccountType());
             if (user.getAccountType().equals("employer")){
                 response.sendRedirect("/dashboard.jsp");
                 return;
