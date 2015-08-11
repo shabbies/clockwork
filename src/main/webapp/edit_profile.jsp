@@ -20,7 +20,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <form class="form form-signup" action="/RegisterAccountServlet" method="POST" role="form">
+                            <form class="form form-signup" action="/UpdateUserProfileServlet" method="POST" role="form">
 
                              <div class="text-center">
                                 <img src="http://placehold.it/120x120" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
@@ -34,7 +34,7 @@
 
                             <div class="form-group col-sm-12 text-left"> 
                                 <label for="email" class="control-label">Email Address*</label> 
-                                <input id="email" class="form-control" type="email" placeholder="Email address" name="email" value="<%=currentUser.getEmail()%>" required> 
+                                <input id="email" class="form-control" type="email" placeholder="Email address" name="email" value="<%=currentUser.getEmail()%>" required disabled> 
                             </div>
 
                             <div class="form-group col-sm-12 text-left"> 

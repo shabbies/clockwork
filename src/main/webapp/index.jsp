@@ -2,6 +2,7 @@
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Post"%>
+<%@ page import="java.util.Date"%>
 
 <%  ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList"); 
 if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
@@ -30,6 +31,9 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
         </div>
 
         <%for (Post post : postList){%>
+        <%  Date jobDate = post.getJobDate(); 
+            String jobDateString = jobDate.toString();
+        %>
 
         <div class="col-lg-4">
 
@@ -38,10 +42,10 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
                     <div class="row">
                         <div class="col-xs-9">
                             <h4><strong><%=post.getHeader()%></strong></h4>
-                            <h5>Resort World Singapore
+                            <h5><%=post.getCompany()%>
                             </br>
                             <i class="fa fa-map-marker primary"></i> 
-                            Bishan
+                            <%=post.getLocation()%>
                         </h5>
                     </div>
                     <span class="job-entry-price pull-right primary"><strong>$<%=post.getSalary()%>/hr</strong></span>
@@ -49,12 +53,12 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <h5><%=post.getDescription()%> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</h5>
+                        <h5><%=post.getDescription()%></h5>
                     </div>
                 </div>
             </div>
 
-            <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr">
+            <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-jobDate="<%=post.getJobDateString()%>">
 
                <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
@@ -131,8 +135,8 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
 
         <div class="col-md-8">
             <h4 id="modalHeader"><strong>Bellboy</strong> @ HardRock Hotel</h4>
-            <h5>Resort World Singapore</h5>
-            <h5>21/08/2015</h5>
+            <h5 id="modalLocation">Resort World Singapore</h5>
+            <h5 id="modalDate">21/08/2015</h5>
 
             <h5 id="modalDesc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.
             </h5>
@@ -161,12 +165,20 @@ $(document).on("click", "#open-jobModal", function() {
     var headerText = $(this).data('header');
     var descText = $(this).data('desc');
     var salaryText = $(this).data('salary');
+    var companyText = $(this).data('company');
+    var locationText = $(this).data('location');
+    var jobDateText = $(this).data("jobDate");
 
     $('#jobModalLabel').html(headerText);
     $('#modalHeader').html(headerText);
     $('#modalDesc').html(descText);
     $('#modalSalary').html(salaryText);
+    $('#modalDesc').html(descText);
+    $('#modalCompany').html(companyText);
+    $('#modalLocation').html(locationText);
+    $('#modalDate').html(jobDateText);
 
+    alert(jobDateText);
 
     $('#jobModal').modal('show');
 });

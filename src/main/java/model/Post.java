@@ -1,5 +1,7 @@
 package model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Post {
@@ -86,5 +88,10 @@ public class Post {
 
     public void setJobDate(Date jobDate) {
         this.jobDate = jobDate;
+    }
+    
+    public String getJobDateString(){
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        return df.format(jobDate);
     }
 }

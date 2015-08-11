@@ -13,7 +13,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import javax.servlet.http.HttpSession;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpDelete;
 
 public class LogoutServlet extends HttpServlet {
 
@@ -22,9 +22,9 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/users/sign_out.json");
-        httpPost.setHeader("Accept", "application/json");
-        CloseableHttpResponse response2 = httpClient.execute(httpPost);
+        HttpDelete httpDelete = new HttpDelete("https://clockwork-api.herokuapp.com/users/sign_out.json");
+        httpDelete.setHeader("Accept", "application/json");
+        CloseableHttpResponse response2 = httpClient.execute(httpDelete);
 
         try {
             HttpEntity entity2 = response2.getEntity();   

@@ -1,5 +1,6 @@
 package servlet;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ import model.User;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 
 public class UpdateUserProfileServlet extends HttpServlet {
@@ -30,9 +32,21 @@ public class UpdateUserProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String username = (String)request.getParameter("username");
-        int contactNumber = Integer.parseInt(request.getParameter("contact_number"));
-        String address = (String)request.getParameter("address");
+        User currentUser = (User)session.getAttribute("currentUser");
+        String token = currentUser.getAuthenticationToken();
+        String email = currentUser.getEmail();
+        String username = null;
+        if (!(request.getParameter("username").equals(""))){
+            username = (String)request.getParameter("username");
+        }
+        int contactNumber = 0;
+        if (!(request.getParameter("contact_number").equals(""))){
+            contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
+        } 
+        String address = null;
+        if (!(request.getParameter("address").equals(""))){
+            address = (String)request.getParameter("address");
+        }
         String dateOfBirthString = (String)request.getParameter("dob_date");
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date dateOfBirth = null;
@@ -40,19 +54,25 @@ public class UpdateUserProfileServlet extends HttpServlet {
             dateOfBirth = df.parse(dateOfBirthString);
         } catch (ParseException ex){
             ex.printStackTrace();
-        } 
+        }
         
-        User user = (User)session.getAttribute("currentUser");
-  
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPut httpPut = new HttpPut("https://clockwork-api.herokuapp.com/users.json");
         httpPut.setHeader("Accept", "application/json");
+        httpPut.setHeader("Cache-Control", "max-age=0, private, must-revalidate");
+        httpPut.setHeader("Authentication-Token", token);
+        
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+        nvps.add(new BasicNameValuePair("user[email]", email));
         nvps.add(new BasicNameValuePair("user[username]", username));
         nvps.add(new BasicNameValuePair("user[address]", address));
         nvps.add(new BasicNameValuePair("user[date_of_birth]", dateOfBirthString));
-        nvps.add(new BasicNameValuePair("user[contact_number]",String.valueOf(contactNumber)));
-
+        if (contactNumber != 0){
+            nvps.add(new BasicNameValuePair("user[contact_number]", String.valueOf(contactNumber)));
+        } else {
+            nvps.add(new BasicNameValuePair("user[contact_number]", ""));
+        }
+        
         httpPut.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response2 = httpclient.execute(httpPut);
         HttpEntity entity = null;
@@ -60,10 +80,10 @@ public class UpdateUserProfileServlet extends HttpServlet {
             entity = response2.getEntity();  
             int statusCode = response2.getStatusLine().getStatusCode();
             if (statusCode == 200){
-                user.setAddress(address);
-                user.setContactNumber(contactNumber);
-                user.setDateOfBirth(dateOfBirth);
-                user.setUsername(username);
+                currentUser.setAddress(address);
+                currentUser.setContactNumber(contactNumber);
+                currentUser.setDateOfBirth(dateOfBirth);
+                currentUser.setUsername(username);
             } else {
                 String error;
                 if (statusCode == 401){
