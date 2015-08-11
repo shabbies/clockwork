@@ -3,6 +3,8 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -38,13 +40,17 @@ public class UserManager {
         }
         int contactNumber = 0;
         if (userHash.get("contact_number") != null){
-            contactNumber = Integer.parseInt((String)userHash.get("contact_number"));
+            contactNumber = ((Double)userHash.get("contact_number")).intValue();
         }
         Date dateOfBirth = null;
         if (userHash.get("date_of_birth") != null){
-            contactNumber = Integer.parseInt((String)userHash.get("contact_number"));
-            Type dateType = new TypeToken<Date>(){}.getType();
-            dateOfBirth = gson.fromJson((String)userHash.get("date_of_birth"), dateType);
+            String dateOfBirthString = (String)userHash.get("date_of_birth");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                dateOfBirth = df.parse(dateOfBirthString);
+            } catch (ParseException ex){
+                ex.printStackTrace();
+            }
         }
         User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth);
         return user;

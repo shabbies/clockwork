@@ -1,6 +1,5 @@
 package servlet;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,8 +21,7 @@ import javax.servlet.http.HttpSession;
 import model.User;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.StringEntity;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
 public class UpdateUserProfileServlet extends HttpServlet {
@@ -35,18 +33,12 @@ public class UpdateUserProfileServlet extends HttpServlet {
         User currentUser = (User)session.getAttribute("currentUser");
         String token = currentUser.getAuthenticationToken();
         String email = currentUser.getEmail();
-        String username = null;
-        if (!(request.getParameter("username").equals(""))){
-            username = (String)request.getParameter("username");
-        }
+        String username = (String)request.getParameter("username");
         int contactNumber = 0;
         if (!(request.getParameter("contact_number").equals(""))){
             contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
         } 
-        String address = null;
-        if (!(request.getParameter("address").equals(""))){
-            address = (String)request.getParameter("address");
-        }
+        String address = (String)request.getParameter("address");
         String dateOfBirthString = (String)request.getParameter("dob_date");
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date dateOfBirth = null;
@@ -57,40 +49,33 @@ public class UpdateUserProfileServlet extends HttpServlet {
         }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPut httpPut = new HttpPut("https://clockwork-api.herokuapp.com/users.json");
-        httpPut.setHeader("Accept", "application/json");
-        httpPut.setHeader("Cache-Control", "max-age=0, private, must-revalidate");
-        httpPut.setHeader("Authentication-Token", token);
+        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/update");
+        httpPost.setHeader("Authentication-Token", token);
         
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("user[email]", email));
-        nvps.add(new BasicNameValuePair("user[username]", username));
-        nvps.add(new BasicNameValuePair("user[address]", address));
-        nvps.add(new BasicNameValuePair("user[date_of_birth]", dateOfBirthString));
+        nvps.add(new BasicNameValuePair("email", email));
+        nvps.add(new BasicNameValuePair("username", username));
+        nvps.add(new BasicNameValuePair("address", address));
+        nvps.add(new BasicNameValuePair("date_of_birth", dateOfBirthString));
         if (contactNumber != 0){
-            nvps.add(new BasicNameValuePair("user[contact_number]", String.valueOf(contactNumber)));
+            nvps.add(new BasicNameValuePair("contact_number", String.valueOf(contactNumber)));
         } else {
-            nvps.add(new BasicNameValuePair("user[contact_number]", ""));
+            nvps.add(new BasicNameValuePair("contact_number", ""));
         }
         
-        httpPut.setEntity(new UrlEncodedFormEntity(nvps));
-        CloseableHttpResponse response2 = httpclient.execute(httpPut);
+        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        CloseableHttpResponse response2 = httpclient.execute(httpPost);
         HttpEntity entity = null;
         try {
             entity = response2.getEntity();  
             int statusCode = response2.getStatusLine().getStatusCode();
-            if (statusCode == 200){
+            if (statusCode == 201){
                 currentUser.setAddress(address);
                 currentUser.setContactNumber(contactNumber);
                 currentUser.setDateOfBirth(dateOfBirth);
                 currentUser.setUsername(username);
             } else {
-                String error;
-                if (statusCode == 401){
-                    error = "The authentication token is invalid.";
-                } else {
-                    error = "The email address is in used, please use a different one.";
-                }
+                String error = "The authentication token is invalid.";
                 session.setAttribute("error", error);
             }
             
@@ -99,7 +84,7 @@ public class UpdateUserProfileServlet extends HttpServlet {
             response2.close();
         }
         
-        response.sendRedirect("/dashboard.jsp");
+        response.sendRedirect("/edit_profile.jsp");
     }
 
 }

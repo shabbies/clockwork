@@ -61,7 +61,7 @@
                                <% if (currentUser.getDateOfBirth() == null){ %>
                                <input id="dob-date" class="form-control" type="date" name="dob_date" required> 
                                <% } else { %>
-                               <input id="dob-date" class="form-control" type="date" name="dob_date" value="<%=currentUser.getDateOfBirth()%>"required> <% } %>
+                               <input id="dob-date" class="form-control" type="date" name="dob_date" value="<%=currentUser.getDateOfBirthString()%>"required> <% } %>
                            </div> 
                        </div>
 
@@ -84,6 +84,8 @@
                         <input id="old-password" class="form-control" type="password" placeholder="Password" name="password" required> 
 
                     </div>
+                    
+                    
                     <div class="form-group col-sm-12 text-left"> 
                         <label for="new-password" class="control-label">New Password</label> 
 
