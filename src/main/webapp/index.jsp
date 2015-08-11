@@ -27,7 +27,7 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
     <div class="container">
 
         <div class="col-lg-12 search-label"> 
-            <h3>Search Results for "<span>goodie bag</span>"</h3>                             
+            <h3 class="hidden">Search Results for "<span>goodie bag</span>"</h3>                             
         </div>
 
         <%for (Post post : postList){%>

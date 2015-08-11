@@ -46,7 +46,7 @@ h3,
 h4,
 h5,
 h6 {
- font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; 
+   font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; 
 }
 
 p {
@@ -98,7 +98,7 @@ aside {
 }
 
 .navbar-nav i {
- color:#ee4054 !important;
+   color:#ee4054 !important;
 } 
 
 .navbar {
@@ -120,11 +120,11 @@ aside {
   }
 
   .modal-job-details{
-   padding-right: 0px;
-   padding-left: 0px;
-}
+     padding-right: 0px;
+     padding-left: 0px;
+ }
 
-.modal-job-calendar{
+ .modal-job-calendar{
     margin-top: 40px;
 }
 }
@@ -699,7 +699,7 @@ body {
 }
 
 .modal-footer {
-   border-top: none;
+ border-top: none;
 }
 
 .cursor-pointer{
@@ -721,12 +721,12 @@ body {
 }
 
 #calendar{
- margin-top: 10px;
- margin-bottom: 10px;
+   margin-top: 10px;
+   margin-bottom: 10px;
 }
 
 .fc h2 {
-   font-size: 20px;
+ font-size: 20px;
 }
 
 .fc-today {
@@ -753,15 +753,15 @@ body {
 }
 
 .db-default-badge{
- display: inline-block;
- border-radius: 300px;
- text-transform: uppercase;
- /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
- font-weight: 700;
- padding: 9px 12px;
- font-size: 14px;
- width: 150px;
- cursor: default;
+   display: inline-block;
+   border-radius: 300px;
+   text-transform: uppercase;
+   /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
+   font-weight: 700;
+   padding: 9px 12px;
+   font-size: 14px;
+   width: 150px;
+   cursor: default;
 }
 
 .db-job-table a, .btn-hire{
@@ -775,8 +775,8 @@ body {
 }
 
 .alert{
- margin-bottom: 0;
- text-align: center;   
+   margin-bottom: 0;
+   text-align: center;   
 }
 
 .password_length_error {
@@ -795,7 +795,7 @@ body {
 }
 
 .profile-div .panel{
- padding: 0px;
+   padding: 0px;
 }
 
 .profile-div img{
@@ -820,11 +820,11 @@ body {
 }
 
 .register-icon-emp:hover{
- content: url('../img/register-emp-selected.png');
+   content: url('../img/register-emp-selected.png');
 }
 
 .register-icon-js:hover{
- content: url('../img/register-js-selected.png');
+   content: url('../img/register-js-selected.png');
 }
 
 
@@ -869,4 +869,9 @@ body {
     box-shadow: none !important;
 }
 
+.heroimg{
+    padding-top:30px;
+    padding-bottom:10px;
+    margin: 0 auto;
+}
 
