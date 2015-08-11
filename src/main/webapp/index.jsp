@@ -60,7 +60,7 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
 
             <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>">
 
-             <div class="col-xs-6"> 
+               <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
                     <ul class="list-inline text-left">
                         <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-dollar"></i></a></li>
@@ -126,8 +126,8 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
     </div>
     <div class="modal-body">
 
-     <div class="col-md-7 modal-job-details">
-         <div class="col-md-4 text-center">
+       <div class="col-md-7 modal-job-details">
+           <div class="col-md-4 text-center">
             <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
             
             <h2 id="modalSalary">$10/hr</h2>
@@ -150,7 +150,7 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
     </div>
 </div>
 <div class="modal-footer">
- <div class="pull-right" style="padding-right: 15px;">
+   <div class="pull-right" style="padding-right: 15px;">
     <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
     <button type="button" class="btn btn-primary btn-lg">Apply for Job</button>
 </div>
@@ -182,7 +182,7 @@ $(document).on("click", "#open-jobModal", function() {
 });
 
 $('#jobModal').on('shown.bs.modal', function () {
- $("#calendar").fullCalendar('render');
+   $("#calendar").fullCalendar('render');
 });
 </script>
 <!-- End of Job Modal -->
@@ -191,7 +191,7 @@ $('#jobModal').on('shown.bs.modal', function () {
 <script>
 
 $(document).ready(function() {
- $('#calendar').fullCalendar({
+   $('#calendar').fullCalendar({
     editable: false,
     allDayDefault: true,
     contentHeight: 240,
@@ -229,7 +229,7 @@ $(document).ready(function() {
 });
 
 
- $(".job-entry-desc").dotdotdot({
+   $(".job-entry-desc").dotdotdot({
     /*  The text to add as ellipsis. */
     ellipsis    : '... ',
     /*  How to cut off the text/html: 'word'/'letter'/'children' */
@@ -261,7 +261,6 @@ $(document).ready(function() {
 
 $(function() {
   $('.job-entry').hover(function() {
-    $('b').css('background-color', 'yellow');
     $(this).find(".job-entry-apply").css( "background-color", "#ee4054") 
 }, function() {
   $(this).find( ".job-entry-apply").css( "background-color", "") 
