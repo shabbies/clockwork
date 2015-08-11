@@ -35,6 +35,7 @@ public class LogoutServlet extends HttpServlet {
         String message = "You have successfully logged out.";
         session.setAttribute("message", message);
         session.removeAttribute("currentUser");
+        session.removeAttribute("appController");
         response.sendRedirect("/index.jsp");
     }
 

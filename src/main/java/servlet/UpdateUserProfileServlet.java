@@ -74,17 +74,16 @@ public class UpdateUserProfileServlet extends HttpServlet {
                 currentUser.setContactNumber(contactNumber);
                 currentUser.setDateOfBirth(dateOfBirth);
                 currentUser.setUsername(username);
+                String message = "Your profile has been successfully updated.";
+                session.setAttribute("message", message);
             } else {
                 String error = "The authentication token is invalid.";
                 session.setAttribute("error", error);
             }
-            
         } finally {
             EntityUtils.consume(entity);
             response2.close();
         }
-        
         response.sendRedirect("/edit_profile.jsp");
     }
-
 }

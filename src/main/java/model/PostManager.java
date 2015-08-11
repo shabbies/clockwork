@@ -13,10 +13,28 @@ import java.util.Locale;
 
 public class PostManager {
 
-    private ArrayList postList;
+    private ArrayList <Post> postList;
+    private ArrayList <Post> publishedList;
     
     public PostManager(){
         postList = new ArrayList <Post> ();
+        publishedList = new ArrayList <Post> ();
+    }
+    
+    public void setPostList(ArrayList <Post> postList){
+        this.postList = postList;
+    }
+    
+    public ArrayList <Post> getPostList (){
+        return postList;
+    }
+    
+    public void setPublishedList (ArrayList <Post> publishedList){
+        this.publishedList = publishedList;
+    }
+    
+    public ArrayList <Post> getPublishedList (){
+        return publishedList;
     }
     
     public Post createNewPostFromJSON(String jsonString){
@@ -25,7 +43,8 @@ public class PostManager {
         return post;
     }
     
-    public ArrayList createPostArrayFromJSON(String jsonString){
+    public ArrayList <Post> createPostArrayFromJSON(String jsonString){
+        ArrayList <Post> newPostList = new ArrayList <Post> ();
         Gson gson = new Gson();
         Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
         ArrayList <HashMap<String, Object>> postsHash = gson.fromJson(jsonString, listType);
@@ -43,8 +62,8 @@ public class PostManager {
             Post post = createNewPostFromJSON(postString);
             post.setJobDate(jobDate);
             post.setPostingDate(postingDate);
-            postList.add(post);
+            newPostList.add(post);
         }
-        return postList;
+        return newPostList;
     }
 }

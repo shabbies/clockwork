@@ -1,5 +1,10 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.Post"%>
+
+<%  ArrayList <Post> publishedList = (ArrayList <Post>)session.getAttribute("publishedList"); 
+    if (publishedList == null){ %><jsp:forward page="/GetAllListedJobsServlet" /><%} else { session.removeAttribute("publishedList"); }%> 
 
 <header class="main">
     <div class="header-content">
@@ -45,6 +50,14 @@
                                 <td><a href="/listing.jsp?completed=true" class="btn btn-success"> Click to Review</a></td>
                                
                             </tr>
+                            <% for (Post post : publishedList){%>
+                            <tr> 
+                                <td><%=post.getHeader()%></td>
+                                <td><%=post.getJobDateString()%></td>
+                                <td><span class="badge db-default-badge">Completed</span></td>
+                                <td><a href="/listing.jsp?completed=true" class="btn btn-success"> Click to Review</a></td>
+                            </tr>
+                            <%}%>
                         </tbody>
 
                     </table>

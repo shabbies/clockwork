@@ -3,7 +3,7 @@
 
 <%@ page import="model.User"%>
 
-<%  User currentUser = (User)session.getAttribute("currentUser");
+<%  
 if (currentUser == null){
 session.setAttribute("error", "Please login or register first before posting a job");
 response.sendRedirect("/login.jsp");

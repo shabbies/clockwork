@@ -1,5 +1,6 @@
 package servlet;
 
+import controller.AppController;
 import controller.PostController;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +27,19 @@ public class GetAllPostsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        // preparing variables
         HttpSession session = request.getSession();
+        AppController appController = null;
+        if (session.getAttribute("appController") == null){
+            appController = new AppController();
+            session.setAttribute("appController", appController);
+        } else {
+            appController = (AppController)session.getAttribute("appController");
+        }
+        PostController postController = appController.getPostController();
+        
+        // httpget request
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("https://clockwork-api.herokuapp.com/api/v1/posts/all.json");
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
@@ -37,8 +50,7 @@ public class GetAllPostsServlet extends HttpServlet {
             InputStream readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
             String theString = writer.toString();
-            PostController postController = new PostController();
-            postList = postController.createPostFromJSON(theString);
+            postList = postController.loadPostList(theString);
             EntityUtils.consume(entity);
             IOUtils.closeQuietly(readingStream);
         } finally {
@@ -46,25 +58,5 @@ public class GetAllPostsServlet extends HttpServlet {
         }
         session.setAttribute("postList", postList);
         response.sendRedirect("/index.jsp");
-
-        
-        /*CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("http://targethost/login");
-        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("username", "vip"));
-        nvps.add(new BasicNameValuePair("password", "secret"));
-        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-        CloseableHttpResponse response2 = httpclient.execute(httpPost);
-
-        try {
-            System.out.println(response2.getStatusLine());
-            HttpEntity entity2 = response2.getEntity();
-            // do something useful with the response body
-            // and ensure it is fully consumed
-            EntityUtils.consume(entity2);
-        } finally {
-            response2.close();
-        }*/
     }
-
 }
