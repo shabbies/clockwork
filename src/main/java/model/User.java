@@ -1,5 +1,7 @@
 package model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User {
@@ -91,5 +93,10 @@ public class User {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+    
+    public String getDateOfBirthString(){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(dateOfBirth);
     }
 }
