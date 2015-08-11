@@ -261,9 +261,12 @@ $(document).ready(function() {
 
 $(function() {
   $('.job-entry').hover(function() {
-    $(this).find(".job-entry-apply").css( "background-color", "#ee4054") 
+    $(this).find(".job-entry-apply").css( "background-color", "#ee4054"); 
+    $(this).find("a").removeClass("whitelink"); 
+  
 }, function() {
   $(this).find( ".job-entry-apply").css( "background-color", "") 
+  $(this).find("a").addClass("whitelink"); 
 });
 });
 
