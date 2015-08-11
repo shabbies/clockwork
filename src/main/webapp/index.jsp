@@ -27,7 +27,7 @@
     <div class="container">
 
         <div class="col-lg-12 search-label"> 
-            <h3>Search Results for "<span>goodie bag</span>"</h3>                             
+            <h3 class="hidden">Search Results for "<span>goodie bag</span>"</h3>                             
         </div>
 
         <%for (Post post : postList){%>
@@ -261,9 +261,12 @@ $(document).ready(function() {
 
 $(function() {
   $('.job-entry').hover(function() {
-    $(this).find(".job-entry-apply").css( "background-color", "#ee4054") 
+    $(this).find(".job-entry-apply").css( "background-color", "#ee4054"); 
+    $(this).find("a").removeClass("whitelink"); 
+  
 }, function() {
   $(this).find( ".job-entry-apply").css( "background-color", "") 
+  $(this).find("a").addClass("whitelink"); 
 });
 });
 
