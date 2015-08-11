@@ -862,3 +862,11 @@ body {
     background-color: #ee4054;  
 }
 
+*:focus {
+    outline: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+
