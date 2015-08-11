@@ -53,7 +53,7 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <h5><%=post.getDescription()%></h5>
+                        <h5 class="font-normal"><%=post.getDescription()%></h5>
                     </div>
                 </div>
             </div>

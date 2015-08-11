@@ -848,8 +848,17 @@ body {
     padding-top: 10px;
 }
 
+.job-entry-desc h5{
+    text-transform: capitalize;
+}
+
+.font-normal{
+    text-transform: none !important;
+}
+
 .btnnohover:hover{
     border-color: #ee4054;
     color: #fff;
     background-color: #ee4054;  
 }
+
