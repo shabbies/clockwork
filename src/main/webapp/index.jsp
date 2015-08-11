@@ -58,7 +58,7 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
                 </div>
             </div>
 
-            <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-jobDate="<%=post.getJobDateString()%>">
+            <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>">
 
                <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
@@ -136,7 +136,7 @@ if (postList == null){%><jsp:forward page="/GetAllPostsServlet" /><%}%>
         <div class="col-md-8">
             <h4 id="modalHeader"><strong>Bellboy</strong> @ HardRock Hotel</h4>
             <h5 id="modalLocation">Resort World Singapore</h5>
-            <h5 id="modalDate">21/08/2015</h5>
+            <h5 id="modalDatePosted">21/08/2015</h5>
 
             <h5 id="modalDesc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.
             </h5>
@@ -167,7 +167,7 @@ $(document).on("click", "#open-jobModal", function() {
     var salaryText = $(this).data('salary');
     var companyText = $(this).data('company');
     var locationText = $(this).data('location');
-    var jobDateText = $(this).data("jobDate");
+    var jobDateText = $(this).data("dateposted");
 
     $('#jobModalLabel').html(headerText);
     $('#modalHeader').html(headerText);
@@ -176,9 +176,7 @@ $(document).on("click", "#open-jobModal", function() {
     $('#modalDesc').html(descText);
     $('#modalCompany').html(companyText);
     $('#modalLocation').html(locationText);
-    $('#modalDate').html(jobDateText);
-
-    alert(jobDateText);
+    $('#modalDatePosted').html(jobDateText);
 
     $('#jobModal').modal('show');
 });
