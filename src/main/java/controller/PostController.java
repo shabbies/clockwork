@@ -23,4 +23,8 @@ public class PostController {
         postManager.setPublishedList(postList);
         return postList;
     }
+    
+    public Post getPost(int postID){
+        return postManager.getPostFromHash(postID);
+    }
 }

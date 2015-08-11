@@ -15,10 +15,16 @@ public class PostManager {
 
     private ArrayList <Post> postList;
     private ArrayList <Post> publishedList;
+    private HashMap <Integer, Post> postMap;
     
     public PostManager(){
         postList = new ArrayList <Post> ();
         publishedList = new ArrayList <Post> ();
+        postMap = new HashMap <Integer, Post> ();
+    }
+    
+    public Post getPostFromHash(int postID){
+        return postMap.get(postID);
     }
     
     public void setPostList(ArrayList <Post> postList){
@@ -63,6 +69,7 @@ public class PostManager {
             post.setJobDate(jobDate);
             post.setPostingDate(postingDate);
             newPostList.add(post);
+            postMap.put(post.getId(), post);
         }
         return newPostList;
     }

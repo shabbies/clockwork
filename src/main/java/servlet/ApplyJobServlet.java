@@ -71,7 +71,7 @@ public class ApplyJobServlet extends HttpServlet {
         }
         String message = "You have successfully applied for this job!";
         session.setAttribute("message", message);
-        response.sendRedirect("/post.jsp#" + postID);
+        response.sendRedirect("/post.jsp?id=" + postID);
     }
 
 }

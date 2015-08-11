@@ -47,6 +47,10 @@
     <servlet-name>ApplyJobServlet</servlet-name>
     <servlet-class>servlet.ApplyJobServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>GetPostServlet</servlet-name>
+    <servlet-class>servlet.GetPostServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -83,5 +87,9 @@
   <servlet-mapping>
     <servlet-name>ApplyJobServlet</servlet-name>
     <url-pattern>/ApplyJobServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetPostServlet</servlet-name>
+    <url-pattern>/GetPostServlet</url-pattern>
   </servlet-mapping>
 </web-app>    

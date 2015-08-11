@@ -2,10 +2,17 @@
 <%@include file="_nav.jsp"%>
 
 <%@ page import="model.User"%>
+<%@ page import="model.Post"%>
 
 <header class="main">
   <div class="header-content">
     <div class="header-content-inner">
+        <%  String postID = request.getParameter("id");
+            String formURL = "/GetPostServlet?id=" + postID;
+            Post post = (Post)session.getAttribute("post");
+           if (post == null){%>
+           <jsp:forward page="<%=formURL%>" />
+        <%} else { session.removeAttribute("post");}%>
         <% if (session.getAttribute("error") != null){%>
         <div class="alert alert-danger" role="alert">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -20,7 +27,7 @@
           <%=session.getAttribute("message")%>
         </div>
         <%session.removeAttribute("message");}%>
-      <h2 class="text-center"><strong>Bellboy</strong> @ HardRock Hotel</h2>
+      <h2 class="text-center"><strong><%=post.getHeader()%></strong> @ <%=post.getCompany()%></h2>
 
       <div class="row">
         <div class="col-md-12">
@@ -30,18 +37,15 @@
                <div class="col-md-4 text-center">
                 <img src="http://placehold.it/200x200" alt="" class="db-user-pic img-rounded img-responsive"/>
 
-                <h1 id="modalSalary">$10/hr</h1>
+                <h1 id="modalSalary"><%=post.getSalary()%></h1>
               </div>
 
               <div class="col-md-8">
-               <h4 id="modalHeader"><strong>Bellboy</strong> @ HardRock Hotel</h4>
-               <h4>Resort World Singapore</h4>
-               <h4>21/08/2015</h4>
+               <h4 id="modalHeader"><strong><%=post.getHeader()%></strong> @ <%=post.getCompany()%></h4>
+               <h4><%=post.getLocation()%></h4>
+               <h4><%=post.getJobDateString()%></h4>
 
-               <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.
-               </h5>
-             </div>
-
+               <h5><%=post.getDescription()%>
            </div>
 
            <div class="col-md-5 modal-job-calendar">
