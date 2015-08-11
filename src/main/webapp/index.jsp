@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>">
+            <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-id="<%=post.getId()%>">
 
              <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
@@ -152,7 +152,10 @@
 <div class="modal-footer">
  <div class="pull-right" style="padding-right: 15px;">
     <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary btn-lg">Apply for Job</button>
+    <form action="/ApplyJobServlet" method="POST">
+        <input type="text" id="hiddenJobID" hidden value="" name="post_id"/>
+        <input type="submit" class="btn btn-primary btn-lg" value="Apply for Job"/>
+    </form>
 </div>
 </div>
 </div>
@@ -168,6 +171,7 @@ $(document).on("click", "#open-jobModal", function() {
     var companyText = $(this).data('company');
     var locationText = $(this).data('location');
     var jobDateText = $(this).data("dateposted");
+    var id = $(this).data("id");
 
     $('#jobModalLabel').html(headerText);
     $('#modalHeader').html("<strong>"+headerText+"</strong>");
@@ -177,6 +181,7 @@ $(document).on("click", "#open-jobModal", function() {
     $('#modalCompany').html(companyText);
     $('#modalLocation').html(" <i class=\"fa fa-map-marker primary\"></i> "+locationText);
     $('#modalDatePosted').html(jobDateText);
+    $('#hiddenJobID').val(id);
 
     $('#jobModal').modal('show');
 });

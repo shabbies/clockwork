@@ -34,6 +34,7 @@ public class CreatePostServlet extends HttpServlet {
         User currentUser = (User)session.getAttribute("currentUser");
         if (currentUser == null){
             session.setAttribute("error", "Please login or register first before posting a job");
+            session.setAttribute("loginSource", "create_new_post");
             response.sendRedirect("/login.jsp");
             return;
         } else if (!currentUser.getAccountType().equals("employer")){

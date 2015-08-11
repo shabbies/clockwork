@@ -14,8 +14,7 @@
                               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                               <%=session.getAttribute("error")%>
                           </div>
-                          <%  session.removeAttribute("error");
-                          session.setAttribute("loginSource", "create_new_post");}%>
+                          <%  session.removeAttribute("error");}%>
 
                           <h2 class="text-center primary">Login</h2>
 

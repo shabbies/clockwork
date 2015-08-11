@@ -4,7 +4,15 @@
 <%@ page import="model.Post"%>
 
 <%  ArrayList <Post> publishedList = (ArrayList <Post>)session.getAttribute("publishedList"); 
-    if (publishedList == null){ %><jsp:forward page="/GetAllListedJobsServlet" /><%} else { session.removeAttribute("publishedList"); }%> 
+    if (publishedList == null){ %>
+        <jsp:forward page="/GetAllListedJobsServlet" />
+    <%} else { 
+        session.removeAttribute("publishedList");
+    }       
+    if (currentUser == null){
+        session.setAttribute("error", "Please login before proceeding");
+        response.sendRedirect("/login.jsp");
+        return;}%> 
 
 <header class="main">
     <div class="header-content">
