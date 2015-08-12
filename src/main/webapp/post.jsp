@@ -7,26 +7,26 @@
 <header class="main">
   <div class="header-content">
     <div class="header-content-inner">
-        <%  String postID = request.getParameter("id");
-            String formURL = "/GetPostServlet?id=" + postID;
-            Post post = (Post)session.getAttribute("post");
-           if (post == null){%>
-           <jsp:forward page="<%=formURL%>" />
-        <%} else { session.removeAttribute("post");}%>
-        <% if (session.getAttribute("error") != null){%>
-        <div class="alert alert-danger" role="alert">
-          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="sr-only">Error:</span>
-          <%=session.getAttribute("error")%>
-        </div>
-        <%session.removeAttribute("error");}%>
-        <% if (session.getAttribute("message") != null){%>
-        <div class="alert alert-danger" role="alert">
-          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="sr-only">Error:</span>
-          <%=session.getAttribute("message")%>
-        </div>
-        <%session.removeAttribute("message");}%>
+      <%  String postID = request.getParameter("id");
+      String formURL = "/GetPostServlet?id=" + postID;
+      Post post = (Post)session.getAttribute("post");
+      if (post == null){%>
+      <jsp:forward page="<%=formURL%>" />
+      <%} else { session.removeAttribute("post");}%>
+      <% if (session.getAttribute("error") != null){%>
+      <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        <%=session.getAttribute("error")%>
+      </div>
+      <%session.removeAttribute("error");}%>
+      <% if (session.getAttribute("message") != null){%>
+      <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        <%=session.getAttribute("message")%>
+      </div>
+      <%session.removeAttribute("message");}%>
       <h2 class="text-center"><strong><%=post.getHeader()%></strong> @ <%=post.getCompany()%></h2>
 
       <div class="row">
@@ -45,9 +45,9 @@
                <h4><%=post.getLocation()%></h4>
                <h4><%=post.getJobDateString()%></h4>
 
-               <h5><%=post.getDescription()%>
+               <h5><%=post.getDescription()%></h5>
+             </div>
            </div>
-
            <div class="col-md-5 modal-job-calendar">
             <h4><strong>Schedule for the Month</strong></h4>
             <div id="calendar"></div>
@@ -55,7 +55,7 @@
 
           <div class="text-center">
             <button type="button" class="btn btn-primary btn-lg">Apply for Job</button>
-             <button type="button" class="btn btn-warning btn-lg hidden">Edit Job</button>
+            <button type="button" class="btn btn-warning btn-lg hidden">Edit Job</button>
           </div>
 
         </div>
