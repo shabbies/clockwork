@@ -16,21 +16,26 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                
-                <li><a class="page-scroll" href="/mydashboard.jsp">Work <i class="fa fa-fw fa-bell hidden"></i></a></li>
 
-                <li><a class="page-scroll" href="/dashboard.jsp">Hire</a></li>
-                <li><a class="page-scroll" href="#portfolio">How it works</a></li>
-                <% if (currentUser == null){ %>
-                <li><button class="btn btn-primary wow tada" onclick="location.href='/login.jsp'">Login / Register</button></li>
-                <% } else {  %>
-                <li><span>Welcome, <%=currentUser.getUsername()%></span></li>
-                <li><button class="btn btn-primary wow tada" onclick="$('#logout_form').submit();">Logout</button></li>
-                <% } %>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
+               <% if (currentUser == null){ %>
+               <li><a class="page-scroll" href="/register_job_seeker.jsp">Work <i class="fa fa-fw fa-bell hidden"></i></a></li>
+               <li><a class="page-scroll" href="/create_post.jsp">Hire</a></li>
+               <% } else {  %>
+               <% String link = (currentUser.getAccountType().equals("job_seeker"))? "/mydashboard.jsp": "/dashboard.jsp";%>
+               <li><a class="page-scroll" href="<%= link %>">My Dashboard</a></li>
+               <% } %>
+
+               <li><a class="page-scroll" href="#portfolio">How it works</a></li>
+               <% if (currentUser == null){ %>
+               <li><button class="btn btn-primary wow tada" onclick="location.href='/login.jsp'">Login / Register</button></li>
+               <% } else {  %>
+               <li><span>Welcome, <%=currentUser.getUsername()%></span></li>
+               <li><button class="btn btn-primary wow tada" onclick="$('#logout_form').submit();">Logout</button></li>
+               <% } %>
+           </ul>
+       </div>
+       <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container-fluid -->
 </nav>
 <form id="logout_form" action="/LogoutServlet" method="POST" style="display: none;"></form>
