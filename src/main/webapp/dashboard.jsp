@@ -62,8 +62,16 @@
                             <tr> 
                                 <td><%=post.getHeader()%></td>
                                 <td><%=post.getJobDateString()%></td>
-                                <td><span class="badge db-default-badge">Completed</span></td>
-                                <td><a href="/listing.jsp?completed=true" class="btn btn-success"> Click to Review</a></td>
+                                <% if (post.getStatus().equals("listed")){%>
+                                    <td><span class="badge db-default-badge">No Applicants</span></td>
+                                    <td><a href="/edit_post.jsp" class="btn btn-warning">Edit Job</a></td>
+                                <% } else if (post.getStatus().equals("applied")){%>
+                                    <td><span class="badge db-default-badge">Ongoing</span></td>
+                                    <td><a href="/listing.jsp" class="btn btn-primary"> <span class="badge">4</span> Click to Hire</a></td>
+                                <% } else { %>
+                                    <td><span class="badge db-default-badge">Completed</span></td>
+                                    <td><a href="/listing.jsp?completed=true" class="btn btn-success"> Click to Review</a></td>
+                                <%}%>
                             </tr>
                             <%}%>
                         </tbody>

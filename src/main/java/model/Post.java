@@ -14,8 +14,9 @@ public class Post {
     private String location;
     private Date postingDate;
     private Date jobDate;
+    private String status;
 
-    public Post(int id, String header, String company, int salary, String description, String location, Date postingDate, Date jobDate) {
+    public Post(int id, String header, String company, int salary, String description, String location, Date postingDate, Date jobDate, String status) {
         this.id = id;
         this.header = header;
         this.company = company;
@@ -24,6 +25,7 @@ public class Post {
         this.location = location;
         this.postingDate = postingDate;
         this.jobDate = jobDate;
+        this.status = status;
     }
 
     public int getId() {
@@ -88,6 +90,14 @@ public class Post {
 
     public void setJobDate(Date jobDate) {
         this.jobDate = jobDate;
+    }
+    
+    public String getStatus(){
+        return status;
+    }
+    
+    public void setStatus(String status){
+        this.status = status;
     }
     
     public String getJobDateString(){
