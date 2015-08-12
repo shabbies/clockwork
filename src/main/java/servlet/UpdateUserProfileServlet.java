@@ -84,6 +84,19 @@ public class UpdateUserProfileServlet extends HttpServlet {
             EntityUtils.consume(entity);
             response2.close();
         }
+        
+        if (session.getAttribute("updateSource") != null){
+            String updateSource = (String)session.getAttribute("updateSource");
+            session.removeAttribute("updateSource");
+            if (updateSource.contains("apply_job")){
+                String postID = updateSource.substring(updateSource.indexOf("-") + 1);
+                String message = "Please proceed with your job application here!";
+                session.setAttribute("message", message);
+                response.sendRedirect("/post.jsp?id=" + postID);
+                return;
+            }
+        }
+        
         response.sendRedirect("/edit_profile.jsp");
     }
 }

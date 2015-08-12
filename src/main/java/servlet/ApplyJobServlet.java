@@ -1,5 +1,7 @@
 package servlet;
 
+import controller.AppController;
+import controller.PostController;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import model.Post;
 import model.User;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -41,11 +44,15 @@ public class ApplyJobServlet extends HttpServlet {
             return;
         } else if (currentUser.getContactNumber() == 0){
             session.setAttribute("error", "Please complete your profile before applying for a job");
+            session.setAttribute("updateSource", "apply_job-" + postID);
             response.sendRedirect("/edit_profile.jsp");
             return;
         }
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
+        AppController appController = (AppController)session.getAttribute("appController");
+        PostController postController = appController.getPostController();
+        Post post = postController.getPost(postID);
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/apply");
@@ -64,11 +71,14 @@ public class ApplyJobServlet extends HttpServlet {
                 session.setAttribute("error", error);
                 response.sendRedirect("/index.jsp");
                 return;
+            } else {
+                post.setStatus("applied");
             }
         } finally {
             httpResponse.close();
             EntityUtils.consume(entity);
         }
+        
         String message = "You have successfully applied for this job!";
         session.setAttribute("message", message);
         response.sendRedirect("/post.jsp?id=" + postID);

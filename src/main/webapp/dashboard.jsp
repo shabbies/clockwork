@@ -3,16 +3,32 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Post"%>
 
-<%  ArrayList <Post> publishedList = (ArrayList <Post>)session.getAttribute("publishedList"); 
+<%  
+    if (currentUser == null){
+        session.setAttribute("error", "Please login or register first before viewing your job applications!");
+        response.sendRedirect("/login.jsp");
+        return;
+    } else if (!currentUser.getAccountType().equals("employer")){
+        session.setAttribute("error", "Only employers can view job applications!");
+        response.sendRedirect("/index.jsp");
+        return;
+    }
+
+    ArrayList <Post> publishedList = (ArrayList <Post>)session.getAttribute("publishedList"); 
     if (publishedList == null){ %>
         <jsp:forward page="/GetAllListedJobsServlet" />
     <%} else { 
         session.removeAttribute("publishedList");
     }       
     if (currentUser == null){
-        session.setAttribute("error", "Please login before proceeding");
+        session.setAttribute("error", "Please login or register first before viewing your job applications!");
         response.sendRedirect("/login.jsp");
-        return;}%> 
+        return;
+    } else if (!currentUser.getAccountType().equals("employer")){
+        session.setAttribute("error", "Only employers can view job applications!");
+        response.sendRedirect("/index.jsp");
+        return;
+    }%>
 
 <header class="main">
     <div class="header-content">
@@ -50,27 +66,7 @@
                             </tr>
                         </thead>
 
-                        <tbody> 
-                            <tr> 
-                                <td>Bellboy</td>
-                                <td>20/08/2015</td>
-                                <td><span class="badge db-default-badge">No Applicants</span></td>
-                                <td><a href="/edit_post.jsp" class="btn btn-warning">Edit Job</a></td>
-                            </tr>
-                            <tr> 
-                                <td>Bellboy</td>
-                                <td>21/08/2015</td>
-                                <td><span class="badge db-default-badge">Ongoing</span></td>
-                                <td><a href="/listing.jsp" class="btn btn-primary"> <span class="badge">4</span> Click to Hire</a></td>
-                               
-                            </tr>
-                             <tr> 
-                                <td>Bellboy</td>
-                                <td>18/08/2015</td>
-                                <td><span class="badge db-default-badge">Completed</span></td>
-                                <td><a href="/listing.jsp?completed=true" class="btn btn-success"> Click to Review</a></td>
-                               
-                            </tr>
+                        <tbody>
                             <% for (Post post : publishedList){%>
                             <tr> 
                                 <td><%=post.getHeader()%></td>
@@ -89,7 +85,6 @@
                             </tr>
                             <%}%>
                         </tbody>
-
                     </table>
 
                     <div>
