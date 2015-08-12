@@ -1,5 +1,7 @@
 package servlet;
 
+import controller.AppController;
+import controller.PostController;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import model.Post;
 import model.User;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -30,8 +33,10 @@ public class EditPostServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        // preparing variables
         HttpSession session = request.getSession();
         User currentUser = (User)session.getAttribute("currentUser");
+        int postID = Integer.parseInt(request.getParameter("post_id"));
         String header = (String)request.getParameter("header");
         int salary = Integer.parseInt(request.getParameter("salary"));
         String description = (String)request.getParameter("description");
@@ -47,6 +52,11 @@ public class EditPostServlet extends HttpServlet {
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
         
+        // retrieve post object
+        AppController appController = (AppController)session.getAttribute("appController");
+        PostController postController = appController.getPostController();
+        Post post = postController.getPost(postID);
+        
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/update");
         httpPost.setHeader("Authentication-Token", token);
@@ -55,7 +65,7 @@ public class EditPostServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("salary", "" + salary));
         nvps.add(new BasicNameValuePair("description", description));
         nvps.add(new BasicNameValuePair("location", location));
-        nvps.add(new BasicNameValuePair("job_date",jobDate.toString()));
+        nvps.add(new BasicNameValuePair("job_date",jobDateString));
         nvps.add(new BasicNameValuePair("email", email));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
@@ -68,7 +78,13 @@ public class EditPostServlet extends HttpServlet {
                 session.setAttribute("error", error);
                 response.sendRedirect("/index.jsp");
                 return;
-            } 
+            } else {
+                post.setDescription(description);
+                post.setHeader(header);
+                post.setJobDate(jobDate);
+                post.setLocation(location);
+                post.setSalary(salary);
+            }
         } finally {
             httpResponse.close();
             EntityUtils.consume(entity);

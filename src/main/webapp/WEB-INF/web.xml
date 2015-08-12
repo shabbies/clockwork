@@ -51,6 +51,10 @@
     <servlet-name>GetPostServlet</servlet-name>
     <servlet-class>servlet.GetPostServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>EditPostServlet</servlet-name>
+    <servlet-class>servlet.EditPostServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -91,5 +95,9 @@
   <servlet-mapping>
     <servlet-name>GetPostServlet</servlet-name>
     <url-pattern>/GetPostServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EditPostServlet</servlet-name>
+    <url-pattern>/EditPostServlet</url-pattern>
   </servlet-mapping>
 </web-app>    
