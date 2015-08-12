@@ -69,10 +69,23 @@ public class LoginServlet extends HttpServlet {
         // Redirection based on initial location
         if (session.getAttribute("loginSource") != null){
             String loginSource = (String)session.getAttribute("loginSource");
+            session.removeAttribute("loginSource");
             if (loginSource.equals("create_new_post")){
-                session.removeAttribute("loginSource");
                 response.sendRedirect("/create_post.jsp");
                 return;
+            } else if (loginSource.contains("apply_job")){
+                if (user.getAccountType().equals("job_seeker")){
+                    String postID = loginSource.substring(loginSource.indexOf("-") + 1);
+                    String message = "Please proceed with your job application here!";
+                    session.setAttribute("message", message);
+                    response.sendRedirect("/post.jsp?id=" + postID);
+                    return;
+                } else {
+                    String error = "Only job seekers are allowed to apply for jobs!";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/dashboard.jsp");
+                    return;
+                }
             }
         } else {
             if (user.getAccountType().equals("employer")){

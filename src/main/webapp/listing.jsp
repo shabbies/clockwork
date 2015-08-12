@@ -1,6 +1,16 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
 
+<%@ page import="model.User"%>
+<%@ page import="model.Post"%>
+
+<%  String postID = request.getParameter("id");
+    String formURL = "/GetPostServlet?id=" + postID + "&location=listing";
+    Post post = (Post)session.getAttribute("post");
+    if (post == null){%>
+        <jsp:forward page="<%=formURL%>" />
+    <%} else { session.removeAttribute("post");}%>
+
 <header class="main">
     <div class="header-content">
 
@@ -16,15 +26,9 @@
                         </div>
 
                         <div class="db-user-info">
-                            <h2>Bellboy</h2> 
-                            <h4>Join our team at Maison Ikkoku!</h4>
-                            <h5>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias harum, sunt nulla, temporibus labore vitae sequi, quidem enim facere saepe eum ducimus magnam fugiat neque pariatur odit laboriosam soluta non.
-                            </h5>
+                            <h2><%=post.getHeader()%></h2> 
+                            <h5><%=post.getDescription()%></h5>
                         </div>
-                        <% if (request.getParameter("completed") == null) { %>
-                        <a href="/edit_post.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-pencil"></i> Edit Listing</a>
-                        <% } %>
                     </div>
                 </div>
             </div>
