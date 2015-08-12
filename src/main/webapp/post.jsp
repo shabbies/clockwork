@@ -7,6 +7,7 @@
 <header class="main">
   <div class="header-content">
     <div class="header-content-inner">
+    
       <%  String postID = request.getParameter("id");
       String formURL = "/GetPostServlet?id=" + postID;
       Post post = (Post)session.getAttribute("post");
@@ -21,12 +22,13 @@
       </div>
       <%session.removeAttribute("error");}%>
       <% if (session.getAttribute("message") != null){%>
-      <div class="alert alert-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span>
+      <div class="alert alert-success" role="alert">
+        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
         <%=session.getAttribute("message")%>
       </div>
       <%session.removeAttribute("message");}%>
+
+
       <h2 class="text-center"><strong><%=post.getHeader()%></strong> @ <%=post.getCompany()%></h2>
 
       <div class="row">
