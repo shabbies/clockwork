@@ -75,9 +75,10 @@
                                     String redirectURL = "/edit_post.jsp?id=" + post.getId(); %>
                                     <td><span class="badge db-default-badge">No Applicants</span></td>
                                     <td><a href="<%=redirectURL%>" class="btn btn-warning">Edit Job</a></td>
-                                <% } else if (post.getStatus().equals("applied")){%>
+                                <% } else if (post.getStatus().equals("applied")){
+                                    String redirectURL = "/listing.jsp?id=" + post.getId();%>
                                     <td><span class="badge db-default-badge">Ongoing</span></td>
-                                    <td><a href="/listing.jsp" class="btn btn-primary"> <span class="badge">4</span> Click to Hire</a></td>
+                                    <td><a href="<%=redirectURL%>" class="btn btn-primary"> <!--<span class="badge">4</span>--> Click to Hire</a></td>
                                 <% } else { %>
                                     <td><span class="badge db-default-badge">Completed</span></td>
                                     <td><a href="/listing.jsp?completed=true" class="btn btn-success"> Click to Review</a></td>

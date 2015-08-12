@@ -2,6 +2,7 @@ package model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Post {
@@ -15,6 +16,7 @@ public class Post {
     private Date postingDate;
     private Date jobDate;
     private String status;
+    private ArrayList <User> applicants;
 
     public Post(int id, String header, String company, int salary, String description, String location, Date postingDate, Date jobDate, String status) {
         this.id = id;

@@ -39,6 +39,9 @@ public class GetPostServlet extends HttpServlet {
             return;
         } else if (location.equals("edit")){
             response.sendRedirect("/edit_post.jsp?id=" + postID);
+            return;
+        } else if (location.equals("listing")){
+            response.sendRedirect("/listing.jsp?id=" + postID);
         }
     }
 }
