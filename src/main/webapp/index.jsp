@@ -5,7 +5,7 @@
 <%@ page import="java.util.Date"%>
 
 <%  ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList"); 
-    if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { session.removeAttribute("postList"); }%>
+if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { session.removeAttribute("postList"); }%>
 
 <%@include file="_nav.jsp"%>
 <jsp:include page="_hero.jsp" />
@@ -45,21 +45,21 @@
                             <h5><%=post.getCompany()%>
                             </h5>
                             <h5>
-                            <i class="fa fa-map-marker primary"></i> 
-                            <%=post.getLocation()%>
-                        </h5>
+                                <i class="fa fa-map-marker primary"></i> 
+                                <%=post.getLocation()%>
+                            </h5>
+                        </div>
+                        <span class="job-entry-price pull-right primary"><strong>$<%=post.getSalary()%>/hr</strong></span>
                     </div>
-                    <span class="job-entry-price pull-right primary"><strong>$<%=post.getSalary()%>/hr</strong></span>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h5 class="font-normal"><%=post.getDescription()%> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, vel, dolore? Accusantium, aperiam deleniti porro voluptatem eos optio. Veniam dicta molestiae, nobis reiciendis cupiditate esse quis inventore debitis voluptatibus necessitatibus!</h5>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h5 class="font-normal"><%=post.getDescription()%> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, vel, dolore? Accusantium, aperiam deleniti porro voluptatem eos optio. Veniam dicta molestiae, nobis reiciendis cupiditate esse quis inventore debitis voluptatibus necessitatibus!</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-id="<%=post.getId()%>">
+                <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>">
 <!--
              <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
@@ -70,14 +70,14 @@
                     </ul>
                 </div>
             </div>
-            -->
-            <div class="col-xs-12">
-                <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
-            </div>
-
+        -->
+        <div class="col-xs-12">
+            <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
         </div>
 
     </div>
+
+</div>
 
 </div>
 
@@ -128,8 +128,8 @@
     </div>
     <div class="modal-body">
 
-     <div class="col-md-7 modal-job-details">
-         <div class="col-md-4 text-center">
+       <div class="col-md-7 modal-job-details">
+           <div class="col-md-4 text-center">
             <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
             
             <h2 id="modalSalary">$10/hr</h2>
@@ -152,7 +152,7 @@
     </div>
 </div>
 <div class="modal-footer">
- <div class="pull-right" style="padding-right: 15px;">
+   <div class="pull-right" style="padding-right: 15px;">
     <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
     <form action="/ApplyJobServlet" method="POST" class="display-inline">
         <input type="text" id="hiddenJobID" hidden value="" name="post_id"/>
@@ -185,25 +185,14 @@ $(document).on("click", "#open-jobModal", function() {
     $('#modalDatePosted').html(jobDateText);
     $('#hiddenJobID').val(id);
 
-    $('#jobModal').modal('show');
-});
+$('#calendar').fullCalendar( 'destroy' );
 
-$('#jobModal').on('shown.bs.modal', function () {
- $("#calendar").fullCalendar('render');
-});
-</script>
-<!-- End of Job Modal -->
-
-
-<script>
-
-$(document).ready(function() {
  $('#calendar').fullCalendar({
     editable: false,
     allDayDefault: true,
     contentHeight: 240,
     titleFormat: 'MMMM',
-    eventColor: '#ee4054',
+    eventColor: 'grey',
     events: [
     {
         title: 'A Event',
@@ -235,8 +224,28 @@ $(document).ready(function() {
     }*/
 });
 
+    var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
+    $('#calendar').fullCalendar( 'renderEvent', myevent, true);
 
- $(".job-entry-desc").dotdotdot({
+    $('#jobModal').modal('show');
+});
+
+$('#jobModal').on('shown.bs.modal', function () {
+
+   $("#calendar").fullCalendar('render');
+   $("#calendar").fullCalendar( 'rerenderEvents' );
+});
+</script>
+<!-- End of Job Modal -->
+
+
+<script>
+
+$(document).ready(function() {
+  
+
+
+   $(".job-entry-desc").dotdotdot({
     /*  The text to add as ellipsis. */
     ellipsis    : '... ',
     /*  How to cut off the text/html: 'word'/'letter'/'children' */
@@ -270,7 +279,7 @@ $(function() {
   $('.job-entry').hover(function() {
     $(this).find(".job-entry-apply").css( "background-color", "#ee4054"); 
     $(this).find("a").removeClass("whitelink"); 
-  
+
 }, function() {
   $(this).find( ".job-entry-apply").css( "background-color", "") 
   $(this).find("a").addClass("whitelink"); 
