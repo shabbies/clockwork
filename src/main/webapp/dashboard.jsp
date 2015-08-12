@@ -93,7 +93,7 @@
                     </table>
 
                     <div>
-                        <a href="/create_post.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Add a New Listing</a>
+                        <a href="/create_post.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Post a new Job</a>
                     </div>
                 </div> 
             </div>

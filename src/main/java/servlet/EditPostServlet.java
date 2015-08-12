@@ -3,6 +3,9 @@ package servlet;
 import controller.AppController;
 import controller.PostController;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +25,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.Post;
 import model.User;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -67,7 +71,8 @@ public class EditPostServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("location", location));
         nvps.add(new BasicNameValuePair("job_date",jobDateString));
         nvps.add(new BasicNameValuePair("email", email));
-
+        nvps.add(new BasicNameValuePair("id", String.valueOf(postID)));
+        
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
         HttpEntity entity = null;
