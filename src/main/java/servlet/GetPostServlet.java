@@ -19,6 +19,7 @@ public class GetPostServlet extends HttpServlet {
             throws ServletException, IOException {
         
         // preparing variables
+        String location = request.getParameter("location");
         String postID = request.getParameter("id");
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
@@ -33,6 +34,11 @@ public class GetPostServlet extends HttpServlet {
             return;
         }
         session.setAttribute("post", post);
-        response.sendRedirect("/post.jsp?id=" + postID);
+        if (location.equals("post")){
+            response.sendRedirect("/post.jsp?id=" + postID);
+            return;
+        } else if (location.equals("edit")){
+            response.sendRedirect("/edit_post.jsp?id=" + postID);
+        }
     }
 }

@@ -1,7 +1,14 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
 
-<%@ page import="model.User"%>
+<%@ page import="model.Post"%>
+
+<%  String postID = request.getParameter("id");
+      String formURL = "/GetPostServlet?id=" + postID + "&location=edit";
+      Post post = (Post)session.getAttribute("post");
+      if (post == null){%>
+      <jsp:forward page="<%=formURL%>" />
+<%} else { session.removeAttribute("post");}%>
 
 <!-- Initialising Google Places for location autofill -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
@@ -33,34 +40,35 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <header class="main">
   <div class="header-content">
     <div class="header-content-inner">
-      <h2 class="text-center">Bellboy @ RWS</h2>
+      <h2 class="text-center"><%=post.getHeader()%></h2>
 
      <div class="row">
         <div class="col-md-8 col-md-offset-2">
           <div class="panel panel-default">
             <div class="panel-body">
-              <form class="form form-signup" action="/CreatePostServlet" method="POST" role="form">
+              <form class="form form-signup" action="/EditPostServlet" method="POST" role="form">
 
+                   <input type="text" name="post_id" value="<%=post.getId()%>" hidden />
                 <div class="form-group form-group-lg col-md-6 text-left"> 
                  <label for="job-title" class="control-label">Job Title</label> 
-                 <input id="job-title" class="form-control" type="text" value="Bellboy" name="header" required> 
+                 <input id="job-title" class="form-control" type="text" value="<%=post.getHeader()%>" name="header" required> 
                </div>
 
                <div class="form-group form-group-lg col-md-6 text-left"> 
                  <label for="job-location" class="controls control-label">Job Location</label> 
-                 <input id="job-location" class="form-control" type="text" value="RWS" name="location" required>  
+                 <input id="job-location" class="form-control" type="text" value="<%=post.getLocation()%>" name="location" required>  
                </div>
 
                <div class="form-group col-md-12 text-left"> 
                  <label for="job-desc" class="control-label">Job Description</label> 
-                 <textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required></textarea> 
+                 <textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required><%=post.getDescription()%></textarea> 
                </div>
 
                <div class="form-group form-group-lg col-md-7 text-left"> 
                  <label for="job-date" class="control-label">Job Date</label> 
                  <div class="input-group"> 
                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
-                   <input id="job-date" class="form-control" type="date" name="job_date" required> 
+                   <input id="job-date" class="form-control" type="date" name="job_date" value="<%=post.getJobDateStringForInput()%>" required> 
                  </div> 
                </div>
 
@@ -68,7 +76,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                  <label for="job-pay" class="control-label">Pay</label> 
                  <div class="input-group"> 
                    <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
-                   <input id="job-pay" class="form-control" type="number" value="10" name="salary" required> 
+                   <input id="job-pay" class="form-control" type="number" name="salary" value="<%=post.getSalary()%>" required> 
                    <div class="input-group-addon" style="font-weight:600;"> / Hr</div> 
                  </div> 
                </div>

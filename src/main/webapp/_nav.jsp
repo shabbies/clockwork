@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
 
-                <li><a class="page-scroll" href="/mydashboard.jsp">Work <i class="fa fa-fw fa-bell"></i></a></li>
+                <li><a class="page-scroll" href="/mydashboard.jsp">Work <i class="fa fa-fw fa-bell hidden"></i></a></li>
 
                 <li><a class="page-scroll" href="/dashboard.jsp">Hire</a></li>
                 <li><a class="page-scroll" href="#portfolio">How it works</a></li>

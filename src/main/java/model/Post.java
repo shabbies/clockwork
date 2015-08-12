@@ -104,4 +104,9 @@ public class Post {
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         return df.format(jobDate);
     }
+    
+    public String getJobDateStringForInput(){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(jobDate);
+    }
 }

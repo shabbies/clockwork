@@ -8,7 +8,7 @@
   <div class="header-content">
     <div class="header-content-inner">
       <%  String postID = request.getParameter("id");
-      String formURL = "/GetPostServlet?id=" + postID;
+      String formURL = "/GetPostServlet?id=" + postID + "&location=post";
       Post post = (Post)session.getAttribute("post");
       if (post == null){%>
       <jsp:forward page="<%=formURL%>" />
