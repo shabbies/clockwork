@@ -43,7 +43,8 @@
                         <div class="col-xs-9">
                             <h4><strong><%=post.getHeader()%></strong></h4>
                             <h5><%=post.getCompany()%>
-                            </br>
+                            </h5>
+                            <h5>
                             <i class="fa fa-map-marker primary"></i> 
                             <%=post.getLocation()%>
                         </h5>
@@ -53,13 +54,13 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <h5 class="font-normal"><%=post.getDescription()%></h5>
+                        <h5 class="font-normal"><%=post.getDescription()%> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, vel, dolore? Accusantium, aperiam deleniti porro voluptatem eos optio. Veniam dicta molestiae, nobis reiciendis cupiditate esse quis inventore debitis voluptatibus necessitatibus!</h5>
                     </div>
                 </div>
             </div>
 
             <div class="row job-entry-apply" id="open-jobModal" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-id="<%=post.getId()%>">
-
+<!--
              <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
                     <ul class="list-inline text-left">
@@ -69,7 +70,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-xs-6">
+            -->
+            <div class="col-xs-12">
                 <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
             </div>
 
