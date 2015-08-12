@@ -1,6 +1,8 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
 
+<%@ page import="model.User"%>
+
 <%
 if (currentUser == null){
 session.setAttribute("error", "Please login or register first before viewing your job applications!");
@@ -9,7 +11,7 @@ return;
 } else if (currentUser.getAccountType().equals("employer")){
 session.setAttribute("error", "Only a job seeker account can view job applications!");
 response.sendRedirect("/index.jsp");
-return;
+return;}
 %>
 <header class="main">
     <div class="header-content">
