@@ -195,7 +195,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
         <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
         <form action="/ApplyJobServlet" method="POST" class="display-inline">
             <input type="text" id="hiddenJobID" hidden value="" name="post_id"/>
-            <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
+            <%  if(!(currentUser!=null && currentUser.getAccountType().equals("employer"))){ %>
             <input type="submit" class="btn btn-primary btn-lg" value="Apply for Job"/>
             <% } %>
         </form>
