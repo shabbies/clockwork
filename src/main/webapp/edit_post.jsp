@@ -84,7 +84,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
                <input type="submit" class="btn btn-lg btn-primary btn-srad" value="Update Listing"/>
 
              </form>
-               <a href="" class="btn btn-lg btn-default btn-srad">Remove Listing</a>
+                <form action="/DeletePostServlet" method="POST">
+                    <input type="text" value="<%=post.getId()%>" name="post_id" hidden />
+                    <input type="submit" class="btn btn-lg btn-default btn-srad" value="Remove Listing"/>
+                </form>
            </div>
          </div>
        </div>

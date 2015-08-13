@@ -75,6 +75,10 @@
     <servlet-name>WithdrawJobApplicationServlet</servlet-name>
     <servlet-class>servlet.WithdrawJobApplicationServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>DeletePostServlet</servlet-name>
+    <servlet-class>servlet.DeletePostServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -139,5 +143,9 @@
   <servlet-mapping>
     <servlet-name>WithdrawJobApplicationServlet</servlet-name>
     <url-pattern>/WithdrawJobApplicationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePostServlet</servlet-name>
+    <url-pattern>/DeletePostServlet</url-pattern>
   </servlet-mapping>
 </web-app>    
