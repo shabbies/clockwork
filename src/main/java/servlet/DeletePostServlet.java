@@ -21,7 +21,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
-public class WithdrawJobApplicationServlet extends HttpServlet {
+public class DeletePostServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -34,10 +34,10 @@ public class WithdrawJobApplicationServlet extends HttpServlet {
         String token = currentUser.getAuthenticationToken();
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/withdraw");
+        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/delete");
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("job_id", "" + postID));
+        nvps.add(new BasicNameValuePair("id", "" + postID));
         nvps.add(new BasicNameValuePair("email", email));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
@@ -49,8 +49,8 @@ public class WithdrawJobApplicationServlet extends HttpServlet {
             httpResponse.close();
             EntityUtils.consume(entity);
         }
-        String message = "You have succssfully withdrawn your application for this job!";
+        String message = "You have successfully deleted this job listing!";
         session.setAttribute("message", message);
-        response.sendRedirect("/mydashboard.jsp");
+        response.sendRedirect("/dashboard.jsp");
     }
 }

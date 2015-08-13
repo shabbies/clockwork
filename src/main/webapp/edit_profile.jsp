@@ -1,6 +1,33 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
 
+<!-- Initialising Google Places for location autofill -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<script>
+function initialize() {
+  var input = /** @type {HTMLInputElement} */(
+    document.getElementById('street-address'));
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    infowindow.close();
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+    }
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.open(map, marker);
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<!-- END -->
+
 <header class="main">
   <div class="header-content">
     <div class="header-content-inner">
@@ -8,11 +35,17 @@
 
         <% if (session.getAttribute("error") != null){%>
         <div class="alert alert-danger" role="alert">
-          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="sr-only">Error:</span>
-          <%=session.getAttribute("error")%>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <%=session.getAttribute("error")%>
         </div>
         <%session.removeAttribute("error");}%>
+        <% if (session.getAttribute("message") != null){%>
+        <div class="alert alert-success" role="alert">
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+            <%=session.getAttribute("message")%>
+        </div>
+        <%session.removeAttribute("message");}%>
 
         <div class="col-sm-6">
 

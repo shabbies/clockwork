@@ -38,6 +38,8 @@ if (post == null){%>
                                 <input type="hidden" name="item_name" value="Payment for Wages">
                                 <input type="hidden" name="amount" value="100.00">
                                 <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                                
+
                             </form>
                         </div>
                     </div>
