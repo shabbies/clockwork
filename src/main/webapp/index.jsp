@@ -45,7 +45,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
             jobStyle =  "job-entry-edit";
             jobEditColor = "job-edit-color";
             ownjob = "true";
- currentuserid = currentUser.getId();
+ currentuserid = ""+currentUser.getId();
         }
         %> 
 
