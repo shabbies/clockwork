@@ -1,4 +1,5 @@
 <%@page import="model.User"%>
+<%@page import="controller.AppController"%>
 <html>
 
 <head>
@@ -45,6 +46,11 @@
     <%  User currentUser = null;
         if (session.getAttribute("currentUser") != null) {
             currentUser = (User)session.getAttribute("currentUser");
+        }
+        AppController appController = null;
+        if (session.getAttribute("appController") == null) {
+            appController = new AppController();
+            session.setAttribute("appController", appController);
         }
     %>
 </head>

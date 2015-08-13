@@ -30,13 +30,7 @@ public class GetAllPostsServlet extends HttpServlet {
         
         // preparing variables
         HttpSession session = request.getSession();
-        AppController appController = null;
-        if (session.getAttribute("appController") == null){
-            appController = new AppController();
-            session.setAttribute("appController", appController);
-        } else {
-            appController = (AppController)session.getAttribute("appController");
-        }
+        AppController appController = (AppController)session.getAttribute("appController");
         PostController postController = appController.getPostController();
         
         // httpget request
