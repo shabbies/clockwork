@@ -181,7 +181,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet?order=none" /><%
 
        <div class="col-md-7 modal-job-details">
            <div class="col-md-4 text-center">
-            <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
+            <img src="img/user-placeholder.jpg" alt="" class="db-user-pic img-rounded img-responsive"/>
             
             <h2 id="modalSalary">$10/hr</h2>
         </div>
