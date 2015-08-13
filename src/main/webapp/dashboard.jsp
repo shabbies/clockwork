@@ -4,31 +4,31 @@
 <%@ page import="model.Post"%>
 
 <%  
-    if (currentUser == null){
-        session.setAttribute("error", "Please login or register first before viewing your job applications!");
-        response.sendRedirect("/login.jsp");
-        return;
-    } else if (!currentUser.getAccountType().equals("employer")){
-        session.setAttribute("error", "Only employers can view job applications!");
-        response.sendRedirect("/index.jsp");
-        return;
-    }
+if (currentUser == null){
+session.setAttribute("error", "Please login or register first before viewing your job applications!");
+response.sendRedirect("/login.jsp");
+return;
+} else if (!currentUser.getAccountType().equals("employer")){
+session.setAttribute("error", "Only employers can view job applications!");
+response.sendRedirect("/index.jsp");
+return;
+}
 
-    ArrayList <Post> publishedList = (ArrayList <Post>)session.getAttribute("publishedList"); 
-    if (publishedList == null){ %>
-        <jsp:forward page="/GetAllListedJobsServlet" />
-    <%} else { 
-        session.removeAttribute("publishedList");
-    }       
-    if (currentUser == null){
-        session.setAttribute("error", "Please login or register first before viewing your job applications!");
-        response.sendRedirect("/login.jsp");
-        return;
-    } else if (!currentUser.getAccountType().equals("employer")){
-        session.setAttribute("error", "Only employers can view job applications!");
-        response.sendRedirect("/index.jsp");
-        return;
-    }%>
+ArrayList <Post> publishedList = (ArrayList <Post>)session.getAttribute("publishedList"); 
+if (publishedList == null){ %>
+<jsp:forward page="/GetAllListedJobsServlet" />
+<%} else { 
+session.removeAttribute("publishedList");
+}       
+if (currentUser == null){
+session.setAttribute("error", "Please login or register first before viewing your job applications!");
+response.sendRedirect("/login.jsp");
+return;
+} else if (!currentUser.getAccountType().equals("employer")){
+session.setAttribute("error", "Only employers can view job applications!");
+response.sendRedirect("/index.jsp");
+return;
+}%>
 
 <header class="main">
     <div class="header-content">
@@ -62,7 +62,7 @@
                                 <th>Job</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                                 <th>Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
@@ -72,16 +72,22 @@
                                 <td><%=post.getHeader()%></td>
                                 <td><%=post.getJobDateString()%></td>
                                 <% if (post.getStatus().equals("listed")){
-                                    String redirectURL = "/edit_post.jsp?id=" + post.getId(); %>
-                                    <td><span class="badge db-default-badge">No Applicants</span></td>
-                                    <td><a href="<%=redirectURL%>" class="btn btn-warning">Edit Job</a></td>
+                                String redirectURL = "/edit_post.jsp?id=" + post.getId(); %>
+                                <td><span class="badge db-default-badge">No Applicants</span></td>
+                                <td><a href="<%=redirectURL%>" class="btn btn-warning">Edit Job</a></td>
                                 <% } else if (post.getStatus().equals("applied")){
-                                    String redirectURL = "/listing.jsp?id=" + post.getId();%>
-                                    <td><span class="badge db-default-badge">Ongoing</span></td>
-                                    <td><a href="<%=redirectURL%>" class="btn btn-primary"> <span class="badge"><%=post.getApplicantCount()%></span> Click to Hire</a></td>
+                                String redirectURL = "/listing.jsp?id=" + post.getId(); %>
+                                <td><span class="badge db-default-badge">Ongoing</span></td>
+                                <% int appCount = post.getApplicantCount(); 
+                                if(appCount>0){
+                                %>
+                                <td><a href="<%=redirectURL%>" class="btn btn-primary"> <span class="badge"><%=post.getApplicantCount()%></span> Click to Hire</a></td>
                                 <% } else { %>
-                                    <td><span class="badge db-default-badge">Completed</span></td>
-                                    <td><a href="/listing.jsp?completed=true" class="btn btn-success"> Click to Review</a></td>
+                                <td><a href="<%=redirectURL%>" class="btn btn-primary"> Click to View</a></td>
+                                <% } %>
+                                <% } else { %>
+                                <td><span class="badge db-default-badge">Completed</span></td>
+                                <td><a href="/listing.jsp?completed=true" class="btn btn-success"> Click to Review</a></td>
                                 <%}%>
                             </tr>
                             <%}%>
