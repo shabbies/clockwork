@@ -43,7 +43,6 @@ public class GetAllPostsServlet extends HttpServlet {
         } else {
             requestURL = requestURL + "all.json";
         }
-        System.out.println(requestURL);
         
         // httpget request
         CloseableHttpClient httpclient = HttpClients.createDefault();
