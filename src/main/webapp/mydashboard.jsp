@@ -1,8 +1,9 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
 
+<%@ page import="java.util.HashMap" %>
 <%@ page import="model.User"%>
-
+<%@ page import="model.Post"%>
 <%
 if (currentUser == null){
 session.setAttribute("error", "Please login or register first before viewing your job applications!");
@@ -13,13 +14,14 @@ session.setAttribute("error", "Only a job seeker account can view job applicatio
 response.sendRedirect("/index.jsp");
 return;}
 
-ArrayList <Post> appliedList = (ArrayList <Post>)session.getAttribute("appliedList"); 
-if (publishedList == null){ %>
+HashMap <Integer, Post> appliedJobsMap = (HashMap <Integer, Post>)session.getAttribute("appliedJobsMap"); 
+HashMap <Integer, String> appliedJobsStatusMap = (HashMap <Integer, String>)session.getAttribute("appliedJobsStatusMap"); 
+if (appliedJobsMap == null || appliedJobsStatusMap == null){ %>
     <jsp:forward page="/GetAppliedJobsServlet" />
 <%} else { 
-    session.removeAttribute("appliedList");
-}       
-%>
+    session.removeAttribute("appliedJobsMap");
+    session.removeAttribute("appliedJobsStatusMap");
+}%>
 <header class="main">
     <div class="header-content">
 
@@ -44,24 +46,20 @@ if (publishedList == null){ %>
                         </thead>
 
                         <tbody> 
-                            <% for (Post post : appliedList) { %>
+                            <% for (Post post : appliedJobsMap.values()) { %>
                             <tr> 
                                 <td><%=post.getHeader()%></td>
                                 <td><%=post.getCompany()%></td>
-                                <% if (post.getStatus().equals(""))
-                                <td><span class="badge db-default-badge">Pending</span></td>
-                                <td><a href="#" class="btn btn-primary">Withdraw</a></td>
+                                <% if (appliedJobsStatusMap.get(post.getId()).equals("pending")) {%>
+                                    <td><span class="badge db-default-badge">Pending</span></td>
+                                    <td><a href="#" class="btn btn-primary">Withdraw</a></td>
+                                <% } else { %>
+                                    <td><span class="badge db-default-badge success">Accepted</span></td>
+                                    <td><a href="#" class="btn btn-warning"> Message</a></td>
+                                <% } %>
                             </tr>
                             <%}%>
-                            <tr> 
-                                <td>Bellboy</td>
-                                <td>CDE Company</td>
-                                <td><span class="badge db-default-badge success">Accepted</span></td>
-                                <td><a href="#" class="btn btn-warning"> Message</a></td>
-
-                            </tr>
                         </tbody>
-
                     </table>
 
                     <div>

@@ -71,7 +71,7 @@ public class GetJobApplicantsServlet extends HttpServlet {
             httpResponse.close();
         }
         session.setAttribute("applicantList", applicantList);
-        response.sendRedirect("/listing.jsp?id=" + postID);
+        response.sendRedirect("/GetSingleHiredServlet?id=" + postID);
     }
 
 }

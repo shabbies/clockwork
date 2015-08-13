@@ -12,7 +12,7 @@ String formURL = "/GetPostServlet?id=" + postID + "&location=listing";
 Post post = (Post)session.getAttribute("post");
 if (post == null){%>
 <jsp:forward page="<%=formURL%>" />
-<%} else { session.removeAttribute("post");}%>
+<%} else { session.removeAttribute("post"); session.removeAttribute("applicantList"); session.removeAttribute("hiredList");}%>
 
 <header class="main">
     <div class="header-content">

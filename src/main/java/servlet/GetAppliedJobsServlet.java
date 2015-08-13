@@ -17,6 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.Post;
@@ -50,7 +51,8 @@ public class GetAppliedJobsServlet extends HttpServlet {
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
 
         HttpEntity entity = null;
-        ArrayList <Post> appliedList = null;
+        HashMap <Integer, Post> appliedJobsMap = new HashMap <Integer, Post> ();
+        HashMap <Integer, String> appliedJobsStatusMap = new HashMap <Integer, String> ();
         try {
             entity = httpResponse.getEntity();
             if(httpResponse.getStatusLine().getStatusCode() == 201){
@@ -58,7 +60,10 @@ public class GetAppliedJobsServlet extends HttpServlet {
                 InputStream readingStream = entity.getContent();
                 IOUtils.copy(readingStream, writer, "UTF-8");
                 String theString = writer.toString();
-                appliedList = postController.loadAppliedJobsList(theString);
+                appliedJobsMap = postController.loadAppliedJobsMap(theString);
+                appliedJobsStatusMap = postController.getApplicationPostStatus();
+                System.out.println(appliedJobsMap.size());
+                System.out.println(appliedJobsStatusMap.size());
             } else {
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
@@ -69,8 +74,8 @@ public class GetAppliedJobsServlet extends HttpServlet {
             EntityUtils.consume(entity);
             httpResponse.close();
         }
-        session.setAttribute("appliedList", appliedList);
+        session.setAttribute("appliedJobsMap", appliedJobsMap);
+        session.setAttribute("appliedJobsStatusMap", appliedJobsStatusMap);
         response.sendRedirect("/mydashboard.jsp");
     }
-
 }

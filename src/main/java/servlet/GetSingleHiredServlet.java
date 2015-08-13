@@ -70,6 +70,7 @@ public class GetSingleHiredServlet extends HttpServlet {
             EntityUtils.consume(entity);
             httpResponse.close();
         }
+        
         session.setAttribute("hiredList", hiredList);
         response.sendRedirect("/listing.jsp?id=" + postID);
     }

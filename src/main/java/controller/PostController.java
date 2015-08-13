@@ -1,9 +1,9 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import model.Post;
 import model.PostManager;
-import model.User;
 
 public class PostController {
 
@@ -33,7 +33,11 @@ public class PostController {
         return postManager.getJobApplicantCount(postID);
     }
     
-    public ArrayList <Post> loadAppliedJobsList(String JSONString){
-        return null;
+    public HashMap <Integer, Post> loadAppliedJobsMap(String JSONString){
+        return postManager.loadAppliedJobsMap(JSONString);
+    }
+    
+    public HashMap <Integer, String> getApplicationPostStatus(){
+        return postManager.getApplicationPostStatus();
     }
 }
