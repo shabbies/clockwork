@@ -56,7 +56,10 @@
           </div>
 
           <div class="text-center">
-            <button type="button" class="btn btn-primary btn-lg">Apply for Job</button>
+            <form action="/ApplyJobServlet" method="POST" class="display-inline"/>
+                <input type="text" value="<%=post.getId()%>" name="post_id" hidden />
+                <input type="submit" class="btn btn-primary btn-lg" value="Apply For Job"/>
+            </form>
             <button type="button" class="btn btn-warning btn-lg hidden">Edit Job</button>
           </div>
 

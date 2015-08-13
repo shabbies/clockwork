@@ -66,7 +66,7 @@ public class ApplyJobServlet extends HttpServlet {
         HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
-            if(httpResponse.getStatusLine().getStatusCode() == 500){
+            if(httpResponse.getStatusLine().getStatusCode() == 422){
                 String error = "You have already applied for this job!";
                 session.setAttribute("error", error);
                 response.sendRedirect("/index.jsp");
@@ -81,7 +81,7 @@ public class ApplyJobServlet extends HttpServlet {
         
         String message = "You have successfully applied for this job!";
         session.setAttribute("message", message);
-        response.sendRedirect("/post.jsp?id=" + postID);
+        response.sendRedirect("/mydashboard.jsp");
     }
 
 }

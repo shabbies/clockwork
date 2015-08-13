@@ -71,6 +71,10 @@
     <servlet-name>GetAppliedJobsServlet</servlet-name>
     <servlet-class>servlet.GetAppliedJobsServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>WithdrawJobApplicationServlet</servlet-name>
+    <servlet-class>servlet.WithdrawJobApplicationServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -131,5 +135,9 @@
   <servlet-mapping>
     <servlet-name>GetAppliedJobsServlet</servlet-name>
     <url-pattern>/GetAppliedJobsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WithdrawJobApplicationServlet</servlet-name>
+    <url-pattern>/WithdrawJobApplicationServlet</url-pattern>
   </servlet-mapping>
 </web-app>    

@@ -89,7 +89,7 @@ public class CreatePostServlet extends HttpServlet {
             response2.close();
         }
         
-        response.sendRedirect("/GetAllPostsServlet");
+        response.sendRedirect("/dashboard.jsp");
     }
 
 }

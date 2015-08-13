@@ -24,7 +24,19 @@ if (appliedJobsMap == null || appliedJobsStatusMap == null){ %>
 }%>
 <header class="main">
     <div class="header-content">
-
+        <% if (session.getAttribute("error") != null){%>
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <%=session.getAttribute("error")%>
+        </div>
+        <%session.removeAttribute("error");}%>
+        <% if (session.getAttribute("message") != null){%>
+        <div class="alert alert-success" role="alert">
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+            <%=session.getAttribute("message")%>
+        </div>
+        <%session.removeAttribute("message");}%>
         <div class="row">
             <div class="col-md-8">
                 <div class="panel panel-default">
@@ -52,7 +64,12 @@ if (appliedJobsMap == null || appliedJobsStatusMap == null){ %>
                                 <td><%=post.getCompany()%></td>
                                 <% if (appliedJobsStatusMap.get(post.getId()).equals("pending")) {%>
                                     <td><span class="badge db-default-badge">Pending</span></td>
-                                    <td><a href="#" class="btn btn-primary">Withdraw</a></td>
+                                    <td>
+                                        <form action="/WithdrawJobApplicationServlet" method="POST" class="display-inline"/>
+                                            <input type="text" value="<%=post.getId()%>" name="post_id" hidden />
+                                            <input type="submit" class="btn btn-primary" value="Withdraw"/>
+                                        </form>
+                                    </td>
                                 <% } else { %>
                                     <td><span class="badge db-default-badge success">Accepted</span></td>
                                     <td><a href="#" class="btn btn-warning"> Message</a></td>

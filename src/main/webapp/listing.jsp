@@ -32,16 +32,12 @@ if (post == null){%>
                             <h2><%=post.getHeader()%></h2> 
                             <h5><%=post.getDescription()%></h5>
                             <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" id="paypalform" hidden>
-                                <input type="hidden" name="cmd" value="_xclick">
-                                <input type="hidden" name="business" value="FNMMM6WBLEMK4">
-                                <input type="hidden" name="lc" value="SG">
+                                <input type="hidden" name="cmd" value="_s-xclick">
+                                <input type="hidden" name="hosted_button_id" value="UYF4VPUSPPGMY">
+                                <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                                 <input type="hidden" name="item_name" value="Payment for Wages">
                                 <input type="hidden" name="amount" value="100.00">
-                                <input type="hidden" name="currency_code" value="SGD">
-                                <input type="hidden" name="button_subtype" value="services">
-                                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
-                                <input type="image" src="https://www.sandbox.paypal.com/en_GB/SG/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal ? The safer, easier way to pay online.">
-                                <img alt="" border="0" src="https://www.sandbox.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                                <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
                             </form>
                         </div>
                     </div>
