@@ -72,7 +72,7 @@ if (appliedJobsMap == null || appliedJobsStatusMap == null){ %>
                                     </td>
                                 <% } else { %>
                                     <td><span class="badge db-default-badge success">Accepted</span></td>
-                                    <td><a href="#" class="btn btn-warning"> Message</a></td>
+                                    <td><a href="#" class="btn btn-warning"> View Details</a></td>
                                 <% } %>
                             </tr>
                             <%}%>
@@ -128,7 +128,7 @@ if (appliedJobsMap == null || appliedJobsStatusMap == null){ %>
                     </div>
 
                     <div class="db-user-info">
-                        <h2>Hi User!</h2> 
+                        <h2>Hi <%= currentUser.getUsername()%>!</h2> 
                         <span>What would you like to do today?</span>
                     </div>
                     <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
