@@ -69,7 +69,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
                 </div>
             </div>
 
-            <div class="row job-entry-apply <%=jobStyle%>" id="open-jobModal" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>">
+            <div class="row job-entry-apply <%=jobStyle%>" id="open-jobModal" data-userid="<%= currentUser.getId()%>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>">
 <!--
              <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
@@ -192,6 +192,7 @@ $(document).on("click", "#open-jobModal", function() {
         var locationText = $(this).data('location');
         var jobDateText = $(this).data("dateposted");
         var id = $(this).data("id");
+         var uid = $(this).data("userid");
 
         $('#jobModalLabel').html(headerText);
         $('#modalHeader').html("<strong>"+headerText+"</strong>");
@@ -211,28 +212,7 @@ $(document).on("click", "#open-jobModal", function() {
             contentHeight: 240,
             titleFormat: 'MMMM',
             eventColor: 'grey',
-            events: [
-            {
-                title: 'A Event',
-                start: '2015-08-05',
-                end: '2015-08-05'
-            },
-            {
-                title: 'C Event',
-                start: '2015-08-07',
-                end: '2015-08-07'
-            },
-            {
-                title: 'B Event',
-                start: '2015-08-06',
-                end: '2015-08-06'
-            },
-            {
-                title: 'D Event',
-                start: '2015-08-02',
-                end: '2015-08-05'
-            }
-            ],
+            events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
             eventAfterRender: function(event, element, view) {
               $(element).css('height','30px');
               $(element).css('font-weight','700');
