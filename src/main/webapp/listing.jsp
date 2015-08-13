@@ -55,7 +55,7 @@
                         <h4>Your Applications</h4> 
                     </div> 
 
-                    <% if (post.getStatus().equals("applied")) { %>
+                    <% if (!post.getStatus().equals("applied")) { %>
 
                     <table class="table db-job-table"> 
 
@@ -123,31 +123,31 @@
                             <tr> 
                                 <td>Adam</td>
                                 <td>Completed</td>
-                                <td><div class="score" data-score="4"></div></td>
+                                <td><div id="x" class="score" data-score="4"></div></td>
                                 <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                             </tr>
                             <tr> 
                              <td>Susan</td>
                              <td>Completed</td>
-                             <td><div class="score" data-score="3"></div></td>
+                             <td><div id="x2" class="score" data-score="3"></div></td>
                              <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                          </tr>
                          <tr> 
                             <td>David</td>
                             <td>Completed</td>
-                            <td><div class="score" data-score="0"></div></td>
+                            <td><div  id="x3" class="score" data-score="0"></div></td>
                             <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                         </tr>
                          <tr> 
                             <td>Steve</td>
                             <td>Completed</td>
-                            <td><div class="score" data-score="0"></div></td>
+                            <td><div id="x4" class="score" data-score="0"></div></td>
                             <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                         </tr>
                          <tr> 
                             <td>Malcom</td>
                             <td>Completed</td>
-                            <td><div class="score" data-score="0"></div></td>
+                            <td><div  id="x5" class="score" data-score="0"></div></td>
                             <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                         </tr>
 
@@ -155,7 +155,7 @@
 
                 </table>
 
-                <a href="/edit_profile.jsp" class="btn btn-primary btn-lg">Submit My Ratings</a>
+                <a href="#" class="btn btn-primary btn-lg btn-rate">Submit My Ratings</a>
 
                 <% } %>
 
@@ -249,10 +249,24 @@ $(document).on("click", ".btn-comment", function() {
 
 <script>
 
+$(document).on("click", ".btn-rate", function() {
+
+var scores = new Array();
+$('.score').each(function() {
+    var id = this.id;
+  var currentScore = $(this).raty('score');
+   scores.push(id+":"+currentScore);
+ 
+});
+console.log(scores);
+
+});
+</script>
+
+
+<script>
 $.fn.raty.defaults.path = '../rating/images';
-
 $(function() {
-
     $('.score').raty({
       score: function() {
         return $(this).attr('data-score');
