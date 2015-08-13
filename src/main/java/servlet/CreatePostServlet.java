@@ -48,7 +48,7 @@ public class CreatePostServlet extends HttpServlet {
         String description = (String)request.getParameter("description");
         String location = (String)request.getParameter("location");
         String jobDateString = (String)request.getParameter("job_date");
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date jobDate = null;
         try {
             jobDate = df.parse(jobDateString);
