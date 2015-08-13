@@ -90,7 +90,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                  <% if (currentUser.getDateOfBirth() == null){ %>
                  <input id="dob-date" class="form-control" type="date" name="dob_date" > 
                  <% } else { %>
-                 <input id="dob-date" class="form-control" type="date" name="dob_date" value="<%=currentUser.getDateOfBirth()%>"> <% } %>
+                 <input id="dob-date" class="form-control" type="date" name="dob_date" value="<%=currentUser.getDateOfBirthString()%>"> <% } %>
                </div> 
              </div>
 

@@ -39,10 +39,10 @@ public class UpdateUserProfileServlet extends HttpServlet {
             contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
         } 
         String address = (String)request.getParameter("address");
-        String dateOfBirthString = null;
+        String dateOfBirthString = request.getParameter("dob_date");
         Date dateOfBirth = null;
-        if ((String)request.getParameter("dob_date") != null){ ;
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        if (dateOfBirthString != null){ 
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 dateOfBirth = df.parse(dateOfBirthString);
             } catch (ParseException ex){
