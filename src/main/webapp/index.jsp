@@ -257,7 +257,6 @@ $(document).on("click", "#open-jobModal", function() {
                                 color: $(this).attr('color')
                             });
                         });
-                        console.log(events);
                         callback(events);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
