@@ -61,7 +61,7 @@
   </servlet>
   <servlet>  
     <servlet-name>HireUserServlet</servlet-name>
-    <servlet-class>servlet.HireUserServlett</servlet-class>
+    <servlet-class>servlet.HireUserServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>

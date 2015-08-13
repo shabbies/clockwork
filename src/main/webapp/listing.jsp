@@ -74,7 +74,7 @@
                                 <td><%=user.getUsername()%></td>
                                 <td>3 star</td>
                                 <td>Pending</td>
-                                <td><button class="btn btn-success btn-hire">Hire</button></td>
+                                <td><button class="btn btn-success btn-hire" data-userid="<%=user.getId()%>" data-postid="<%=postID%>">Hire</button></td>
                             </tr>
                             <%}%>
                             <tr> 
@@ -180,8 +180,12 @@
     <div class="modal-body payment-mode text-center">
 
      <h4>Choose your preferred mode of payment</h4>
-
-     <a href="/HireUserServlet" class="btn btn-lg btn-primary">Credit Card</a>
+     
+     <form action="/HireUserServlet" method="POST" class="display-inline"/>
+        <input type="text" id="form_user_id" name="applicant_id" hidden />
+        <input type="text" id="form_post_id" name="post_id" hidden />
+        <input type="submit" class="btn btn-lg btn-primary" value="Credit Card" />
+    </form>
      <button class="btn btn-lg btn-primary">iBanking</button>
      <button class="btn btn-lg btn-primary" onclick="submitPaypalForm();">Paypal</button>
  </div>
@@ -195,6 +199,11 @@
 <script>
 
 $(document).on("click", ".btn-hire", function() {
+    var userID = $(this).data("userid");
+    var postID = $(this).data("postid");
+    
+    $("#form_user_id").val(userID);
+    $("#form_post_id").val(postID);
     $('#hireModal').modal('show');
 });
 
