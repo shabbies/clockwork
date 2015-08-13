@@ -17,10 +17,10 @@ return;}
 HashMap <Integer, Post> appliedJobsMap = (HashMap <Integer, Post>)session.getAttribute("appliedJobsMap"); 
 HashMap <Integer, String> appliedJobsStatusMap = (HashMap <Integer, String>)session.getAttribute("appliedJobsStatusMap"); 
 if (appliedJobsMap == null || appliedJobsStatusMap == null){ %>
-    <jsp:forward page="/GetAppliedJobsServlet" />
+<jsp:forward page="/GetAppliedJobsServlet" />
 <%} else { 
-    session.removeAttribute("appliedJobsMap");
-    session.removeAttribute("appliedJobsStatusMap");
+session.removeAttribute("appliedJobsMap");
+session.removeAttribute("appliedJobsStatusMap");
 }%>
 <header class="main">
     <div class="header-content">
@@ -63,79 +63,83 @@ if (appliedJobsMap == null || appliedJobsStatusMap == null){ %>
                                 <td><%=post.getHeader()%></td>
                                 <td><%=post.getCompany()%></td>
                                 <% if (appliedJobsStatusMap.get(post.getId()).equals("pending")) {%>
-                                    <td><span class="badge db-default-badge">Pending</span></td>
-                                    <td>
-                                        <form action="/WithdrawJobApplicationServlet" method="POST" class="display-inline"/>
-                                            <input type="text" value="<%=post.getId()%>" name="post_id" hidden />
-                                            <input type="submit" class="btn btn-primary" value="Withdraw"/>
-                                        </form>
-                                    </td>
-                                <% } else { %>
-                                    <td><span class="badge db-default-badge success">Accepted</span></td>
-                                    <td><a href="#" class="btn btn-warning"> View Details</a></td>
-                                <% } %>
-                            </tr>
-                            <%}%>
-                        </tbody>
-                    </table>
+                                <td><span class="badge db-default-badge">Pending</span></td>
+                                <td>
+                                    <form action="/WithdrawJobApplicationServlet" method="POST" class="display-inline"/>
+                                    <input type="text" value="<%=post.getId()%>" name="post_id" hidden />
+                                    <input type="submit" class="btn btn-primary" value="Withdraw"/>
+                                </form>
+                            </td>
+                            <% } else { %>
+                            <td><span class="badge db-default-badge success">Accepted</span></td>
+                            <td><a href="#" class="btn btn-warning"> View Details</a></td>
+                            <% } %>
+                        </tr>
+                        <%}
+                        if(appliedJobsMap.isEmpty()){ %>
+                        <tr class="text-center"><td colspan="4">You have not applied for any jobs</td></tr>
+                        <% } %>
+                        %>
+                    </tbody>
+                </table>
 
-                    <div>
-                        <a href="/index.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Search for a Job</a>
-                    </div>
-                </div> 
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 data-toggle="collapse" data-target="#pastJobs" aria-expanded="true" class="cursorpointer">Past Jobs</h4>
-                    </div>
-                    <div id="pastJobs" class="panel-collapse collapse" aria-expanded="true">
-                     <table class="table db-job-table"> 
-
-                        <thead> 
-                            <tr> 
-                                <th>Job</th>
-                                <th>Company</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-
-                        <tbody> 
-                            <tr> 
-                                <td>Bellboy</td>
-                                <td>ABC Company</td>
-                                <td><span class="badge db-default-badge success">Completed</span></td>
-                            </tr>
-                            <tr> 
-                                <td>Bellboy</td>
-                                <td>CDE Company</td>
-                                <td><span class="badge db-default-badge success">Completed</span></td>
-
-                            </tr>
-                        </tbody>
-
-                    </table>
+                <div>
+                    <a href="/index.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Search for a Job</a>
                 </div>
-            </div>
+            </div> 
 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 data-toggle="collapse" data-target="#pastJobs" aria-expanded="true" class="cursorpointer">Past Jobs</h4>
+                </div>
+                <div id="pastJobs" class="panel-collapse collapse" aria-expanded="true">
+                   <table class="table db-job-table"> 
+
+                    <thead> 
+                        <tr> 
+                            <th>Job</th>
+                            <th>Company</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody> 
+                        <tr> 
+                            <td>Bellboy</td>
+                            <td>ABC Company</td>
+                            <td><span class="badge db-default-badge success">Completed</span></td>
+                        </tr>
+                        <tr> 
+                            <td>Bellboy</td>
+                            <td>CDE Company</td>
+                            <td><span class="badge db-default-badge success">Completed</span></td>
+
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-body db-user">
+    </div>
 
-                    <div class="text-center">
-                        <img src="http://placehold.it/120x120" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-body db-user">
 
-                    <div class="db-user-info">
-                        <h2>Hi <%= currentUser.getUsername()%>!</h2> 
-                        <span>What would you like to do today?</span>
-                    </div>
-                    <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
+                <div class="text-center">
+                    <img src="http://placehold.it/120x120" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
                 </div>
+
+                <div class="db-user-info">
+                    <h2>Hi <%= currentUser.getUsername()%>!</h2> 
+                    <span>What would you like to do today?</span>
+                </div>
+                <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
             </div>
         </div>
     </div>
+</div>
 
 </div>
 </header>
