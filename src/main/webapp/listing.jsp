@@ -6,13 +6,13 @@
 <%@ page import="java.util.ArrayList" %>
 
 <%  String postID = request.getParameter("id");
-    ArrayList <User> applicantList = (ArrayList <User>)session.getAttribute("applicantList");
-    ArrayList <User> hiredList = (ArrayList <User>)session.getAttribute("hiredList");
-    String formURL = "/GetPostServlet?id=" + postID + "&location=listing";
-    Post post = (Post)session.getAttribute("post");
-    if (post == null){%>
-        <jsp:forward page="<%=formURL%>" />
-    <%} else { session.removeAttribute("post");}%>
+ArrayList <User> applicantList = (ArrayList <User>)session.getAttribute("applicantList");
+ArrayList <User> hiredList = (ArrayList <User>)session.getAttribute("hiredList");
+String formURL = "/GetPostServlet?id=" + postID + "&location=listing";
+Post post = (Post)session.getAttribute("post");
+if (post == null){%>
+<jsp:forward page="<%=formURL%>" />
+<%} else { session.removeAttribute("post");}%>
 
 <header class="main">
     <div class="header-content">
@@ -71,30 +71,30 @@
 
                         <tbody> 
                             <% if (applicantList != null){
-                                for (User user : applicantList){ %>
-                                <tr> 
-                                    <td><%=user.getUsername()%></td>
-                                    <td>3 star</td>
-                                    <td>Pending</td>
-                                    <td><button class="btn btn-success btn-hire" data-userid="<%=user.getId()%>" data-postid="<%=postID%>">Hire</button></td>
-                                </tr>
-                                <%}%>
+                            for (User user : applicantList){ %>
+                            <tr> 
+                                <td><%=user.getUsername()%></td>
+                                <td><div class="ratings" data-score="4"></div></td>
+                                <td>Pending</td>
+                                <td><button class="btn btn-success btn-hire" data-userid="<%=user.getId()%>" data-postid="<%=postID%>">Hire</button></td>
+                            </tr>
+                            <%}%>
                             <%}%>    
                             <% if (hiredList != null){
-                                for (User user : hiredList){ %>
-                                <tr> 
-                                    <td><%=user.getUsername()%></td>
-                                    <td>3 star</td>
-                                    <td>Hired</td>
-                                    <td><a href="#" class="btn btn-warning">Message</a></td>
-                                </tr>
-                                <%}%>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><button class="btn btn-lg btn-primary btn-hire"><span class="badge"><%=applicantList.size()%></span> Hire All</button></td>
-                                </tr>
+                            for (User user : hiredList){ %>
+                            <tr> 
+                                <td><%=user.getUsername()%></td>
+                                <td>3 star</td>
+                                <td>Hired</td>
+                                <td><a href="#" class="btn btn-warning">Message</a></td>
+                            </tr>
+                            <%}%>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><button class="btn btn-lg btn-primary btn-hire"><span class="badge"><%=applicantList.size()%></span> Hire All</button></td>
+                            </tr>
                             <% } %>
                         </tbody>
 
@@ -118,31 +118,31 @@
                             <tr> 
                                 <td>Adam</td>
                                 <td>Completed</td>
-                                <td><div class="score" data-score="4"></div></td>
+                                <td><div id="rating_changethistohisid" class="score" data-score="4"></div></td>
                                 <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                             </tr>
                             <tr> 
-                             <td>Susan</td>
-                             <td>Completed</td>
-                             <td><div class="score" data-score="3"></div></td>
-                             <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
-                         </tr>
-                         <tr> 
+                               <td>Susan</td>
+                               <td>Completed</td>
+                               <td><div id="rating_changethistohisid" class="score" data-score="3"></div></td>
+                               <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
+                           </tr>
+                           <tr> 
                             <td>David</td>
                             <td>Completed</td>
-                            <td><div class="score" data-score="0"></div></td>
+                            <td><div id="rating_changethistohisid" class="score" data-score="0"></div></td>
                             <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                         </tr>
-                         <tr> 
+                        <tr> 
                             <td>Steve</td>
                             <td>Completed</td>
-                            <td><div class="score" data-score="0"></div></td>
+                            <td><div id="rating_changethistohisid" class="score" data-score="0"></div></td>
                             <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                         </tr>
-                         <tr> 
+                        <tr> 
                             <td>Malcom</td>
                             <td>Completed</td>
-                            <td><div class="score" data-score="0"></div></td>
+                            <td><div id="rating_changethistohisid" class="score" data-score="0"></div></td>
                             <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                         </tr>
 
@@ -150,7 +150,7 @@
 
                 </table>
 
-                <a href="/edit_profile.jsp" class="btn btn-primary btn-lg">Submit My Ratings</a>
+                <a href="#" class="btn btn-primary btn-lg btn-rate">Submit My Ratings</a>
 
                 <% } %>
 
@@ -174,17 +174,17 @@
     </div>
     <div class="modal-body payment-mode text-center">
 
-     <h4>Choose your preferred mode of payment</h4>
-     
-     <form action="/HireUserServlet" method="POST" class="display-inline"/>
-        <input type="text" id="form_user_id" name="applicant_id" hidden />
-        <input type="text" id="form_post_id" name="post_id" hidden />
-        <input type="submit" class="btn btn-lg btn-primary" value="Credit Card" />
-    </form>
-     <button class="btn btn-lg btn-primary">iBanking</button>
-     <button class="btn btn-lg btn-primary" onclick="submitPaypalForm();">Paypal</button>
- </div>
- <div class="modal-footer">
+       <h4>Choose your preferred mode of payment</h4>
+
+       <form action="/HireUserServlet" method="POST" class="display-inline"/>
+       <input type="text" id="form_user_id" name="applicant_id" hidden />
+       <input type="text" id="form_post_id" name="post_id" hidden />
+       <input type="submit" class="btn btn-lg btn-primary" value="Credit Card" />
+   </form>
+   <button class="btn btn-lg btn-primary">iBanking</button>
+   <button class="btn btn-lg btn-primary" onclick="submitPaypalForm();">Paypal</button>
+</div>
+<div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 </div>
 </div>
@@ -221,14 +221,14 @@ function submitPaypalForm(){
     </div>
     <div class="modal-body payment-mode text-center">
 
-     <h4>Leave a comment</h4>
+       <h4>Leave a comment</h4>
 
-     <textarea class="form-control" style="min-width: 100%"></textarea>
+       <textarea class="form-control" style="min-width: 100%"></textarea>
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+     <button type="button" class="btn btn-primary">Submit</button>
  </div>
- <div class="modal-footer">
-   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-   <button type="button" class="btn btn-primary">Submit</button>
-</div>
 </div>
 </div>
 </div>
@@ -244,15 +244,35 @@ $(document).on("click", ".btn-comment", function() {
 
 <script>
 
+$(document).on("click", ".btn-rate", function() {
+
+    var scores = new Array();
+    $('.score').each(function() {
+        var id = this.id;
+        var currentScore = $(this).raty('score');
+        scores.push(id+":"+currentScore);
+
+    });
+    console.log(scores);
+
+});
+</script>
+
+
+<script>
 $.fn.raty.defaults.path = '../rating/images';
-
 $(function() {
-
     $('.score').raty({
       score: function() {
         return $(this).attr('data-score');
     }
 });
+    $('.ratings').raty({
+      score: function() {
+        return $(this).attr('data-score');
+    },readOnly: true
+});
+    
 });
 </script>
 
