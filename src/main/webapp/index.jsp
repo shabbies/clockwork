@@ -33,9 +33,9 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
                 </div>
                 <div class="col-lg-4 col-sm-height col-bottom"> 
                     <h5 class="pull-right sortlink">Sort by 
-                        <a href="#">OLDEST</a>  
-                        <a href="#">LATEST</a>
-                        <a href="#">SALARY</a>
+                        <a href="/GetAllPostsServlet?order=oldest">OLDEST</a>  
+                        <a href="/GetAllPostsServlet?order=latest">LATEST</a>
+                        <a href="/GetAllPostsServlet?order=salary">SALARY</a>
                     </h5>
                 </div>
 
