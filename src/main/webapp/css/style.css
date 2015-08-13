@@ -923,3 +923,7 @@ body {
 .label-hire{
     background-color: #777777;
 }
+
+.fc-content{
+    color: transparent !important;
+}
