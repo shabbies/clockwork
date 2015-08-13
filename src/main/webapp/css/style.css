@@ -770,7 +770,7 @@ body {
     width: 150px;
 }
 
-.payment-mode button{
+.payment-mode button, .payment-mode input{
     margin:5px;
     margin-top: 20px;
     width: 150px;
