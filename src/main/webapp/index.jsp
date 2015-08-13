@@ -25,10 +25,23 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
         </div>
     </div>
     <div class="container">
+        <div class="row search-label">
+            <div class="row-same-height">
+                <div class="col-lg-8 col-sm-height col-bottom"> 
+                    <h2 class="hidden"><label><cite>Search Results for </cite>'<span>goodie bag</span>'</label></h2> 
+                    <h2><cite>Featured Job Listings</cite></h2>               
+                </div>
+                <div class="col-lg-4 col-sm-height col-bottom"> 
+                    <h5 class="pull-right sortlink">Sort by 
+                        <a href="#">OLDEST</a>  
+                        <a href="#">LATEST</a>
+                        <a href="#">SALARY</a>
+                    </h5>
+                </div>
 
-        <div class="col-lg-12 search-label"> 
-            <h3 class="hidden">Search Results for "<span>goodie bag</span>"</h3>                             
-        </div>
+
+            </div>  
+        </div>       
 
         <%for (Post post : postList){%>
         <%  Date jobDate = post.getJobDate(); 
@@ -166,8 +179,8 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
     </div>
     <div class="modal-body">
 
-     <div class="col-md-7 modal-job-details">
-         <div class="col-md-4 text-center">
+       <div class="col-md-7 modal-job-details">
+           <div class="col-md-4 text-center">
             <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
             
             <h2 id="modalSalary">$10/hr</h2>
@@ -195,7 +208,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
         </div>
     </div>
     <div class="modal-footer">
-     <div class="pull-right" style="padding-right: 15px;">
+       <div class="pull-right" style="padding-right: 15px;">
         <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
         <form action="/ApplyJobServlet" method="POST" class="display-inline">
             <input type="text" id="hiddenJobID" hidden value="" name="post_id"/>
