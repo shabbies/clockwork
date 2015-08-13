@@ -187,9 +187,10 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
     <div class="col-md-5 modal-job-calendar">
         <h4><strong>Schedule for the Month</strong></h4>
         <div id="calendar"></div>
-        <h6><span class="label label-default bg-primary">Company</span>
+        <h6><span class="label label-default bg-primary">Job Date</span>
             <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
-            <span class="label label-default">Your Schedule</span></h6>
+            <span class="label label-apply">Your Applied Jobs</span>
+            <span class="label label-hire">Your Hired Jobs</span></h6>
             <% } %>
         </div>
     </div>
