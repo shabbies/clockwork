@@ -27,7 +27,8 @@
 
 
               <div class="form-group col-sm-12 text-left"> 
-                <label for="full-name" class="control-label">Full Name*</label> 
+
+                <label for="full-name" class="control-label"><%= (currentUser.getAccountType().equals("job_seeker"))? "Full Name*": "Company Name*"%></label> 
                 <input id="full-name" class="form-control" type="text" placeholder="Name" name="username" value="<%=currentUser.getUsername()%>" required> 
               </div>
 
@@ -47,6 +48,7 @@
                 <input id="street-address" class="form-control" type="text" name="address" value="<%=currentUser.getAddress()%>"><%}%> 
               </div>
 
+              <% if(currentUser.getAccountType().equals("job_seeker")){%>
 
               <div class="form-group col-sm-12 text-left"> 
                <label for="dob-date" class="control-label">Date of Birth</label> 
@@ -58,6 +60,8 @@
                  <input id="dob-date" class="form-control" type="date" name="dob_date" value="<%=currentUser.getDateOfBirth()%>"> <% } %>
                </div> 
              </div>
+
+             <% } %>
 
              <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Update Profile">
            </form>

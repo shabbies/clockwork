@@ -13,12 +13,11 @@
               <h2>Payment has been made.</h2>
               <h4>You will be redirected shortly.</h4>
 
-              <a href="" class="btn btn-lg btn-primary btn-srad" style="margin-top:20px">Click here to be redirected</a>
+              <a href="/" class="btn btn-lg btn-primary btn-srad" style="margin-top:20px">Click here to be redirected</a>
             </div>
           </div>
         </div>
       </div>
-
 
     </div>
   </div>
