@@ -40,40 +40,42 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
             <% 
             String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
             
-            if(currentUser!=null &&currentUser.getUsername().equals(post.getCompany())){
+            if(currentUser!=null){
+            currentuserid = String.valueOf(currentUser.getId());
+            if(currentUser.getUsername().equals(post.getCompany())){
             jobEditStyle =  "job-edit";
             jobStyle =  "job-entry-edit";
             jobEditColor = "job-edit-color";
             ownjob = "true";
-            currentuserid = ""+currentUser.getId();
         }
-        %> 
+    } 
+    %> 
 
-        <div class="job-entry <%=jobEditStyle%>">
-            <div class="job-entry-desc">
-                <div class="row">
-                    <div class="col-xs-9">
-                        <h4><strong><%=post.getHeader()%></strong></h4>
-                        <h5><%=post.getCompany()%>
-                        </h5>
-                        <h5>
-                            <i class="fa fa-map-marker primary"></i> 
-                            <%=post.getLocation()%>
-                        </h5>
-                    </div>
-                    <span class="job-entry-price pull-right primary <%= jobEditColor %>"><strong>$<%=post.getSalary()%>/hr</strong></span>
+    <div class="job-entry <%=jobEditStyle%>">
+        <div class="job-entry-desc">
+            <div class="row">
+                <div class="col-xs-9">
+                    <h4><strong><%=post.getHeader()%></strong></h4>
+                    <h5><%=post.getCompany()%>
+                    </h5>
+                    <h5>
+                        <i class="fa fa-map-marker primary"></i> 
+                        <%=post.getLocation()%>
+                    </h5>
                 </div>
-
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h5 class="font-normal"><%=post.getDescription()%> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, vel, dolore? Accusantium, aperiam deleniti porro voluptatem eos optio. Veniam dicta molestiae, nobis reiciendis cupiditate esse quis inventore debitis voluptatibus necessitatibus!</h5>
-                    </div>
-                </div>
+                <span class="job-entry-price pull-right primary <%= jobEditColor %>"><strong>$<%=post.getSalary()%>/hr</strong></span>
             </div>
 
-            <div class="row job-entry-apply <%=jobStyle%>" id="open-jobModal" data-userid="<%= currentuserid%>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>">
-<!--
-             <div class="col-xs-6"> 
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5 class="font-normal"><%=post.getDescription()%> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, vel, dolore? Accusantium, aperiam deleniti porro voluptatem eos optio. Veniam dicta molestiae, nobis reiciendis cupiditate esse quis inventore debitis voluptatibus necessitatibus!</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="row job-entry-apply <%=jobStyle%>" id="open-jobModal" data-userid="<%= currentuserid %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>">
+            <!--
+            <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
                     <ul class="list-inline text-left">
                         <li class="detailIcons"><a href="#" class="whitelink"><i class="fa fa-dollar"></i></a></li>
@@ -151,8 +153,8 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
     </div>
     <div class="modal-body">
 
-     <div class="col-md-7 modal-job-details">
-         <div class="col-md-4 text-center">
+       <div class="col-md-7 modal-job-details">
+           <div class="col-md-4 text-center">
             <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
             
             <h2 id="modalSalary">$10/hr</h2>
@@ -177,7 +179,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
         </div>
     </div>
     <div class="modal-footer">
-     <div class="pull-right" style="padding-right: 15px;">
+       <div class="pull-right" style="padding-right: 15px;">
         <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
         <form action="/ApplyJobServlet" method="POST" class="display-inline">
             <input type="text" id="hiddenJobID" hidden value="" name="post_id"/>
@@ -191,39 +193,39 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
 
 <script>
 
-$(document).on("click", "#open-jobModal", function() {
+    $(document).on("click", "#open-jobModal", function() {
     if( $(this).data("ownjob") == ''){
-        var headerText = $(this).data('header');
-        var descText = $(this).data('desc');
-        var salaryText = $(this).data('salary');
-        var companyText = $(this).data('company');
-        var locationText = $(this).data('location');
-        var jobDateText = $(this).data("dateposted");
-        var id = $(this).data("id");
-        var uid = $(this).data("userid");
+    var headerText = $(this).data('header');
+    var descText = $(this).data('desc');
+    var salaryText = $(this).data('salary');
+    var companyText = $(this).data('company');
+    var locationText = $(this).data('location');
+    var jobDateText = $(this).data("dateposted");
+    var id = $(this).data("id");
+    var uid = $(this).data("userid");
 
-        $('#jobModalLabel').html(headerText);
-        $('#modalHeader').html("<strong>"+headerText+"</strong>");
-        $('#modalDesc').html(descText);
-        $('#modalSalary').html(salaryText);
-        $('#modalDesc').html(descText);
-        $('#modalCompany').html(companyText);
-        $('#modalLocation').html(" <i class=\"fa fa-map-marker primary\"></i> "+locationText);
-        $('#modalDatePosted').html(jobDateText);
-        $('#hiddenJobID').val(id);
+    $('#jobModalLabel').html(headerText);
+    $('#modalHeader').html("<strong>"+headerText+"</strong>");
+    $('#modalDesc').html(descText);
+    $('#modalSalary').html(salaryText);
+    $('#modalDesc').html(descText);
+    $('#modalCompany').html(companyText);
+    $('#modalLocation').html(" <i class=\"fa fa-map-marker primary\"></i> "+locationText);
+    $('#modalDatePosted').html(jobDateText);
+    $('#hiddenJobID').val(id);
 
-        $('#calendar').fullCalendar( 'destroy' );
+    $('#calendar').fullCalendar( 'destroy' );
 
-        $('#calendar').fullCalendar({
-            editable: false,
-            allDayDefault: true,
-            contentHeight: 240,
-            titleFormat: 'MMMM',
-            eventColor: 'grey',
-            events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
-            eventAfterRender: function(event, element, view) {
-              $(element).css('height','30px');
-              $(element).css('font-weight','700');
+    $('#calendar').fullCalendar({
+    editable: false,
+    allDayDefault: true,
+    contentHeight: 240,
+    titleFormat: 'MMMM',
+    eventColor: 'grey',
+    events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
+    eventAfterRender: function(event, element, view) {
+    $(element).css('height','30px');
+    $(element).css('font-weight','700');
   }/*, eventRender: function (event, element, view) { 
         var dateString = event.start.format("YYYY-MM-DD");
         $(view.el[0]).find('.fc-day[data-date="' + dateString + '"]').css('background-color', '#ee4054');
@@ -231,22 +233,22 @@ $(document).on("click", "#open-jobModal", function() {
 
 });
 
-        var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
-        $('#calendar').fullCalendar( 'renderEvent', myevent, true);
+var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
+$('#calendar').fullCalendar( 'renderEvent', myevent, true);
 
-        $('#jobModal').modal('show');
+$('#jobModal').modal('show');
 
-    }else{
-        window.location.href="/edit_post.jsp?id="+$(this).data("id");
-    }
+}else{
+window.location.href="/edit_post.jsp?id="+$(this).data("id");
+}
 });
 
 
 
 $('#jobModal').on('shown.bs.modal', function () {
 
- $("#calendar").fullCalendar('render');
- $("#calendar").fullCalendar( 'rerenderEvents' );
+$("#calendar").fullCalendar('render');
+$("#calendar").fullCalendar( 'rerenderEvents' );
 });
 </script>
 <!-- End of Job Modal -->
@@ -254,11 +256,11 @@ $('#jobModal').on('shown.bs.modal', function () {
 
 <script>
 
-$(document).ready(function() {
+    $(document).ready(function() {
 
 
 
- $(".job-entry-desc").dotdotdot({
+    $(".job-entry-desc").dotdotdot({
     /*  The text to add as ellipsis. */
     ellipsis    : '... ',
     /*  How to cut off the text/html: 'word'/'letter'/'children' */
@@ -277,8 +279,8 @@ $(document).ready(function() {
         receives two parameters: isTruncated(boolean), orgContent(string). */
         callback    : function( isTruncated, orgContent ) {},
         lastCharacter   : {
-            /*  Remove these characters from the end of the truncated text. */
-            remove      : [ ' ', ',', ';', '.', '!', '?' ],
+        /*  Remove these characters from the end of the truncated text. */
+        remove      : [ ' ', ',', ';', '.', '!', '?' ],
             /*  Don't add an ellipsis if this array contains 
             the last character of the truncated text. */
             noEllipsis  : []
@@ -289,17 +291,17 @@ $(document).ready(function() {
 
 
 $(function() {
-    $('.job-entry').hover(function() {
-        if($(this).hasClass("job-edit")){
-           $(this).find(".job-entry-apply").css( "background-color", "#f0ad4e"); 
-       }else{
-        $(this).find(".job-entry-apply").css( "background-color", "#ee4054"); 
-    }
-    $(this).find("a").removeClass("whitelink"); 
+$('.job-entry').hover(function() {
+if($(this).hasClass("job-edit")){
+$(this).find(".job-entry-apply").css( "background-color", "#f0ad4e"); 
+}else{
+$(this).find(".job-entry-apply").css( "background-color", "#ee4054"); 
+}
+$(this).find("a").removeClass("whitelink"); 
 
 }, function() {
-  $(this).find( ".job-entry-apply").css( "background-color", "") 
-  $(this).find("a").addClass("whitelink"); 
+$(this).find( ".job-entry-apply").css( "background-color", "") 
+$(this).find("a").addClass("whitelink"); 
 });
 });
 
