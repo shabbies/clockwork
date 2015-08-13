@@ -59,6 +59,10 @@
     <servlet-name>GetJobApplicantsServlet</servlet-name>
     <servlet-class>servlet.GetJobApplicantsServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>HireUserServlet</servlet-name>
+    <servlet-class>servlet.HireUserServlett</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -107,5 +111,9 @@
   <servlet-mapping>
     <servlet-name>GetJobApplicantsServlet</servlet-name>
     <url-pattern>/GetJobApplicantsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>HireUserServlet</servlet-name>
+    <url-pattern>/HireUserServlet</url-pattern>
   </servlet-mapping>
 </web-app>    

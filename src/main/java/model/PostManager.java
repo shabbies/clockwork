@@ -13,9 +13,9 @@ import java.util.Locale;
 
 public class PostManager {
 
-    private ArrayList <Post> postList;
-    private ArrayList <Post> publishedList;
-    private HashMap <Integer, Post> postMap;
+    private ArrayList <Post> postList;          // all jobs for index page
+    private ArrayList <Post> publishedList;     // list of listed posts
+    private HashMap <Integer, Post> postMap;    // hashmap of :id => post
     
     public PostManager(){
         postList = new ArrayList <Post> ();
@@ -68,9 +68,17 @@ public class PostManager {
             Post post = createNewPostFromJSON(postString);
             post.setJobDate(jobDate);
             post.setPostingDate(postingDate);
+            if (postHash.get("applicant_count") != null){
+                post.setApplicantCount(((Double)postHash.get("applicant_count")).intValue());
+            }
             newPostList.add(post);
             postMap.put(post.getId(), post);
         }
         return newPostList;
+    }
+    
+    public int getJobApplicantCount(int postID){
+        Post post = postMap.get(postID);
+        return post.getApplicantCount();
     }
 }

@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 public class Post {
     
@@ -16,9 +17,9 @@ public class Post {
     private Date postingDate;
     private Date jobDate;
     private String status;
-    private ArrayList <User> applicants;
+    private int applicantCount;
 
-    public Post(int id, String header, String company, int salary, String description, String location, Date postingDate, Date jobDate, String status) {
+    public Post(int id, String header, String company, int salary, String description, String location, Date postingDate, Date jobDate, String status, int applicantCount) {
         this.id = id;
         this.header = header;
         this.company = company;
@@ -28,6 +29,7 @@ public class Post {
         this.postingDate = postingDate;
         this.jobDate = jobDate;
         this.status = status;
+        this.applicantCount = applicantCount;
     }
 
     public int getId() {
@@ -100,6 +102,14 @@ public class Post {
     
     public void setStatus(String status){
         this.status = status;
+    }
+
+    public int getApplicantCount() {
+        return applicantCount;
+    }
+
+    public void setApplicantCount(int applicantCount) {
+        this.applicantCount = applicantCount;
     }
     
     public String getJobDateString(){

@@ -1,7 +1,7 @@
 package servlet;
 
 import controller.AppController;
-import controller.PostController;
+import controller.UserController;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -19,7 +19,6 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
-import model.Post;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
@@ -39,6 +38,8 @@ public class GetJobApplicantsServlet extends HttpServlet {
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
         String postID = request.getParameter("id");
+        AppController appController = (AppController)session.getAttribute("appController");
+        UserController userController = appController.getUserController();
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/get_applicants");
@@ -46,12 +47,11 @@ public class GetJobApplicantsServlet extends HttpServlet {
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("email", email));
         nvps.add(new BasicNameValuePair("job_id", postID));
-
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
-
         HttpEntity entity = null;
-        ArrayList <Post> publishedList = null;
+        ArrayList <User> applicantList = null;
         try {
             entity = httpResponse.getEntity();
             if(httpResponse.getStatusLine().getStatusCode() == 201){
@@ -59,7 +59,7 @@ public class GetJobApplicantsServlet extends HttpServlet {
                 InputStream readingStream = entity.getContent();
                 IOUtils.copy(readingStream, writer, "UTF-8");
                 String theString = writer.toString();
-                //publishedList = postController.loadPublishedPostList(theString);
+                applicantList = userController.createUsersFromJSONArray(theString);
             } else {
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
@@ -70,8 +70,8 @@ public class GetJobApplicantsServlet extends HttpServlet {
             EntityUtils.consume(entity);
             httpResponse.close();
         }
-        session.setAttribute("publishedList", publishedList);
-        response.sendRedirect("/dashboard.jsp");
+        session.setAttribute("applicantList", applicantList);
+        response.sendRedirect("/listing.jsp?id=" + postID);
     }
 
 }

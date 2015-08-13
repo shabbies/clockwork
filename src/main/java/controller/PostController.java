@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import model.Post;
 import model.PostManager;
+import model.User;
 
 public class PostController {
 
@@ -26,5 +27,9 @@ public class PostController {
     
     public Post getPost(int postID){
         return postManager.getPostFromHash(postID);
+    }
+    
+    public int getJobApplicantCount(int postID){
+        return postManager.getJobApplicantCount(postID);
     }
 }

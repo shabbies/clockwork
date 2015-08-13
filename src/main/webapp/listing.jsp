@@ -3,8 +3,10 @@
 
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
+<%@ page import="java.util.ArrayList" %>
 
 <%  String postID = request.getParameter("id");
+    ArrayList <User> applicantList = (ArrayList <User>)session.getAttribute("applicantList");
     String formURL = "/GetPostServlet?id=" + postID + "&location=listing";
     Post post = (Post)session.getAttribute("post");
     if (post == null){%>
@@ -28,6 +30,18 @@
                         <div class="db-user-info">
                             <h2><%=post.getHeader()%></h2> 
                             <h5><%=post.getDescription()%></h5>
+                            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" id="paypalform" hidden>
+                                <input type="hidden" name="cmd" value="_xclick">
+                                <input type="hidden" name="business" value="FNMMM6WBLEMK4">
+                                <input type="hidden" name="lc" value="SG">
+                                <input type="hidden" name="item_name" value="Payment for Wages">
+                                <input type="hidden" name="amount" value="100.00">
+                                <input type="hidden" name="currency_code" value="SGD">
+                                <input type="hidden" name="button_subtype" value="services">
+                                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
+                                <input type="image" src="https://www.sandbox.paypal.com/en_GB/SG/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal ? The safer, easier way to pay online.">
+                                <img alt="" border="0" src="https://www.sandbox.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -41,7 +55,7 @@
                         <h4>Your Applications</h4> 
                     </div> 
 
-                    <% if (request.getParameter("completed") == null) { %>
+                    <% if (post.getStatus().equals("applied")) { %>
 
                     <table class="table db-job-table"> 
 
@@ -55,12 +69,14 @@
                         </thead>
 
                         <tbody> 
+                            <% for (User user : applicantList){ %>
                             <tr> 
-                                <td>Adam</td>
-                                <td>4 star</td>
+                                <td><%=user.getUsername()%></td>
+                                <td>3 star</td>
                                 <td>Pending</td>
                                 <td><button class="btn btn-success btn-hire">Hire</button></td>
                             </tr>
+                            <%}%>
                             <tr> 
                                 <td>Suan</td>
                                 <td>3 star</td>
@@ -83,7 +99,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><button class="btn btn-lg btn-primary btn-hire"><span class="badge">3</span> Hire All</button></td>
+                                <td><button class="btn btn-lg btn-primary btn-hire"><span class="badge"><%=applicantList.size()%></span> Hire All</button></td>
                             </tr>
                         </tbody>
 
@@ -165,9 +181,9 @@
 
      <h4>Choose your preferred mode of payment</h4>
 
-     <button class="btn btn-lg btn-primary">Credit Card</button>
+     <a href="/HireUserServlet" class="btn btn-lg btn-primary">Credit Card</a>
      <button class="btn btn-lg btn-primary">iBanking</button>
-     <button class="btn btn-lg btn-primary">Paypal</button>
+     <button class="btn btn-lg btn-primary" onclick="submitPaypalForm();">Paypal</button>
  </div>
  <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -181,6 +197,10 @@
 $(document).on("click", ".btn-hire", function() {
     $('#hireModal').modal('show');
 });
+
+function submitPaypalForm(){
+  $("#paypalform").submit();  
+};
 </script>
 <!-- End of Hire Modal -->
 

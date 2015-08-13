@@ -3,6 +3,7 @@ package servlet;
 import controller.AppController;
 import controller.PostController;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +42,8 @@ public class GetPostServlet extends HttpServlet {
             response.sendRedirect("/edit_post.jsp?id=" + postID);
             return;
         } else if (location.equals("listing")){
-            response.sendRedirect("/listing.jsp?id=" + postID);
+            RequestDispatcher rd = request.getRequestDispatcher("/GetJobApplicantsServlet?id=" + postID);
+            rd.forward(request, response);
         }
     }
 }
