@@ -7,6 +7,7 @@
 
 <%  String postID = request.getParameter("id");
     ArrayList <User> applicantList = (ArrayList <User>)session.getAttribute("applicantList");
+    ArrayList <User> hiredList = (ArrayList <User>)session.getAttribute("hiredList");
     String formURL = "/GetPostServlet?id=" + postID + "&location=listing";
     Post post = (Post)session.getAttribute("post");
     if (post == null){%>
@@ -69,38 +70,32 @@
                         </thead>
 
                         <tbody> 
-                            <% for (User user : applicantList){ %>
-                            <tr> 
-                                <td><%=user.getUsername()%></td>
-                                <td>3 star</td>
-                                <td>Pending</td>
-                                <td><button class="btn btn-success btn-hire" data-userid="<%=user.getId()%>" data-postid="<%=postID%>">Hire</button></td>
-                            </tr>
-                            <%}%>
-                            <tr> 
-                                <td>Suan</td>
-                                <td>3 star</td>
-                                <td>Pending</td>
-                                <td><button class="btn btn-success btn-hire">Hire</button></td>
-                            </tr>
-                            <tr> 
-                                <td>Adam</td>
-                                <td>4 star</td>
-                                <td>Hired</td>
-                                <td><a href="#" class="btn btn-warning">Message</a></td>
-                            </tr>
-                            <tr> 
-                                <td>Suan</td>
-                                <td>3 star</td>
-                                <td>Pending</td>
-                                <td><button class="btn btn-success btn-hire">Hire</button></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><button class="btn btn-lg btn-primary btn-hire"><span class="badge"><%=applicantList.size()%></span> Hire All</button></td>
-                            </tr>
+                            <% if (applicantList != null){
+                                for (User user : applicantList){ %>
+                                <tr> 
+                                    <td><%=user.getUsername()%></td>
+                                    <td>3 star</td>
+                                    <td>Pending</td>
+                                    <td><button class="btn btn-success btn-hire" data-userid="<%=user.getId()%>" data-postid="<%=postID%>">Hire</button></td>
+                                </tr>
+                                <%}%>
+                            <%}%>    
+                            <% if (hiredList != null){
+                                for (User user : hiredList){ %>
+                                <tr> 
+                                    <td><%=user.getUsername()%></td>
+                                    <td>3 star</td>
+                                    <td>Hired</td>
+                                    <td><a href="#" class="btn btn-warning">Message</a></td>
+                                </tr>
+                                <%}%>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><button class="btn btn-lg btn-primary btn-hire"><span class="badge"><%=applicantList.size()%></span> Hire All</button></td>
+                                </tr>
+                            <% } %>
                         </tbody>
 
                     </table>
