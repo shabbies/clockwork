@@ -88,7 +88,7 @@ if (appliedJobsMap == null || appliedJobsStatusMap == null){ %>
                     <div class="panel-heading">
                         <h4 data-toggle="collapse" data-target="#pastJobs" aria-expanded="true" class="cursorpointer">Past Jobs</h4>
                     </div>
-                    <div id="pastJobs" class="panel-collapse collapse in" aria-expanded="true">
+                    <div id="pastJobs" class="panel-collapse collapse" aria-expanded="true">
                      <table class="table db-job-table"> 
 
                         <thead> 
