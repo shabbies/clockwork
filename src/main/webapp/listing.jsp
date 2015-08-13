@@ -119,7 +119,7 @@ if (post == null){%>
                         <td><%=user.getUsername()%></td>
                         <td><div class="ratings" data-score="4"></div></td>
                         <td>Hired</td>
-                        <td><a href="#" class="btn btn-warning open-profileModal"
+                        <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal"
                             data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= user.getContactNumber()%>" data-rating="4"
 
 
@@ -212,8 +212,8 @@ if (post == null){%>
      <h4>Choose your preferred mode of payment</h4>
 
      <form action="/HireUserServlet" method="POST" class="display-inline"/>
-     <input type="text" id="form_user_id" name="applicant_id" hidden />
-     <input type="text" id="form_post_id" name="post_id" hidden />
+        <input type="text" id="form_user_id" name="applicant_id" hidden />
+        <input type="text" id="form_post_id" name="post_id" hidden />
      <input type="submit" class="btn btn-lg btn-primary" value="Credit Card" />
  </form>
  <button class="btn btn-lg btn-primary">iBanking</button>
@@ -238,7 +238,17 @@ $(document).on("click", ".btn-hire", function() {
 });
 
 function submitPaypalForm(){
-  $("#paypalform").submit();  
+    var userID = $("#form_user_id").val();
+    var postID = $("#form_post_id").val();
+    console.log(userID);
+    $.ajax({
+        url: '/HireUserServlet',
+        data: { "applicant_id": userID, "post_id": postID},
+        type: 'POST',
+        success: function(data) {
+            $("#paypalform").submit();  
+        }
+    });
 };
 </script>
 <!-- End of Hire Modal -->
