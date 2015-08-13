@@ -18,8 +18,10 @@
             <ul class="nav navbar-nav navbar-right">
 
                <% if (currentUser == null){ %>
+               <!--
                <li><a class="page-scroll" href="/register_job_seeker.jsp">Work <i class="fa fa-fw fa-bell hidden"></i></a></li>
                <li><a class="page-scroll" href="/create_post.jsp">Hire</a></li>
+               -->
                <% } else {  %>
                <% String link = (currentUser.getAccountType().equals("job_seeker"))? "/mydashboard.jsp": "/dashboard.jsp";%>
                <li><a class="page-scroll" href="<%= link %>">My Dashboard</a></li>

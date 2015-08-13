@@ -93,13 +93,12 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
             <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
             <%} else { %>
             <% if(!currentUser.getUsername().equals(post.getCompany())){ 
-            if(currentUser.getAccountType().equals("job_seeker")){
-            %>
+            if(currentUser.getAccountType().equals("job_seeker")){%>
 
             <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
             <% }else{ %>
-               
-          <%  } %>
+
+            <%  } %>
 
             <% } else { %>
             <a href="/edit_post.jsp?id=<%= post.getId() %>" class="btn btn-warning btnnohover pull-right">Edit Job</a>
@@ -164,8 +163,8 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
     </div>
     <div class="modal-body">
 
-       <div class="col-md-7 modal-job-details">
-           <div class="col-md-4 text-center">
+     <div class="col-md-7 modal-job-details">
+         <div class="col-md-4 text-center">
             <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
             
             <h2 id="modalSalary">$10/hr</h2>
@@ -186,15 +185,19 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
         <h4><strong>Schedule for the Month</strong></h4>
         <div id="calendar"></div>
         <h6><span class="label label-default bg-primary">Company</span>
+        <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
             <span class="label label-default">Your Schedule</span></h6>
+               <% } %>
         </div>
     </div>
     <div class="modal-footer">
-       <div class="pull-right" style="padding-right: 15px;">
+     <div class="pull-right" style="padding-right: 15px;">
         <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
         <form action="/ApplyJobServlet" method="POST" class="display-inline">
             <input type="text" id="hiddenJobID" hidden value="" name="post_id"/>
+            <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
             <input type="submit" class="btn btn-primary btn-lg" value="Apply for Job"/>
+            <% } %>
         </form>
     </div>
 </div>
