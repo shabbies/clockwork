@@ -108,7 +108,7 @@ return;
                     <div class="panel-body db-user">
 
                         <div class="text-center">
-                            <img src="http://placehold.it/120x120" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
+                          <img src="img/user-placeholder.jpg" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
                         </div>
 
                         <div class="db-user-info">
