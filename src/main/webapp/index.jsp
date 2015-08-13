@@ -73,6 +73,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
             </div>
         </div>
 
+
         <div class="row job-entry-apply <%=jobStyle%>" id="open-jobModal" data-userid="<%= currentuserid %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>">
             <!--
             <div class="col-xs-6"> 
@@ -91,8 +92,15 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
             <% if(currentUser==null){ %>
             <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
             <%} else { %>
-            <% if(!currentUser.getUsername().equals(post.getCompany())){ %>
+            <% if(!currentUser.getUsername().equals(post.getCompany())){ 
+            if(currentUser.getAccountType().equals("job_seeker")){
+            %>
+
             <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
+            <% }else{ %>
+               
+          <%  } %>
+
             <% } else { %>
             <a href="/edit_post.jsp?id=<%= post.getId() %>" class="btn btn-warning btnnohover pull-right">Edit Job</a>
             <% } %>
@@ -101,6 +109,9 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
         </div>
 
     </div>
+
+
+
 
 </div>
 
@@ -193,39 +204,39 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
 
 <script>
 
-    $(document).on("click", "#open-jobModal", function() {
+$(document).on("click", "#open-jobModal", function() {
     if( $(this).data("ownjob") == ''){
-    var headerText = $(this).data('header');
-    var descText = $(this).data('desc');
-    var salaryText = $(this).data('salary');
-    var companyText = $(this).data('company');
-    var locationText = $(this).data('location');
-    var jobDateText = $(this).data("dateposted");
-    var id = $(this).data("id");
-    var uid = $(this).data("userid");
+        var headerText = $(this).data('header');
+        var descText = $(this).data('desc');
+        var salaryText = $(this).data('salary');
+        var companyText = $(this).data('company');
+        var locationText = $(this).data('location');
+        var jobDateText = $(this).data("dateposted");
+        var id = $(this).data("id");
+        var uid = $(this).data("userid");
 
-    $('#jobModalLabel').html(headerText);
-    $('#modalHeader').html("<strong>"+headerText+"</strong>");
-    $('#modalDesc').html(descText);
-    $('#modalSalary').html(salaryText);
-    $('#modalDesc').html(descText);
-    $('#modalCompany').html(companyText);
-    $('#modalLocation').html(" <i class=\"fa fa-map-marker primary\"></i> "+locationText);
-    $('#modalDatePosted').html(jobDateText);
-    $('#hiddenJobID').val(id);
+        $('#jobModalLabel').html(headerText);
+        $('#modalHeader').html("<strong>"+headerText+"</strong>");
+        $('#modalDesc').html(descText);
+        $('#modalSalary').html(salaryText);
+        $('#modalDesc').html(descText);
+        $('#modalCompany').html(companyText);
+        $('#modalLocation').html(" <i class=\"fa fa-map-marker primary\"></i> "+locationText);
+        $('#modalDatePosted').html(jobDateText);
+        $('#hiddenJobID').val(id);
 
-    $('#calendar').fullCalendar( 'destroy' );
+        $('#calendar').fullCalendar( 'destroy' );
 
-    $('#calendar').fullCalendar({
-    editable: false,
-    allDayDefault: true,
-    contentHeight: 240,
-    titleFormat: 'MMMM',
-    eventColor: 'grey',
-    events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
-    eventAfterRender: function(event, element, view) {
-    $(element).css('height','30px');
-    $(element).css('font-weight','700');
+        $('#calendar').fullCalendar({
+            editable: false,
+            allDayDefault: true,
+            contentHeight: 240,
+            titleFormat: 'MMMM',
+            eventColor: 'grey',
+            events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
+            eventAfterRender: function(event, element, view) {
+                $(element).css('height','30px');
+                $(element).css('font-weight','700');
   }/*, eventRender: function (event, element, view) { 
         var dateString = event.start.format("YYYY-MM-DD");
         $(view.el[0]).find('.fc-day[data-date="' + dateString + '"]').css('background-color', '#ee4054');
@@ -233,22 +244,22 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
 
 });
 
-var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
-$('#calendar').fullCalendar( 'renderEvent', myevent, true);
+        var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
+        $('#calendar').fullCalendar( 'renderEvent', myevent, true);
 
-$('#jobModal').modal('show');
+        $('#jobModal').modal('show');
 
-}else{
-window.location.href="/edit_post.jsp?id="+$(this).data("id");
-}
+    }else{
+        window.location.href="/edit_post.jsp?id="+$(this).data("id");
+    }
 });
 
 
 
 $('#jobModal').on('shown.bs.modal', function () {
 
-$("#calendar").fullCalendar('render');
-$("#calendar").fullCalendar( 'rerenderEvents' );
+    $("#calendar").fullCalendar('render');
+    $("#calendar").fullCalendar( 'rerenderEvents' );
 });
 </script>
 <!-- End of Job Modal -->
@@ -256,31 +267,31 @@ $("#calendar").fullCalendar( 'rerenderEvents' );
 
 <script>
 
-    $(document).ready(function() {
+$(document).ready(function() {
 
 
 
     $(".job-entry-desc").dotdotdot({
-    /*  The text to add as ellipsis. */
-    ellipsis    : '... ',
-    /*  How to cut off the text/html: 'word'/'letter'/'children' */
-    wrap        : 'word',
-    /*  Wrap-option fallback to 'letter' for long words */
-    fallbackToLetter: true,
-    /*  jQuery-selector for the element to keep and put after the ellipsis. */
-    after       : null,
-    /*  Whether to update the ellipsis: true/'window' */
-    watch       : false,
-    /*  Optionally set a max-height, if null, the height will be measured. */
-    height      : null,
-    /*  Deviation for the height-option. */
-    tolerance   : 0,
+        /*  The text to add as ellipsis. */
+        ellipsis    : '... ',
+        /*  How to cut off the text/html: 'word'/'letter'/'children' */
+        wrap        : 'word',
+        /*  Wrap-option fallback to 'letter' for long words */
+        fallbackToLetter: true,
+        /*  jQuery-selector for the element to keep and put after the ellipsis. */
+        after       : null,
+        /*  Whether to update the ellipsis: true/'window' */
+        watch       : false,
+        /*  Optionally set a max-height, if null, the height will be measured. */
+        height      : null,
+        /*  Deviation for the height-option. */
+        tolerance   : 0,
         /*  Callback function that is fired after the ellipsis is added,
         receives two parameters: isTruncated(boolean), orgContent(string). */
         callback    : function( isTruncated, orgContent ) {},
         lastCharacter   : {
-        /*  Remove these characters from the end of the truncated text. */
-        remove      : [ ' ', ',', ';', '.', '!', '?' ],
+            /*  Remove these characters from the end of the truncated text. */
+            remove      : [ ' ', ',', ';', '.', '!', '?' ],
             /*  Don't add an ellipsis if this array contains 
             the last character of the truncated text. */
             noEllipsis  : []
@@ -291,18 +302,18 @@ $("#calendar").fullCalendar( 'rerenderEvents' );
 
 
 $(function() {
-$('.job-entry').hover(function() {
-if($(this).hasClass("job-edit")){
-$(this).find(".job-entry-apply").css( "background-color", "#f0ad4e"); 
-}else{
-$(this).find(".job-entry-apply").css( "background-color", "#ee4054"); 
-}
-$(this).find("a").removeClass("whitelink"); 
+    $('.job-entry').hover(function() {
+        if($(this).hasClass("job-edit")){
+            $(this).find(".job-entry-apply").css( "background-color", "#f0ad4e"); 
+        }else{
+            $(this).find(".job-entry-apply").css( "background-color", "#ee4054"); 
+        }
+        $(this).find("a").removeClass("whitelink"); 
 
-}, function() {
-$(this).find( ".job-entry-apply").css( "background-color", "") 
-$(this).find("a").addClass("whitelink"); 
-});
+    }, function() {
+        $(this).find( ".job-entry-apply").css( "background-color", "") 
+        $(this).find("a").addClass("whitelink"); 
+    });
 });
 
 </script>
