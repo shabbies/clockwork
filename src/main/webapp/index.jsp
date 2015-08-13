@@ -74,7 +74,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
         </div>
 
 
-        <div class="row job-entry-apply <%=jobStyle%>" id="open-jobModal" data-userid="<%= currentuserid %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>">
+        <div class="row job-entry-apply <%=jobStyle%>" id="open-jobModal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>">
             <!--
             <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
@@ -100,14 +100,17 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
 
             <%  } %>
 
-            <% } else { %>
+            <% } else { 
+            if(post.getStatus().equals("listed")){%>
             <a href="/edit_post.jsp?id=<%= post.getId() %>" class="btn btn-warning btnnohover pull-right">Edit Job</a>
-            <% } %>
-            <% } %>
 
-        </div>
+            <% }
+        } %>
+        <% } %>
 
     </div>
+
+</div>
 
 
 
@@ -163,8 +166,8 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
     </div>
     <div class="modal-body">
 
-     <div class="col-md-7 modal-job-details">
-         <div class="col-md-4 text-center">
+       <div class="col-md-7 modal-job-details">
+           <div class="col-md-4 text-center">
             <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
             
             <h2 id="modalSalary">$10/hr</h2>
@@ -185,13 +188,13 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
         <h4><strong>Schedule for the Month</strong></h4>
         <div id="calendar"></div>
         <h6><span class="label label-default bg-primary">Company</span>
-        <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
+            <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
             <span class="label label-default">Your Schedule</span></h6>
-               <% } %>
+            <% } %>
         </div>
     </div>
     <div class="modal-footer">
-     <div class="pull-right" style="padding-right: 15px;">
+       <div class="pull-right" style="padding-right: 15px;">
         <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
         <form action="/ApplyJobServlet" method="POST" class="display-inline">
             <input type="text" id="hiddenJobID" hidden value="" name="post_id"/>
@@ -253,7 +256,10 @@ $(document).on("click", "#open-jobModal", function() {
         $('#jobModal').modal('show');
 
     }else{
-        window.location.href="/edit_post.jsp?id="+$(this).data("id");
+        var jobstatus = $(this).data('jobstatus');
+        if(jobstatus=='listed'){
+            window.location.href="/edit_post.jsp?id="+$(this).data("id");
+        }
     }
 });
 
