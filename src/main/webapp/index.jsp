@@ -38,14 +38,14 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
         <div class="col-lg-4">
 
             <% 
-            String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "";
+            String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
             
             if(currentUser!=null &&currentUser.getUsername().equals(post.getCompany())){
             jobEditStyle =  "job-edit";
             jobStyle =  "job-entry-edit";
             jobEditColor = "job-edit-color";
             ownjob = "true";
-
+ currentuserid = currentUser.getId();
         }
         %> 
 
@@ -71,7 +71,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
                 </div>
             </div>
 
-            <div class="row job-entry-apply <%=jobStyle%>" id="open-jobModal" data-userid="<%= currentUser.getId()%>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>">
+            <div class="row job-entry-apply <%=jobStyle%>" id="open-jobModal" data-userid="<%= currentuserid%>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>">
 <!--
              <div class="col-xs-6"> 
                 <div class="detailIconsDiv">
