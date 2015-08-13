@@ -32,10 +32,21 @@ public class GetAllPostsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
         PostController postController = appController.getPostController();
+        String requestURL = "https://clockwork-api.herokuapp.com/api/v1/posts/";
+        String sortingOrder = request.getParameter("order");
+        if (sortingOrder.equals("salary")){
+            requestURL = requestURL + "all_salary.json";
+        } else if (sortingOrder.equals("oldest")){
+            requestURL = requestURL + "all_oldest.json";
+        } else if (sortingOrder.equals("latest")){
+            requestURL = requestURL + "all_latest.json";
+        } else {
+            requestURL = requestURL + "all.json";
+        }
         
         // httpget request
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("https://clockwork-api.herokuapp.com/api/v1/posts/all.json");
+        HttpGet httpGet = new HttpGet(requestURL);
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
         ArrayList <Post> postList;
         try {
