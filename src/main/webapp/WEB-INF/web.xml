@@ -67,6 +67,10 @@
     <servlet-name>GetSingleHiredServlet</servlet-name>
     <servlet-class>servlet.GetSingleHiredServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>GetAppliedJobsServlet</servlet-name>
+    <servlet-class>servlet.GetAppliedJobsServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -123,5 +127,9 @@
   <servlet-mapping>
     <servlet-name>GetSingleHiredServlet</servlet-name>
     <url-pattern>/GetSingleHiredServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetAppliedJobsServlet</servlet-name>
+    <url-pattern>/GetAppliedJobsServlet</url-pattern>
   </servlet-mapping>
 </web-app>    

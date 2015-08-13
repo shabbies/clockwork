@@ -12,6 +12,13 @@ return;
 session.setAttribute("error", "Only a job seeker account can view job applications!");
 response.sendRedirect("/index.jsp");
 return;}
+
+ArrayList <Post> appliedList = (ArrayList <Post>)session.getAttribute("appliedList"); 
+if (publishedList == null){ %>
+    <jsp:forward page="/GetAppliedJobsServlet" />
+<%} else { 
+    session.removeAttribute("appliedList");
+}       
 %>
 <header class="main">
     <div class="header-content">
@@ -37,12 +44,15 @@ return;}
                         </thead>
 
                         <tbody> 
+                            <% for (Post post : appliedList) { %>
                             <tr> 
-                                <td>Bellboy</td>
-                                <td>ABC Company</td>
+                                <td><%=post.getHeader()%></td>
+                                <td><%=post.getCompany()%></td>
+                                <% if (post.getStatus().equals(""))
                                 <td><span class="badge db-default-badge">Pending</span></td>
                                 <td><a href="#" class="btn btn-primary">Withdraw</a></td>
                             </tr>
+                            <%}%>
                             <tr> 
                                 <td>Bellboy</td>
                                 <td>CDE Company</td>
