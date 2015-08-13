@@ -84,9 +84,9 @@ if (post == null){%>
                             for (User user : hiredList){ %>
                             <tr> 
                                 <td><%=user.getUsername()%></td>
-                                <td>3 star</td>
+                                <td><div class="ratings" data-score="4"></div></td>
                                 <td>Hired</td>
-                                <td><a href="#" class="btn btn-warning">Message</a></td>
+                                <td><a href="#" class="btn btn-warning btn-viewprofile">View Profile</a></td>
                             </tr>
                             <%}%>
                             <tr>
