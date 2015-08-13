@@ -45,7 +45,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
             jobStyle =  "job-entry-edit";
             jobEditColor = "job-edit-color";
             ownjob = "true";
- currentuserid = ""+currentUser.getId();
+            currentuserid = ""+currentUser.getId();
         }
         %> 
 
@@ -85,11 +85,17 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
         -->
 
         <div class="col-xs-12">
+
+            <% if(currentUser==null){ %>
+            <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
+            <%} else { %>
             <% if(!currentUser.getUsername().equals(post.getCompany())){ %>
             <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
             <% } else { %>
             <a href="/edit_post.jsp?id=<%= post.getId() %>" class="btn btn-warning btnnohover pull-right">Edit Job</a>
             <% } %>
+            <% } %>
+
         </div>
 
     </div>
