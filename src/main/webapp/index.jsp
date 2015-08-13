@@ -68,7 +68,7 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
 
             <div class="row">
                 <div class="col-xs-12">
-                    <h5 class="font-normal"><%=post.getDescription()%> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, vel, dolore? Accusantium, aperiam deleniti porro voluptatem eos optio. Veniam dicta molestiae, nobis reiciendis cupiditate esse quis inventore debitis voluptatibus necessitatibus!</h5>
+                    <h5 class="font-normal"><%=post.getDescription()%></h5>
                 </div>
             </div>
         </div>
