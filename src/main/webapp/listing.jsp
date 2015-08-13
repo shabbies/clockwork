@@ -119,80 +119,81 @@ if (post == null){%>
                         <td><%=user.getUsername()%></td>
                         <td><div class="ratings" data-score="4"></div></td>
                         <td>Hired</td>
-                        <td><a href="#" class="btn btn-warning btn-viewprofile">View Profile</a></td>
-                    </tr>
-                    <%}%>
-                    <% } %>
-                </tbody>
-
-            </table>
-        </div>
-
-
-        <% } else { %>
+                        <td><a href="#" class="btn btn-warning open-profileModal"
+                            data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= user.getContactNumber()%>" data-rating="4"
 
 
 
+                            >View Profile</a></td>
+                        </tr>
+                        <%}%>
+                        <% } %>
+                    </tbody>
 
-        <div class="panel panel-default">
-            <div class="panel-heading"> 
-                <h4>Your Hired Applicants</h4> 
-            </div> 
-            <table class="table db-job-table"> 
+                </table>
+            </div>
 
-                <thead> 
-                    <tr> 
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th>Choose Rating</th>
-                        <th>Leave a Review</th>
-                    </tr>
-                </thead>
+            <% } else { %>
 
-                <tbody> 
-                    <tr> 
-                        <td>Adam</td>
+            <div class="panel panel-default">
+                <div class="panel-heading"> 
+                    <h4>Your Hired Applicants</h4> 
+                </div> 
+                <table class="table db-job-table"> 
+
+                    <thead> 
+                        <tr> 
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Choose Rating</th>
+                            <th>Leave a Review</th>
+                        </tr>
+                    </thead>
+
+                    <tbody> 
+                        <tr> 
+                            <td>Adam</td>
+                            <td>Completed</td>
+                            <td><div id="rating_changethistohisid" class="score" data-score="4"></div></td>
+                            <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
+                        </tr>
+                        <tr> 
+                         <td>Susan</td>
+                         <td>Completed</td>
+                         <td><div id="rating_changethistohisid" class="score" data-score="3"></div></td>
+                         <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
+                     </tr>
+                     <tr> 
+                        <td>David</td>
                         <td>Completed</td>
-                        <td><div id="rating_changethistohisid" class="score" data-score="4"></div></td>
+                        <td><div id="rating_changethistohisid" class="score" data-score="0"></div></td>
                         <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
                     </tr>
                     <tr> 
-                     <td>Susan</td>
-                     <td>Completed</td>
-                     <td><div id="rating_changethistohisid" class="score" data-score="3"></div></td>
-                     <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
-                 </tr>
-                 <tr> 
-                    <td>David</td>
-                    <td>Completed</td>
-                    <td><div id="rating_changethistohisid" class="score" data-score="0"></div></td>
-                    <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
-                </tr>
-                <tr> 
-                    <td>Steve</td>
-                    <td>Completed</td>
-                    <td><div id="rating_changethistohisid" class="score" data-score="0"></div></td>
-                    <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
-                </tr>
-                <tr> 
-                    <td>Malcom</td>
-                    <td>Completed</td>
-                    <td><div id="rating_changethistohisid" class="score" data-score="0"></div></td>
-                    <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
-                </tr>
+                        <td>Steve</td>
+                        <td>Completed</td>
+                        <td><div id="rating_changethistohisid" class="score" data-score="0"></div></td>
+                        <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
+                    </tr>
+                    <tr> 
+                        <td>Malcom</td>
+                        <td>Completed</td>
+                        <td><div id="rating_changethistohisid" class="score" data-score="0"></div></td>
+                        <td><button class="btn btn-success btn-comment">Leave Comment</button></td>
+                    </tr>
 
-            </tbody>
+                </tbody>
 
-        </table>
+            </table>
 
-        <a href="#" class="btn btn-primary btn-lg btn-rate">Submit My Ratings</a>
+            <a href="#" class="btn btn-primary btn-lg btn-rate">Submit My Ratings</a>
 
-        <% } %>
+            <% } %>
+
+        </div>
+
 
     </div>
-
-
-</div>
 
 </div>
 </header>
@@ -241,6 +242,38 @@ function submitPaypalForm(){
 };
 </script>
 <!-- End of Hire Modal -->
+
+<!-- Profile Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+    </div>
+    <div class="modal-body">
+
+       <div class="col-md-12 modal-job-details">
+           <div class="col-md-4 text-center">
+            <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
+            
+        </div>
+
+        <div class="col-md-8">
+            <h4 id="modalName"></h4>
+            <h5 id="modalContact"></h5>
+            <h5 id="modalEmail"></h5>
+            <div id="modalRating"></div>
+        </div>
+    </div>
+    
+</div>
+<div class="modal-footer">
+   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
 
 
 
@@ -306,10 +339,29 @@ $(function() {
         return $(this).attr('data-score');
     },readOnly: true
 });
+
     
 });
 </script>
 
+<script>
+$(document).on("click", ".open-profileModal", function() {
+    var nameText = $(this).data('name');
+    var contactText = $(this).data('contact');
+    var emailText = $(this).data('email');
+    var ratingText = $(this).data('rating');
+
+    $('#modalName').html("<strong>"+nameText+"</strong>");
+    $('#modalContact').html("Phone number: "+contactText);
+    $('#modalEmail').html("Email: "+emailText);
+    
+    $('#modalRating').raty({
+      score: ratingText,readOnly: true
+  });
+
+    $('#profileModal').modal('show');
+});
+</script>
 
 
 <jsp:include page="_javascript_checker.jsp" />
