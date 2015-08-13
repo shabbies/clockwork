@@ -32,4 +32,8 @@ public class PostController {
     public int getJobApplicantCount(int postID){
         return postManager.getJobApplicantCount(postID);
     }
+    
+    public ArrayList <Post> loadAppliedJobsList(String JSONString){
+        return null;
+    }
 }

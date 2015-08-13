@@ -58,7 +58,7 @@ public class GetAppliedJobsServlet extends HttpServlet {
                 InputStream readingStream = entity.getContent();
                 IOUtils.copy(readingStream, writer, "UTF-8");
                 String theString = writer.toString();
-                appliedList = postController.loadPublishedPostList(theString);
+                appliedList = postController.loadAppliedJobsList(theString);
             } else {
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
