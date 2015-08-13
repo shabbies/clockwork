@@ -781,7 +781,7 @@ body {
    cursor: default;
 }
 
-.db-job-table a, .btn-hire{
+.db-job-table a, .btn-hire, .db-job-table input{
     width: 150px;
 }
 
@@ -914,4 +914,12 @@ body {
     background-color: #f5f5f5;
     border-color: #ddd;
     text-align: center;
+}
+
+.label-apply{
+    background-color: rgb(76, 76, 76);
+}
+
+.label-hire{
+    background-color: #777777;
 }

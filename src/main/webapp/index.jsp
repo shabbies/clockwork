@@ -166,8 +166,8 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
     </div>
     <div class="modal-body">
 
-       <div class="col-md-7 modal-job-details">
-           <div class="col-md-4 text-center">
+     <div class="col-md-7 modal-job-details">
+         <div class="col-md-4 text-center">
             <img src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
             
             <h2 id="modalSalary">$10/hr</h2>
@@ -187,14 +187,15 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
     <div class="col-md-5 modal-job-calendar">
         <h4><strong>Schedule for the Month</strong></h4>
         <div id="calendar"></div>
-        <h6><span class="label label-default bg-primary">Company</span>
+        <h6><span class="label label-default bg-primary">Job Date</span>
             <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
-            <span class="label label-default">Your Schedule</span></h6>
+            <span class="label label-apply">Your Applied Jobs</span>
+            <span class="label label-hire">Your Hired Jobs</span></h6>
             <% } %>
         </div>
     </div>
     <div class="modal-footer">
-       <div class="pull-right" style="padding-right: 15px;">
+     <div class="pull-right" style="padding-right: 15px;">
         <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
         <form action="/ApplyJobServlet" method="POST" class="display-inline">
             <input type="text" id="hiddenJobID" hidden value="" name="post_id"/>
@@ -239,7 +240,32 @@ $(document).on("click", "#open-jobModal", function() {
             contentHeight: 240,
             titleFormat: 'MMMM',
             eventColor: 'grey',
-            events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
+            events: function(start, end, timezone, callback) {
+                $.ajax({
+                    url: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json',
+                    dataType: 'json',
+                    data: {
+                        id:uid
+                    },
+                    success: function(doc) {
+                        var events = [];
+                        obj = JSON.parse(doc);
+                        $(obj).each(function() {
+                            events.push({
+                                title: $(this).attr('title'),
+                                start: $(this).attr('start_date'), 
+                                color: $(this).attr('color')
+                            });
+                        });
+                        console.log(events);
+                        callback(events);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                      console.log(textStatus, errorThrown);
+                  }
+              });
+            },
+            //events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
             eventAfterRender: function(event, element, view) {
                 $(element).css('height','30px');
                 $(element).css('font-weight','700');
@@ -250,17 +276,20 @@ $(document).on("click", "#open-jobModal", function() {
 
 });
 
-        var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
-        $('#calendar').fullCalendar( 'renderEvent', myevent, true);
 
-        $('#jobModal').modal('show');
+$('#calendar').fullCalendar( 'gotoDate', new Date($(this).data("cdate")));
 
-    }else{
-        var jobstatus = $(this).data('jobstatus');
-        if(jobstatus=='listed'){
-            window.location.href="/edit_post.jsp?id="+$(this).data("id");
-        }
+var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
+$('#calendar').fullCalendar( 'renderEvent', myevent, true);
+
+$('#jobModal').modal('show');
+
+}else{
+    var jobstatus = $(this).data('jobstatus');
+    if(jobstatus=='listed'){
+        window.location.href="/edit_post.jsp?id="+$(this).data("id");
     }
+}
 });
 
 
