@@ -39,13 +39,15 @@ public class UpdateUserProfileServlet extends HttpServlet {
             contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
         } 
         String address = (String)request.getParameter("address");
-        String dateOfBirthString = (String)request.getParameter("dob_date");
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String dateOfBirthString = null;
         Date dateOfBirth = null;
-        try {
-            dateOfBirth = df.parse(dateOfBirthString);
-        } catch (ParseException ex){
-            ex.printStackTrace();
+        if ((String)request.getParameter("dob_date") != null){ ;
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                dateOfBirth = df.parse(dateOfBirthString);
+            } catch (ParseException ex){
+                ex.printStackTrace();
+            }
         }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -56,7 +58,11 @@ public class UpdateUserProfileServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("email", email));
         nvps.add(new BasicNameValuePair("username", username));
         nvps.add(new BasicNameValuePair("address", address));
-        nvps.add(new BasicNameValuePair("date_of_birth", dateOfBirthString));
+        if (dateOfBirthString == null){
+            nvps.add(new BasicNameValuePair("date_of_birth", ""));
+        } else {
+            nvps.add(new BasicNameValuePair("date_of_birth", dateOfBirthString));
+        }
         if (contactNumber != 0){
             nvps.add(new BasicNameValuePair("contact_number", String.valueOf(contactNumber)));
         } else {
