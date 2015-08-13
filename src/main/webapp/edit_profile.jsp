@@ -55,7 +55,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
               <form class="form form-signup" action="/UpdateUserProfileServlet" method="POST" role="form">
 
                <div class="text-center">
-                <img src="http://placehold.it/120x120" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
+                <img src="img/user-placeholder.jpg" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
               </div>
 
 
