@@ -149,6 +149,8 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
     <div class="col-md-5 modal-job-calendar">
         <h4><strong>Schedule for the Month</strong></h4>
         <div id="calendar"></div>
+        <h6><span class="label label-default bg-primary">Company</span>
+        <span class="label label-default">Your Schedule</span></h6>
     </div>
 </div>
 <div class="modal-footer">
