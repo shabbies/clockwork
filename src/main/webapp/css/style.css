@@ -324,6 +324,20 @@ aside {
     cursor: pointer;
 }
 
+.job-entry-edit:hover{
+background-color: #f0ad4e !important;    
+}
+
+.job-edit:hover{
+    box-shadow: inset 0 0px 1px rgba(240,173,78, 0.8);;
+    border: 1px solid rgba(240,173,78, 0.8);
+    cursor:default;
+}
+
+.job-edit-color{
+    color: #eea236 !important;
+}
+
 .job-entry-desc {
     height:150px;
 }
@@ -859,9 +873,9 @@ body {
 }
 
 .btnnohover:hover{
-    border-color: #ee4054;
+    border-color: transparent;
     color: #fff;
-    background-color: #ee4054;  
+    background-color: transparent;  
 }
 
 *:focus {
