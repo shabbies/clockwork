@@ -39,11 +39,13 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { se
 
             <% 
             String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "";
-            if(currentUser.getUsername().equals(post.getCompany())){
+            
+            if(currentUser!=null &&currentUser.getUsername().equals(post.getCompany())){
             jobEditStyle =  "job-edit";
             jobStyle =  "job-entry-edit";
             jobEditColor = "job-edit-color";
             ownjob = "true";
+
         }
         %> 
 
@@ -192,7 +194,7 @@ $(document).on("click", "#open-jobModal", function() {
         var locationText = $(this).data('location');
         var jobDateText = $(this).data("dateposted");
         var id = $(this).data("id");
-         var uid = $(this).data("userid");
+        var uid = $(this).data("userid");
 
         $('#jobModalLabel').html(headerText);
         $('#modalHeader').html("<strong>"+headerText+"</strong>");
@@ -223,14 +225,14 @@ $(document).on("click", "#open-jobModal", function() {
 
 });
 
-var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
-$('#calendar').fullCalendar( 'renderEvent', myevent, true);
+        var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
+        $('#calendar').fullCalendar( 'renderEvent', myevent, true);
 
-$('#jobModal').modal('show');
+        $('#jobModal').modal('show');
 
-}else{
-    window.location.href="/edit_post.jsp?id="+$(this).data("id");
-}
+    }else{
+        window.location.href="/edit_post.jsp?id="+$(this).data("id");
+    }
 });
 
 
