@@ -73,14 +73,14 @@ return;
                                 <td><%=post.getJobDateString()%></td>
                                 <% if (post.getStatus().equals("listed")){
                                     String redirectURL = "/edit_post.jsp?id=" + post.getId(); %>
-                                    <td><span class="badge db-default-badge">No Applicants</span></td>
+                                    <td><span class="badge db-default-badge">No Applicant</span></td>
                                     <td><a href="<%=redirectURL%>" class="btn btn-warning">Edit Job</a></td>
                                 <% } else if (post.getStatus().equals("applied")){
                                     String redirectURL = "/listing.jsp?id=" + post.getId(); %>
                                     <td><span class="badge db-default-badge">Ongoing</span></td>
                                     <% int appCount = post.getApplicantCount(); 
                                     if(appCount>0){%>
-                                        <td><a href="<%=redirectURL%>" class="btn btn-primary"> <span class="badge"><%=post.getApplicantCount()%></span> Click to Hire</a></td>
+                                        <td><a href="<%=redirectURL%>" class="btn btn-primary"> <span class="badge"><%=post.getApplicantCount()%></span> Applicants</a></td>
                                     <% } else { %>
                                         <td><a href="<%=redirectURL%>" class="btn btn-primary"> Click to View</a></td>
                                     <% } %>
