@@ -5,7 +5,7 @@
 <%@ page import="java.util.Date"%>
 
 <%  ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList"); 
-if (postList == null){ %><jsp:forward page="/GetAllPostsServlet" /><%} else { session.removeAttribute("postList"); }%>
+if (postList == null){ %><jsp:forward page="/GetAllPostsServlet?order=none" /><%} else { session.removeAttribute("postList"); }%>
 
 <%@include file="_nav.jsp"%>
 <jsp:include page="_hero.jsp" />
