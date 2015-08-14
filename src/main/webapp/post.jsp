@@ -77,45 +77,53 @@
 <script>
 
 $(document).ready(function() {
- $('#calendar').fullCalendar({
-  editable: false,
-  allDayDefault: true,
-  contentHeight: 240,
-  titleFormat: 'MMMM',
-  eventColor: '#ee4054',
-  events: [
-  {
-    title: 'A Event',
-    start: '2015-08-05',
-    end: '2015-08-05'
-  },
-  {
-    title: 'C Event',
-    start: '2015-08-07',
-    end: '2015-08-07'
-  },
-  {
-    title: 'B Event',
-    start: '2015-08-06',
-    end: '2015-08-06'
-  },
-  {
-    title: 'D Event',
-    start: '2015-08-02',
-    end: '2015-08-05'
-  }
-  ],
-  eventAfterRender: function(event, element, view) {
-    $(element).css('height','30px');
-    $(element).css('font-weight','700');
+  $('#calendar').fullCalendar({
+            editable: false,
+            allDayDefault: true,
+            contentHeight: 240,
+            titleFormat: 'MMMM',
+            eventColor: 'grey',
+            events: function(start, end, timezone, callback) {
+                $.ajax({
+                    url: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json',
+                    dataType: 'json',
+                    data: {
+                        id:
+                    },
+                    success: function(doc) {
+                        var events = [];
+                        obj = JSON.parse(doc);
+                        $(obj).each(function() {
+                            events.push({
+                                title: $(this).attr('title'),
+                                start: $(this).attr('start_date'), 
+                                color: $(this).attr('color')
+                            });
+                        });
+                        callback(events);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                      console.log(textStatus, errorThrown);
+                  }
+              });
+            },
+            //events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
+            eventAfterRender: function(event, element, view) {
+                $(element).css('height','30px');
+                $(element).css('font-weight','700');
   }/*, eventRender: function (event, element, view) { 
         var dateString = event.start.format("YYYY-MM-DD");
         $(view.el[0]).find('.fc-day[data-date="' + dateString + '"]').css('background-color', '#ee4054');
-      }*/
-    });
+    }*/
+
+});
 
 
 
+$('#calendar').fullCalendar( 'gotoDate', new Date($(this).data("cdate")));
+
+var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
+$('#calendar').fullCalendar( 'renderEvent', myevent, true);
 
 
 });
