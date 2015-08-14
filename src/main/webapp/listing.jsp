@@ -358,7 +358,8 @@ $(function() {
 <script>
 $(document).on("click", ".open-profileModal", function() {
     var nameText = $(this).data('name');
-    var contactText = $(this).data('contact');
+//    var contactText = $(this).data('contact');
+    var contactText = '92983958';
     var emailText = $(this).data('email');
     var ratingText = $(this).data('rating');
 
