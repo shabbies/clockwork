@@ -76,7 +76,7 @@ if (post == null){%>
                             <td>Pending</td>
                             <td><button class="btn btn-success btn-hire" data-userid="<%=user.getId()%>" data-postid="<%=postID%>">Hire</button></td>
                         </tr>
-                         <%}
+                         <%} %>
                         <tr>
                             <td></td>
                             <td></td>
@@ -84,7 +84,7 @@ if (post == null){%>
                             <td><% if (applicantList.size() > 0){ %><button class="btn btn-lg btn-primary btn-hire"><span class="badge"><%=applicantList.size()%></span> Hire All</button><% } %></td>
                         </tr>
                        
-                    } else { %>
+                    <% } else { %>
                     <tr><td colspan="4" class="text-center">No New Applicants</td></tr>
                     <% } %>
 
