@@ -39,6 +39,7 @@ public class StoreSessionVariableServlet extends HttpServlet {
                 newParamName += character;
             }
             session.setAttribute(newParamName, request.getAttribute(paramName));
+            System.out.println(newParamName);
         }
     }
 }
