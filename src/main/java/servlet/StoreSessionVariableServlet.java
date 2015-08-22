@@ -40,5 +40,8 @@ public class StoreSessionVariableServlet extends HttpServlet {
             }
             session.setAttribute(newParamName, request.getParameter(paramName));
         }
+        System.out.println((String)session.getAttribute("hiringApplicantID"));        
+        System.out.println((String)session.getAttribute("hiringPostID"));
+
     }
 }
