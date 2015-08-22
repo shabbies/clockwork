@@ -37,7 +37,7 @@ public class DeletePostServlet extends HttpServlet {
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/delete");
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("id", "" + postID));
+        nvps.add(new BasicNameValuePair("post_id", "" + postID));
         nvps.add(new BasicNameValuePair("email", email));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
@@ -45,10 +45,26 @@ public class DeletePostServlet extends HttpServlet {
         HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
+            int statusCode = httpResponse.getStatusLine().getStatusCode();
+            if (statusCode >= 400){
+                String error = "";
+                if(statusCode == 401){
+                    error = "A system error has occurred, please try again";
+                } else if (statusCode == 400){
+                    error = "The post cannot be found.";
+                } else if (statusCode == 403){
+                    error = "Only the post owner can delete the post!";
+                }
+                session.setAttribute("error", error);
+                response.sendRedirect("/index.jsp");
+                return;
+            }
         } finally {
             httpResponse.close();
             EntityUtils.consume(entity);
         }
+        
+        // if successfully (no error, status code != 4xx
         String message = "You have successfully deleted this job listing!";
         session.setAttribute("message", message);
         response.sendRedirect("/dashboard.jsp");

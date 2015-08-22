@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.User;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -37,7 +40,7 @@ public class WithdrawJobApplicationServlet extends HttpServlet {
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/withdraw");
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("job_id", "" + postID));
+        nvps.add(new BasicNameValuePair("post_id", "" + postID));
         nvps.add(new BasicNameValuePair("email", email));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
@@ -45,12 +48,17 @@ public class WithdrawJobApplicationServlet extends HttpServlet {
         HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
+            if(httpResponse.getStatusLine().getStatusCode() == 200){
+                String message = "You have succssfully withdrawn your application for this job!";
+                session.setAttribute("message", message);
+            } else {
+                String error = "A system error has occurred, please try again";
+                session.setAttribute("error", error);
+            }
+            response.sendRedirect("/mydashboard.jsp");
         } finally {
             httpResponse.close();
             EntityUtils.consume(entity);
-        }
-        String message = "You have succssfully withdrawn your application for this job!";
-        session.setAttribute("message", message);
-        response.sendRedirect("/mydashboard.jsp");
+        }  
     }
 }

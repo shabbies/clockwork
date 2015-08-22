@@ -46,7 +46,7 @@ public class GetSingleHiredServlet extends HttpServlet {
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("email", email));
-        nvps.add(new BasicNameValuePair("job_id", postID));
+        nvps.add(new BasicNameValuePair("post_id", postID));
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);

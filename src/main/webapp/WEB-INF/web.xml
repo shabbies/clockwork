@@ -79,6 +79,10 @@
     <servlet-name>DeletePostServlet</servlet-name>
     <servlet-class>servlet.DeletePostServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>StoreSessionVariableServlet</servlet-name>
+    <servlet-class>servlet.StoreSessionVariableServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -147,5 +151,9 @@
   <servlet-mapping>
     <servlet-name>DeletePostServlet</servlet-name>
     <url-pattern>/DeletePostServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>StoreSessionVariableServlet</servlet-name>
+    <url-pattern>/StoreSessionVariableServlet</url-pattern>
   </servlet-mapping>
 </web-app>    

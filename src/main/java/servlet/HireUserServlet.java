@@ -39,7 +39,7 @@ public class HireUserServlet extends HttpServlet {
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/hire");
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("job_id", "" + postID));
+        nvps.add(new BasicNameValuePair("post_id", "" + postID));
         nvps.add(new BasicNameValuePair("email", email));
         nvps.add(new BasicNameValuePair("applicant_id", "" + applicantID));
 
@@ -48,12 +48,16 @@ public class HireUserServlet extends HttpServlet {
         HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
-            if(httpResponse.getStatusLine().getStatusCode() == 201){
+            if(httpResponse.getStatusLine().getStatusCode() == 200){
                 String message = "You have successfully hired!";
                 session.setAttribute("message", message);
                 response.sendRedirect("/GetSingleHiredServlet?id=" + postID);
                 return;
-            } 
+            }  else {
+                String error = "A system error has occurred, please try again";
+                session.setAttribute("error", error);
+                response.sendRedirect("/dashboard.jsp");
+            }
         } finally {
             httpResponse.close();
             EntityUtils.consume(entity);

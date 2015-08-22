@@ -243,8 +243,8 @@ function submitPaypalForm(){
     var postID = $("#form_post_id").val();
     console.log(userID);
     $.ajax({
-        url: '/HireUserServlet',
-        data: { "applicant_id": userID, "post_id": postID},
+        url: '/StoreSessionVariableServlet',
+        data: { "applicant_id": userID, "post_id": postID },
         type: 'POST',
         success: function(data) {
             $("#paypalform").submit();  

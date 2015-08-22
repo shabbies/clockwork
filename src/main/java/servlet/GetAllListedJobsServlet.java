@@ -53,7 +53,7 @@ public class GetAllListedJobsServlet extends HttpServlet {
         ArrayList <Post> publishedList = null;
         try {
             entity = httpResponse.getEntity();
-            if(httpResponse.getStatusLine().getStatusCode() == 201){
+            if(httpResponse.getStatusLine().getStatusCode() == 200){
                 StringWriter writer = new StringWriter();
                 InputStream readingStream = entity.getContent();
                 IOUtils.copy(readingStream, writer, "UTF-8");

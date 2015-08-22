@@ -27,8 +27,8 @@ public class LogoutServlet extends HttpServlet {
         CloseableHttpResponse response2 = httpClient.execute(httpDelete);
 
         try {
-            HttpEntity entity2 = response2.getEntity();   
-            EntityUtils.consume(entity2);
+            HttpEntity entity = response2.getEntity();
+            EntityUtils.consume(entity);
         } finally {
             response2.close();
         }

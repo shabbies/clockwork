@@ -41,8 +41,27 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <!-- END -->
 
+<%  String[] repopulate = (String[])session.getAttribute("repopulate");
+    if (repopulate != null){
+        session.removeAttribute("repopulate");
+    } 
+%>
+
 <header class="main">
   <div class="header-content">
+      <% if (session.getAttribute("error") != null){%>
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <%=session.getAttribute("error")%>
+        </div>
+        <%session.removeAttribute("error");}%>
+        <% if (session.getAttribute("message") != null){%>
+        <div class="alert alert-success" role="alert">
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+            <%=session.getAttribute("message")%>
+        </div>
+        <%session.removeAttribute("message");}%>
     <div class="header-content-inner">
       <h2 class="text-center">Let's Create a new listing!</h2>
 
@@ -53,33 +72,48 @@ google.maps.event.addDomListener(window, 'load', initialize);
               <form class="form form-signup" action="/CreatePostServlet" method="POST" role="form">
 
                 <div class="form-group form-group-lg col-md-6 text-left"> 
-                 <label for="job-title" class="control-label">Job Title</label> 
-                 <input id="job-title" class="form-control" type="text" placeholder="" name="header" required> 
-               </div>
+                  <label for="job-title" class="control-label">Job Title</label> 
+                  <% if (repopulate == null){%>
+                  <input id="job-title" class="form-control" type="text" placeholder="" name="header" required> 
+                  <%} else {%>
+                  <input id="job-title" class="form-control" type="text" placeholder="" name="header" value="<%=repopulate[0]%>" required><%}%>
+                </div>
 
-               <div class="form-group form-group-lg col-md-6 text-left"> 
-                 <label for="job-location" class="controls control-label">Job Location</label> 
-                 <input id="job-location" class="form-control" type="text" placeholder="" name="location" required>  
-               </div>
+                <div class="form-group form-group-lg col-md-6 text-left"> 
+                  <label for="job-location" class="controls control-label">Job Location</label> 
+                  <% if (repopulate == null){%>
+                  <input id="job-location" class="form-control" type="text" placeholder="" name="location" required>  
+                  <% } else { %>
+                  <input id="job-location" class="form-control" type="text" placeholder="" name="location" value="<%=repopulate[1]%>"required><%}%>
+                </div>
 
-               <div class="form-group col-md-12 text-left"> 
-                 <label for="job-desc" class="control-label">Job Description</label> 
-                 <textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required></textarea> 
-               </div>
+                <div class="form-group col-md-12 text-left">
+                  <label for="job-desc" class="control-label">Job Description</label> 
+                  <% if (repopulate == null){%>
+                  <textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required></textarea> 
+                  <%} else {%>
+                  <textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required><%=repopulate[2]%></textarea> <%}%>
+                </div>
 
-               <div class="form-group form-group-lg col-md-7 text-left"> 
-                 <label for="job-date" class="control-label">Job Date</label> 
-                 <div class="input-group"> 
-                   <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
-                   <input id="job-date" class="form-control" type="date" name="job_date" required> 
-                 </div> 
-               </div>
+                <div class="form-group form-group-lg col-md-7 text-left"> 
+                  <label for="job-date" class="control-label">Job Date</label> 
+                  <div class="input-group"> 
+                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
+                    <% if (repopulate != null && repopulate[3] != null){%>
+                    <input id="job-date" class="form-control" type="date" name="job_date" value="<%=repopulate[3]%>" required> 
+                    <%} else {%>
+                    <input id="job-date" class="form-control" type="date" name="job_date" required><%}%>
+                  </div> 
+                </div>
 
                <div class="form-group form-group-lg col-md-5 pull-right text-left"> 
                  <label for="job-pay" class="control-label">Pay</label> 
                  <div class="input-group"> 
                    <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
-                   <input id="job-pay" class="form-control" type="number" value="10" name="salary" required> 
+                   <% if (repopulate != null && repopulate[4] != null){%>
+                   <input id="job-pay" class="form-control" type="number" value="<%=repopulate[4]%>" name="salary" min="0" required>
+                   <%} else {%>
+                   <input id="job-pay" class="form-control" type="number" value="10" name="salary" min="0" required><%}%>
                    <div class="input-group-addon" style="font-weight:600;"> / Hr</div> 
                  </div> 
                </div>

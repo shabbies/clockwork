@@ -76,7 +76,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                  <label for="job-pay" class="control-label">Pay</label> 
                  <div class="input-group"> 
                    <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
-                   <input id="job-pay" class="form-control" type="number" name="salary" value="<%=post.getSalary()%>" required> 
+                   <input id="job-pay" class="form-control" type="number" name="salary" value="<%=post.getSalary()%>" min="0" required> 
                    <div class="input-group-addon" style="font-weight:600;"> / Hr</div> 
                  </div> 
                </div>

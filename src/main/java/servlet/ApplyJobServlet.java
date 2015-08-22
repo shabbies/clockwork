@@ -58,7 +58,7 @@ public class ApplyJobServlet extends HttpServlet {
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/apply");
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("job_id", "" + postID));
+        nvps.add(new BasicNameValuePair("post_id", "" + postID));
         nvps.add(new BasicNameValuePair("email", email));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
@@ -66,7 +66,7 @@ public class ApplyJobServlet extends HttpServlet {
         HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
-            if(httpResponse.getStatusLine().getStatusCode() == 422){
+            if(httpResponse.getStatusLine().getStatusCode() == 403){
                 String error = "You have already applied for this job!";
                 session.setAttribute("error", error);
                 response.sendRedirect("/index.jsp");

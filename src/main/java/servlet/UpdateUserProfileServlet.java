@@ -36,7 +36,13 @@ public class UpdateUserProfileServlet extends HttpServlet {
         String username = (String)request.getParameter("username");
         int contactNumber = 0;
         if (!(request.getParameter("contact_number").equals(""))){
-            contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
+            try {
+                contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
+            } catch (NumberFormatException e){
+                String error = "Please enter a valid contact number";
+                session.setAttribute("error", error);
+                response.sendRedirect("/edit_profile.jsp");
+            }
         } 
         String address = (String)request.getParameter("address");
         String dateOfBirthString = request.getParameter("dob_date");
@@ -45,8 +51,10 @@ public class UpdateUserProfileServlet extends HttpServlet {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 dateOfBirth = df.parse(dateOfBirthString);
-            } catch (ParseException ex){
-                ex.printStackTrace();
+            } catch (ParseException e){
+                String error = "There is an error with the date of birth!";
+                session.setAttribute("error", error);
+                response.sendRedirect("/edit_profile.jsp");
             }
         }
         
@@ -75,7 +83,10 @@ public class UpdateUserProfileServlet extends HttpServlet {
         try {
             entity = response2.getEntity();  
             int statusCode = response2.getStatusLine().getStatusCode();
-            if (statusCode == 201){
+            if (statusCode == 400){
+                String message = "Your profile has been successfully updated.";
+                session.setAttribute("message", message);
+            } else if (statusCode == 200){
                 currentUser.setAddress(address);
                 currentUser.setContactNumber(contactNumber);
                 currentUser.setDateOfBirth(dateOfBirth);

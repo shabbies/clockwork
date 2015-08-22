@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.User;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -43,7 +46,6 @@ public class CreatePostServlet extends HttpServlet {
             return;
         }
         String header = (String)request.getParameter("header");
-        String company = currentUser.getUsername();
         int salary = Integer.parseInt(request.getParameter("salary"));
         String description = (String)request.getParameter("description");
         String location = (String)request.getParameter("location");
@@ -63,7 +65,6 @@ public class CreatePostServlet extends HttpServlet {
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("header", header));
-        nvps.add(new BasicNameValuePair("company", company));
         nvps.add(new BasicNameValuePair("salary", "" + salary));
         nvps.add(new BasicNameValuePair("description", description));
         nvps.add(new BasicNameValuePair("location", location));
@@ -71,25 +72,43 @@ public class CreatePostServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("email", email));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-        CloseableHttpResponse response2 = httpclient.execute(httpPost);
-
+        CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
+        HttpEntity entity = httpResponse.getEntity();
         try {
-            // System.out.println(response2.getStatusLine());
-            HttpEntity entity2 = response2.getEntity();
-            if(response2.getStatusLine().getStatusCode() == 401){
+            int statusCode = httpResponse.getStatusLine().getStatusCode();
+            if(statusCode == 401){
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
-                EntityUtils.consume(entity2);
                 response.sendRedirect("/index.jsp");
                 return;
+            } else if (statusCode == 400){
+                StringWriter writer = new StringWriter();
+                InputStream readingStream = entity.getContent();
+                IOUtils.copy(readingStream, writer, "UTF-8");
+                String theString = writer.toString();
+                String error = null;
+                String[] repopulate = null;
+                if (theString.contains("salary")){
+                    error = "Salary should not be negative!";
+                    repopulate = new String[] {header, location, description, jobDateString, null};
+                } else {
+                    error = "Job date should be after today!";
+                    repopulate = new String[] {header, location, description, null, "" + salary};
+                }
+                session.setAttribute("error", error);
+                session.setAttribute("repopulate", repopulate);
+                response.sendRedirect("/create_post.jsp");
+                return;
             } else {
-                EntityUtils.consume(entity2);
+                String message = "Post has been successfully listed!";
+                session.setAttribute("message", message);
+                response.sendRedirect("/dashboard.jsp");
             }
         } finally {
-            response2.close();
+            EntityUtils.consume(entity);
+            httpResponse.close();
         }
         
-        response.sendRedirect("/dashboard.jsp");
     }
 
 }
