@@ -23,4 +23,19 @@
   </div>
 </header>
 
+<script>
+    $(document).ready(function(){
+        var referrer = document.referrer;
+        if (referrer.indexOf("paypal") === -1){
+            $.ajax({
+                url: '/HireUserServlet',
+                type: 'POST',
+                success: function(data) {
+                    window.location.replace("/"); 
+                }
+            });
+        }
+    });
+</script>
+
 <jsp:include page="_footer.jsp" />

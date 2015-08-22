@@ -27,9 +27,11 @@ public class HireUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int postID = Integer.parseInt(request.getParameter("post_id"));
-        int applicantID = Integer.parseInt(request.getParameter("applicant_id"));
         HttpSession session = request.getSession();
+        int postID = Integer.parseInt((String)session.getAttribute("hiringPostID"));
+        int applicantID = Integer.parseInt((String)session.getAttribute("hiringApplicantID"));
+        session.removeAttribute("hiringPostID");
+        session.removeAttribute("hiringApplicantID");
         User currentUser = (User)session.getAttribute("currentUser");
         
         String email = currentUser.getEmail();

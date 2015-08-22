@@ -241,10 +241,9 @@ $(document).on("click", ".btn-hire", function() {
 function submitPaypalForm(){
     var userID = $("#form_user_id").val();
     var postID = $("#form_post_id").val();
-    console.log(userID);
     $.ajax({
         url: '/StoreSessionVariableServlet',
-        data: { "applicant_id": userID, "post_id": postID },
+        data: { "hiring_applicant_id": userID, "hiring_post_id": postID },
         type: 'POST',
         success: function(data) {
             $("#paypalform").submit();  

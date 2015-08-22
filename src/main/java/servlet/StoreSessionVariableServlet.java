@@ -21,7 +21,7 @@ public class StoreSessionVariableServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()){
-            String paramName = paramNames.nextElement();
+            String paramName = (paramNames.nextElement()).trim();
             paramName = paramName.replaceAll("id", "ID");
             if (paramName.startsWith("_")){
                 paramName = paramName.replace("_", "");
