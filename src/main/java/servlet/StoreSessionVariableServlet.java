@@ -21,7 +21,8 @@ public class StoreSessionVariableServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()){
-            String paramName = (paramNames.nextElement()).trim();
+            String originalParamName = (paramNames.nextElement()).trim();
+            String paramName = originalParamName;
             paramName = paramName.replaceAll("id", "ID");
             if (paramName.startsWith("_")){
                 paramName = paramName.replace("_", "");
@@ -38,10 +39,7 @@ public class StoreSessionVariableServlet extends HttpServlet {
                 }
                 newParamName += character;
             }
-            session.setAttribute(newParamName, request.getParameter(paramName));
+            session.setAttribute(newParamName, request.getParameter(originalParamName));
         }
-        System.out.println((String)session.getAttribute("hiringApplicantID"));        
-        System.out.println((String)session.getAttribute("hiringPostID"));
-
     }
 }
