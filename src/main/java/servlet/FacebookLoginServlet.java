@@ -71,7 +71,6 @@ public class FacebookLoginServlet extends HttpServlet {
             longAccessToken = responseString.substring(responseString.indexOf("=") + 1, responseString.indexOf("&"));
             session.setAttribute("accessToken", longAccessToken);
             EntityUtils.consume(entity);
-            System.out.println(responseString);
         } finally {
             httpResponse.close();
         }
@@ -90,6 +89,7 @@ public class FacebookLoginServlet extends HttpServlet {
             fullname = (String)userHash.get("name");
             email = (String)userHash.get("email");
             EntityUtils.consume(entity);
+            System.out.println(responseString);
         } finally {
             httpResponse2.close();
         }
