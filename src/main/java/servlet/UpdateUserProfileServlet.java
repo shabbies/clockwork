@@ -79,21 +79,6 @@ public class UpdateUserProfileServlet extends HttpServlet {
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/update");
         httpPost.setHeader("Authentication-Token", token);
         
-//        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-//        nvps.add(new BasicNameValuePair("email", email));
-//        nvps.add(new BasicNameValuePair("username", username));
-//        nvps.add(new BasicNameValuePair("address", address));
-//        if (dateOfBirthString == null){
-//            nvps.add(new BasicNameValuePair("date_of_birth", ""));
-//        } else {
-//            nvps.add(new BasicNameValuePair("date_of_birth", dateOfBirthString));
-//        }
-//        if (contactNumber != 0){
-//            nvps.add(new BasicNameValuePair("contact_number", String.valueOf(contactNumber)));
-//        } else {
-//            nvps.add(new BasicNameValuePair("contact_number", ""));
-//        }
-        
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
         builder.addBinaryBody("avatar", avatarByte, ContentType.create(avatarPart.getContentType()), avatarPart.getName());
@@ -107,12 +92,8 @@ public class UpdateUserProfileServlet extends HttpServlet {
         HttpEntity entity = builder.build();
         httpPost.setEntity(entity);
         
-        
-//        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response2 = httpclient.execute(httpPost);
-//        HttpEntity entity = null;
         User user;
-        
         
         try {
             entity = response2.getEntity();  
