@@ -89,7 +89,7 @@ public class UpdateUserProfileServlet extends HttpServlet {
         
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        builder.addBinaryBody("avatar", avatarByte, ContentType.DEFAULT_BINARY, "test.jpeg");
+        builder.addBinaryBody("avatar", avatarByte, ContentType.MULTIPART_FORM_DATA, "test.jpeg");
         builder.addTextBody("email", email, ContentType.TEXT_PLAIN);
         HttpEntity entity = builder.build();
         httpPost.setEntity(entity);
