@@ -13,8 +13,9 @@ public class User {
     private String address;
     private int contactNumber;
     private Date dateOfBirth;
+    private String avatar;
 
-    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth) {
+    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -23,6 +24,7 @@ public class User {
         this.address = address;
         this.contactNumber = contactNumber;
         this.dateOfBirth = dateOfBirth;
+        this.avatar = avatar;
     }
 
     public User(String email, String accountType) {
@@ -98,5 +100,13 @@ public class User {
     public String getDateOfBirthString(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(dateOfBirth);
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

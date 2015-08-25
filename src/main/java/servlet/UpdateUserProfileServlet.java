@@ -1,5 +1,6 @@
 package servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,13 +18,20 @@ import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import model.User;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
+@MultipartConfig
 public class UpdateUserProfileServlet extends HttpServlet {
 
     @Override
@@ -35,51 +43,63 @@ public class UpdateUserProfileServlet extends HttpServlet {
         String email = currentUser.getEmail();
         String username = (String)request.getParameter("username");
         int contactNumber = 0;
-        if (!(request.getParameter("contact_number").equals(""))){
-            try {
-                contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
-            } catch (NumberFormatException e){
-                String error = "Please enter a valid contact number";
-                session.setAttribute("error", error);
-                response.sendRedirect("/edit_profile.jsp");
-            }
-        } 
-        String address = (String)request.getParameter("address");
-        String dateOfBirthString = request.getParameter("dob_date");
-        Date dateOfBirth = null;
-        if (dateOfBirthString != null){ 
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                dateOfBirth = df.parse(dateOfBirthString);
-            } catch (ParseException e){
-                String error = "There is an error with the date of birth!";
-                session.setAttribute("error", error);
-                response.sendRedirect("/edit_profile.jsp");
-            }
-        }
+//        if (!(request.getParameter("contact_number").equals(""))){
+//            try {
+//                contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
+//            } catch (NumberFormatException e){
+//                String error = "Please enter a valid contact number";
+//                session.setAttribute("error", error);
+//                response.sendRedirect("/edit_profile.jsp");
+//            }
+//        } 
+//        String address = (String)request.getParameter("address");
+//        String dateOfBirthString = request.getParameter("dob_date");
+//        Date dateOfBirth = null;
+//        if (dateOfBirthString != null){ 
+//            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//            try {
+//                dateOfBirth = df.parse(dateOfBirthString);
+//            } catch (ParseException e){
+//                String error = "There is an error with the date of birth!";
+//                session.setAttribute("error", error);
+//                response.sendRedirect("/edit_profile.jsp");
+//            }
+//        }
+        Part avatarPart = request.getPart("avatar");
+        byte[] avatarByte = IOUtils.toByteArray(avatarPart.getInputStream());
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/update");
         httpPost.setHeader("Authentication-Token", token);
         
-        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("email", email));
-        nvps.add(new BasicNameValuePair("username", username));
-        nvps.add(new BasicNameValuePair("address", address));
-        if (dateOfBirthString == null){
-            nvps.add(new BasicNameValuePair("date_of_birth", ""));
-        } else {
-            nvps.add(new BasicNameValuePair("date_of_birth", dateOfBirthString));
-        }
-        if (contactNumber != 0){
-            nvps.add(new BasicNameValuePair("contact_number", String.valueOf(contactNumber)));
-        } else {
-            nvps.add(new BasicNameValuePair("contact_number", ""));
-        }
+//        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+//        nvps.add(new BasicNameValuePair("email", email));
+//        nvps.add(new BasicNameValuePair("username", username));
+//        nvps.add(new BasicNameValuePair("address", address));
+//        if (dateOfBirthString == null){
+//            nvps.add(new BasicNameValuePair("date_of_birth", ""));
+//        } else {
+//            nvps.add(new BasicNameValuePair("date_of_birth", dateOfBirthString));
+//        }
+//        if (contactNumber != 0){
+//            nvps.add(new BasicNameValuePair("contact_number", String.valueOf(contactNumber)));
+//        } else {
+//            nvps.add(new BasicNameValuePair("contact_number", ""));
+//        }
         
-        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.addBinaryBody("avatar", avatarByte, ContentType.DEFAULT_BINARY, "test.jpeg");
+        builder.addTextBody("email", email, ContentType.TEXT_PLAIN);
+        HttpEntity entity = builder.build();
+        httpPost.setEntity(entity);
+        
+        
+//        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response2 = httpclient.execute(httpPost);
-        HttpEntity entity = null;
+//        HttpEntity entity = null;
+        
+        
         try {
             entity = response2.getEntity();  
             int statusCode = response2.getStatusLine().getStatusCode();
@@ -87,9 +107,9 @@ public class UpdateUserProfileServlet extends HttpServlet {
                 String message = "Your profile has been successfully updated.";
                 session.setAttribute("message", message);
             } else if (statusCode == 200){
-                currentUser.setAddress(address);
+//                currentUser.setAddress(address);
                 currentUser.setContactNumber(contactNumber);
-                currentUser.setDateOfBirth(dateOfBirth);
+//                currentUser.setDateOfBirth(dateOfBirth);
                 currentUser.setUsername(username);
                 String message = "Your profile has been successfully updated.";
                 session.setAttribute("message", message);

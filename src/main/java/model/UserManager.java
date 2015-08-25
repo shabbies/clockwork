@@ -11,11 +11,11 @@ import java.util.HashMap;
 public class UserManager {
     private User currentUser;
     
-    public User login(int id, String username, String email, String companyName, String accountType, String address, int contactNumber, String dateOfBirthStr){
+    public User login(int id, String username, String email, String companyName, String accountType, String address, int contactNumber, String dateOfBirthStr, String avatar){
         Gson gson = new Gson();
         Type dateType = new TypeToken<Date>(){}.getType();
         Date dateOfBirth = gson.fromJson(dateOfBirthStr, dateType);
-        User user = new User(id, username, email, companyName, accountType, address, contactNumber, dateOfBirth);
+        User user = new User(id, username, email, companyName, accountType, address, contactNumber, dateOfBirth, avatar);
         currentUser = user;
         return user;
     }
@@ -52,7 +52,8 @@ public class UserManager {
                 ex.printStackTrace();
             }
         }
-        User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth);
+        String avatar = (String)userHash.get("avatar_path");
+        User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar);
         return user;
     }
 }

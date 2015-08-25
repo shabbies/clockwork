@@ -52,10 +52,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
           <div class="panel panel-default">
             <div class="panel-body">
 
-              <form class="form form-signup" action="/UpdateUserProfileServlet" method="POST" role="form">
+              <form class="form form-signup" action="/UpdateUserProfileServlet" method="POST" role="form" enctype="multipart/form-data">
 
-               <div class="text-center">
+              <div class="text-center">
+                <% if (currentUser.getAvatar() == null){%>
                 <img src="img/user-placeholder.jpg" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
+                <% } else { %>
+                <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
+                <% } %>
               </div>
 
 
@@ -79,6 +83,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 <input id="street-address" class="form-control" type="text" name="address"> 
                 <% } else { %>
                 <input id="street-address" class="form-control" type="text" name="address" value="<%=currentUser.getAddress()%>"><%}%> 
+              </div>
+              
+              <div class="form-group col-sm-12 text-left"> 
+                <label for="avatar" class="control-label">Profile Picture</label> 
+                <input id="avatar" class="form-control" type="file" name="avatar" accept="image/*">
               </div>
 
               <% if(currentUser.getAccountType().equals("job_seeker")){%>

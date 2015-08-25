@@ -108,7 +108,11 @@ return;
                     <div class="panel-body db-user">
 
                         <div class="text-center">
+                          <% if (currentUser.getAvatar() == null){%>
                           <img src="img/user-placeholder.jpg" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
+                          <% } else { %>
+                          <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
+                          <%}%>
                         </div>
 
                         <div class="db-user-info">
