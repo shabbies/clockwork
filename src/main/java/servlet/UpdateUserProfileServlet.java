@@ -48,29 +48,30 @@ public class UpdateUserProfileServlet extends HttpServlet {
         String token = currentUser.getAuthenticationToken();
         String email = currentUser.getEmail();
         String username = (String)request.getParameter("username");
+        String contactNumberString = request.getParameter("contact_number");
         int contactNumber = 0;
-//        if (!(request.getParameter("contact_number").equals(""))){
-//            try {
-//                contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
-//            } catch (NumberFormatException e){
-//                String error = "Please enter a valid contact number";
-//                session.setAttribute("error", error);
-//                response.sendRedirect("/edit_profile.jsp");
-//            }
-//        } 
-//        String address = (String)request.getParameter("address");
-//        String dateOfBirthString = request.getParameter("dob_date");
-//        Date dateOfBirth = null;
-//        if (dateOfBirthString != null){ 
-//            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//            try {
-//                dateOfBirth = df.parse(dateOfBirthString);
-//            } catch (ParseException e){
-//                String error = "There is an error with the date of birth!";
-//                session.setAttribute("error", error);
-//                response.sendRedirect("/edit_profile.jsp");
-//            }
-//        }
+        if (contactNumberString != null || (!contactNumberString.isEmpty())){
+            try {
+                contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
+            } catch (NumberFormatException e){
+                String error = "Please enter a valid contact number";
+                session.setAttribute("error", error);
+                response.sendRedirect("/edit_profile.jsp");
+            }
+        } 
+        String address = (String)request.getParameter("address");
+        String dateOfBirthString = request.getParameter("dob_date");
+        Date dateOfBirth = null;
+        if (dateOfBirthString != null){ 
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                dateOfBirth = df.parse(dateOfBirthString);
+            } catch (ParseException e){
+                String error = "There is an error with the date of birth!";
+                session.setAttribute("error", error);
+                response.sendRedirect("/edit_profile.jsp");
+            }
+        }
         Part avatarPart = request.getPart("avatar");
         byte[] avatarByte = IOUtils.toByteArray(avatarPart.getInputStream());
         
@@ -97,6 +98,10 @@ public class UpdateUserProfileServlet extends HttpServlet {
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
         builder.addBinaryBody("avatar", avatarByte, ContentType.create(avatarPart.getContentType()), avatarPart.getName());
         builder.addTextBody("email", email, ContentType.TEXT_PLAIN);
+        builder.addTextBody("username", username, ContentType.TEXT_PLAIN);
+        builder.addTextBody("address", address, ContentType.TEXT_PLAIN);
+        builder.addTextBody("date_of_birth", dateOfBirthString, ContentType.TEXT_PLAIN);
+        builder.addTextBody("contact_number", String.valueOf(contactNumber), ContentType.TEXT_PLAIN);
         HttpEntity entity = builder.build();
         httpPost.setEntity(entity);
         
