@@ -1,7 +1,12 @@
 package servlet;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import controller.UserController;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -17,6 +22,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
@@ -89,7 +95,7 @@ public class UpdateUserProfileServlet extends HttpServlet {
         
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        builder.addBinaryBody("avatar", avatarByte, ContentType.create(avatarPart.getContentType()), "test.jpeg");
+        builder.addBinaryBody("avatar", avatarByte, ContentType.create(avatarPart.getContentType()), avatarPart.getName());
         builder.addTextBody("email", email, ContentType.TEXT_PLAIN);
         HttpEntity entity = builder.build();
         httpPost.setEntity(entity);
@@ -98,19 +104,22 @@ public class UpdateUserProfileServlet extends HttpServlet {
 //        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response2 = httpclient.execute(httpPost);
 //        HttpEntity entity = null;
+        User user;
         
         
         try {
             entity = response2.getEntity();  
             int statusCode = response2.getStatusLine().getStatusCode();
             if (statusCode == 400){
-                String message = "Your profile has been successfully updated.";
-                session.setAttribute("message", message);
+                String error = "You have to be at least 15 to use this service!";
+                session.setAttribute("error", error);
             } else if (statusCode == 200){
-//                currentUser.setAddress(address);
-                currentUser.setContactNumber(contactNumber);
-//                currentUser.setDateOfBirth(dateOfBirth);
-                currentUser.setUsername(username);
+                StringWriter writer = new StringWriter();
+                IOUtils.copy(entity.getContent(), writer, "UTF-8");
+                String theString = writer.toString();
+                UserController userController = new UserController();
+                user = userController.createUserFromJSON(theString);
+                session.setAttribute("currentUser", user);
                 String message = "Your profile has been successfully updated.";
                 session.setAttribute("message", message);
             } else {
