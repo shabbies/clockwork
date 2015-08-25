@@ -71,6 +71,7 @@ public class FacebookLoginServlet extends HttpServlet {
             longAccessToken = responseString.substring(responseString.indexOf("=") + 1, responseString.indexOf("&"));
             session.setAttribute("accessToken", longAccessToken);
             EntityUtils.consume(entity);
+            System.out.println(responseString);
         } finally {
             httpResponse.close();
         }
