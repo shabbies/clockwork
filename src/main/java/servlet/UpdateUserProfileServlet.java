@@ -100,7 +100,9 @@ public class UpdateUserProfileServlet extends HttpServlet {
         builder.addTextBody("email", email, ContentType.TEXT_PLAIN);
         builder.addTextBody("username", username, ContentType.TEXT_PLAIN);
         builder.addTextBody("address", address, ContentType.TEXT_PLAIN);
-        builder.addTextBody("date_of_birth", dateOfBirthString, ContentType.TEXT_PLAIN);
+        if (dateOfBirthString != null){
+           builder.addTextBody("date_of_birth", dateOfBirthString, ContentType.TEXT_PLAIN);
+        }
         builder.addTextBody("contact_number", String.valueOf(contactNumber), ContentType.TEXT_PLAIN);
         HttpEntity entity = builder.build();
         httpPost.setEntity(entity);
