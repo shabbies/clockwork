@@ -89,7 +89,6 @@ public class FacebookLoginServlet extends HttpServlet {
             fullname = (String)userHash.get("name");
             email = (String)userHash.get("email");
             EntityUtils.consume(entity);
-            System.out.println(responseString);
         } finally {
             httpResponse2.close();
         }

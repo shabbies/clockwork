@@ -72,9 +72,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
               <div class="form-group col-sm-12 text-left"> 
                 <label for="contactnumber" class="control-label">Contact Number</label> 
                 <% if (currentUser.getContactNumber() == 0){ %>
-                <input id="contactnumber" class="form-control" type="text" name="contact_number"> 
+                <input id="contactnumber" class="form-control" type="text" name="contact_number" onkeypress="return isNumber(event)"> 
                 <% } else { %>
-                <input id="contactnumber" class="form-control" type="text" name="contact_number" value="<%=currentUser.getContactNumber()%>" > <%}%>
+                <input id="contactnumber" class="form-control" type="text" name="contact_number" onkeypress="return isNumber(event)" value="<%=currentUser.getContactNumber()%>" > <%}%>
               </div>
 
               <div class="form-group col-sm-12 text-left"> 
@@ -115,19 +115,19 @@ google.maps.event.addDomListener(window, 'load', initialize);
       <div class="panel panel-default">
         <div class="panel-body">
 
-          <form class="form form-signup" action="/RegisterAccountServlet" method="POST" role="form">
+          <form class="form form-signup" action="/UpdateUserProfileServlet" method="POST" role="form" enctype="multipart/form-data">
 
 
             <div class="form-group col-sm-12 text-left"> 
               <label for="old-password" class="control-label">Current Password</label> 
 
-              <input id="old-password" class="form-control" type="password" placeholder="Password" name="password" required> 
+              <input id="old-password" class="form-control" type="password" placeholder="Password" name="old_password" required> 
 
             </div>
             <div class="form-group col-sm-12 text-left"> 
               <label for="new-password" class="control-label">New Password</label> 
 
-              <input id="new-password" class="form-control" type="password" placeholder="Password" name="password" required> 
+              <input id="new-password" class="form-control" type="password" placeholder="Password" name="new_password" required> 
 
               <div class="password_length_error" style="display:none;">  
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -139,7 +139,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
             <div class="form-group col-sm-12 text-left"> 
               <label for="confirm-password" class="control-label">Confirm Password</label> 
 
-              <input id="confirm-password" class="form-control" type="password" placeholder="Password" name="password" required> 
+              <input id="confirm-password" class="form-control" type="password" placeholder="Password" name="new_password_confirmation" required> 
 
             </div>
 
@@ -149,6 +149,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
         </div>
       </div>
 
+      <!-- Commenting out until we find something nice to put here
       <div class="panel panel-default">
         <div class="panel-body">
 
@@ -172,7 +173,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
             <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Update Payment Details">
           </form>
         </div>
-      </div>
+      </div> -->
     </div>
 
 

@@ -67,7 +67,7 @@ function facebookLogin() {
         url: "/FacebookLoginServlet",
         data: { "access_token" : accessToken, "user_id" : userID },
         success: function(){
-          window.location.href ="/index.jsp";
+          window.location.href ="/mydashboard.jsp";
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log(textStatus, errorThrown);

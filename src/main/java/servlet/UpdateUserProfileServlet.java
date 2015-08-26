@@ -29,7 +29,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 
 @MultipartConfig
 public class UpdateUserProfileServlet extends HttpServlet {
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,22 +37,24 @@ public class UpdateUserProfileServlet extends HttpServlet {
         User currentUser = (User)session.getAttribute("currentUser");
         String token = currentUser.getAuthenticationToken();
         String email = currentUser.getEmail();
-        String username = (String)request.getParameter("username");
+        String username = request.getParameter("username");
         String contactNumberString = request.getParameter("contact_number");
         int contactNumber = 0;
-        if (contactNumberString != null || (!contactNumberString.isEmpty())){
-            try {
-                contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
-            } catch (NumberFormatException e){
-                String error = "Please enter a valid contact number";
-                session.setAttribute("error", error);
-                response.sendRedirect("/edit_profile.jsp");
+        if (contactNumberString != null){
+            if (!contactNumberString.isEmpty()){
+                try {
+                    contactNumber = Integer.parseInt((String)request.getParameter("contact_number"));
+                } catch (NumberFormatException e){
+                    String error = "Please enter a valid contact number";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/edit_profile.jsp");
+                }
             }
-        } 
+        }
         String address = (String)request.getParameter("address");
         String dateOfBirthString = request.getParameter("dob_date");
         Date dateOfBirth = null;
-        if (dateOfBirthString != null){ 
+        if (dateOfBirthString != null){
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 dateOfBirth = df.parse(dateOfBirthString);
@@ -60,10 +62,32 @@ public class UpdateUserProfileServlet extends HttpServlet {
                 String error = "There is an error with the date of birth!";
                 session.setAttribute("error", error);
                 response.sendRedirect("/edit_profile.jsp");
+                return;
             }
         }
         Part avatarPart = request.getPart("avatar");
-        byte[] avatarByte = IOUtils.toByteArray(avatarPart.getInputStream());
+        byte[] avatarByte = null;
+        if (avatarPart != null){
+            avatarByte = IOUtils.toByteArray(avatarPart.getInputStream());
+        }
+        
+        String oldPassword = request.getParameter("old_password").trim();
+        String newPassword = request.getParameter("new_password").trim();
+        String newPasswordConfirmation = request.getParameter("new_password_confirmation").trim();
+        
+        if (!newPassword.equals(newPasswordConfirmation)){
+            String error = "New password should match!";
+            session.setAttribute("error", error);
+            response.sendRedirect("/edit_profile.jsp");
+            return;
+        }
+        
+        if (newPassword.length() < 8){
+            String error = "Password length should be greater than 8!";
+            session.setAttribute("error", error);
+            response.sendRedirect("/edit_profile.jsp");
+            return;
+        }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/update");
@@ -71,14 +95,29 @@ public class UpdateUserProfileServlet extends HttpServlet {
         
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        builder.addBinaryBody("avatar", avatarByte, ContentType.create(avatarPart.getContentType()), currentUser.getId() + " " + avatarPart.getName());
-        builder.addTextBody("email", email, ContentType.TEXT_PLAIN);
-        builder.addTextBody("username", username, ContentType.TEXT_PLAIN);
-        builder.addTextBody("address", address, ContentType.TEXT_PLAIN);
-        if (dateOfBirthString != null){
-           builder.addTextBody("date_of_birth", dateOfBirthString, ContentType.TEXT_PLAIN);
+        if (avatarByte != null){
+            builder.addBinaryBody("avatar", avatarByte, ContentType.create(avatarPart.getContentType()), currentUser.getId() + " " + avatarPart.getName());
         }
-        builder.addTextBody("contact_number", String.valueOf(contactNumber), ContentType.TEXT_PLAIN);
+        if (email != null){
+            builder.addTextBody("email", email, ContentType.TEXT_PLAIN);
+        }
+        if (username != null){
+            builder.addTextBody("username", username, ContentType.TEXT_PLAIN);
+        }
+        if (address != null){
+            builder.addTextBody("address", address, ContentType.TEXT_PLAIN);
+        }
+        if (dateOfBirthString != null){
+            builder.addTextBody("date_of_birth", dateOfBirthString, ContentType.TEXT_PLAIN);
+        }
+        if (contactNumber != 0){
+            builder.addTextBody("contact_number", String.valueOf(contactNumber), ContentType.TEXT_PLAIN);
+        }
+        if (oldPassword != null && newPassword != null && newPasswordConfirmation != null){
+            builder.addTextBody("old_password", oldPassword, ContentType.TEXT_PLAIN);
+            builder.addTextBody("password", newPassword, ContentType.TEXT_PLAIN);
+            builder.addTextBody("password_confirmation", newPasswordConfirmation, ContentType.TEXT_PLAIN);
+        }
         HttpEntity entity = builder.build();
         httpPost.setEntity(entity);
         
@@ -86,7 +125,7 @@ public class UpdateUserProfileServlet extends HttpServlet {
         User user;
         
         try {
-            entity = response2.getEntity();  
+            entity = response2.getEntity();
             int statusCode = response2.getStatusLine().getStatusCode();
             if (statusCode == 400){
                 String error = "You have to be at least 15 to use this service!";
@@ -100,6 +139,9 @@ public class UpdateUserProfileServlet extends HttpServlet {
                 session.setAttribute("currentUser", user);
                 String message = "Your profile has been successfully updated.";
                 session.setAttribute("message", message);
+            } else if (statusCode == 403){
+                String error = "The old password is invalid";
+                session.setAttribute("error", error);
             } else {
                 String error = "The authentication token is invalid.";
                 session.setAttribute("error", error);
