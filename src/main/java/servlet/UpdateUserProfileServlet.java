@@ -71,22 +71,25 @@ public class UpdateUserProfileServlet extends HttpServlet {
             avatarByte = IOUtils.toByteArray(avatarPart.getInputStream());
         }
         
-        String oldPassword = request.getParameter("old_password").trim();
-        String newPassword = request.getParameter("new_password").trim();
-        String newPasswordConfirmation = request.getParameter("new_password_confirmation").trim();
+        String oldPassword = request.getParameter("old_password");
+        String newPassword = request.getParameter("new_password");
+        String newPasswordConfirmation = request.getParameter("new_password_confirmation");
         
-        if (!newPassword.equals(newPasswordConfirmation)){
-            String error = "New password should match!";
-            session.setAttribute("error", error);
-            response.sendRedirect("/edit_profile.jsp");
-            return;
-        }
-        
-        if (newPassword.length() < 8){
-            String error = "Password length should be greater than 8!";
-            session.setAttribute("error", error);
-            response.sendRedirect("/edit_profile.jsp");
-            return;
+        // password validation
+        if (newPassword != null && oldPassword != null && newPasswordConfirmation != null){
+            if (!newPassword.equals(newPasswordConfirmation)){
+                String error = "New password should match!";
+                session.setAttribute("error", error);
+                response.sendRedirect("/edit_profile.jsp");
+                return;
+            }
+
+            if (newPassword.length() < 8){
+                String error = "Password length should be greater than 8!";
+                session.setAttribute("error", error);
+                response.sendRedirect("/edit_profile.jsp");
+                return;
+            }
         }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -95,7 +98,7 @@ public class UpdateUserProfileServlet extends HttpServlet {
         
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-        if (avatarByte != null){
+        if (avatarByte.length != 0){
             builder.addBinaryBody("avatar", avatarByte, ContentType.create(avatarPart.getContentType()), currentUser.getId() + " " + avatarPart.getName());
         }
         if (email != null){
