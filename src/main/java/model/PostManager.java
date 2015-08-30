@@ -45,9 +45,27 @@ public class PostManager {
         return publishedList;
     }
     
-    public Post createNewPostFromJSON(String jsonString){
+    public Post createNewPostFromJSON(String jsonString) throws ParseException {
         Gson gson = new Gson();
-        Post post = gson.fromJson(jsonString, Post.class);
+        Type listType = new TypeToken<HashMap<String, Object>>(){}.getType();
+        HashMap <String, Object> postJSONMap = gson.fromJson(jsonString, listType);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        int id = ((Double)postJSONMap.get("id")).intValue();
+        String header = (String)postJSONMap.get("header");
+        String company = (String)postJSONMap.get("company");
+        double salary = (Double)postJSONMap.get("salary");
+        String description = (String)postJSONMap.get("description");
+        String location = (String)postJSONMap.get("location");
+        Date jobDate = df.parse((String)postJSONMap.get("job_date"));
+        Date postingDate = df.parse((String)postJSONMap.get("posting_date"));
+        Date expiryDate = df.parse((String)postJSONMap.get("expiry_date"));
+        String status = (String)postJSONMap.get("status");
+        String startTime = (String)postJSONMap.get("start_time");
+        int duration = ((Double)postJSONMap.get("duration")).intValue();
+        Post post = new Post(id, header, company, salary, description, location, postingDate, jobDate, status, 0, expiryDate, startTime, duration);
+        if (postJSONMap.get("applicant_count") != null){
+            post.setApplicantCount(((Double)postJSONMap.get("applicant_count")).intValue());
+        }
         return post;
     }
     
@@ -57,21 +75,12 @@ public class PostManager {
         Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
         ArrayList <HashMap<String, Object>> postsHash = gson.fromJson(JSONString, listType);
         for (HashMap <String, Object> postHash : postsHash){
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-            Date jobDate = null;
-            Date postingDate = null;
+            String postString = gson.toJson(postHash);
+            Post post = null;
             try {
-                jobDate = df.parse((String)postHash.get("job_date"));
-                postingDate = df.parse((String)postHash.get("posting_date"));
+                post = createNewPostFromJSON(postString);
             } catch (ParseException ex){
                 ex.printStackTrace();
-            }
-            String postString = gson.toJson(postHash);
-            Post post = createNewPostFromJSON(postString);
-            post.setJobDate(jobDate);
-            post.setPostingDate(postingDate);
-            if (postHash.get("applicant_count") != null){
-                post.setApplicantCount(((Double)postHash.get("applicant_count")).intValue());
             }
             newPostList.add(post);
             postMap.put(post.getId(), post);
@@ -94,21 +103,11 @@ public class PostManager {
             Post post = postMap.get(postID);
             String applicationStatus = (String)postHash.get("status");
             if (post == null){
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-                Date jobDate = null;
-                Date postingDate = null;
                 try {
-                    jobDate = df.parse((String)postHash.get("job_date"));
-                    postingDate = df.parse((String)postHash.get("posting_date"));
+                    String postString = gson.toJson(postHash);
+                    post = createNewPostFromJSON(postString);
                 } catch (ParseException ex){
                     ex.printStackTrace();
-                }
-                String postString = gson.toJson(postHash);
-                post = createNewPostFromJSON(postString);
-                post.setJobDate(jobDate);
-                post.setPostingDate(postingDate);
-                if (postHash.get("applicant_count") != null){
-                    post.setApplicantCount(((Double)postHash.get("applicant_count")).intValue());
                 }
                 appliedJobsMap.put(post.getId(), post);
                 postMap.put(post.getId(), post);

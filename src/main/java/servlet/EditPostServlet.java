@@ -38,19 +38,25 @@ public class EditPostServlet extends HttpServlet {
         User currentUser = (User)session.getAttribute("currentUser");
         int postID = Integer.parseInt(request.getParameter("post_id"));
         String header = (String)request.getParameter("header");
-        int salary = Integer.parseInt(request.getParameter("salary"));
+        double salary = Double.parseDouble(request.getParameter("salary"));
         String description = (String)request.getParameter("description");
         String location = (String)request.getParameter("location");
         String jobDateString = (String)request.getParameter("job_date");
+        String expiryDateString = request.getParameter("expiry");
+        String jobStartTime = request.getParameter("start_time");
+        int duration = Integer.parseInt(request.getParameter("duration"));
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date jobDate = null;
+        Date expiryDate = null;
         try {
             jobDate = df.parse(jobDateString);
+            expiryDate = df.parse(expiryDateString);
         } catch (ParseException ex){
             ex.printStackTrace();
         }
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
+        
         
         // retrieve post object
         AppController appController = (AppController)session.getAttribute("appController");
@@ -68,6 +74,11 @@ public class EditPostServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("job_date",jobDateString));
         nvps.add(new BasicNameValuePair("email", email));
         nvps.add(new BasicNameValuePair("post_id", String.valueOf(postID)));
+        nvps.add(new BasicNameValuePair("start_time", jobStartTime));
+        nvps.add(new BasicNameValuePair("duration", "" + duration));
+        nvps.add(new BasicNameValuePair("expiry_date", "" + expiryDateString));
+
+
         
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
@@ -85,6 +96,9 @@ public class EditPostServlet extends HttpServlet {
                 post.setJobDate(jobDate);
                 post.setLocation(location);
                 post.setSalary(salary);
+                post.setExpiryDate(expiryDate);
+                post.setDuration(duration);
+                post.setStartTime(jobStartTime);
             }
         } finally {
             httpResponse.close();

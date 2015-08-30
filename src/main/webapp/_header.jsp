@@ -29,6 +29,12 @@
     <link href='fc/fullcalendar.css' rel='stylesheet' />
     <link href='fc/fullcalendar.print.css' rel='stylesheet' media='print' />
     <link href='rating/jquery.raty.css' rel='stylesheet' />
+<!--    <link href="MultiDatesPicker/css/jquery-ui.css" rel="stylesheet" />
+    <link href="MultiDatesPicker/css/jquery-ui.structure.css" rel="stylesheet" />
+    <link href="MultiDatesPicker/css/jquery-ui.theme.css" rel="stylesheet" />
+    <link href="MultiDatesPicker/css/mdp.css" rel="stylesheet" />
+    <link href="MultiDatesPicker/css/pepper-ginder-custom.css" rel="stylesheet" />
+    <link href="MultiDatesPicker/css/prettify.css" rel="stylesheet" />-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

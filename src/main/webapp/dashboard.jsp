@@ -72,21 +72,25 @@ return;
                                 <td><%=post.getHeader()%></td>
                                 <td><%=post.getJobDateString()%></td>
                                 <% if (post.getStatus().equals("listed")){
-                                String redirectURL = "/edit_post.jsp?id=" + post.getId(); %>
-                                <td><span class="badge db-default-badge">No Applicant</span></td>
-                                <td><a href="<%=redirectURL%>" class="btn btn-warning">Edit Job</a></td>
+                                    String redirectURL = "/edit_post.jsp?id=" + post.getId(); %>
+                                    <td><span class="badge db-default-badge">No Applicant</span></td>
+                                    <td><a href="<%=redirectURL%>" class="btn btn-warning">Edit Job</a></td>
                                 <% } else if (post.getStatus().equals("applied")){
-                                String redirectURL = "/listing.jsp?id=" + post.getId(); %>
-                                <td><span class="badge db-default-badge">Ongoing</span></td>
-                                <% int appCount = post.getApplicantCount(); 
-                                if(appCount>0){%>
-                                <td><a href="<%=redirectURL%>" class="btn btn-primary"> <span class="badge"><%=post.getApplicantCount()%></span> Applicants</a></td>
+                                    String redirectURL = "/listing.jsp?id=" + post.getId(); %>
+                                    <td><span class="badge db-default-badge">Ongoing</span></td>
+                                    <% int appCount = post.getApplicantCount(); 
+                                    if(appCount>0){%>
+                                        <td><a href="<%=redirectURL%>" class="btn btn-primary"> <span class="badge"><%=post.getApplicantCount()%></span> Applicants</a></td>
+                                    <% } else { %>
+                                        <td><a href="<%=redirectURL%>" class="btn btn-primary"> Click to View</a></td>
+                                    <% } %>
+                                <% } else if (post.getStatus().equals("expired")){ %>
+                                    <td><span class="badge db-default-badge">Expired</span></td>
+                                    <td><a href="#" class="btn btn-danger"> Archive</a></td>
                                 <% } else { %>
-                                <td><a href="<%=redirectURL%>" class="btn btn-primary"> Click to View</a></td>
-                                <% } %>
-                                <% } else { %>
-                                <td><span class="badge db-default-badge">Completed</span></td>
-                                <td><a href="/listing.jsp?completed=true" class="btn btn-success"> Click to Review</a></td>
+                                    <td><span class="badge db-default-badge">Completed</span></td>
+                                    <% String formedURL = "complete_job.jsp?id=" + post.getId();%>
+                                    <td><a href="<%=formedURL%>" class="btn btn-success"> Click to Review</a></td>
                                 <%}%>
                             </tr>
                             <%}%>

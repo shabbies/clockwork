@@ -46,14 +46,19 @@ public class CreatePostServlet extends HttpServlet {
             return;
         }
         String header = (String)request.getParameter("header");
-        int salary = Integer.parseInt(request.getParameter("salary"));
+        double salary = Double.parseDouble(request.getParameter("salary"));
         String description = (String)request.getParameter("description");
         String location = (String)request.getParameter("location");
         String jobDateString = (String)request.getParameter("job_date");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String time = request.getParameter("job_time");
+        int duration = Integer.parseInt(request.getParameter("duration"));
+        String jobExpiryString = request.getParameter("job_expiry");
         Date jobDate = null;
+        Date jobExpiry = null;
         try {
             jobDate = df.parse(jobDateString);
+            jobExpiry = df.parse(jobExpiryString);
         } catch (ParseException ex){
             ex.printStackTrace();
         }
@@ -70,6 +75,9 @@ public class CreatePostServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("location", location));
         nvps.add(new BasicNameValuePair("job_date",jobDate.toString()));
         nvps.add(new BasicNameValuePair("email", email));
+        nvps.add(new BasicNameValuePair("start_time", time));
+        nvps.add(new BasicNameValuePair("duration", "" + duration));
+        nvps.add(new BasicNameValuePair("expiry_date", jobExpiry.toString()));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
@@ -90,10 +98,10 @@ public class CreatePostServlet extends HttpServlet {
                 String[] repopulate = null;
                 if (theString.contains("salary")){
                     error = "Salary should not be negative!";
-                    repopulate = new String[] {header, location, description, jobDateString, null};
+                    repopulate = new String[] {header, location, description, jobDateString, null, time, "" + duration, jobExpiryString};
                 } else {
                     error = "Job date should be after today!";
-                    repopulate = new String[] {header, location, description, null, "" + salary};
+                    repopulate = new String[] {header, location, description, null, "" + salary, time, "" + duration, jobExpiryString};
                 }
                 session.setAttribute("error", error);
                 session.setAttribute("repopulate", repopulate);

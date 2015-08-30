@@ -9,15 +9,18 @@ public class Post {
     private int id;
     private String header;
     private String company;
-    private int salary;
+    private double salary;
     private String description;
     private String location;
     private Date postingDate;
     private Date jobDate;
     private String status;
     private int applicantCount;
+    private Date expiryDate;
+    private String startTime;
+    private int duration;
 
-    public Post(int id, String header, String company, int salary, String description, String location, Date postingDate, Date jobDate, String status, int applicantCount) {
+    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, String status, int applicantCount, Date expiryDate, String startTime, int duration) {
         this.id = id;
         this.header = header;
         this.company = company;
@@ -28,6 +31,9 @@ public class Post {
         this.jobDate = jobDate;
         this.status = status;
         this.applicantCount = applicantCount;
+        this.expiryDate = expiryDate;
+        this.startTime = startTime;
+        this.duration = duration;
     }
 
     public int getId() {
@@ -54,11 +60,11 @@ public class Post {
         this.company = company;
     }
 
-    public int getSalary() {
+    public double getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 
@@ -109,6 +115,30 @@ public class Post {
     public void setApplicantCount(int applicantCount) {
         this.applicantCount = applicantCount;
     }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
     
     public String getJobDateString(){
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -118,5 +148,10 @@ public class Post {
     public String getJobDateStringForInput(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(jobDate);
+    }
+    
+    public String getPostExpiryStringForInput(){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(expiryDate);
     }
 }

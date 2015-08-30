@@ -16,5 +16,5 @@ public class AppController {
 
     public UserController getUserController() {
         return userController;
-    }   
+    }
 }

@@ -17,6 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.User;
@@ -38,11 +39,12 @@ public class GetJobApplicantsServlet extends HttpServlet {
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
         String postID = request.getParameter("id");
+        String location = request.getParameter("location");
         AppController appController = (AppController)session.getAttribute("appController");
         UserController userController = appController.getUserController();
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/get_applicants");
+        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/get_all_applicants");
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("email", email));
@@ -51,7 +53,6 @@ public class GetJobApplicantsServlet extends HttpServlet {
         
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
         HttpEntity entity = null;
-        ArrayList <User> applicantList = null;
         try {
             entity = httpResponse.getEntity();
             if(httpResponse.getStatusLine().getStatusCode() == 201){
@@ -59,7 +60,19 @@ public class GetJobApplicantsServlet extends HttpServlet {
                 InputStream readingStream = entity.getContent();
                 IOUtils.copy(readingStream, writer, "UTF-8");
                 String theString = writer.toString();
-                applicantList = userController.createUsersFromJSONArray(theString);
+                HashMap<String, ArrayList <User>> applicantMap = userController.loadPostApplicants(theString);
+                session.setAttribute("hiredList", applicantMap.get("hired"));
+                if (location.equals("listing")){
+                    session.setAttribute("applicantList", applicantMap.get("pending"));
+                    session.setAttribute("offeredList", applicantMap.get("offered"));
+                    response.sendRedirect("/listing.jsp?id=" + postID);
+                    return;
+                } else {
+                    session.setAttribute("completedList", applicantMap.get("completed"));
+                    response.sendRedirect("/complete_job.jsp?id=" + postID);
+                    return;
+                }
+                
             } else {
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
@@ -70,7 +83,6 @@ public class GetJobApplicantsServlet extends HttpServlet {
             EntityUtils.consume(entity);
             httpResponse.close();
         }
-        session.setAttribute("applicantList", applicantList);
-        response.sendRedirect("/GetSingleHiredServlet?id=" + postID);
+        
     }
 }
