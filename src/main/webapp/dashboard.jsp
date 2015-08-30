@@ -31,7 +31,7 @@ return;
 }%>
 
 <header class="main">
-    <div class="header-content">
+    <div class="header-full-content">
         <% if (session.getAttribute("error") != null){%>
         <div class="alert alert-danger" role="alert">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>

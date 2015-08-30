@@ -379,7 +379,7 @@ header {
     background-image:none;
 }
 
-header .header-content {
+header .header-content, header .header-full-content {
     position: relative;
     width: 100%;
     padding: 60px 15px;
