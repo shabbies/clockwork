@@ -42,10 +42,10 @@ public class ApplyJobServlet extends HttpServlet {
             session.setAttribute("error", "Only a job seeker account is able to apply for a job!");
             response.sendRedirect("/index.jsp");
             return;
-        } else if (currentUser.getContactNumber() == 0){
+        } else if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){
             session.setAttribute("error", "Please complete your profile before applying for a job");
             session.setAttribute("updateSource", "apply_job-" + postID);
-            response.sendRedirect("/edit_profile.jsp");
+            response.sendRedirect("/complete_profile.jsp");
             return;
         }
         String email = currentUser.getEmail();

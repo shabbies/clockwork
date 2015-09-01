@@ -103,6 +103,10 @@
     <servlet-name>RateUserServlet</servlet-name>
     <servlet-class>servlet.RateUserServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>CompleteProfileServlet</servlet-name>
+    <servlet-class>servlet.CompleteProfileServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -195,5 +199,9 @@
   <servlet-mapping>
     <servlet-name>RateUserServlet</servlet-name>
     <url-pattern>/RateUserServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CompleteProfileServlet</servlet-name>
+    <url-pattern>/CompleteProfileServlet</url-pattern>
   </servlet-mapping>
 </web-app>    

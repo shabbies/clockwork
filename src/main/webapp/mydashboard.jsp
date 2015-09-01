@@ -147,7 +147,10 @@ session.removeAttribute("appliedJobsStatusMap");
                     <h2>Hi <%= currentUser.getUsername()%>!</h2> 
                     <span>What would you like to do today?</span>
                 </div>
-                <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
+                <%if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){%>
+                <a href="/complete_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
+                <% } else { %> 
+                <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Update my Profile</a><% } %>
             </div>
         </div>
     </div>

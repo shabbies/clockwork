@@ -14,8 +14,10 @@ public class User {
     private int contactNumber;
     private Date dateOfBirth;
     private String avatar;
+    private String nationality;
+    private char gender;
 
-    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar) {
+    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -25,6 +27,8 @@ public class User {
         this.contactNumber = contactNumber;
         this.dateOfBirth = dateOfBirth;
         this.avatar = avatar;
+        this.nationality = nationality;
+        this.gender = gender;
     }
 
     public User(String email, String accountType) {
@@ -108,5 +112,21 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
     }
 }

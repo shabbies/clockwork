@@ -91,21 +91,6 @@
                         <input id="avatar" class="form-control" type="file" name="avatar" accept="image/*">
                     </div>
 
-                    <% if(currentUser.getAccountType().equals("job_seeker")){%>
-
-                    <div class="form-group col-sm-12 text-left"> 
-                        <label for="dob-date" class="control-label">Date of Birth</label> 
-                        <div class="input-group"> 
-                            <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
-                                <% if (currentUser.getDateOfBirth() == null){ %>
-                            <input id="dob-date" class="form-control" type="date" name="dob_date" > 
-                            <% } else { %>
-                            <input id="dob-date" class="form-control" type="date" name="dob_date" value="<%=currentUser.getDateOfBirthString()%>"> <% } %>
-                        </div> 
-                    </div>
-
-                    <% } %>
-
                     <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Update Profile">
                 </form>
                 <!-- END LEFT PANEL -->
