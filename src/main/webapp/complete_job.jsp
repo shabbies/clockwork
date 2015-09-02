@@ -96,7 +96,13 @@ session.removeAttribute("completedList");}%>
                                 <tr> 
                                     <td><%=user.getUsername()%></td>
                                     <td>Completed</td>
-                                    <td><div id="<%=user.getId()%>" class="score" data-score="3"></div></td>
+                                    <td align="center">
+                                        <div id="<%=user.getId()%>" data-score="2">
+                                            <img class="ratings_icon" id="rating_bad" src="/img/bad.png"/>
+                                            <img class="ratings_icon" id="rating_neutral" src="/img/neutral.png"/>
+                                            <img class="ratings_icon" id="rating_good" src="/img/good.png"/>
+                                        </div>
+                                    </td>
                                     <td><button class="btn btn-success btn-comment" data-id="<%=user.getId()%>">Leave Comment</button></td>
                                     <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-rating="4">View Profile</a></td>
                                 </tr>
@@ -293,6 +299,29 @@ session.removeAttribute("completedList");}%>
         $("#complete_applicant_id").val(userID);
         $("#complete_post_id").val(postID);
         $("#completeJobModal").modal('show');
+    });
+    
+    $(document).on("click", ".ratings_icon", function() {
+        if ($(this).hasClass("ratings_icon_selected")){
+            $(this).removeClass("ratings_icon_selected");
+            $(this).parent().data("score", "2"); // 2 is set when no ratings
+        } else {
+            $(this).addClass("ratings_icon_selected");
+            var image = $(this).attr("src");
+            if (image.indexOf("bad") !== -1){
+                $(this).parent().data("score", "-1");
+                $("#rating_good").removeClass("ratings_icon_selected");
+                $("#rating_neutral").removeClass("ratings_icon_selected");
+            } else if (image.indexOf("good") !== -1){
+                $(this).parent().data("score", "1");
+                $("#rating_bad").removeClass("ratings_icon_selected");
+                $("#rating_neutral").removeClass("ratings_icon_selected");
+            } else {
+                $(this).parent().data("score", "0");
+                $("#rating_good").removeClass("ratings_icon_selected");
+                $("#rating_bad").removeClass("ratings_icon_selected");
+            }  
+        }
     });
 </script>
     

@@ -1,9 +1,11 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_job_details.jsp"%>
     
 <%@ page import="java.util.HashMap" %>
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
+<%@ page buffer="16kb" %>
 <%
 if (currentUser == null){
 session.setAttribute("error", "Please login or register first before viewing your job applications!");
@@ -13,7 +15,8 @@ return;
 session.setAttribute("error", "Only a job seeker account can view job applications!");
 response.sendRedirect("/index.jsp");
 return;}
-    
+
+boolean appliedJob = true;    
 HashMap <Integer, Post> appliedJobsMap = (HashMap <Integer, Post>)session.getAttribute("appliedJobsMap"); 
 HashMap <Integer, String> appliedJobsStatusMap = (HashMap <Integer, String>)session.getAttribute("appliedJobsStatusMap"); 
 if (appliedJobsMap == null || appliedJobsStatusMap == null){ %>
@@ -59,6 +62,16 @@ session.removeAttribute("appliedJobsStatusMap");
 
                 <tbody> 
                     <% for (Post post : appliedJobsMap.values()) { %>
+                    <%  String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
+                        if(currentUser != null){
+                            currentuserid = String.valueOf(currentUser.getId());
+                                if(currentUser.getUsername().equals(post.getCompany())){
+                                jobEditStyle =  "job-edit";
+                                jobStyle =  "job-entry-edit";
+                                jobEditColor = "job-edit-color";
+                                ownjob = "true";
+                            }
+                        } %> 
                     <tr> 
                         <td><%=post.getHeader()%></td>
                         <td><%=post.getCompany()%></td>
@@ -78,9 +91,14 @@ session.removeAttribute("appliedJobsStatusMap");
                             <input type="submit" class="btn btn-success" value="Accept Job Offer"/>
                             </form>
                         </td>
+                        <% } else if ((appliedJobsStatusMap.get(post.getId()).equals("completed"))){ %>
+                        <td><span class="badge db-default-badge complete">Completed</span></td>
+                        <td>
+                            <a href="#" class="btn btn-info">View Ratings</a>
+                        </td>
                         <% } else {%>
                         <td><span class="badge db-default-badge success">Hired</span></td>
-                        <td><a href="#" class="btn btn-warning"> View Details</a></td>
+                        <td><button class="btn btn-warning" id="open-jobModal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true">Job Details</button></td>
                         <% } %>
                     </tr>
                     <%}

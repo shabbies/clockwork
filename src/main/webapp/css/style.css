@@ -782,7 +782,7 @@ body {
  cursor: default;
 }
 
-.db-job-table a, .btn-hire, .db-job-table input{
+.db-job-table a, .btn-hire, .db-job-table input, .db-job-table button{
     width: 150px;
 }
 
@@ -806,6 +806,11 @@ body {
 .success{
     background-color: #5cb85c;
     border-color: #4cae4c;
+}
+
+.complete{
+    background-color: #E4007C;
+    border-color: #FF007F;
 }
 
 .profile-div{
@@ -1005,4 +1010,17 @@ body {
 
 .login-logo img{
     opacity: 0.8;
+}
+
+.ratings_icon {
+    height: 20px;
+}
+
+.ratings_icon_selected{
+    background: yellow;
+}
+
+.ratings_icon:hover {
+    cursor: pointer;
+    background: yellow;
 }
