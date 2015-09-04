@@ -70,8 +70,6 @@ public class PostManager {
             }
             String comment = ((String)postJSONMap.get("comment"));
             post = new Post(id, header, company, salary, description, location, postingDate, jobDate, status, 0, expiryDate, startTime, duration, rating, comment);
-            System.out.println(rating);
-            System.out.println(comment);
         } else {
             post = new Post(id, header, company, salary, description, location, postingDate, jobDate, status, 0, expiryDate, startTime, duration);
         }

@@ -92,8 +92,8 @@ return;
         <textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required><%=repopulate[2]%></textarea> <%}%>
     </div>
 
-    <div class="form-group form-group-lg col-md-7 text-left"> 
-        <label for="job-date" class="control-label">Job Date</label> 
+    <div class="form-group form-group-lg col-md-6 text-left"> 
+        <label for="job-date" class="control-label">Job Start Date</label> 
         <div class="input-group"> 
             <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
             <% if (repopulate != null && repopulate[3] != null){%>
@@ -103,55 +103,54 @@ return;
         </div> 
     </div>
         
-        
-    <div class="form-group form-group-lg col-md-7 text-left"> 
-        <label for="job-expiry" class="control-label">Post Expiry Date</label> 
+    <div class="form-group form-group-lg col-md-6 text-left"> 
+        <label for="job-date" class="control-label">Job End Date</label> 
         <div class="input-group"> 
             <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
-            <% if (repopulate != null && repopulate[7] != null){%>
-                <input id="job-expiry" class="form-control" type="date" name="job_expiry" value="<%=repopulate[7]%>" required> 
+            <% if (repopulate != null && repopulate[3] != null){%>
+                <input id="job-date" class="form-control" type="date" name="job_end" value="<%=repopulate[4]%>" onchange="test()" required> 
             <%} else {%>
-                <input id="job-expiry" class="form-control" type="date" name="job_expiry" required><%}%>
+                <input id="job-date" class="form-control" type="date" name="job_end" required><%}%>
+        </div> 
+    </div> 
+        
+    <div class="form-group form-group-lg col-md-6 text-left"> 
+        <label for="start-time" class="control-label">Job Start Time</label> 
+        <div class="input-group"> 
+            <div class="input-group-addon"><i class="fa fa-clock-o fa-lg fa-fw"></i></div> 
+                <% if (repopulate != null && repopulate[5] != null){%>
+            <input id="start-time" class="form-control" type="time" name="start_time" value="<%=repopulate[5]%>" required> 
+            <%} else {%>
+            <input id="start-time" class="form-control" type="time" name="start_time" required><%}%>
         </div> 
     </div>
         
-    <div class="form-group form-group-lg col-md-5 pull-right text-left"> 
+    <div class="form-group form-group-lg col-md-6 text-left"> 
+        <label for="end-time" class="control-label">Job End Time</label> 
+        <div class="input-group"> 
+            <div class="input-group-addon"><i class="fa fa-clock-o fa-lg fa-fw"></i></div> 
+                <% if (repopulate != null && repopulate[5] != null){%>
+            <input id="end-time" class="form-control" type="time" name="end_time" value="<%=repopulate[6]%>" required> 
+            <%} else {%>
+            <input id="end-time" class="form-control" type="time" name="end_time" required><%}%>
+        </div> 
+    </div>
+        
+    <div class="form-group form-group-lg col-md-5 pull-left text-left"> 
         <label for="job-pay" class="control-label">Pay</label> 
         <div class="input-group"> 
             <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
                 <% if (repopulate != null && repopulate[4] != null){%>
-            <input id="job-pay" class="form-control" type="number" value="<%=repopulate[4]%>" name="salary" min="0" step="0.1" required>
+            <input id="job-pay" class="form-control" type="number" value="<%=repopulate[7]%>" name="salary" min="0" step="0.1" required>
             <%} else {%>
             <input id="job-pay" class="form-control" type="number" value="10" name="salary" min="0" step="0.1" required><%}%>
             <div class="input-group-addon" style="font-weight:600;"> / Hr</div> 
         </div> 
     </div>
-        
-    <div class="form-group form-group-lg col-md-7 text-left"> 
-        <label for="job-time" class="control-label">Job Start Time</label> 
-        <div class="input-group"> 
-            <div class="input-group-addon"><i class="fa fa-clock-o fa-lg fa-fw"></i></div> 
-                <% if (repopulate != null && repopulate[5] != null){%>
-            <input id="job-start-time" class="form-control" type="time" name="job_time" value="<%=repopulate[5]%>" required> 
-            <%} else {%>
-            <input id="job-start-time" class="form-control" type="time" name="job_time" required><%}%>
-        </div> 
+
+    <div class="form-group form-group-lg col-md-12">
+        <input type="submit" class="btn btn-lg btn-primary btn-srad" value="Create Listing"/>
     </div>
-
-    <div class="form-group form-group-lg col-md-12 pull-right text-left"> 
-        <label for="job-hours" class="control-label">Number of Hours</label> 
-        <div class="input-group"> 
-            <div class="input-group-addon"><i class="fa fa-clock-o fa-lg fa-fw"></i></div> 
-                <% if (repopulate != null && repopulate[6] != null){%>
-            <input id="job-hours" class="form-control" type="number" value="<%=repopulate[6]%>" name="duration" min="0" required>
-            <%} else {%>
-            <input id="job-hours" class="form-control" type="number" value="8" name="duration" min="0" required><%}%>
-            <div class="input-group-addon" style="font-weight:600;"> Hours</div> 
-        </div> 
-    </div>
-
-    <input type="submit" class="btn btn-lg btn-primary btn-srad" value="Create Listing"/>
-
 </form>
 </div>
 </div>

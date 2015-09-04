@@ -50,15 +50,15 @@ public class CreatePostServlet extends HttpServlet {
         String description = (String)request.getParameter("description");
         String location = (String)request.getParameter("location");
         String jobDateString = (String)request.getParameter("job_date");
+        String endDateString = (String)request.getParameter("job_end");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String time = request.getParameter("job_time");
-        int duration = Integer.parseInt(request.getParameter("duration"));
-        String jobExpiryString = request.getParameter("job_expiry");
+        String startTime = request.getParameter("start_time");
+        String endTime = request.getParameter("end_time");
         Date jobDate = null;
-        Date jobExpiry = null;
+        Date endDate = null;
         try {
             jobDate = df.parse(jobDateString);
-            jobExpiry = df.parse(jobExpiryString);
+            endDate = df.parse(endDateString);
         } catch (ParseException ex){
             ex.printStackTrace();
         }
@@ -74,34 +74,40 @@ public class CreatePostServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("description", description));
         nvps.add(new BasicNameValuePair("location", location));
         nvps.add(new BasicNameValuePair("job_date",jobDate.toString()));
+        nvps.add(new BasicNameValuePair("end_date",endDate.toString()));
         nvps.add(new BasicNameValuePair("email", email));
-        nvps.add(new BasicNameValuePair("start_time", time));
-        nvps.add(new BasicNameValuePair("duration", "" + duration));
-        nvps.add(new BasicNameValuePair("expiry_date", jobExpiry.toString()));
+        nvps.add(new BasicNameValuePair("start_time", startTime));
+        nvps.add(new BasicNameValuePair("end_time", endTime));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
         HttpEntity entity = httpResponse.getEntity();
         try {
             int statusCode = httpResponse.getStatusLine().getStatusCode();
+            StringWriter writer = new StringWriter();
+            InputStream readingStream = entity.getContent();
+            IOUtils.copy(readingStream, writer, "UTF-8");
+            String responseString = writer.toString();
             if(statusCode == 401){
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
                 response.sendRedirect("/index.jsp");
                 return;
             } else if (statusCode == 400){
-                StringWriter writer = new StringWriter();
-                InputStream readingStream = entity.getContent();
-                IOUtils.copy(readingStream, writer, "UTF-8");
-                String theString = writer.toString();
                 String error = null;
                 String[] repopulate = null;
-                if (theString.contains("salary")){
+                if (responseString.contains("salary")){
                     error = "Salary should not be negative!";
-                    repopulate = new String[] {header, location, description, jobDateString, null, time, "" + duration, jobExpiryString};
+                    repopulate = new String[] {header, location, description, jobDateString, endDateString, startTime, endTime, ""};
+                } else if (responseString.contains("job")){
+                    error = "The job date should be after today!";
+                    repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
+                } else if (responseString.contains("end date")){
+                    error = "The end date should be after start date!";
+                    repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
                 } else {
-                    error = "Job date should be after today!";
-                    repopulate = new String[] {header, location, description, null, "" + salary, time, "" + duration, jobExpiryString};
+                    error = "The end time should be after the start time!";
+                    repopulate = new String[] {header, location, description, jobDateString, endDateString, "", "", "" + salary};
                 }
                 session.setAttribute("error", error);
                 session.setAttribute("repopulate", repopulate);
