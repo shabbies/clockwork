@@ -19,6 +19,8 @@ public class Post {
     private Date expiryDate;
     private String startTime;
     private int duration;
+    private int rating;
+    private String comment;
 
     public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, String status, int applicantCount, Date expiryDate, String startTime, int duration) {
         this.id = id;
@@ -34,6 +36,24 @@ public class Post {
         this.expiryDate = expiryDate;
         this.startTime = startTime;
         this.duration = duration;
+    }
+    
+    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, String status, int applicantCount, Date expiryDate, String startTime, int duration, int rating, String comment) {
+        this.id = id;
+        this.header = header;
+        this.company = company;
+        this.salary = salary;
+        this.description = description;
+        this.location = location;
+        this.postingDate = postingDate;
+        this.jobDate = jobDate;
+        this.status = status;
+        this.applicantCount = applicantCount;
+        this.expiryDate = expiryDate;
+        this.startTime = startTime;
+        this.duration = duration;
+        this.rating = rating;
+        this.comment = comment;
     }
 
     public int getId() {
@@ -138,6 +158,22 @@ public class Post {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
     
     public String getJobDateString(){

@@ -336,7 +336,7 @@ session.removeAttribute("offeredList");}%>
     </div>
 </div>
     
-<!-- Hire Modal -->
+<!-- Mark as Complete Modal -->
 <div class="modal fade" id="completeJobModal" tabindex="-1" role="dialog" aria-labelledby="hireModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

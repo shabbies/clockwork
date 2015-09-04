@@ -1024,3 +1024,7 @@ body {
     cursor: pointer;
     background: yellow;
 }
+
+.hidden{
+    display: none;
+}
