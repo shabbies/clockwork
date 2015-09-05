@@ -3,6 +3,8 @@ package servlet;
 import controller.AppController;
 import controller.PostController;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +24,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.Post;
 import model.User;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -42,21 +45,35 @@ public class EditPostServlet extends HttpServlet {
         String description = (String)request.getParameter("description");
         String location = (String)request.getParameter("location");
         String jobDateString = (String)request.getParameter("job_date");
-        String expiryDateString = request.getParameter("expiry");
+        String endDateString = request.getParameter("end_date");
         String jobStartTime = request.getParameter("start_time");
-        int duration = Integer.parseInt(request.getParameter("duration"));
+        String jobEndTime = request.getParameter("end_time");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
+        Date startTime = null;
+        Date endTime = null;
         Date jobDate = null;
-        Date expiryDate = null;
+        Date endDate = null;
         try {
             jobDate = df.parse(jobDateString);
-            expiryDate = df.parse(expiryDateString);
+            endDate = df.parse(endDateString);
+            startTime = tf.parse(jobStartTime);
+            endTime = tf.parse(jobEndTime);
         } catch (ParseException ex){
-            ex.printStackTrace();
+            String error = "A system error has occured with the time, please inform the administrator";
+            session.setAttribute("error", error);
+            response.sendRedirect("/index.jsp");
+            return;
         }
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
-        
+        long durationSecs = (endTime.getTime() - startTime.getTime()) / 1000;
+        int duration = (int)(durationSecs / 3600);    
+        durationSecs = durationSecs % 3600;
+        int durationMin = (int)(durationSecs / 60);
+        if (durationMin > 0){
+            duration++;
+        }
         
         // retrieve post object
         AppController appController = (AppController)session.getAttribute("appController");
@@ -72,42 +89,73 @@ public class EditPostServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("description", description));
         nvps.add(new BasicNameValuePair("location", location));
         nvps.add(new BasicNameValuePair("job_date",jobDateString));
+        nvps.add(new BasicNameValuePair("end_date",endDateString));
         nvps.add(new BasicNameValuePair("email", email));
         nvps.add(new BasicNameValuePair("post_id", String.valueOf(postID)));
         nvps.add(new BasicNameValuePair("start_time", jobStartTime));
-        nvps.add(new BasicNameValuePair("duration", "" + duration));
-        nvps.add(new BasicNameValuePair("expiry_date", "" + expiryDateString));
-
-
+        nvps.add(new BasicNameValuePair("end_time", jobEndTime));
         
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
         HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
-            if(httpResponse.getStatusLine().getStatusCode() == 401){
-                String error = "Only the owner of the post is allowed to edit it!";
-                session.setAttribute("error", error);
-                response.sendRedirect("/index.jsp");
-                return;
-            } else {
-                post.setDescription(description);
-                post.setHeader(header);
-                post.setJobDate(jobDate);
-                post.setLocation(location);
-                post.setSalary(salary);
-                post.setExpiryDate(expiryDate);
-                post.setDuration(duration);
-                post.setStartTime(jobStartTime);
-            }
+            int statusCode = httpResponse.getStatusLine().getStatusCode();
+            StringWriter writer = new StringWriter();
+            InputStream readingStream = entity.getContent();
+            IOUtils.copy(readingStream, writer, "UTF-8");
+            String responseString = writer.toString();
+            String error = null;
+            switch (statusCode){
+                case 200:
+                    post.setDescription(description);
+                    post.setHeader(header);
+                    post.setJobDate(jobDate);
+                    post.setEndDate(endDate);
+                    post.setLocation(location);
+                    post.setSalary(salary);
+                    post.setDuration(duration);
+                    post.setStartTime(jobStartTime);
+                    post.setEndTime(jobEndTime);
+                    String message = "Post has been successfully updated!";
+                    session.setAttribute("message", message);
+                    response.sendRedirect("/dashboard.jsp");
+                    return;
+                case 403:
+                    error = "Only the owner of the post is allowed to edit it!";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/index.jsp");
+                    return;
+                case 400:
+                    switch (responseString){
+                        case "Bad Request - The post cannot be found":
+                            error = "The post cannot be found!";
+                            break;
+                        case "Bad Request - The job date should be after today":
+                            error = "The job date should be after today!";
+                            break;
+                        case "Bad Request - The end date should be after the start date":
+                            error = "The job end date should be after the start date!";
+                            break;
+                        case "Bad Request - The salary should not be negative":
+                            error = "The salary should not be negative!";
+                            break;
+                        case "Bad Request - End time should be after start time":
+                            error = "The job end time should be after the start time!";
+                            break;
+                    }
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/dashboard.jsp");
+                    return;
+                case 401:
+                    error = "Invalid authorisation token!";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/index.jsp");
+                    return;
+            } 
         } finally {
             httpResponse.close();
             EntityUtils.consume(entity);
         }
-        
-        String message = "Post has been successfully updated!";
-        session.setAttribute("message", message);
-        response.sendRedirect("/dashboard.jsp");
     }
-
 }

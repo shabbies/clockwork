@@ -89,7 +89,7 @@ session.removeAttribute("appliedJobsStatusMap");
                             </form>
                         </td>
                         <% } else if ((appliedJobsStatusMap.get(post.getId()).equals("offered"))){ %>
-                        <td><span class="badge db-default-badge">Offered</span></td>
+                        <td><span class="badge db-default-badge offered">Offered</span></td>
                         <td>
                             <form action="/AcceptJobOfferServlet" method="POST" class="display-inline"/>
                             <input type="hidden" value="<%=post.getId()%>" name="post_id" />

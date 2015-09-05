@@ -14,15 +14,17 @@ public class Post {
     private String location;
     private Date postingDate;
     private Date jobDate;
+    private Date endDate;
     private String status;
     private int applicantCount;
     private Date expiryDate;
     private String startTime;
+    private String endTime;
     private int duration;
     private int rating;
     private String comment;
 
-    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, String status, int applicantCount, Date expiryDate, String startTime, int duration) {
+    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, Date endDate, String status, int applicantCount, Date expiryDate, String startTime, String endTime, int duration) {
         this.id = id;
         this.header = header;
         this.company = company;
@@ -31,14 +33,16 @@ public class Post {
         this.location = location;
         this.postingDate = postingDate;
         this.jobDate = jobDate;
+        this.endDate = endDate;
         this.status = status;
         this.applicantCount = applicantCount;
         this.expiryDate = expiryDate;
         this.startTime = startTime;
+        this.endTime = endTime;
         this.duration = duration;
     }
     
-    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, String status, int applicantCount, Date expiryDate, String startTime, int duration, int rating, String comment) {
+    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, Date endDate, String status, int applicantCount, Date expiryDate, String startTime, String endTime, int duration, int rating, String comment) {
         this.id = id;
         this.header = header;
         this.company = company;
@@ -47,10 +51,12 @@ public class Post {
         this.location = location;
         this.postingDate = postingDate;
         this.jobDate = jobDate;
+        this.endDate = endDate;
         this.status = status;
         this.applicantCount = applicantCount;
         this.expiryDate = expiryDate;
         this.startTime = startTime;
+        this.endTime = endTime;
         this.duration = duration;
         this.rating = rating;
         this.comment = comment;
@@ -175,6 +181,22 @@ public class Post {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
     
     public String getJobDateString(){
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -184,6 +206,11 @@ public class Post {
     public String getJobDateStringForInput(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(jobDate);
+    }
+    
+    public String getJobEndDateStringForInput(){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(endDate);
     }
     
     public String getPostExpiryStringForInput(){

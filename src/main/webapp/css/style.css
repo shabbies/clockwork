@@ -813,6 +813,11 @@ body {
     border-color: #FF007F;
 }
 
+.offered{
+    background-color: #736AFF;
+    border-color: #C3BAFF;
+}
+
 .profile-div{
     margin-top: 40px;
 }

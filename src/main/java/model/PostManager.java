@@ -56,11 +56,13 @@ public class PostManager {
         double salary = (Double)postJSONMap.get("salary");
         String description = (String)postJSONMap.get("description");
         String location = (String)postJSONMap.get("location");
-        Date jobDate = df.parse((String)postJSONMap.get("job_date"));
+        Date jobDate = df.parse((String)postJSONMap.get("job_date"));        
+        Date endDate = df.parse((String)postJSONMap.get("end_date"));
         Date postingDate = df.parse((String)postJSONMap.get("posting_date"));
         Date expiryDate = df.parse((String)postJSONMap.get("expiry_date"));
         String status = (String)postJSONMap.get("status");
         String startTime = (String)postJSONMap.get("start_time");
+        String endTime = (String)postJSONMap.get("end_time");
         int duration = ((Double)postJSONMap.get("duration")).intValue();
         Post post = null;
         if (status.equals("completed")){
@@ -69,9 +71,9 @@ public class PostManager {
                 rating = ((Double)postJSONMap.get("rating")).intValue();
             }
             String comment = ((String)postJSONMap.get("comment"));
-            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, status, 0, expiryDate, startTime, duration, rating, comment);
+            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, endDate, status, 0, expiryDate, startTime, endTime, duration, rating, comment);
         } else {
-            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, status, 0, expiryDate, startTime, duration);
+            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, endDate, status, 0, expiryDate, startTime, endTime, duration);
         }
         if (postJSONMap.get("applicant_count") != null){
             post.setApplicantCount(((Double)postJSONMap.get("applicant_count")).intValue());
