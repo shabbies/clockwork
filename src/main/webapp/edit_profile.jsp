@@ -29,8 +29,8 @@
 <!-- END -->
     
 <header class="main">
-<div class="header-content">
-<div class="header-content-inner">
+<div class="header-full-content">
+
 <div class="row profile-div">
 
     <% if (session.getAttribute("error") != null){%>
