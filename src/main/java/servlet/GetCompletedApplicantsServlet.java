@@ -1,7 +1,7 @@
 package servlet;
 
 import controller.AppController;
-import controller.UserController;
+import controller.MatchController;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -19,8 +19,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
+import model.Match;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
@@ -28,7 +28,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
-public class GetJobApplicantsServlet extends HttpServlet {
+public class GetCompletedApplicantsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,12 +40,11 @@ public class GetJobApplicantsServlet extends HttpServlet {
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
         String postID = request.getParameter("id");
-        String location = request.getParameter("location");
         AppController appController = (AppController)session.getAttribute("appController");
-        UserController userController = appController.getUserController();
+        MatchController matchController = appController.getMatchController();
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/get_all_applicants");
+        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/get_completed");
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("email", email));
@@ -56,27 +55,17 @@ public class GetJobApplicantsServlet extends HttpServlet {
         HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
+            StringWriter writer = new StringWriter();
+            InputStream readingStream = entity.getContent();
+            IOUtils.copy(readingStream, writer, "UTF-8");
+            String responseString = writer.toString();
             if(httpResponse.getStatusLine().getStatusCode() == 201){
-                StringWriter writer = new StringWriter();
-                InputStream readingStream = entity.getContent();
-                IOUtils.copy(readingStream, writer, "UTF-8");
-                String theString = writer.toString();
-                HashMap<String, ArrayList <User>> applicantMap = userController.loadPostApplicants(theString);
-                session.setAttribute("hiredList", applicantMap.get("hired"));
-                if (location.equals("listing")){
-                    session.setAttribute("applicantList", applicantMap.get("pending"));
-                    session.setAttribute("offeredList", applicantMap.get("offered"));
-                    response.sendRedirect("/listing.jsp?id=" + postID);
-                    return;
-                } else {
-                    session.setAttribute("completedList", applicantMap.get("completed"));
-                    RequestDispatcher rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID);
-                    rd.forward(request, response);
-                }
-                
+                HashMap<Integer, Match> matchedUsers = matchController.loadMatchMap(responseString);
+                session.setAttribute("matchMap", matchedUsers);
+                response.sendRedirect("/complete_job.jsp?id=" + postID);
+                return;
             } else {
-                String error = "A system error has occurred, please try again";
-                session.setAttribute("error", error);
+                session.setAttribute("error", responseString);
                 response.sendRedirect("/index.jsp");
                 return;
             }
@@ -84,6 +73,5 @@ public class GetJobApplicantsServlet extends HttpServlet {
             EntityUtils.consume(entity);
             httpResponse.close();
         }
-        
     }
 }

@@ -41,7 +41,11 @@ session.removeAttribute("offeredList");}%>
             <div class="panel-body db-user">
 
                 <div class="text-center">
+                    <% if (post.getAvatarPath() == null){%>
                     <img src="http://placehold.it/120x120" alt="" class="col-centered img-rounded img-responsive" />
+                    <% } else { %>
+                    <img src="<%=post.getAvatarPath()%>" alt="" class="col-centered img-rounded img-responsive" />
+                    <% } %>
                 </div>
 
                 <div class="db-user-info">
@@ -55,8 +59,8 @@ session.removeAttribute("offeredList");}%>
                         <input type="hidden" name="amount" value="100.00">
                         <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
                     </form>
-                </div>
-            </div>
+                </div> 
+           </div>
         </div>
     </div>
 
@@ -82,7 +86,13 @@ session.removeAttribute("offeredList");}%>
                                 for (User user : applicantList){ %>
                                     <tr> 
                                         <td><%=user.getUsername()%></td>
-                                        <td><div class="ratings" data-score="4"></div></td>
+                                        <td>
+                                            <div class="ratings">
+                                                <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
+                                                <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
+                                                <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
+                                            </div>
+                                        </td>
                                         <td>Pending</td>
                                         <td><form action="/OfferJobServlet" method="POST" class="display-inline">
                                                 <input type="hidden" name="post_id" value="<%=postID%>" />
@@ -125,25 +135,26 @@ session.removeAttribute("offeredList");}%>
                 <tbody> 
 
                     <% if (offeredList != null){ %>
+                        <% if (offeredList.size() > 0) {%>
+                            <% for (User user : offeredList){ %>
 
-                    <% for (User user : offeredList){ %>
-
-                    <tr> 
-                        <td><%=user.getUsername()%></td>
-                        <td><div class="ratings" data-score="4"></div></td>
-                        <td>Offered</td>
-                        <td><form action="/WithdrawOfferServlet" method="POST" class="display-inline">
-                                <input type="hidden" name="post_id" value="<%=postID%>" />
-                                <input type="hidden" name="user_id" value="<%=user.getId()%>" />
-                                <input type="submit" value="Withdraw Offer" class="btn btn-danger" />
-                            </form>
-                        </td>
-                        <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-avatar="<%=user.getAvatar()%>" data-rating="4">View Profile</a></td>
-                    </tr>
-                    <%}%>
-                    <% } else { %>
-                        <tr><td colspan="4" class="text-center">No offers given yet</td></tr>
-                    <% } %>
+                            <tr> 
+                                <td><%=user.getUsername()%></td>
+                                <td><div class="ratings" data-score="4"></div></td>
+                                <td>Offered</td>
+                                <td><form action="/WithdrawOfferServlet" method="POST" class="display-inline">
+                                        <input type="hidden" name="post_id" value="<%=postID%>" />
+                                        <input type="hidden" name="user_id" value="<%=user.getId()%>" />
+                                        <input type="submit" value="Withdraw Offer" class="btn btn-danger" />
+                                    </form>
+                                </td>
+                                <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-avatar="<%=user.getAvatar()%>" data-rating="4">View Profile</a></td>
+                            </tr>
+                            <% } %>
+                        <% } else { %>
+                            <tr><td colspan="4" class="text-center">No Offers Given</td></tr>
+                        <% }
+                    } %>
                 </tbody>
 
             </table>
@@ -162,19 +173,22 @@ session.removeAttribute("offeredList");}%>
                         <th>Action</th>
                     </tr>
                 </thead>
+                
                 <tbody> 
-
                     <% if (hiredList != null){ %>
+                        <% if (hiredList.size() > 0){ %>
+                            <% for (User user : hiredList){ %>
 
-                    <% for (User user : hiredList){ %>
-
-                    <tr> 
-                        <td><%=user.getUsername()%></td>
-                        <td><div class="ratings" data-score="4"></div></td>
-                        <td>Hired</td>
-                        <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-rating="4">View Profile</a></td>
-                    </tr>
-                    <%}%>
+                            <tr> 
+                                <td><%=user.getUsername()%></td>
+                                <td><div class="ratings" data-score="4"></div></td>
+                                <td>Hired</td>
+                                <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-rating="4">View Profile</a></td>
+                            </tr>
+                            <% } %>
+                        <% } else { %>
+                        <tr><td colspan="4" class="text-center">No Hired Applicants</td></tr>
+                        <% } %>
                     <% } %>
                 </tbody>
 
@@ -419,11 +433,11 @@ session.removeAttribute("offeredList");}%>
                 return $(this).attr('data-score');
             }
         });
-        $('.ratings').raty({
-            score: function() {
-                return $(this).attr('data-score');
-            },readOnly: true
-        });
+//        $('.ratings').raty({
+//            score: function() {
+//                return $(this).attr('data-score');
+//            },readOnly: true
+//        });
         
         
     });

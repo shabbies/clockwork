@@ -3,11 +3,16 @@
     
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
+<%@ page import="model.Match"%>
+
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
+
     
 <%  String postID = request.getParameter("id");
 ArrayList <User> hiredList = (ArrayList <User>)session.getAttribute("hiredList");
 ArrayList <User> completedList = (ArrayList <User>)session.getAttribute("completedList");
+HashMap <Integer, Match> matchMap = (HashMap <Integer, Match>)session.getAttribute("matchMap");
 String formURL = "/GetPostServlet?id=" + postID + "&location=complete";
 Post post = (Post)session.getAttribute("post");
 if (post == null){ %>
@@ -15,7 +20,9 @@ if (post == null){ %>
 <% } else { 
 session.removeAttribute("post"); 
 session.removeAttribute("hiredList");
-session.removeAttribute("completedList");}%>
+session.removeAttribute("completedList");
+session.removeAttribute("matchMap");
+}%>
     
 <header class="main">
 <div class="header-content">
@@ -38,8 +45,17 @@ session.removeAttribute("completedList");}%>
         <div class="panel panel-default">
             <div class="panel-body db-user">
                 <div class="text-center">
+                    <% if (post.getAvatarPath() == null){%>
                     <img src="http://placehold.it/120x120" alt="" class="col-centered img-rounded img-responsive" />
+                    <% } else { %>
+                    <img src="<%=post.getAvatarPath()%>" alt="" class="col-centered img-rounded img-responsive" />
+                    <% } %>
                 </div>
+
+                <div class="db-user-info">
+                    <h2><%=post.getHeader()%></h2> 
+                    <h5><%=post.getDescription()%></h5>
+                </div> 
             </div>
         </div>
     </div>
@@ -92,19 +108,39 @@ session.removeAttribute("completedList");}%>
                 </thead>
                 <tbody> 
                     <%  if (completedList.size() > 0){   
-                            for (User user : completedList){ %>
+                            for (User user : completedList){ 
+                                Match match = matchMap.get(user.getId());%>
                                 <tr> 
-                                    <td><%=user.getUsername()%></td>
-                                    <td>Completed</td>
-                                    <td align="center">
-                                        <div id="<%=user.getId()%>" data-score="2">
-                                            <img class="ratings_icon" id="rating_bad" src="/img/bad.png"/>
-                                            <img class="ratings_icon" id="rating_neutral" src="/img/neutral.png"/>
-                                            <img class="ratings_icon" id="rating_good" src="/img/good.png"/>
-                                        </div>
-                                    </td>
-                                    <td><button class="btn btn-success btn-comment" data-id="<%=user.getId()%>">Leave Comment</button></td>
-                                    <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-rating="4">View Profile</a></td>
+                                    <% if (match.getRating() == 2){ %>
+                                        <td><%=user.getUsername()%></td>
+                                        <td>Completed</td>
+                                        <td align="center">
+                                            <div id="<%=user.getId()%>" data-score="2">
+                                                <img class="ratings_icon" id="rating_bad" src="/img/bad.png"/>
+                                                <img class="ratings_icon" id="rating_neutral" src="/img/neutral.png"/>
+                                                <img class="ratings_icon" id="rating_good" src="/img/good.png"/>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn btn-success btn-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="enabled">Leave Comment</button></td>
+                                        <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>">View Profile</a></td>
+                                    <% } else { %>
+                                        <td><%=user.getUsername()%></td>
+                                        <td>Reviewed</td>
+                                        <td align="center">
+                                            <div id="<%=user.getId()%>" data-score="2">
+                                                <% int rating = match.getRating();%>
+                                                <% if (rating == -1) { %>
+                                                <img class="listing_ratings" id="rating_bad" src="/img/bad.png"/>
+                                                <% } else if (rating == 0) { %>
+                                                <img class="listing_ratings" id="rating_neutral" src="/img/neutral.png"/>
+                                                <% } else { %>
+                                                <img class="listing_ratings" id="rating_good" src="/img/good.png"/>
+                                                <% } %>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn btn-success btn-view-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="disabled">View Comments</button></td>
+                                        <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>">View Profile</a></td>
+                                    <% } %>
                                 </tr>
                             <% } %>
                         <% } else { %>
@@ -191,7 +227,8 @@ session.removeAttribute("completedList");}%>
             </div>
             <div class="modal-body payment-mode text-center">
                 
-                <h4>Leave a comment</h4>
+                <h4 id="comment_header">Leave a comment</h4>
+                <h5 id="view_comment_message">You have already submitted your comments for this person!</h5>
                 <input type="hidden" name="userid" id="comment_userid" />
                 <input type="hidden" name="user_comments" id="user_comments" />
                 <textarea id="user_comment" class="form-control" style="min-width: 100%"></textarea>
@@ -204,18 +241,48 @@ session.removeAttribute("completedList");}%>
     </div>
 </div>
     
+<!-- View Comment Modal -->
+<div class="modal fade" id="viewComment" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>   
+            </div>
+            <div class="modal-body payment-mode text-center">
+                
+                <h4 id="comment_header">View your comment</h4>
+                <h5 id="view_comment_message">You have already submitted your comments for this person!</h5>
+                <textarea id="view_user_comment" class="form-control" style="min-width: 100%" disabled="disabled"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     var comments = {};
     
     $(document).on("click", ".btn-comment", function() {
         var id = $(this).data("id");
         $('#commentModal').modal('show');
+        $("#view_comment_message").attr("hidden", "hidden");
+        $("#comment_header").html("Leave a comment");
         $("#comment_userid").val(id);
         if (typeof comments[id] === "undefined"){
             $("#user_comment").val("");
         } else {
             $("#user_comment").val(comments[id]);
         }
+    });
+    
+    $(document).on("click", ".btn-view-comment", function() {
+        var comments = $(this).data('comment');
+        $('#view_user_comment').val(comments);
+        $('#viewComment').modal('show');
     });
     
     $("#commentModal").on('hidden.bs.modal', function(){

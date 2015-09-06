@@ -16,8 +16,11 @@ public class User {
     private String avatar;
     private String nationality;
     private char gender;
+    private int badRating;
+    private int neutralRating;
+    private int goodRating;
 
-    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender) {
+    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -29,6 +32,9 @@ public class User {
         this.avatar = avatar;
         this.nationality = nationality;
         this.gender = gender;
+        this.badRating = badRating;
+        this.neutralRating = neutralRating;
+        this.goodRating = goodRating;
     }
 
     public User(String email, String accountType) {
@@ -128,5 +134,29 @@ public class User {
 
     public void setGender(char gender) {
         this.gender = gender;
+    }
+
+    public int getBadRating() {
+        return badRating;
+    }
+
+    public void setBadRating(int badRating) {
+        this.badRating = badRating;
+    }
+
+    public int getNeutralRating() {
+        return neutralRating;
+    }
+
+    public void setNeutralRating(int neutralRating) {
+        this.neutralRating = neutralRating;
+    }
+
+    public int getGoodRating() {
+        return goodRating;
+    }
+
+    public void setGoodRating(int goodRating) {
+        this.goodRating = goodRating;
     }
 }

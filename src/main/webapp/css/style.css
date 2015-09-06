@@ -1017,6 +1017,10 @@ body {
     opacity: 0.8;
 }
 
+.listing_ratings{
+    height: 20px;
+}
+
 .ratings_icon {
     height: 20px;
 }

@@ -10,7 +10,7 @@
 
        <div class="col-md-7 modal-job-details">
            <div class="col-md-4 text-center">
-            <img src="img/user-placeholder.jpg" alt="" class="db-user-pic img-rounded img-responsive"/>
+            <img id="post_avatar" src="img/user-placeholder.jpg" alt="" class="db-user-pic img-rounded img-responsive"/>
             
             <h2 id="modalSalary">$10/hr</h2>
         </div>
@@ -64,6 +64,7 @@ $(document).on("click", "#open-jobModal", function() {
         var id = $(this).data("id");
         var uid = $(this).data("userid");
         var applied = $(this).data("applied");
+        var avatar_path = $(this).data("avatar");
 
         $('#jobModalLabel').html(headerText);
         $('#modalHeader').html("<strong>"+headerText+"</strong>");
@@ -74,6 +75,7 @@ $(document).on("click", "#open-jobModal", function() {
         $('#modalLocation').html(" <i class=\"fa fa-map-marker primary\"></i> "+locationText);
         $('#modalDatePosted').html(jobDateText);
         $('#hiddenJobID').val(id);
+        $('#post_avatar').attr("src", avatar_path);
 
         $('#calendar').fullCalendar( 'destroy' );
 

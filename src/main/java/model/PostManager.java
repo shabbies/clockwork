@@ -64,6 +64,7 @@ public class PostManager {
         String startTime = (String)postJSONMap.get("start_time");
         String endTime = (String)postJSONMap.get("end_time");
         int duration = ((Double)postJSONMap.get("duration")).intValue();
+        String avatarPath = (String)postJSONMap.get("avatar_path");
         Post post = null;
         if (status.equals("completed")){
             int rating = 2;
@@ -71,9 +72,9 @@ public class PostManager {
                 rating = ((Double)postJSONMap.get("rating")).intValue();
             }
             String comment = ((String)postJSONMap.get("comment"));
-            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, endDate, status, 0, expiryDate, startTime, endTime, duration, rating, comment);
+            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, endDate, status, 0, expiryDate, startTime, endTime, duration, rating, comment, avatarPath);
         } else {
-            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, endDate, status, 0, expiryDate, startTime, endTime, duration);
+            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, endDate, status, 0, expiryDate, startTime, endTime, duration, avatarPath);
         }
         if (postJSONMap.get("applicant_count") != null){
             post.setApplicantCount(((Double)postJSONMap.get("applicant_count")).intValue());

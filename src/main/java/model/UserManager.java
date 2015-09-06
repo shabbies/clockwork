@@ -11,11 +11,11 @@ import java.util.HashMap;
 public class UserManager {
     private User currentUser;
     
-    public User login(int id, String username, String email, String companyName, String accountType, String address, int contactNumber, String dateOfBirthStr, String avatar, String nationality, char gender){
+    public User login(int id, String username, String email, String companyName, String accountType, String address, int contactNumber, String dateOfBirthStr, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating){
         Gson gson = new Gson();
         Type dateType = new TypeToken<Date>(){}.getType();
         Date dateOfBirth = gson.fromJson(dateOfBirthStr, dateType);
-        User user = new User(id, username, email, companyName, accountType, address, contactNumber, dateOfBirth, avatar, nationality, gender);
+        User user = new User(id, username, email, companyName, accountType, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating);
         currentUser = user;
         return user;
     }
@@ -58,7 +58,11 @@ public class UserManager {
         if (userHash.get("gender") != null){
             gender = ((String)userHash.get("gender")).charAt(0);
         }
-        User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender);
+        int badRating = ((Double)userHash.get("bad_rating")).intValue();        
+        int neutralRating = ((Double)userHash.get("neutral_rating")).intValue();
+        int goodRating = ((Double)userHash.get("good_rating")).intValue();
+
+        User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating);
         return user;
     }
 }

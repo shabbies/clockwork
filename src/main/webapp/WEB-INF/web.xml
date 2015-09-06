@@ -107,6 +107,10 @@
     <servlet-name>CompleteProfileServlet</servlet-name>
     <servlet-class>servlet.CompleteProfileServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>GetCompletedApplicantsServlet</servlet-name>
+    <servlet-class>servlet.GetCompletedApplicantsServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -203,5 +207,9 @@
   <servlet-mapping>
     <servlet-name>CompleteProfileServlet</servlet-name>
     <url-pattern>/CompleteProfileServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetCompletedApplicantsServlet</servlet-name>
+    <url-pattern>/GetCompletedApplicantsServlet</url-pattern>
   </servlet-mapping>
 </web-app>    

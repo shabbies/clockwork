@@ -23,8 +23,9 @@ public class Post {
     private int duration;
     private int rating;
     private String comment;
+    private String avatarPath;
 
-    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, Date endDate, String status, int applicantCount, Date expiryDate, String startTime, String endTime, int duration) {
+    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, Date endDate, String status, int applicantCount, Date expiryDate, String startTime, String endTime, int duration, String avatarPath) {
         this.id = id;
         this.header = header;
         this.company = company;
@@ -40,9 +41,10 @@ public class Post {
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = duration;
+        this.avatarPath = avatarPath;
     }
     
-    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, Date endDate, String status, int applicantCount, Date expiryDate, String startTime, String endTime, int duration, int rating, String comment) {
+    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, Date endDate, String status, int applicantCount, Date expiryDate, String startTime, String endTime, int duration, int rating, String comment, String avatarPath) {
         this.id = id;
         this.header = header;
         this.company = company;
@@ -60,6 +62,7 @@ public class Post {
         this.duration = duration;
         this.rating = rating;
         this.comment = comment;
+        this.avatarPath = avatarPath;
     }
 
     public int getId() {
@@ -196,6 +199,14 @@ public class Post {
 
     public String getEndTime() {
         return endTime;
+    }
+
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
     }
     
     public String getJobDateString(){

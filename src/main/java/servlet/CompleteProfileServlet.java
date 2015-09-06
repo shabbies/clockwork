@@ -80,7 +80,7 @@ public class CompleteProfileServlet extends HttpServlet {
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
         if (avatarByte != null && avatarByte.length != 0){
-            builder.addBinaryBody("avatar", avatarByte, ContentType.create(avatarPart.getContentType()), currentUser.getId() + " " + avatarPart.getName());
+            builder.addBinaryBody("avatar", avatarByte, ContentType.create(avatarPart.getContentType()), currentUser.getId() + " " + avatarPart.getName() + ".jpg");
         }
         if (email != null){
             builder.addTextBody("email", email, ContentType.TEXT_PLAIN);
