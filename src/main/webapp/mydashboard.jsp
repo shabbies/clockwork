@@ -165,13 +165,21 @@ session.removeAttribute("appliedJobsStatusMap");
                 </div>
 
                 <div class="db-user-info">
-                    <h2>Hi <%= currentUser.getUsername()%>!</h2> 
+                    <h2>Hi <%= currentUser.getUsername()%>!</h2>
+                    <div class="text-center ratings_info">
+                        <div>My ratings:</div>
+                        <%=currentUser.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
+                        <%=currentUser.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
+                        <%=currentUser.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
+                    </div>
                     <span>What would you like to do today?</span>
                 </div>
                 <%if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){%>
                 <a href="/complete_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
                 <% } else { %> 
                 <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Update my Profile</a><% } %>
+                <a href="/#" class="btn btn-primary btn-block"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
+                <a href="/#" class="btn btn-primary btn-block"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
             </div>
         </div>
     </div>

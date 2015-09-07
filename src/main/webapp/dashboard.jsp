@@ -79,8 +79,12 @@ return;
                                     String redirectURL = "/listing.jsp?id=" + post.getId(); %>
                                     <td><span class="badge db-default-badge">Ongoing</span></td>
                                     <% int appCount = post.getApplicantCount(); 
-                                    if(appCount>0){%>
-                                        <td><a href="<%=redirectURL%>" class="btn btn-primary"> <span class="badge"><%=post.getApplicantCount()%></span> Applicants</a></td>
+                                    if(appCount > 0) { 
+                                        if (appCount == 1){%>
+                                            <td><a href="<%=redirectURL%>" class="btn btn-primary"> <span class="badge"><%=post.getApplicantCount()%></span> Applicant</a></td>
+                                            <% } else { %>
+                                                <td><a href="<%=redirectURL%>" class="btn btn-primary"> <span class="badge"><%=post.getApplicantCount()%></span> Applicants</a></td>
+                                            <% } %>
                                     <% } else { %>
                                         <td><a href="<%=redirectURL%>" class="btn btn-primary"> Click to View</a></td>
                                     <% } %>

@@ -1,11 +1,12 @@
 <script>
 $('.form-signup').on('submit', function () {
-    if ($('#register-password').val().length < 8){
+    if ($('#new-password').val().length < 8){
         $('.password_length_error').removeAttr("style");
-        $("#register-password").val('');
+        $("#new-password").val('');
+        $("#confirm-password").val('');
 
-        $("#register-password").css("border", "1px solid #ee4054" );
-        $("#register-password").css("box-shadow", "none");
+        $("#new-password").css("border", "1px solid #ee4054" );
+        $("#new-password").css("box-shadow", "none");
 
         $("#register-password-icon").css("border", "1px solid #ee4054");
         $("#register-password-icon").css("background-color", "#ee4054");
@@ -38,5 +39,45 @@ function isNumber(evt) {
     return true;
 }
 
-$()
+$(document).ready(function(){
+    var today = new Date().toISOString().split('T')[0];
+    $("#job-date").attr("min", today);
+    $("#end-date").attr("min", today);
+});
+
+$("#job-pay").change(function(){
+    var amount = parseFloat($(this).val()).toFixed(2);
+    $(this).val(amount);
+});
+
+$("#job-date").change(function(){
+    var start_date = $("#job-date").val();
+    $("#end-date").val(start_date); 
+    $("#end-date").attr("min", start_date);
+});
+
+$("#job-date").focusout(function(){
+    var start_date_string = $("#job-date").val();
+    var start_date = Date.parse(start_date_string);
+    var today = new Date();
+    today.setDate(today.getDate() + 2);
+    if (start_date < today){
+        alert("Please select a start date at least 2 days from today!");
+        $("#job-date").val(today.toISOString().split('T')[0]);
+        $("#end-date").val(today.toISOString().split('T')[0]); 
+        $("#end-date").attr("min", today.toISOString().split('T')[0]);
+    }
+});
+
+$("#end-date").focusout(function(){
+    var end_date_string = $("#end-date").val();
+    var end_date = Date.parse(end_date_string);
+    var today = new Date();
+    today.setDate(today.getDate() + 2);
+    if (end_date < today){
+        alert("Please select an end date that is at least 2 days from today!");
+        $("#end-date").val(today.toISOString().split('T')[0]); 
+        $("#end-date").attr("min", today.toISOString().split('T')[0]);
+    }
+});
 </script>

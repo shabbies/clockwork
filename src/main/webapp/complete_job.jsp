@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<jsp:include page="_user_profile.jsp" />
     
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
@@ -71,8 +72,9 @@ session.removeAttribute("matchMap");
                     <tr> 
                         <th>Name</th>
                         <th>Status</th>
-                        <th>Choose Rating</th>
-                        <th>Leave a Review</th>
+                        <th>Rating</th>
+                        <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody> 
@@ -81,9 +83,15 @@ session.removeAttribute("matchMap");
                                 <tr> 
                                     <td><%=user.getUsername()%></td>
                                     <td>Hired</td>
-                                    <td><div id="<%=user.getId()%>" class="score" data-score="4"></div></td>
+                                    <td>
+                                        <div class="ratings">
+                                            <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
+                                            <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
+                                            <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
+                                        </div>
+                                    </td>
                                     <td><button class="btn btn-info btn-complete" data-userid="<%=user.getId()%>" data-postid="<%=post.getId()%>">Mark as Complete</button></td>
-                                    <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-rating="4">View Profile</a></td>
+                                    <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                                 </tr>
                             <% } %>
                         <% } else { %>
@@ -102,8 +110,9 @@ session.removeAttribute("matchMap");
                     <tr> 
                         <th>Name</th>
                         <th>Status</th>
-                        <th>Choose Rating</th>
-                        <th>Leave a Review</th>
+                        <th>Rating</th>
+                        <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody> 
@@ -122,7 +131,7 @@ session.removeAttribute("matchMap");
                                             </div>
                                         </td>
                                         <td><button class="btn btn-success btn-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="enabled">Leave Comment</button></td>
-                                        <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>">View Profile</a></td>
+                                        <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                                     <% } else { %>
                                         <td><%=user.getUsername()%></td>
                                         <td>Reviewed</td>
@@ -139,7 +148,7 @@ session.removeAttribute("matchMap");
                                             </div>
                                         </td>
                                         <td><button class="btn btn-success btn-view-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="disabled">View Comments</button></td>
-                                        <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>">View Profile</a></td>
+                                        <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                                     <% } %>
                                 </tr>
                             <% } %>
@@ -159,36 +168,6 @@ session.removeAttribute("matchMap");
 </div>
 </div>
 </header>
-<!-- Profile Modal -->
-<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    
-            </div>
-            <div class="modal-body">
-                
-                <div class="col-md-12 modal-job-details">
-                    <div class="col-md-4 text-center">
-                        <img id="hiring_avatar" src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
-                    </div>
-                        
-                    <div class="col-md-8">
-                        <h4 id="modalName"></h4>
-                        <h5 id="modalContact"></h5>
-                        <h5 id="modalEmail"></h5>
-                        <div id="modalRating"></div>
-                    </div>
-                </div>
-                    
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
     
 <!-- Hire Modal -->
 <div class="modal fade" id="completeJobModal" tabindex="-1" role="dialog" aria-labelledby="hireModalLabel">
@@ -328,37 +307,6 @@ session.removeAttribute("matchMap");
 </script>
     
 <script>
-    $(document).on("click", ".open-profileModal", function() {
-        var nameText = $(this).data('name');
-        var contactText = $(this).data('contact');
-        var emailText = $(this).data('email');
-        var ratingText = $(this).data('rating');
-        var avatarText = $(this).data('avatar');
-        
-        $('#modalName').html("<strong>"+nameText+"</strong>");
-        if (typeof contactText === 'undefined'){
-            $('#modalContact').html("Phone number: Phone number has been hidden");
-        } else {
-            $('#modalContact').html("Phone number: " + contactText);
-        }
-        if (typeof emailText === 'undefined'){
-            $('#modalEmail').html("Email: Email has been hidden");
-        } else {
-            $('#modalEmail').html("Email: " + emailText);
-        }
-        if (avatarText !== null){
-            $('#hiring_avatar').attr("src", avatarText); 
-        } else {
-            $('#hiring_avatar').attr("src", "img/user-placeholder.jpg"); 
-        }
-        
-        $('#modalRating').raty({
-            score: ratingText,readOnly: true
-        });
-        
-        $('#profileModal').modal('show');
-    });
-    
     $(document).on("click", ".btn-complete", function() {
         var userID = $(this).data("userid");
         var postID = $(this).data("postid");

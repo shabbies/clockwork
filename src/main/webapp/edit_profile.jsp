@@ -71,19 +71,19 @@
                     </div>
 
                     <div class="form-group col-sm-12 text-left"> 
-                        <label for="contactnumber" class="control-label">Contact Number</label> 
+                        <label for="contactnumber" class="control-label">Contact Number*</label> 
                         <% if (currentUser.getContactNumber() == 0){ %>
-                        <input id="contactnumber" class="form-control" type="text" name="contact_number" onkeypress="return isNumber(event)"> 
+                        <input id="contactnumber" class="form-control" type="text" name="contact_number" onkeypress="return isNumber(event)" required> 
                         <% } else { %>
-                        <input id="contactnumber" class="form-control" type="text" name="contact_number" onkeypress="return isNumber(event)" value="<%=currentUser.getContactNumber()%>" > <%}%>
+                        <input id="contactnumber" class="form-control" type="text" name="contact_number" onkeypress="return isNumber(event)" value="<%=currentUser.getContactNumber()%>" required> <%}%>
                     </div>
 
                     <div class="form-group col-sm-12 text-left"> 
-                        <label for="street-address" class="control-label">Street Address</label> 
+                        <label for="street-address" class="control-label">Street Address*</label> 
                         <% if (currentUser.getAddress() == null){ %>
-                        <input id="street-address" class="form-control" type="text" name="address"> 
+                        <input id="street-address" class="form-control" type="text" name="address" required> 
                         <% } else { %>
-                        <input id="street-address" class="form-control" type="text" name="address" value="<%=currentUser.getAddress()%>"><%}%> 
+                        <input id="street-address" class="form-control" type="text" name="address" value="<%=currentUser.getAddress()%>" required><%}%> 
                     </div>
 
                     <div class="form-group col-sm-12 text-left"> 
@@ -106,13 +106,13 @@
 
 
                     <div class="form-group col-sm-12 text-left"> 
-                        <label for="old-password" class="control-label">Current Password</label> 
+                        <label for="old-password" class="control-label">Current Password*</label> 
 
                         <input id="old-password" class="form-control" type="password" placeholder="Password" name="old_password" required> 
 
                     </div>
                     <div class="form-group col-sm-12 text-left"> 
-                        <label for="new-password" class="control-label">New Password</label> 
+                        <label for="new-password" class="control-label">New Password*</label> 
 
                         <input id="new-password" class="form-control" type="password" placeholder="Password" name="new_password" required> 
 
@@ -124,7 +124,7 @@
                     </div>
 
                     <div class="form-group col-sm-12 text-left"> 
-                        <label for="confirm-password" class="control-label">Confirm Password</label> 
+                        <label for="confirm-password" class="control-label">Confirm Password*</label> 
 
                         <input id="confirm-password" class="form-control" type="password" placeholder="Password" name="new_password_confirmation" required> 
 

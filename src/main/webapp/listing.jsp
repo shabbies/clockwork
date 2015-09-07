@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<jsp:include page="_user_profile.jsp" />
     
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
@@ -20,7 +21,7 @@ session.removeAttribute("hiredList");
 session.removeAttribute("offeredList");}%>
     
 <header class="main">
-<div class="header-content">
+<div class="header-full-content">
 <% if (session.getAttribute("error") != null){%>
     <div class="alert alert-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -78,6 +79,7 @@ session.removeAttribute("offeredList");}%>
                         <th>Rating</th>
                         <th>Status</th>
                         <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody> 
@@ -88,28 +90,29 @@ session.removeAttribute("offeredList");}%>
                                         <td><%=user.getUsername()%></td>
                                         <td>
                                             <div class="ratings">
-                                                <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
-                                                <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
                                                 <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
+                                                <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
+                                                <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
                                             </div>
                                         </td>
                                         <td>Pending</td>
-                                        <td><form action="/OfferJobServlet" method="POST" class="display-inline">
+                                        <td>
+                                            <form action="/OfferJobServlet" method="POST" class="display-inline">
                                                 <input type="hidden" name="post_id" value="<%=postID%>" />
                                                 <input type="hidden" name="user_id" value="<%=user.getId()%>" />
                                                 <input type="submit" value="Offer Job" class="btn btn-success" />
                                             </form>
-                                            <!--<button class="btn btn-success btn-hire" data-userid="<%=user.getId()%>" data-postid="<%=postID%>">Offer Job</button>-->
                                         </td>
-                                        <td><a href="#" id="view_profile" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-avatar="<%=user.getAvatar()%>" data-rating="4">View Profile</a></td>
+                                        <td><a href="#" id="view_profile" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                                     </tr>
                                 <% } %>
-                                <tr>
+                                <!--<tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td><% if (applicantList.size() > 0){ %><button class="btn btn-lg btn-primary btn-hire"><span class="badge"><%=applicantList.size()%></span> Offer All </button><% } %></td>
-                                </tr>
+                                    <td>
+                                </tr>-->
                             <% } else { %>
                                 <tr><td colspan="4" class="text-center">No New Applicants</td></tr>
                             <% } %>
@@ -130,6 +133,7 @@ session.removeAttribute("offeredList");}%>
                         <th>Rating</th>
                         <th>Status</th>
                         <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody> 
@@ -140,7 +144,13 @@ session.removeAttribute("offeredList");}%>
 
                             <tr> 
                                 <td><%=user.getUsername()%></td>
-                                <td><div class="ratings" data-score="4"></div></td>
+                                <td>
+                                    <div class="ratings">
+                                        <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
+                                        <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
+                                        <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
+                                    </div>
+                                </td>
                                 <td>Offered</td>
                                 <td><form action="/WithdrawOfferServlet" method="POST" class="display-inline">
                                         <input type="hidden" name="post_id" value="<%=postID%>" />
@@ -148,7 +158,7 @@ session.removeAttribute("offeredList");}%>
                                         <input type="submit" value="Withdraw Offer" class="btn btn-danger" />
                                     </form>
                                 </td>
-                                <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-avatar="<%=user.getAvatar()%>" data-rating="4">View Profile</a></td>
+                                <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                             </tr>
                             <% } %>
                         <% } else { %>
@@ -181,9 +191,15 @@ session.removeAttribute("offeredList");}%>
 
                             <tr> 
                                 <td><%=user.getUsername()%></td>
-                                <td><div class="ratings" data-score="4"></div></td>
+                                <td>
+                                    <div class="ratings">
+                                        <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
+                                        <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
+                                        <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
+                                    </div>
+                                </td>
                                 <td>Hired</td>
-                                <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-rating="4">View Profile</a></td>
+                                <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                             </tr>
                             <% } %>
                         <% } else { %>
@@ -319,36 +335,7 @@ session.removeAttribute("offeredList");}%>
 </script>
 <!-- End of Hire Modal -->
     
-<!-- Profile Modal -->
-<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    
-            </div>
-            <div class="modal-body">
-                
-                <div class="col-md-12 modal-job-details">
-                    <div class="col-md-4 text-center">
-                        <img id="hiring_avatar" src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
-                    </div>
-                        
-                    <div class="col-md-8">
-                        <h4 id="modalName"></h4>
-                        <h5 id="modalContact"></h5>
-                        <h5 id="modalEmail"></h5>
-                        <div id="modalRating"></div>
-                    </div>
-                </div>
-                    
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+
     
 <!-- Mark as Complete Modal -->
 <div class="modal fade" id="completeJobModal" tabindex="-1" role="dialog" aria-labelledby="hireModalLabel">
@@ -442,40 +429,6 @@ session.removeAttribute("offeredList");}%>
         
     });
 </script>
-    
-<script>
-    $(document).on("click", ".open-profileModal", function() {
-        var nameText = $(this).data('name');
-        var contactText = $(this).data('contact');
-        var emailText = $(this).data('email');
-        var ratingText = $(this).data('rating');
-        var avatarText = $(this).data('avatar');
-        
-        $('#modalName').html("<strong>"+nameText+"</strong>");
-        if (typeof contactText === 'undefined'){
-            $('#modalContact').html("Phone number: Phone number has been hidden");
-        } else {
-            $('#modalContact').html("Phone number: " + contactText);
-        }
-        if (typeof emailText === 'undefined'){
-            $('#modalEmail').html("Email: Email has been hidden");
-        } else {
-            $('#modalEmail').html("Email: " + emailText);
-        }
-        if (avatarText !== null){
-            $('#hiring_avatar').attr("src", avatarText); 
-        } else {
-            $('#hiring_avatar').attr("src", "img/user-placeholder.jpg"); 
-        }
-        
-        $('#modalRating').raty({
-            score: ratingText,readOnly: true
-        });
-        
-        $('#profileModal').modal('show');
-    });
-</script>
-    
     
 <jsp:include page="_javascript_checker.jsp" />
 <jsp:include page="_footer.jsp" />

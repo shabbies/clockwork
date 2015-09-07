@@ -75,6 +75,13 @@ public class UpdateUserProfileServlet extends HttpServlet {
                 response.sendRedirect("/edit_profile.jsp");
                 return;
             }
+            
+            if (newPassword.equals(oldPassword)){
+                String error = "New password should be different from old password!";
+                session.setAttribute("error", error);
+                response.sendRedirect("/edit_profile.jsp");
+                return;
+            }
         }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();

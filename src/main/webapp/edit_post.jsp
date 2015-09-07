@@ -119,14 +119,4 @@
 </header>
 
 <jsp:include page="_footer.jsp" />
-
-<script>
-    $(document).ready(function(){
-        $("#job-pay").change(function(){
-            var amount = parseFloat($(this).val()).toFixed(2);
-            $(this).val(amount);
-        });
-       
-//        $("#inline-date-picker").multiDatesPicker();
-    });
-</script>
+<jsp:include page="_javascript_checker.jsp" />

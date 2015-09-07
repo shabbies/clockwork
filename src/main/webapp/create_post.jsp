@@ -66,7 +66,7 @@ return;
 <div class="col-md-8 col-md-offset-2">
 <div class="panel panel-default">
 <div class="panel-body">
-<form class="form form-signup" action="/CreatePostServlet" method="POST" role="form">
+<form class="form form-post" action="/CreatePostServlet" method="POST" role="form">
 
     <div class="form-group form-group-lg col-md-6 text-left"> 
         <label for="job-title" class="control-label">Job Title</label> 
@@ -104,13 +104,13 @@ return;
     </div>
         
     <div class="form-group form-group-lg col-md-6 text-left"> 
-        <label for="job-date" class="control-label">Job End Date</label> 
+        <label for="end-date" class="control-label">Job End Date</label> 
         <div class="input-group"> 
             <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
             <% if (repopulate != null && repopulate[3] != null){%>
-                <input id="job-date" class="form-control" type="date" name="job_end" value="<%=repopulate[4]%>" onchange="test()" required> 
+                <input id="end-date" class="form-control" type="date" name="job_end" value="<%=repopulate[4]%>" onchange="test()" required> 
             <%} else {%>
-                <input id="job-date" class="form-control" type="date" name="job_end" required><%}%>
+                <input id="end-date" class="form-control" type="date" name="job_end" required><%}%>
         </div> 
     </div> 
         
@@ -159,14 +159,5 @@ return;
 </div>
 </div>
 </header>
-<script>
-    $(document).ready(function(){
-        $("#job-pay").change(function(){
-            var amount = parseFloat($(this).val()).toFixed(2);
-            $(this).val(amount);
-        });
-       
-//        $("#inline-date-picker").multiDatesPicker();
-    });
-</script>
 <jsp:include page="_footer.jsp" />
+<jsp:include page="_javascript_checker.jsp" />

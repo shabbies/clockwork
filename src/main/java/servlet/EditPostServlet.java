@@ -19,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -54,6 +55,7 @@ public class EditPostServlet extends HttpServlet {
         Date endTime = null;
         Date jobDate = null;
         Date endDate = null;
+        Date today = new Date();
         try {
             jobDate = df.parse(jobDateString);
             endDate = df.parse(endDateString);
@@ -65,6 +67,23 @@ public class EditPostServlet extends HttpServlet {
             response.sendRedirect("/index.jsp");
             return;
         }
+        
+        Calendar calendar = Calendar.getInstance(); 
+        calendar.setTime(today); 
+        calendar.add(Calendar.DATE, 2);
+        today = calendar.getTime();
+        
+        //validating date
+        if (endDate.before(jobDate)){
+            session.setAttribute("error", "The end date should be after the start date");
+            response.sendRedirect("/edit_post.jsp");
+            return;
+        } else if (jobDate.before(today)){
+            session.setAttribute("error", "The job date should be at least 2 days from today.");
+            response.sendRedirect("/edit_post.jsp");
+            return;
+        }
+        
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
         long durationSecs = (endTime.getTime() - startTime.getTime()) / 1000;
