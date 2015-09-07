@@ -1,18 +1,20 @@
 <script>
 $('.form-signup').on('submit', function () {
-    if ($('#new-password').val().length < 8){
-        $('.password_length_error').removeAttr("style");
-        $("#new-password").val('');
-        $("#confirm-password").val('');
+    if ($('#new-password').val() !== "" && $("#old-password").val() !== ""){
+        if ($('#new-password').val().length < 8){
+            $('.password_length_error').removeAttr("style");
+            $("#new-password").val('');
+            $("#confirm-password").val('');
 
-        $("#new-password").css("border", "1px solid #ee4054" );
-        $("#new-password").css("box-shadow", "none");
+            $("#new-password").css("border", "1px solid #ee4054" );
+            $("#new-password").css("box-shadow", "none");
 
-        $("#register-password-icon").css("border", "1px solid #ee4054");
-        $("#register-password-icon").css("background-color", "#ee4054");
-        $("#register-password-icon").css("color", "#fff");
+            $("#register-password-icon").css("border", "1px solid #ee4054");
+            $("#register-password-icon").css("background-color", "#ee4054");
+            $("#register-password-icon").css("color", "#fff");
 
-        return false;
+            return false;
+        }
     }
     
     return true;
