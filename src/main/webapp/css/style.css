@@ -1041,3 +1041,8 @@ body {
 .hidden{
     display: none;
 }
+
+#modal_date_splitter{
+    margin-left: 10px;
+    margin-right: 10px;
+}

@@ -214,6 +214,11 @@ public class Post {
         return df.format(jobDate);
     }
     
+    public String getEndDateString(){
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        return df.format(endDate);
+    }
+    
     public String getJobDateStringForInput(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(jobDate);

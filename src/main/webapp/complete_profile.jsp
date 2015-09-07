@@ -2,7 +2,7 @@
 <%@include file="_nav.jsp"%>
     
 <header class="main">
-<div class="header-content">
+<div class="header-full-content">
 <div class="header-content-inner">
 <div class="row profile-div">
 

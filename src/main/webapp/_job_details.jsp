@@ -18,7 +18,13 @@
         <div class="col-md-8">
             <h4 id="modalHeader"><strong>Bellboy</strong> @ HardRock Hotel</h4>
             <h5 id="modalLocation">Resort World Singapore</h5>
-            <h5 id="modalDatePosted">21/08/2015</h5>
+            <h5 id="modalDatePosted" class="display-inline">21/08/2015</h5>
+            <div id="modal_date_splitter" class="display-inline" >    to    </div>
+            <h5 id="modalEndDate" class="display-inline">21/08/2015</h5>
+            <div>
+            <h5 id="modalStartTime" class="display-inline">11:00</h5>
+            <div id="modal_date_splitter" class="display-inline" >    to    </div>
+            <h5 id="modalEndTime" class="display-inline">15:00</h5></div>
 
             <h5 id="modalDesc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.
             </h5>
@@ -61,10 +67,13 @@ $(document).on("click", "#open-jobModal", function() {
         var companyText = $(this).data('company');
         var locationText = $(this).data('location');
         var jobDateText = $(this).data("dateposted");
+        var endDateText = $(this).data("enddate");
         var id = $(this).data("id");
         var uid = $(this).data("userid");
         var applied = $(this).data("applied");
         var avatar_path = $(this).data("avatar");
+        var startTimeText = $(this).data("starttime");
+        var endTimeText = $(this).data("endtime");
 
         $('#jobModalLabel').html(headerText);
         $('#modalHeader').html("<strong>"+headerText+"</strong>");
@@ -74,6 +83,9 @@ $(document).on("click", "#open-jobModal", function() {
         $('#modalCompany').html(companyText);
         $('#modalLocation').html(" <i class=\"fa fa-map-marker primary\"></i> "+locationText);
         $('#modalDatePosted').html(jobDateText);
+        $('#modalEndDate').html(endDateText);
+        $('#modalStartTime').html(startTimeText);
+        $('#modalEndTime').html(endTimeText);
         $('#hiddenJobID').val(id);
         $('#post_avatar').attr("src", avatar_path);
 
