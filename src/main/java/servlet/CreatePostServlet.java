@@ -109,35 +109,52 @@ public class CreatePostServlet extends HttpServlet {
             InputStream readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
             String responseString = writer.toString();
-            if(statusCode == 401){
-                String error = "A system error has occurred, please try again";
-                session.setAttribute("error", error);
-                response.sendRedirect("/index.jsp");
-                return;
-            } else if (statusCode == 400){
-                String error = null;
-                String[] repopulate = null;
-                if (responseString.contains("salary")){
-                    error = "Salary should not be negative!";
-                    repopulate = new String[] {header, location, description, jobDateString, endDateString, startTime, endTime, ""};
-                } else if (responseString.contains("job")){
-                    error = "The job date should be after today!";
-                    repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
-                } else if (responseString.contains("end date")){
-                    error = "The end date should be after start date!";
-                    repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
-                } else {
-                    error = "The end time should be after the start time!";
-                    repopulate = new String[] {header, location, description, jobDateString, endDateString, "", "", "" + salary};
-                }
-                session.setAttribute("error", error);
-                session.setAttribute("repopulate", repopulate);
-                response.sendRedirect("/create_post.jsp");
-                return;
-            } else {
-                String message = "Post has been successfully listed!";
-                session.setAttribute("message", message);
-                response.sendRedirect("/dashboard.jsp");
+            String error = null;
+            switch (statusCode){
+                case 401:
+                    error = "A system error has occurred, please try again";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/index.jsp");
+                    return;
+                case 400:
+                    String[] repopulate = null;
+                    switch (responseString){
+                        case "Bad Request - The job date should be after today":
+                            error = "The job date should be after today!";
+                            repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
+                            break;
+                        case "Bad Request - The end date should be after the start date":
+                            error = "The end date should be after start date!";
+                            repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
+                            break;
+                        case "Bad Request - The salary should not be negative":
+                            error = "Salary should not be negative!";
+                            repopulate = new String[] {header, location, description, jobDateString, 
+                                endDateString, startTime, endTime, ""};
+                            break;
+                        case "Bad Request - End time should be after start time":
+                            error = "The end date should be after start date!";
+                            repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
+                            break;
+                        case "Bad Request - Post has already been created":
+                            error = "This post has already been created!";
+                            session.setAttribute("error", error);
+                            response.sendRedirect("/dashboard.jsp");
+                            return;
+                    }
+                    session.setAttribute("error", error);
+                    session.setAttribute("repopulate", repopulate);
+                    response.sendRedirect("/create_post.jsp");
+                    return;
+                case 403:
+                    error = "Only employers are allowed to post a job!";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/index.jsp");
+                    return;
+                case 201:
+                    String message = "Post has been successfully listed!";
+                    session.setAttribute("message", message);
+                    response.sendRedirect("/dashboard.jsp");
             }
         } finally {
             EntityUtils.consume(entity);
@@ -145,5 +162,4 @@ public class CreatePostServlet extends HttpServlet {
         }
         
     }
-
 }
