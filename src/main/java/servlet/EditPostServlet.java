@@ -162,6 +162,9 @@ public class EditPostServlet extends HttpServlet {
                         case "Bad Request - End time should be after start time":
                             error = "The job end time should be after the start time!";
                             break;
+                        case "Bad Request - Unable to edit post once there are applicants":
+                            error = "There are already applicants for this job posting!";
+                            break;
                     }
                     session.setAttribute("error", error);
                     response.sendRedirect("/dashboard.jsp");
