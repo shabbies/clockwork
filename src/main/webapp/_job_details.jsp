@@ -54,7 +54,7 @@
 <script>
 
 $(document).on("click", "#open-jobModal", function() {
-    if( $(this).data("ownjob") == ''){
+    if( $(this).data("ownjob") === ''){
         var headerText = $(this).data('header');
         var descText = $(this).data('desc');
         var salaryText = $(this).data('salary');

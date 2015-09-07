@@ -10,6 +10,7 @@
 ArrayList <User> applicantList = (ArrayList <User>)session.getAttribute("applicantList");
 ArrayList <User> offeredList = (ArrayList <User>)session.getAttribute("offeredList");
 ArrayList <User> hiredList = (ArrayList <User>)session.getAttribute("hiredList");
+ArrayList <Integer> applicantListUID = new ArrayList <Integer> ();
 String formURL = "/GetPostServlet?id=" + postID + "&location=listing";
 Post post = (Post)session.getAttribute("post");
 if (post == null){ %>
@@ -85,7 +86,8 @@ session.removeAttribute("offeredList");}%>
                 <tbody> 
                     <%  if (applicantList != null){
                             if (applicantList.size() > 0){   
-                                for (User user : applicantList){ %>
+                                for (User user : applicantList){ 
+                                    applicantListUID.add(user.getId());%>
                                     <tr> 
                                         <td><%=user.getUsername()%></td>
                                         <td>
@@ -106,13 +108,21 @@ session.removeAttribute("offeredList");}%>
                                         <td><a href="#" id="view_profile" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                                     </tr>
                                 <% } %>
-                                <!--<tr>
+                                <% if (applicantList.size() > 0) { %>
+                                <tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td><% if (applicantList.size() > 0){ %><button class="btn btn-lg btn-primary btn-hire"><span class="badge"><%=applicantList.size()%></span> Offer All </button><% } %></td>
                                     <td>
-                                </tr>-->
+                                        <form action="/OfferAllJobServlet" method="POST" class="display-inline">
+                                                <input type="hidden" name="post_id" value="<%=postID%>" />
+                                                <input type="hidden" name="user_ids" value="<%=applicantListUID%>" />
+                                                <button class="btn btn-lg btn-primary"><span class="badge"><%=applicantList.size()%></span> Offer All </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                </tr>
+                                <%}%>
                             <% } else { %>
                                 <tr><td colspan="4" class="text-center">No New Applicants</td></tr>
                             <% } %>

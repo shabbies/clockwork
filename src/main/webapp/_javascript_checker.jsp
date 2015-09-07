@@ -58,8 +58,11 @@ $("#job-date").change(function(){
 
 $("#job-date").focusout(function(){
     var start_date_string = $("#job-date").val();
-    var start_date = Date.parse(start_date_string);
+    var start_date = new Date(start_date_string);
     var today = new Date();
+    
+    start_date.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
     today.setDate(today.getDate() + 2);
     if (start_date < today){
         alert("Please select a start date at least 2 days from today!");

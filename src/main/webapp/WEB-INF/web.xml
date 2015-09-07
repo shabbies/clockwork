@@ -111,6 +111,10 @@
     <servlet-name>GetCompletedApplicantsServlet</servlet-name>
     <servlet-class>servlet.GetCompletedApplicantsServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>OfferAllJobServlet</servlet-name>
+    <servlet-class>servlet.OfferAllJobServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -211,5 +215,9 @@
   <servlet-mapping>
     <servlet-name>GetCompletedApplicantsServlet</servlet-name>
     <url-pattern>/GetCompletedApplicantsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OfferAllJobServlet</servlet-name>
+    <url-pattern>/OfferAllJobServlet</url-pattern>
   </servlet-mapping>
 </web-app>    
