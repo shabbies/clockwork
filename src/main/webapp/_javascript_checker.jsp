@@ -66,23 +66,43 @@ $("#job-date").focusout(function(){
     start_date.setHours(0,0,0,0);
     today.setHours(0,0,0,0);
     today.setDate(today.getDate() + 2);
+    var today_string = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + today.getDate();
     if (start_date < today){
         alert("Please select a start date at least 2 days from today!");
-        $("#job-date").val(today.toISOString().split('T')[0]);
-        $("#end-date").val(today.toISOString().split('T')[0]); 
-        $("#end-date").attr("min", today.toISOString().split('T')[0]);
+        $("#job-date").val(today_string);
+        $("#end-date").val(today_string); 
+        $("#end-date").attr("min", today_string);
     }
 });
 
 $("#end-date").focusout(function(){
     var end_date_string = $("#end-date").val();
-    var end_date = Date.parse(end_date_string);
+    var end_date = new Date(end_date_string);
     var today = new Date();
+    
+    end_date.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
     today.setDate(today.getDate() + 2);
+    var today_string = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + today.getDate();
     if (end_date < today){
         alert("Please select an end date that is at least 2 days from today!");
-        $("#end-date").val(today.toISOString().split('T')[0]); 
-        $("#end-date").attr("min", today.toISOString().split('T')[0]);
+        $("#end-date").val(today_string); 
+        $("#end-date").attr("min", today_string);
     }
 });
+
+$("#dob-date").focusout(function(){
+    var dob_string = $("#dob-date").val();
+    var today = new Date();
+    var dob = new Date(dob_string);
+    
+    today.setHours(0,0,0,0);
+    dob.setHours(0,0,0,0);
+    if (today.getFullYear() - 15 < dob.getFullYear()){
+        alert("You need to be at least 15 years old to use this service");
+        $("#dob-date").val("");
+    }
+});
+
+
 </script>

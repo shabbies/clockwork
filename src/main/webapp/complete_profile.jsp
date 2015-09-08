@@ -1,6 +1,30 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+   
+<!-- Initialising Google Places for location autofill -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<script>
+    function initialize() {
+        var input = /** @type {HTMLInputElement} */(
+                document.getElementById('street-address'));
+        
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            infowindow.close();
+            marker.setVisible(false);
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("Autocomplete's returned place contains no geometry");
+                return;
+            }
+            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        });
+    }
     
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<!-- END -->
 <header class="main">
 <div class="header-full-content">
 <div class="header-content-inner">

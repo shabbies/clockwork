@@ -178,8 +178,8 @@ session.removeAttribute("appliedJobsStatusMap");
                 <a href="/complete_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
                 <% } else { %> 
                 <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Update my Profile</a><% } %>
-                <a href="/#" class="btn btn-primary btn-block"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
-                <a href="/#" class="btn btn-primary btn-block"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
+                <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
+                <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
             </div>
         </div>
     </div>
@@ -253,3 +253,9 @@ session.removeAttribute("appliedJobsStatusMap");
         </div>
     </div>
 </div>
+
+<script>
+$(".incomplete").click(function(){
+    alert("Oops! This is not yet available!")
+});
+</script>

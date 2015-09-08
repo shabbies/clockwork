@@ -110,7 +110,7 @@ $(document).on("click", "#open-jobModal", function() {
                         $(obj).each(function() {
                             events.push({
                                 title: $(this).attr('title'),
-                                start: $(this).attr('start_date'), 
+                                start: $(this).attr('job_date'), 
                                 color: $(this).attr('color')
                             });
                         });
