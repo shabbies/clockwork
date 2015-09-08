@@ -33,7 +33,7 @@
 <!-- END -->
 
 <header class="main">
-<div class="header-content">
+<div class="header-full-content">
 <div class="header-content-inner">
 <h2 class="text-center"><%=post.getHeader()%></h2>
 
@@ -65,6 +65,14 @@
                 <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
                 <input id="job-date" class="form-control" type="date" name="job_date" value="<%=post.getJobDateStringForInput()%>" required> 
             </div> 
+            <div class="job-start-date col-md-12 profile_error" style="display:none;">  
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+                Start date should be at least 2 days from today
+            </div>
+            <div class="job-end-date col-md-12 profile_error start-filler" style="display:none;">  
+                <span aria-hidden="true"></span>
+                &nbsp;
+            </div>
         </div>
             
         <div class="form-group form-group-lg col-md-6 text-left"> 
@@ -73,6 +81,14 @@
                 <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
                 <input id="end-date" class="form-control" type="date" name="end_date" value="<%=post.getJobEndDateStringForInput()%>" required> 
             </div> 
+            <div class="job-end-date col-md-12 profile_error" style="display:none;">  
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                End date should be at least 2 days from today
+            </div>
+            <div class="job-end-date col-md-12 profile_error end-filler" style="display:none;">  
+                <span aria-hidden="true"></span>
+                &nbsp;
+            </div>  
         </div>
             
         <div class="form-group form-group-lg col-md-6 text-left"> 

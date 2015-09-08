@@ -101,7 +101,16 @@ return;
             <%} else {%>
                 <input id="job-date" class="form-control" type="date" name="job_date" required><%}%>
         </div> 
+        <div class="job-start-date col-md-12 profile_error" style="display:none;">  
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+            Start date should be at least 2 days from today
+        </div>
+        <div class="job-end-date col-md-12 profile_error start-filler" style="display:none;">  
+            <span aria-hidden="true"></span>
+            &nbsp;
+        </div>
     </div>
+    
         
     <div class="form-group form-group-lg col-md-6 text-left"> 
         <label for="end-date" class="control-label">Job End Date</label> 
@@ -112,6 +121,14 @@ return;
             <%} else {%>
                 <input id="end-date" class="form-control" type="date" name="job_end" required><%}%>
         </div> 
+        <div class="job-end-date col-md-12 profile_error" style="display:none;">  
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            End date should be at least 2 days from today
+        </div>
+        <div class="job-end-date col-md-12 profile_error end-filler" style="display:none;">  
+            <span aria-hidden="true"></span>
+            &nbsp;
+        </div>
     </div> 
         
     <div class="form-group form-group-lg col-md-6 text-left"> 

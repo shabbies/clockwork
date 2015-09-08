@@ -59,6 +59,13 @@ $("#job-date").change(function(){
 });
 
 $("#job-date").focusout(function(){
+    $(".job-start-date").attr("style", "display:none;");
+    $(".job-end-date").attr("style", "display:none;");
+    $("#job-date").css("border", "1px solid #ccc" );
+    $("#job-date").css("box-shadow", "inset 0 1px 1px rgba(0,0,0,.075)");
+    $("#end-date").css("border", "1px solid #ccc" );
+    $("#end-date").css("box-shadow", "inset 0 1px 1px rgba(0,0,0,.075)");
+    
     var start_date_string = $("#job-date").val();
     var start_date = new Date(start_date_string);
     var today = new Date();
@@ -68,7 +75,14 @@ $("#job-date").focusout(function(){
     today.setDate(today.getDate() + 2);
     var today_string = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + today.getDate();
     if (start_date < today){
-        alert("Please select a start date at least 2 days from today!");
+        $("#job-date").css("border", "1px solid #ee4054" );
+        $("#job-date").css("box-shadow", "none");
+        $(".job-start-date").removeAttr("style");
+        if ($(".job-end-date").attr("style") === "display:none;"){
+            $(".end-filler").removeAttr("style");
+        }
+        
+        $(".start-filler").attr("style", "display:none;");
         $("#job-date").val(today_string);
         $("#end-date").val(today_string); 
         $("#end-date").attr("min", today_string);
@@ -76,6 +90,7 @@ $("#job-date").focusout(function(){
 });
 
 $("#end-date").focusout(function(){
+    $(".job-end-date").attr("style", "display:none;");
     var end_date_string = $("#end-date").val();
     var end_date = new Date(end_date_string);
     var today = new Date();
@@ -85,7 +100,11 @@ $("#end-date").focusout(function(){
     today.setDate(today.getDate() + 2);
     var today_string = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + today.getDate();
     if (end_date < today){
-        alert("Please select an end date that is at least 2 days from today!");
+        $("#end-date").css("border", "1px solid #ee4054" );
+        $("#end-date").css("box-shadow", "none");
+        $(".job-end-date").removeAttr("style");
+        $(".start-filler").removeAttr("style");
+        $(".end-filler").attr("style", "display: none;");
         $("#end-date").val(today_string); 
         $("#end-date").attr("min", today_string);
     }

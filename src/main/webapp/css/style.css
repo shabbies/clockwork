@@ -803,6 +803,12 @@ body {
     margin-top: 8px;
 }
 
+.profile_error {
+    color: #ee4054;
+    text-align: center;
+    margin-top: 8px;
+}
+
 .success{
     background-color: #5cb85c;
     border-color: #4cae4c;
