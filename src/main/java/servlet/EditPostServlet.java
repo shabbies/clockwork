@@ -82,8 +82,6 @@ public class EditPostServlet extends HttpServlet {
             response.sendRedirect("/edit_post.jsp?id=" + postID);
             return;
         } else if (jobDate.before(today) && jobDate.equals(today)){
-            System.out.println(today);
-            System.out.println(jobDate);
             session.setAttribute("error", "The job date should be at least 2 days from today.");
             response.sendRedirect("/edit_post.jsp?id=" + postID);
             return;

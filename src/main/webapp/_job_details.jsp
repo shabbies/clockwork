@@ -135,9 +135,15 @@ $(document).on("click", "#open-jobModal", function() {
 
         $('#calendar').fullCalendar( 'gotoDate', new Date($(this).data("cdate")));
 
-        var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
-        $('#calendar').fullCalendar( 'renderEvent', myevent, true);
-
+        var start_date = new Date($(this).data("cdate"));
+        var end_date = new Date($(this).data("enddate"));
+        start_date.setHours(0);
+        while (start_date <= end_date){
+            var myevent = {title: headerText, start: start_date.toString(), color: '#ee4054'};
+            $('#calendar').fullCalendar( 'renderEvent', myevent, true);
+            start_date.setDate(start_date.getDate() + 1);
+        }
+        
         if (typeof applied !== "undefined"){
             $("#apply_job_button").hide();
         }
