@@ -136,12 +136,13 @@ $(document).on("click", "#open-jobModal", function() {
         $('#calendar').fullCalendar( 'gotoDate', new Date($(this).data("cdate")));
 
         var start_date = new Date($(this).data("cdate"));
-        var end_date = new Date($(this).data("enddate"));
+        var end_date = new Date($(this).data("cdateend"));
         start_date.setHours(0);
         while (start_date <= end_date){
             var myevent = {title: headerText, start: start_date.toString(), color: '#ee4054'};
             $('#calendar').fullCalendar( 'renderEvent', myevent, true);
             start_date.setDate(start_date.getDate() + 1);
+            
         }
         
         if (typeof applied !== "undefined"){
@@ -151,7 +152,7 @@ $(document).on("click", "#open-jobModal", function() {
 
     } else {
         var jobstatus = $(this).data('jobstatus');
-        if(jobstatus=='listed'){
+        if(jobstatus === 'listed'){
             window.location.href="/edit_post.jsp?id="+$(this).data("id");
         }
     }
