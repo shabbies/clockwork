@@ -71,16 +71,21 @@ public class EditPostServlet extends HttpServlet {
         Calendar calendar = Calendar.getInstance(); 
         calendar.setTime(today); 
         calendar.add(Calendar.DATE, 2);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
         today = calendar.getTime();
         
         //validating date
         if (endDate.before(jobDate)){
             session.setAttribute("error", "The end date should be after the start date");
-            response.sendRedirect("/edit_post.jsp");
+            response.sendRedirect("/edit_post.jsp?id=" + postID);
             return;
-        } else if (jobDate.before(today)){
+        } else if (jobDate.before(today) && jobDate.equals(today)){
+            System.out.println(today);
+            System.out.println(jobDate);
             session.setAttribute("error", "The job date should be at least 2 days from today.");
-            response.sendRedirect("/edit_post.jsp");
+            response.sendRedirect("/edit_post.jsp?id=" + postID);
             return;
         }
         
