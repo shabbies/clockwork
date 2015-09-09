@@ -106,6 +106,9 @@ $("#job-date").focusout(function(){
 
 $("#end-date").focusout(function(){
     $(".job-end-date").attr("style", "display:none;");
+    if ($(".job-start-date").attr("style") !== "display:none;"){
+        $(".end-filler").removeAttr("style");
+    }
     var end_date_string = $("#end-date").val();
     var end_date = new Date(end_date_string);
     var today = new Date();
