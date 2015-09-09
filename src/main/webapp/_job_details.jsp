@@ -142,7 +142,6 @@ $(document).on("click", "#open-jobModal", function() {
             var myevent = {title: headerText, start: start_date.toString(), color: '#ee4054'};
             $('#calendar').fullCalendar( 'renderEvent', myevent, true);
             start_date.setDate(start_date.getDate() + 1);
-            
         }
         
         if (typeof applied !== "undefined"){

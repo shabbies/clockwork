@@ -18,7 +18,6 @@
                 window.alert("Autocomplete's returned place contains no geometry");
                 return;
             }
-            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
         });
     }
     
@@ -76,6 +75,10 @@
         <% } else { %>
             <label class="radio"><input type="radio" name="gender" value="F">Female</label>
         <% } %>
+        <div class="gender-error col-md-12 profile_error" style="display: none;">  
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+            Please select your gender
+        </div>
     </div>
 
     <div class="form-group col-sm-6 text-left"> 
@@ -108,14 +111,17 @@
                 <option selected="selected">Others</option>
             <% } %>
         </select>
+        
+        <div class="nationality-error col-md-12 profile_error" style="display: none;">  
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+            Please select your nationality
+        </div>
     </div>
 
     <div class="form-group col-sm-6 text-left"> 
         <label for="avatar" class="control-label">Profile Picture</label> 
         <input id="avatar" class="form-control" type="file" name="avatar" accept="image/*">
     </div>
-
-    <% if(currentUser.getAccountType().equals("job_seeker")){%>
 
     <div class="form-group col-sm-6 text-left"> 
         <label for="dob-date" class="control-label">Date of Birth*</label> 
@@ -126,9 +132,11 @@
             <% } else { %>
             <input id="dob-date" class="form-control" type="date" name="dob_date" value="<%=currentUser.getDateOfBirthString()%>" required> <% } %>
         </div> 
+        <div class="dob-error col-md-12 profile_error" style="display:none;">  
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+            You have to be at least 15 years old
+        </div>
     </div>
-
-    <% } %>
 
     <div class="form-group col-sm-12 text-left"> 
         <label for="street-address" class="control-label">Street Address*</label> 
@@ -137,8 +145,9 @@
         <% } else { %>
         <input id="street-address" class="form-control" type="text" name="address" value="<%=currentUser.getAddress()%>" required><%}%> 
     </div>
-
-    <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Complete Profile">
+    <div class="form-group col-sm-12 text-center"> 
+        <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Complete Profile">
+    </div>
 </form>
 </div>
 </div>

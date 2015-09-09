@@ -20,16 +20,31 @@ $('.form-signup').on('submit', function () {
     return true;
 });
 
+$("input[name=gender]").change(function(){
+    $(".gender-error").attr("style", "display: none;");
+});
+
+$("#nationality").change(function(){
+    $(".nationality-error").attr("style", "display: none;");
+    $("#nationality").css("border", "1px solid #ccc" );
+    $("#nationality").css("box-shadow", "inset 0 1px 1px rgba(0,0,0,.075)");
+});
+
 $('.form_complete_profile').on('submit', function() {
-    if ($('input[name=gender]:checked').length < 1) {
-        alert("Please select your gender before proceeding");
+    if ($('input[name=gender]:checked').length < 1 || $("#nationality option:selected").text() === "Please select a nationality") {
+        if ($('input[name=gender]:checked').length < 1) {
+            $(".gender-error").removeAttr("style");
+        }
+
+        if ($("#nationality option:selected").text() === "Please select a nationality"){
+            $(".nationality-error").removeAttr("style");
+            $("#nationality").css("border", "1px solid #ee4054" );
+            $("#nationality").css("box-shadow", "none");
+        }
+        
         return false;
     }
     
-    if ($("#nationality option:selected").text() === "Please select a nationality"){
-        alert("Please select your nationality before proceeding");
-        return false;
-    }
 });
 
 function isNumber(evt) {
@@ -111,6 +126,9 @@ $("#end-date").focusout(function(){
 });
 
 $("#dob-date").focusout(function(){
+    $(".dob-error").attr("style", "display:none;");
+    $("#dob-date").css("border", "1px solid #ccc" );
+    $("#dob-date").css("box-shadow", "inset 0 1px 1px rgba(0,0,0,.075)");
     var dob_string = $("#dob-date").val();
     var today = new Date();
     var dob = new Date(dob_string);
@@ -118,7 +136,9 @@ $("#dob-date").focusout(function(){
     today.setHours(0,0,0,0);
     dob.setHours(0,0,0,0);
     if (today.getFullYear() - 15 < dob.getFullYear()){
-        alert("You need to be at least 15 years old to use this service");
+        $("#dob-date").css("border", "1px solid #ee4054" );
+        $("#dob-date").css("box-shadow", "none");
+        $(".dob-error").removeAttr("style");
         $("#dob-date").val("");
     }
 });
