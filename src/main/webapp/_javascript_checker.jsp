@@ -106,6 +106,8 @@ $("#job-date").focusout(function(){
 
 $("#end-date").focusout(function(){
     $(".job-end-date").attr("style", "display:none;");
+    $("#end-date").css("border", "1px solid #ccc" );
+    $("#end-date").css("box-shadow", "inset 0 1px 1px rgba(0,0,0,.075)");
     if ($(".job-start-date").attr("style") !== "display:none;"){
         $(".end-filler").removeAttr("style");
     }

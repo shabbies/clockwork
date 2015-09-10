@@ -15,9 +15,9 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet?order=none" /><%
     <div class="job-search text-center">
 
         <div class="container">
-            <form id="searchForm">
+            <form id="searchForm" action="/SearchPostServlet" method="GET">
                 <div class="input-group input-group-lg stylish-input-group">
-                    <input type="text" class="form-control" id="searchText" autocomplete="off" placeholder="search keyword...">
+                    <input type="text" class="form-control" id="searchText" autocomplete="off" placeholder="search keyword..." name="query">
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="button"> FIND JOBS <span class="glyphicon glyphicon-search"></span></button>
                     </span>

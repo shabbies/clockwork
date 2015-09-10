@@ -115,6 +115,10 @@
     <servlet-name>OfferAllJobServlet</servlet-name>
     <servlet-class>servlet.OfferAllJobServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>SearchPostServlet</servlet-name>
+    <servlet-class>servlet.SearchPostServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -219,5 +223,9 @@
   <servlet-mapping>
     <servlet-name>OfferAllJobServlet</servlet-name>
     <url-pattern>/OfferAllJobServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SearchPostServlet</servlet-name>
+    <url-pattern>/SearchPostServlet</url-pattern>
   </servlet-mapping>
 </web-app>    
