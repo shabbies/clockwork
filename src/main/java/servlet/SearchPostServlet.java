@@ -54,6 +54,6 @@ public class SearchPostServlet extends HttpServlet {
             httpResponse.close();
         }
         session.setAttribute("postList", postList);
-        response.sendRedirect("/index.jsp");
+        response.sendRedirect("/index.jsp?q=" + query);
     }
 }

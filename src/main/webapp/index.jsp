@@ -5,23 +5,28 @@
 <%@ page import="java.util.Date"%>
 
 <%  ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList"); 
-if (postList == null){ %><jsp:forward page="/GetAllPostsServlet?order=none" /><%} else { session.removeAttribute("postList"); }%>
+if (postList == null){ %><jsp:forward page="/GetAllPostsServlet?order=none" /><%} else { session.removeAttribute("postList"); }
+String query = request.getParameter("q");%>
 
 <%@include file="_nav.jsp"%>
 <%@include file="_hero.jsp"%>
 <%@include file="_job_details.jsp"%>
 
-<section id="jobs" ng-controller="jobListCtrl">
+<section id="jobs">
     <div class="job-search text-center">
 
         <div class="container">
             <form id="searchForm" action="/SearchPostServlet" method="GET">
                 <div class="input-group input-group-lg stylish-input-group">
-                    <input type="text" class="form-control" id="searchText" autocomplete="off" placeholder="search keyword..." name="query">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button"> FIND JOBS <span class="glyphicon glyphicon-search"></span></button>
+                    <input type="search" class="form-control" id="searchText" autocomplete="off" placeholder="search keyword..." name="query"/>
+                    <span class="input-group-btn search_cross_on_focus hidden search_cross">
+                        <i class="fa fa-times-circle-o hidden" id="search_clear"></i>
+                        <i class="fa fa-times-circle" id="search_cross"></i>
                     </span>
-                </div>
+                    <span class="input-group-btn">
+                        <input type="submit" class="btn btn-primary" value="FIND JOBS"/>
+                    </span>
+                </div> 
             </form>
         </div>
     </div>
@@ -29,8 +34,12 @@ if (postList == null){ %><jsp:forward page="/GetAllPostsServlet?order=none" /><%
         <div class="row search-label">
             <div class="row-same-height">
                 <div class="col-lg-8 col-sm-height col-bottom"> 
-                    <h2 class="hidden"><label><cite>Search Results for </cite>'<span>goodie bag</span>'</label></h2> 
-                    <h2><cite>Featured Job Listings</cite></h2>               
+                    <% if (query != null){ %>
+                    <h3 class=""><label><cite>Search Results for </cite>'<span><%=query%></span>'</label></h3> 
+                    <div class="sortlink"><a href="/index.jsp" class="display-inline">Back to all results</a></div>
+                    <% } else {%>
+                    <h3><cite>Featured Job Listings</cite></h3>           
+                    <% } %>
                 </div>
                 <div class="col-lg-4 col-sm-height col-bottom"> 
                     <h5 class="pull-right sortlink">Sort by 
@@ -215,6 +224,43 @@ $(function() {
         $(this).find("a").addClass("whitelink"); 
     });
 });
+
+// SEARCH BAR JS / CSS
+
+$("#search_clear").click(function(){
+    $("#searchText").val('');
+    $("#searchText").removeClass("calculated_search_text");
+    $(".search_cross").addClass("hidden");
+});
+
+$("#search_cross").hover(function(){
+    $(this).addClass("hidden");
+    $("#search_clear").removeClass("hidden");
+});
+
+$("#search_clear").hover(function(){}, function(){
+    $("#search_cross").removeClass("hidden");
+    $("#search_clear").addClass("hidden");
+});
+
+$("#searchText").keyup(function(){
+    $(this).addClass("calculated_search_text");
+    $(".search_cross").removeClass("hidden");
+});
+
+$("#searchText").focusout(function(){
+    $(".search_cross").removeClass("search_cross_on_focus");
+    $(".search_cross").addClass("search_cross_off_focus");
+});
+
+$("#searchText").focus(function(){
+    $(".search_cross").addClass("search_cross_on_focus");
+    $(".search_cross").removeClass("search_cross_off_focus");
+});
+
+// END SEARCH BAR CSS / JS
+
+//AJAX FOR SEARCHING (FOR BOOKMARKING)
 
 </script>
 

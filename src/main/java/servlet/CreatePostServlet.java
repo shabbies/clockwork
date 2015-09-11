@@ -52,6 +52,9 @@ public class CreatePostServlet extends HttpServlet {
         String location = (String)request.getParameter("location");
         String jobDateString = (String)request.getParameter("job_date");
         String endDateString = (String)request.getParameter("job_end");
+        System.out.println(jobDateString);
+        System.out.println(endDateString);
+
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String startTime = request.getParameter("start_time");
         String endTime = request.getParameter("end_time");
