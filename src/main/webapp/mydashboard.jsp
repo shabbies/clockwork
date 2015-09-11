@@ -1,6 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
-<%@include file="_message.jsp"%>
+
 <%@include file="_job_details.jsp"%>
     
 <%@ page import="java.util.HashMap" %>
@@ -29,6 +29,8 @@ session.removeAttribute("appliedJobsStatusMap");
 }%>
 <header class="main">
 <div class="header-full-content">
+    
+<%@include file="_message.jsp"%>
     
 <div class="row">
     <div class="col-md-8">
@@ -69,20 +71,10 @@ session.removeAttribute("appliedJobsStatusMap");
                         <td><%=post.getCompany()%></td>
                         <% if (appliedJobsStatusMap.get(post.getId()).equals("pending")) {%>
                         <td><span class="badge db-default-badge">Pending</span></td>
-                        <td>
-                            <form action="/WithdrawJobApplicationServlet" method="POST" class="display-inline"/>
-                            <input type="text" value="<%=post.getId()%>" name="post_id" hidden />
-                            <input type="submit" class="btn btn-primary" value="Withdraw"/>
-                            </form>
-                        </td>
+                        <td><input type="button" class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>" value="Withdraw"/></td>
                         <% } else if ((appliedJobsStatusMap.get(post.getId()).equals("offered"))){ %>
                         <td><span class="badge db-default-badge offered">Offered</span></td>
-                        <td>
-                            <form action="/AcceptJobOfferServlet" method="POST" class="display-inline"/>
-                            <input type="hidden" value="<%=post.getId()%>" name="post_id" />
-                            <input type="submit" class="btn btn-success" value="Accept Job Offer"/>
-                            </form>
-                        </td>
+                        <td><input type="button" class="btn btn-success accept-job" data-postid="<%=post.getId()%>" value="Accept Job Offer"/></td>
                         <% } else {%>
                         <td><span class="badge db-default-badge success">Hired</span></td>
                         <td><button class="btn btn-warning" id="open-jobModal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>">Job Details</button></td>
@@ -241,8 +233,72 @@ session.removeAttribute("appliedJobsStatusMap");
     </div>
 </div>
 
+<!-- withdraw job confirmation modal -->
+<div class="modal fade" id="withdraw_job_modal" tabindex="-1" role="dialog" aria-labelledby="withdrawJobModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    
+            </div>
+            <div class="modal-body payment-mode text-center">
+                
+                <h4>Withdraw this job application?</h4>
+                    
+                <form action="/WithdrawJobApplicationServlet" method="POST" class="display-inline"/>
+                    <input type="text" id="withdraw_post_id" value="" name="post_id" hidden />
+                    <input type="submit" class="btn btn-primary btn-lg" value="Yes"/>
+                </form>
+                <button class="btn btn-lg btn-primary" data-dismiss="modal">No</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END withdraw job modal -->
+
+<!-- accept job confirmation modal -->
+<div class="modal fade" id="accept_job_modal" tabindex="-1" role="dialog" aria-labelledby="acceptJobModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    
+            </div>
+            <div class="modal-body payment-mode text-center">
+                
+                <h4>Accept this job application?</h4>
+                    
+                <form action="/AcceptJobOfferServlet" method="POST" class="display-inline"/>
+                    <input type="hidden" id="accept_post_id" name="post_id" />
+                    <input type="submit" class="btn btn-primary btn-lg" value="Yes"/>
+                </form>
+                <button class="btn btn-lg btn-primary" data-dismiss="modal">No</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END withdraw job modal -->
+
 <script>
 $(".incomplete").click(function(){
     alert("Oops! This is not yet available!")
+});
+
+$(".withdraw-job").click(function(){
+    var postID = $(this).data("postid");
+    $("#withdraw_post_id").val(postID);
+    $('#withdraw_job_modal').modal('show');
+});
+
+$(".accept-job").click(function(){
+    var postID = $(this).data("postid");
+    $("#accept_post_id").val(postID);
+    $('#accept_job_modal').modal('show');
 });
 </script>

@@ -9,7 +9,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 
-    
+<%@ page buffer="16kb" %>
 <%  String postID = request.getParameter("id");
 ArrayList <User> hiredList = (ArrayList <User>)session.getAttribute("hiredList");
 ArrayList <User> reviewingList = (ArrayList <User>)session.getAttribute("reviewingList");
@@ -43,6 +43,7 @@ session.removeAttribute("matchMap");
     </div>
     <% session.removeAttribute("message");}
 %>
+
 <div class="row">
     <div class="col-md-5">
         <div class="panel panel-default">
@@ -136,12 +137,7 @@ session.removeAttribute("matchMap");
                             <% } %>
                             <tr>
                                 <td colspan="5" class="text-center">
-                                    <form id="rate_user_form" action="/RateUserServlet" method="POST" class="display-inline" />
-                                        <input type="hidden" name="ratings" id="form_ratings"/>
-                                        <input type="hidden" name="comments" id="form_comments" />
-                                        <input type="hidden" name="post_id" value="<%=postID%>" />
-                                        <input type="submit" class="btn btn-primary btn-lg btn-rate" value="Submit" />
-                                    </form>
+                                    <input type="button" class="btn btn-primary btn-lg btn-rate" value="Submit" />
                                 </td>
                             </tr>
                         <% } else { %>
@@ -199,34 +195,7 @@ session.removeAttribute("matchMap");
 <a href="/dashboard.jsp" class="btn btn-lg btn-warning btn-srad" type="button">Back to Dashboard</a>
 </div>
 </header>
-    
-<!-- Hire Modal -->
-<div class="modal fade" id="completeJobModal" tabindex="-1" role="dialog" aria-labelledby="hireModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    
-            </div>
-            <div class="modal-body payment-mode text-center">
-                
-                <h4>Mark this job as complete?</h4>
-                    
-                <form action="/CompleteJobServlet" method="POST" class="display-inline"/>
-                    <input type="text" id="complete_applicant_id" name="applicant_id" hidden />
-                    <input type="text" id="complete_post_id" name="post_id" hidden />
-                    <input type="submit" class="btn btn-lg btn-primary" value="Yes" />
-                </form>
-                <button class="btn btn-lg btn-primary" data-dismiss="modal">No</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-    
-    
+
 <!-- Comment Modal -->
 <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel">
     <div class="modal-dialog" role="document">
@@ -273,6 +242,61 @@ session.removeAttribute("matchMap");
     </div>
 </div>
 
+<!-- Mark as complete confirmation modal -->
+<div class="modal fade" id="completeJobModal" tabindex="-1" role="dialog" aria-labelledby="hireModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    
+            </div>
+            <div class="modal-body payment-mode text-center">
+                
+                <h4>Mark this job as complete?</h4>
+                    
+                <form action="/CompleteJobServlet" method="POST" class="display-inline"/>
+                    <input type="text" id="complete_applicant_id" name="applicant_id" hidden />
+                    <input type="text" id="complete_post_id" name="post_id" hidden />
+                    <input type="submit" class="btn btn-lg btn-primary" value="Yes" />
+                </form>
+                <button class="btn btn-lg btn-primary" data-dismiss="modal">No</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Complete confirmation modal -->
+
+<!-- submit ratings confirmation modal -->
+<div class="modal fade" id="submit_rating_modal" tabindex="-1" role="dialog" aria-labelledby="submitRatingModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    
+            </div>
+            <div class="modal-body payment-mode text-center">
+                
+                <h4>Submit your ratings?</h4>
+                    
+                <form id="rate_user_form" action="/RateUserServlet" method="POST" class="display-inline" />
+                    <input type="hidden" name="ratings" id="form_ratings"/>
+                    <input type="hidden" name="comments" id="form_comments" />
+                    <input type="hidden" name="post_id" value="<%=postID%>" />
+                    <input type="submit" class="btn btn-primary btn-lg" value="Yes" />
+                </form>
+                <button class="btn btn-lg btn-primary" data-dismiss="modal">No</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END submit ratings modal -->
+
 <script>
     var comments = {};
     
@@ -304,7 +328,6 @@ session.removeAttribute("matchMap");
     
 <script>
     $(document).on("click", ".btn-rate", function(event) {
-        event.preventDefault();
         var scores = {};
         $('.score').each(function() {
             var id = $(this).attr("id");
@@ -313,7 +336,7 @@ session.removeAttribute("matchMap");
         });
         $("#form_ratings").val(JSON.stringify(scores));
         $("#form_comments").val(JSON.stringify(comments));
-        $("#rate_user_form").submit();
+        $('#submit_rating_modal').modal('show');
     });
 </script>
     
