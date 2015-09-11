@@ -60,20 +60,25 @@ public class GetJobApplicantsServlet extends HttpServlet {
                 StringWriter writer = new StringWriter();
                 InputStream readingStream = entity.getContent();
                 IOUtils.copy(readingStream, writer, "UTF-8");
-                String theString = writer.toString();
-                HashMap<String, ArrayList <User>> applicantMap = userController.loadPostApplicants(theString);
-                session.setAttribute("hiredList", applicantMap.get("hired"));
+                String responseString = writer.toString();
+                HashMap<String, ArrayList <User>> applicantMap = userController.loadPostApplicants(responseString);
                 if (location.equals("listing")){
+                    session.setAttribute("hiredList", applicantMap.get("hired"));
                     session.setAttribute("applicantList", applicantMap.get("pending"));
                     session.setAttribute("offeredList", applicantMap.get("offered"));
                     response.sendRedirect("/listing.jsp?id=" + postID);
                     return;
+                } else if (location.equals("reviewing")){
+                    session.setAttribute("hiredList", applicantMap.get("hired"));
+                    session.setAttribute("reviewingList", applicantMap.get("reviewing"));
+                    session.setAttribute("completedList", applicantMap.get("completed"));
+                    RequestDispatcher rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=reviewing");
+                    rd.forward(request, response);
                 } else {
                     session.setAttribute("completedList", applicantMap.get("completed"));
-                    RequestDispatcher rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID);
+                    RequestDispatcher rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=completed");
                     rd.forward(request, response);
                 }
-                
             } else {
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);

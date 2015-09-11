@@ -41,9 +41,9 @@ public class GetPostServlet extends HttpServlet {
         } else if (location.equals("edit")){
             response.sendRedirect("/edit_post.jsp?id=" + postID);
             return;
-        } else if (location.equals("listing") || location.equals("complete")){
+        } else if (location.equals("listing") || location.equals("completed") || location.equals("reviewing")){
             RequestDispatcher rd = request.getRequestDispatcher("/GetJobApplicantsServlet?id=" + postID + "&location=" + location);
             rd.forward(request, response);
-        } 
+        }
     }
 }

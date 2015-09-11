@@ -55,7 +55,7 @@ public class CompleteJobServlet extends HttpServlet {
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
             }
-            response.sendRedirect("/complete_job.jsp?id=" + postID);
+            response.sendRedirect("/review_applicants.jsp?id=" + postID);
         } finally {
             httpResponse.close();
             EntityUtils.consume(entity);

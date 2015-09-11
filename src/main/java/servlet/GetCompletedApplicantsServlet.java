@@ -40,6 +40,7 @@ public class GetCompletedApplicantsServlet extends HttpServlet {
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
         String postID = request.getParameter("id");
+        String location = request.getParameter("location");
         AppController appController = (AppController)session.getAttribute("appController");
         MatchController matchController = appController.getMatchController();
         
@@ -62,7 +63,11 @@ public class GetCompletedApplicantsServlet extends HttpServlet {
             if(httpResponse.getStatusLine().getStatusCode() == 201){
                 HashMap<Integer, Match> matchedUsers = matchController.loadMatchMap(responseString);
                 session.setAttribute("matchMap", matchedUsers);
-                response.sendRedirect("/complete_job.jsp?id=" + postID);
+                if (location.equals("reviewing")){
+                    response.sendRedirect("/review_applicants.jsp?id=" + postID);
+                } else {
+                    response.sendRedirect("/complete_job.jsp?id=" + postID);
+                }
                 return;
             } else {
                 session.setAttribute("error", responseString);

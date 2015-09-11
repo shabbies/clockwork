@@ -91,11 +91,15 @@ return;
                                 <% } else if (post.getStatus().equals("expired")){ %>
                                     <td><span class="badge db-default-badge">Expired</span></td>
                                     <td><a href="#" class="btn btn-danger"> Archive</a></td>
-                                <% } else { %>
+                                <% } else if (post.getStatus().equals("pending review")){ %>
+                                    <td><span class="badge db-default-badge">Pending Review</span></td>
+                                    <% String formedURL = "review_applicants.jsp?id=" + post.getId();%>
+                                    <td><a href="<%=formedURL%>" class="btn btn-info"> Rate Applicants</a></td>
+                                <% } else {%>
                                     <td><span class="badge db-default-badge">Completed</span></td>
                                     <% String formedURL = "complete_job.jsp?id=" + post.getId();%>
-                                    <td><a href="<%=formedURL%>" class="btn btn-success"> Click to Review</a></td>
-                                <%}%>
+                                    <td><a href="<%=formedURL%>" class="btn btn-success"> View Feedback</a></td>
+                                <% } %>
                             </tr>
                             <%}%>
                             <% if(publishedList.isEmpty()){ %>

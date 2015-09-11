@@ -44,9 +44,9 @@ session.removeAttribute("offeredList");}%>
 
                 <div class="text-center">
                     <% if (post.getAvatarPath() == null){%>
-                    <img src="http://placehold.it/120x120" alt="" class="col-centered img-rounded img-responsive" />
+                    <img src="http://placehold.it/120x120" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
                     <% } else { %>
-                    <img src="<%=post.getAvatarPath()%>" alt="" class="col-centered img-rounded img-responsive" />
+                    <img src="<%=post.getAvatarPath()%>" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
                     <% } %>
                 </div>
 
@@ -278,6 +278,7 @@ session.removeAttribute("offeredList");}%>
             <% } %>
         </div>
     </div>
+    <a href="/dashboard.jsp" class="btn btn-lg btn-warning btn-srad" type="button">Back to Dashboard</a>
 </div>
 </div>
 </header>

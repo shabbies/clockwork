@@ -3,6 +3,8 @@ package servlet;
 import controller.AppController;
 import controller.UserController;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.User;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -40,7 +43,6 @@ public class RateUserServlet extends HttpServlet {
         String token = currentUser.getAuthenticationToken();
         
         String userRatings = userController.loadUserRatingsList(formRatings, formComments);
-        
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/rate");
         httpPost.setHeader("Authentication-Token", token);
@@ -54,6 +56,11 @@ public class RateUserServlet extends HttpServlet {
         HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
+            StringWriter writer = new StringWriter();
+            InputStream readingStream = entity.getContent();
+            IOUtils.copy(readingStream, writer, "UTF-8");
+            String theString = writer.toString();
+            System.out.println(theString);
             if(httpResponse.getStatusLine().getStatusCode() == 201){
                 String message = "You have successfully rated your employees";
                 session.setAttribute("message", message);
@@ -61,7 +68,7 @@ public class RateUserServlet extends HttpServlet {
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
             }
-            response.sendRedirect("/dashboard.jsp");
+            response.sendRedirect("/review_applicants.jsp?id=" + postID);
         } finally {
             httpResponse.close();
             EntityUtils.consume(entity);
