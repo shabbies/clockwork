@@ -98,6 +98,12 @@ public class EditPostServlet extends HttpServlet {
             duration++;
         }
         
+        if (duration > 7){
+            session.setAttribute("error", "The maxmimum job duration should be 7 days!");
+            response.sendRedirect("/edit_post.jsp?id=" + postID);
+            return;
+        }
+        
         // retrieve post object
         AppController appController = (AppController)session.getAttribute("appController");
         PostController postController = appController.getPostController();
