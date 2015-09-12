@@ -154,6 +154,10 @@ public class CreatePostServlet extends HttpServlet {
                             session.setAttribute("error", error);
                             response.sendRedirect("/dashboard.jsp");
                             return;
+                        case "Bad Request - The maximum job duration should be 7 days":
+                            error = "The maximum duration of the job is 7 days!";
+                            session.setAttribute("error", error);
+                            repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
                     }
                     session.setAttribute("error", error);
                     session.setAttribute("repopulate", repopulate);

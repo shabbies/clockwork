@@ -162,19 +162,32 @@ public class EditPostServlet extends HttpServlet {
                             break;
                         case "Bad Request - The job date should be after today":
                             error = "The job date should be after today!";
-                            break;
+                            session.setAttribute("error", error);
+                            response.sendRedirect("/edit_post.jsp?id=" + postID);
+                            return;
                         case "Bad Request - The end date should be after the start date":
                             error = "The job end date should be after the start date!";
-                            break;
+                            session.setAttribute("error", error);
+                            response.sendRedirect("/edit_post.jsp?id=" + postID);
+                            return;
                         case "Bad Request - The salary should not be negative":
                             error = "The salary should not be negative!";
-                            break;
+                            session.setAttribute("error", error);
+                            response.sendRedirect("/edit_post.jsp?id=" + postID);
+                            return;
                         case "Bad Request - End time should be after start time":
                             error = "The job end time should be after the start time!";
-                            break;
+                            session.setAttribute("error", error);
+                            response.sendRedirect("/edit_post.jsp?id=" + postID);
+                            return;
                         case "Bad Request - Unable to edit post once there are applicants":
                             error = "There are already applicants for this job posting!";
                             break;
+                        case "Bad Request - The maximum job duration should be 7 days":
+                            error = "The maximum duration of the job is 7 days!";
+                            session.setAttribute("error", error);
+                            response.sendRedirect("/edit_post.jsp?id=" + postID);
+                            return;
                     }
                     session.setAttribute("error", error);
                     response.sendRedirect("/dashboard.jsp");
