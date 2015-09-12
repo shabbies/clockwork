@@ -63,7 +63,7 @@ session.removeAttribute("matchMap");
     <div class="col-md-7">
         <div class="panel panel-default">
             <div class="panel-heading"> 
-                <h4>Your Completed Help</h4> 
+                <h4>Reviewed Applicants</h4> 
             </div> 
             <table class="table db-job-table"> 
                 <thead> 

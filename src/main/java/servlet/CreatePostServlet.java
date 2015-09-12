@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpSession;
 import model.User;
 import org.apache.commons.io.IOUtils;
@@ -52,8 +53,6 @@ public class CreatePostServlet extends HttpServlet {
         String location = (String)request.getParameter("location");
         String jobDateString = (String)request.getParameter("job_date");
         String endDateString = (String)request.getParameter("job_end");
-        System.out.println(jobDateString);
-        System.out.println(endDateString);
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String startTime = request.getParameter("start_time");
@@ -73,15 +72,26 @@ public class CreatePostServlet extends HttpServlet {
         Calendar calendar = Calendar.getInstance(); 
         calendar.setTime(today); 
         calendar.add(Calendar.DATE, 2);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         today = calendar.getTime();
-        
+
         //validating date
         if (endDate.before(jobDate)){
             session.setAttribute("error", "The end date should be after the start date");
             response.sendRedirect("/create_post.jsp");
             return;
-        } else if (jobDate.before(today)){
+        } else if (!jobDate.equals(today) && jobDate.before(today)){
             session.setAttribute("error", "The job date should be at least 2 days from today.");
+            response.sendRedirect("/create_post.jsp");
+            return;
+        } 
+        long msDifference = endDate.getTime() - jobDate.getTime();
+        long dayDifference = TimeUnit.DAYS.convert(msDifference, TimeUnit.MILLISECONDS);
+        if (dayDifference > 7){
+            session.setAttribute("error", "The maxmimum job duration should be 7 days!");
             response.sendRedirect("/create_post.jsp");
             return;
         }

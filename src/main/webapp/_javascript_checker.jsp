@@ -71,6 +71,10 @@ $("#job-date").change(function(){
     var start_date = $("#job-date").val();
     $("#end-date").val(start_date); 
     $("#end-date").attr("min", start_date);
+    var max_date = new Date(start_date);
+    max_date.setDate(max_date.getDate() + 7);
+    var max_date_string = max_date.getFullYear() + "-" + ("0" + (max_date.getMonth() + 1)).slice(-2) + "-" + max_date.getDate();
+    $("#end-date").attr("max", max_date_string);
 });
 
 $("#job-date").focusout(function(){
@@ -90,6 +94,10 @@ $("#job-date").focusout(function(){
     today.setDate(today.getDate() + 2);
     var today_string = today.getFullYear() + "-" + ("0" + (today.getMonth() + 1)).slice(-2) + "-" + today.getDate();
     if (start_date < today){
+        var max_date = new Date();
+        max_date.setDate(today.getDate() + 7);
+        var max_date_string = max_date.getFullYear() + "-" + ("0" + (max_date.getMonth() + 1)).slice(-2) + "-" + max_date.getDate();
+        
         $("#job-date").css("border", "1px solid #ee4054" );
         $("#job-date").css("box-shadow", "none");
         $(".job-start-date").removeAttr("style");
@@ -101,6 +109,7 @@ $("#job-date").focusout(function(){
         $("#job-date").val(today_string);
         $("#end-date").val(today_string); 
         $("#end-date").attr("min", today_string);
+        $("#end-date").attr("max", max_date_string);
     }
 });
 
