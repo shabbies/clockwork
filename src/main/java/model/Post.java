@@ -2,6 +2,7 @@ package model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 
 public class Post {
@@ -233,4 +234,52 @@ public class Post {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(expiryDate);
     }
+    
+    public static Comparator<Post> SalaryComparator = new Comparator<Post>() {
+        @Override
+        public int compare(Post p1, Post p2) {
+           double salary1 = p1.salary;
+           double salary2 = p2.salary;
+
+           if (salary1 > salary2){
+               return -1;
+           } else if (salary1 < salary2){
+               return 1;
+           } else {
+               return 0;
+           }
+        }
+    };
+    
+    public static Comparator<Post> OldestComparator = new Comparator<Post>() {
+        @Override
+        public int compare(Post p1, Post p2) {
+           Date startDate1 = p1.jobDate;
+           Date startDate2 = p2.jobDate;
+
+           if (startDate1.before(startDate2)){
+               return -1;
+           } else if (startDate2.before(startDate1)){
+               return 1;
+           } else {
+               return 0;
+           }
+        }
+    };
+    
+    public static Comparator<Post> LatestComparator = new Comparator<Post>() {
+        @Override
+        public int compare(Post p1, Post p2) {
+           Date postingDate1 = p1.postingDate;
+           Date postingDate2 = p2.postingDate;
+
+           if (postingDate1.before(postingDate2)){
+               return -1;
+           } else if (postingDate2.before(postingDate1)){
+               return 1;
+           } else {
+               return 0;
+           }
+        }
+    };
 }

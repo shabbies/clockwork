@@ -18,6 +18,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.servlet.http.HttpSession;
 import model.Post;
 import org.apache.commons.io.IOUtils;
@@ -35,11 +36,25 @@ public class GetAllPostsServlet extends HttpServlet {
         String requestURL = "https://clockwork-api.herokuapp.com/api/v1/posts/";
         String sortingOrder = request.getParameter("order");
         if (sortingOrder.equals("salary")){
-            requestURL = requestURL + "all_salary.json";
+            ArrayList<Post> postListUnsorted = (ArrayList <Post>)session.getAttribute("postListUnsorted");
+            session.removeAttribute("postListUnsorted");
+            Collections.sort(postListUnsorted, Post.SalaryComparator);
+            session.setAttribute("postList", postListUnsorted);
+            response.sendRedirect("/index.jsp");
+            return;
         } else if (sortingOrder.equals("oldest")){
-            requestURL = requestURL + "all_oldest.json";
+            ArrayList<Post> postListUnsorted = (ArrayList <Post>)session.getAttribute("postListUnsorted");
+            session.removeAttribute("postListUnsorted");
+            Collections.sort(postListUnsorted, Post.OldestComparator);
+            session.setAttribute("postList", postListUnsorted);
+            response.sendRedirect("/index.jsp");
+            return;
         } else if (sortingOrder.equals("latest")){
-            requestURL = requestURL + "all_latest.json";
+            ArrayList<Post> postListUnsorted = (ArrayList <Post>)session.getAttribute("postListUnsorted");
+            session.removeAttribute("postListUnsorted");
+            Collections.sort(postListUnsorted, Post.LatestComparator);
+            session.setAttribute("postList", postListUnsorted);
+            response.sendRedirect("/index.jsp");
         } else {
             requestURL = requestURL + "all.json";
         }

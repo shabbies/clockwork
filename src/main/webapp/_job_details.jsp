@@ -118,8 +118,8 @@ $(document).on("click", "#open-jobModal", function() {
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                       console.log(textStatus, errorThrown);
-                  }
-              });
+                    }
+                });
             },
             //events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
             eventAfterRender: function(event, element, view) {

@@ -5,7 +5,12 @@
 <%@ page import="java.util.Date"%>
 
 <%  ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("postList"); 
-if (postList == null){ %><jsp:forward page="/GetAllPostsServlet?order=none" /><%} else { session.removeAttribute("postList"); }
+if (postList == null){ %>
+    <jsp:forward page="/GetAllPostsServlet?order=none" />
+<% } else { 
+    session.removeAttribute("postList"); 
+    session.setAttribute("postListUnsorted", postList);
+}
 String query = request.getParameter("q");%>
 
 <%@include file="_nav.jsp"%>

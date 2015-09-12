@@ -41,7 +41,8 @@ session.removeAttribute("offeredList");}%>
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-body db-user">
-
+                <% String expirePostURL = "https://clockwork-api.herokuapp.com/api/v1/posts/dev_expire_post?id=" + post.getId(); %>
+                <button data-expireURL="<%=expirePostURL%>" class="btn btn-primary pull-right expire-post">Expire Post</button>
                 <div class="text-center">
                     <% if (post.getAvatarPath() == null){%>
                     <img src="http://placehold.it/120x120" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
@@ -424,20 +425,17 @@ session.removeAttribute("offeredList");}%>
     
     
 <script>
-    $.fn.raty.defaults.path = '../rating/images';
-    $(function() {
-        $('.score').raty({
-            score: function() {
-                return $(this).attr('data-score');
+    $(document).on("click", ".expire-post", function(){
+        var expireURL = $(this).data('expireURL')
+        $.ajax({
+            url: expireURL,
+            success: function(doc) {
+                window.location.href = "/dashboard.jsp";
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.log(textStatus, errorThrown);
             }
         });
-//        $('.ratings').raty({
-//            score: function() {
-//                return $(this).attr('data-score');
-//            },readOnly: true
-//        });
-        
-        
     });
 </script>
     
