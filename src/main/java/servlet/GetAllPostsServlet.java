@@ -55,6 +55,7 @@ public class GetAllPostsServlet extends HttpServlet {
             Collections.sort(postListUnsorted, Post.LatestComparator);
             session.setAttribute("postList", postListUnsorted);
             response.sendRedirect("/index.jsp");
+            return;
         } else {
             requestURL = requestURL + "all.json";
         }
