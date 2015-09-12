@@ -33,36 +33,34 @@ public class GetAllPostsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
         PostController postController = appController.getPostController();
-        String requestURL = "https://clockwork-api.herokuapp.com/api/v1/posts/";
         String sortingOrder = request.getParameter("order");
-        if (sortingOrder.equals("salary")){
-            ArrayList<Post> postListUnsorted = (ArrayList <Post>)session.getAttribute("postListUnsorted");
-            session.removeAttribute("postListUnsorted");
-            Collections.sort(postListUnsorted, Post.SalaryComparator);
-            session.setAttribute("postList", postListUnsorted);
-            response.sendRedirect("/index.jsp");
-            return;
-        } else if (sortingOrder.equals("oldest")){
-            ArrayList<Post> postListUnsorted = (ArrayList <Post>)session.getAttribute("postListUnsorted");
-            session.removeAttribute("postListUnsorted");
-            Collections.sort(postListUnsorted, Post.OldestComparator);
-            session.setAttribute("postList", postListUnsorted);
-            response.sendRedirect("/index.jsp");
-            return;
-        } else if (sortingOrder.equals("latest")){
-            ArrayList<Post> postListUnsorted = (ArrayList <Post>)session.getAttribute("postListUnsorted");
-            session.removeAttribute("postListUnsorted");
-            Collections.sort(postListUnsorted, Post.LatestComparator);
-            session.setAttribute("postList", postListUnsorted);
-            response.sendRedirect("/index.jsp");
-            return;
-        } else {
-            requestURL = requestURL + "all.json";
+        String query = (String)session.getAttribute("query");
+        String returnURL = "/index.jsp";
+        if (query != null){
+            returnURL = returnURL + "?q=" + query; 
         }
-        
+        if (!sortingOrder.equals("none")){
+            ArrayList<Post> postListUnsorted = (ArrayList <Post>)session.getAttribute("postListUnsorted");
+            session.removeAttribute("postListUnsorted");
+            switch (sortingOrder){
+                case "oldest":
+                    Collections.sort(postListUnsorted, Post.OldestComparator);
+                    break;
+                case "latest":
+                    Collections.sort(postListUnsorted, Post.LatestComparator);
+                    break;
+                case "salary":
+                    Collections.sort(postListUnsorted, Post.SalaryComparator);
+                    break;
+            }
+            session.setAttribute("postList", postListUnsorted);
+            response.sendRedirect(returnURL);
+            return;
+        }
+        session.removeAttribute("query");
         // httpget request
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(requestURL);
+        HttpGet httpGet = new HttpGet("https://clockwork-api.herokuapp.com/api/v1/posts/all.json");
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
         ArrayList <Post> postList;
         try {

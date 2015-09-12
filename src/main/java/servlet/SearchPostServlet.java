@@ -34,6 +34,7 @@ public class SearchPostServlet extends HttpServlet {
         PostController postController = appController.getPostController();
         String requestURL = "https://clockwork-api.herokuapp.com/api/v1/posts/search?query=";
         String query = request.getParameter("query");
+        session.setAttribute("query", query);
         requestURL += query;
         
         // httpget request
