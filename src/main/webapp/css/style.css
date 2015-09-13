@@ -791,6 +791,22 @@ body {
     cursor: pointer;
 }
 
+.db-rating-table {
+    font-size: 10pt;
+}
+
+.positive {
+    background-color: #7AF5F5;
+}
+
+.negative {
+    background-color: #FA6684;
+}
+
+.neutral {
+    background-color: whitesmoke;
+}
+
 .payment-mode button, .payment-mode input{
     margin:5px;
     margin-top: 20px;

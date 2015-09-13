@@ -92,7 +92,7 @@ return;
                                     <% } %>
                                 <% } else if (post.getStatus().equals("expired")){ %>
                                     <td><span class="badge db-default-badge">Expired</span></td>
-                                    <td><a href="#" class="btn btn-danger"> Archive</a></td>
+                                    <td><a href="#" class="btn btn-danger incomplete"> Archive</a></td>
                                 <% } else if (post.getStatus().equals("reviewing")){ %>
                                     <td><span class="badge db-default-badge">Pending Review</span></td>
                                     <% String formedURL = "review_applicants.jsp?id=" + post.getId();%>

@@ -70,19 +70,20 @@ session.removeAttribute("appliedJobsStatusMap");
                         <td><%=post.getHeader()%></td>
                         <td><%=post.getCompany()%></td>
                         <% if (appliedJobsStatusMap.get(post.getId()).equals("pending")) {%>
-                        <td><span class="badge db-default-badge">Pending</span></td>
-                        <td><a class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>">Withdraw</a></td>
+                            <td><span class="badge db-default-badge">Pending</span></td>
+                            <td><a class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>">Withdraw</a></td>
                         <% } else if ((appliedJobsStatusMap.get(post.getId()).equals("offered"))){ %>
-                        <td><span class="badge db-default-badge offered">Offered</span></td>
-                        <td><a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a></td>
+                            <td><span class="badge db-default-badge offered">Offered</span></td>
+                            <td><a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a></td>
                         <% } else {%>
-                        <td><span class="badge db-default-badge success">Hired</span></td>
-                        <td><button class="btn btn-warning" id="open-jobModal">Job Details</button></td>
+                            <td><span class="badge db-default-badge success">Hired</span></td>
+                            <td><button class="btn btn-warning" id="open-jobModal">Job Details</button></td>
                         <% } %>
                     </tr>
-                    <%}
-                if(appliedJobsMap.isEmpty()){ %>
-                    <tr class="text-center"><td colspan="4">You have not applied for any jobs</td></tr>
+                    <% }
+                    session.setAttribute("completedJobs", completedJobs);
+                    if (appliedJobsMap.isEmpty()){ %>
+                        <tr class="text-center"><td colspan="4">You have not applied for any jobs</td></tr>
                     <% } %>
                     %>
                 </tbody>
@@ -157,7 +158,7 @@ session.removeAttribute("appliedJobsStatusMap");
                 <a href="/complete_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
                 <% } else { %> 
                 <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Update my Profile</a><% } %>
-                <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
+                <a href="/all_ratings.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
                 <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
             </div>
         </div>
