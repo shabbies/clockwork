@@ -71,10 +71,10 @@ session.removeAttribute("appliedJobsStatusMap");
                         <td><%=post.getCompany()%></td>
                         <% if (appliedJobsStatusMap.get(post.getId()).equals("pending")) {%>
                         <td><span class="badge db-default-badge">Pending</span></td>
-                        <td><input type="button" class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>" value="Withdraw"/></td>
+                        <td><a class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>">Withdraw</a></td>
                         <% } else if ((appliedJobsStatusMap.get(post.getId()).equals("offered"))){ %>
                         <td><span class="badge db-default-badge offered">Offered</span></td>
-                        <td><input type="button" class="btn btn-success accept-job" data-postid="<%=post.getId()%>" value="Accept Job Offer"/></td>
+                        <td><a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a></td>
                         <% } else {%>
                         <td><span class="badge db-default-badge success">Hired</span></td>
                         <td><button class="btn btn-warning" id="open-jobModal">Job Details</button></td>

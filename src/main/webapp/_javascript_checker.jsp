@@ -156,9 +156,4 @@ $("#dob-date").focusout(function(){
         $("#dob-date").val("");
     }
 });
-
-$(document).on("click", ".row-content", function(){
-    
-});
-
 </script>

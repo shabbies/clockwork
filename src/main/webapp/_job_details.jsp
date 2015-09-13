@@ -59,6 +59,11 @@
         
 <script>
 
+$(document).on("click", "a", function(e) {
+    e.stopPropagation();
+});
+
+
 $(document).on("click", ".row-content", function() {
     var job_details = $(this);
     if( job_details.data("ownjob") === ''){
@@ -134,8 +139,6 @@ $(document).on("click", ".row-content", function() {
         var start_date = new Date(job_details.data("cdate"));
         var end_date = new Date(job_details.data("cdateend"));
         start_date.setHours(0);
-        console.log(start_date);
-        console.log(end_date);
         while (start_date <= end_date){
             var myevent = {title: headerText, start: start_date.toString(), color: '#ee4054'};
             $('#calendar').fullCalendar( 'renderEvent', myevent, true);
@@ -161,5 +164,7 @@ $('#jobModal').on('shown.bs.modal', function () {
     $("#calendar").fullCalendar('render');
     $("#calendar").fullCalendar( 'rerenderEvents' );
 });
+
+
 </script>
 <!-- End of Job Modal -->

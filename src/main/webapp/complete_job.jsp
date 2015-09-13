@@ -9,7 +9,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 
-    
+<%@ page buffer="16kb" %>
 <%  String postID = request.getParameter("id");
 ArrayList <User> completedList = (ArrayList <User>)session.getAttribute("completedList");
 HashMap <Integer, Match> matchMap = (HashMap <Integer, Match>)session.getAttribute("matchMap");
