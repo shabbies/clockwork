@@ -157,5 +157,8 @@ $("#dob-date").focusout(function(){
     }
 });
 
+$(document).on("click", ".row-content", function(){
+    
+});
 
 </script>

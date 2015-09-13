@@ -79,24 +79,24 @@ $(document).ready(function(){
     });
     
     <% if (currentUser != null){ %>
-    $.ajax({
-        url: 'https://clockwork-api.herokuapp.com/api/v1/users/get_unread_notifications',
-        dataType: 'json',
-        method: "POST",
-        async: true,
-        beforeSend: function(xhr){
-            xhr.setRequestHeader('Authentication-Token', "<%=currentUser.getAuthenticationToken()%>");
-        },
-        data: {
-            email: "<%=currentUser.getEmail()%>"
-        },
-        success: function(resultString) {
-            var result = JSON.parse(resultString);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.log(textStatus, errorThrown);
-        }
-    });
+        $.ajax({
+            url: 'https://clockwork-api.herokuapp.com/api/v1/users/get_unread_notifications',
+            dataType: 'json',
+            method: "POST",
+            async: true,
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('Authentication-Token', "<%=currentUser.getAuthenticationToken()%>");
+            },
+            data: {
+                email: "<%=currentUser.getEmail()%>"
+            },
+            success: function(resultString) {
+                var result = JSON.parse(resultString);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.log(textStatus, errorThrown);
+            }
+        });
     <% } %>
 
 });
