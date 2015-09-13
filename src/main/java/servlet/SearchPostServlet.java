@@ -17,6 +17,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.io.StringWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import model.Post;
@@ -35,7 +36,7 @@ public class SearchPostServlet extends HttpServlet {
         String requestURL = "https://clockwork-api.herokuapp.com/api/v1/posts/search?query=";
         String query = request.getParameter("query");
         session.setAttribute("query", query);
-        requestURL += query;
+        requestURL += URLEncoder.encode(query, "UTF-8");
         
         // httpget request
         CloseableHttpClient httpclient = HttpClients.createDefault();
