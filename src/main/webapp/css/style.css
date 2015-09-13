@@ -1096,7 +1096,7 @@ body {
     overflow: visible;
     position: absolute;
     top: 50px;
-    margin-left: -80px;
+    margin-left: -130px;
     width: 400px;
     z-index: -1;
     display: none;
@@ -1109,7 +1109,7 @@ body {
     height: 0;
     color: transparent;
     border: 10px solid black;
-    border-color: transparent transparent white;
+    border-color: transparent transparent #ee4054;
     margin-top: -20px;
     margin-left: 188px;
 }
@@ -1119,20 +1119,24 @@ body {
     padding: 8px;
     font-size: 13px;
     background-color: #ffffff;
-    width: 384px;
     border-bottom: 1px solid #dddddd;
+    text-transform: uppercase;
 }
 #notificationsBody {
-    padding: 10px 0px 0px 0px !important;
+    /*padding: 10px 0px 0px 0px !important;  */
     min-height:300px;
 }
 #notificationFooter {
-    background-color: #e9eaed;
+    background-color: #ee4054;
     text-align: center;
     font-weight: bold;
     padding: 8px;
     font-size: 12px;
     border-top: 1px solid #dddddd;
+}
+#notificationFooter a{
+    color:white;
+    text-transform: uppercase;
 }
 #notification_count {
     padding: 3px 7px 3px 7px;
@@ -1147,7 +1151,6 @@ body {
 }
 
 .notification_content{
-    background-color: red;
     padding: 5px 10px;
     border-bottom: 1px solid #ddd;
     position: relative;
@@ -1155,11 +1158,12 @@ body {
 }
 
 .notification_content_profile{
-    padding: 4px;
+    padding: 3px;
     border: 1px solid #ddd;
     border-radius: 4px;
     display: inline-block;
     width: 40px;
+    border-radius: 50%;
 }
 
 @media (min-width: 992px){
