@@ -1161,3 +1161,9 @@ body {
     display: inline-block;
     width: 40px;
 }
+
+@media (min-width: 992px){
+    .modal-lg {
+        width: 80% !important;
+    }
+}

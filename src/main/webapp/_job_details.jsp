@@ -94,7 +94,7 @@ $(document).on("click", "#open-jobModal", function() {
         $('#calendar').fullCalendar({
             editable: false,
             allDayDefault: true,
-            contentHeight: 240,
+            contentHeight: 400,
             titleFormat: 'MMMM',
             eventColor: 'grey',
             events: function(start, end, timezone, callback) {
