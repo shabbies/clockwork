@@ -1080,3 +1080,9 @@ body {
     border-right-style: none;
     width: calc(100% - 39px);
 }
+
+@media (min-width: 992px){
+.modal-lg {
+    width: 80% !important;
+}
+}
