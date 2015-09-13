@@ -3,6 +3,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Post"%>
 
+<%@include file="_job_details.jsp"%>
+<%@ page buffer="16kb" %>
 <%  
 if (currentUser == null){
 session.setAttribute("error", "Please login or register first before viewing your job applications!");
@@ -55,7 +57,7 @@ return;
                         <h4>Your Job Listings</h4> 
                     </div> 
 
-                    <table class="table db-job-table"> 
+                    <table class="table db-job-table table-hover"> 
 
                         <thead> 
                             <tr> 
@@ -68,7 +70,7 @@ return;
 
                         <tbody>
                             <% for (Post post : publishedList){%>
-                            <tr> 
+                            <tr class="row-content" data-userid="0" data-jobstatus="<%= post.getStatus() %>" data-ownjob="" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                                 <td><%=post.getHeader()%></td>
                                 <td><%=post.getJobDateString()%></td>
                                 <% if (post.getStatus().equals("listed")){

@@ -59,14 +59,14 @@ session.removeAttribute("appliedJobsStatusMap");
                         String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
                         if(currentUser != null){
                             currentuserid = String.valueOf(currentUser.getId());
-                                if(currentUser.getUsername().equals(post.getCompany())){
+                            if(currentUser.getUsername().equals(post.getCompany())){
                                 jobEditStyle =  "job-edit";
                                 jobStyle =  "job-entry-edit";
                                 jobEditColor = "job-edit-color";
                                 ownjob = "true";
                             }
                         } %> 
-                    <tr class="row-content" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>"> 
+                    <tr class="row-content" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                         <td><%=post.getHeader()%></td>
                         <td><%=post.getCompany()%></td>
                         <% if (appliedJobsStatusMap.get(post.getId()).equals("pending")) {%>
