@@ -39,10 +39,10 @@ session.removeAttribute("appliedJobsStatusMap");
                 <h4>Jobs you have applied for</h4> 
             </div> 
 
-            <table class="table db-job-table"> 
+            <table class="table db-job-table table-hover"> 
 
                 <thead> 
-                    <tr> 
+                    <tr id="header-row"> 
                         <th>Job</th>
                         <th>Company</th>
                         <th>Status</th>
@@ -66,7 +66,7 @@ session.removeAttribute("appliedJobsStatusMap");
                                 ownjob = "true";
                             }
                         } %> 
-                    <tr> 
+                    <tr class="row-content"> 
                         <td><%=post.getHeader()%></td>
                         <td><%=post.getCompany()%></td>
                         <% if (appliedJobsStatusMap.get(post.getId()).equals("pending")) {%>

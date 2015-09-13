@@ -5,7 +5,7 @@
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
 <%@ page import="java.util.ArrayList" %>
-    
+<%@ page buffer="16kb" %>
 <%  String postID = request.getParameter("id");
 ArrayList <User> applicantList = (ArrayList <User>)session.getAttribute("applicantList");
 ArrayList <User> offeredList = (ArrayList <User>)session.getAttribute("offeredList");

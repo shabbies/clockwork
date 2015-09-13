@@ -786,6 +786,11 @@ body {
     width: 150px;
 }
 
+.db-job-table row-content{
+    cursor: hand;
+    cursor: pointer;
+}
+
 .payment-mode button, .payment-mode input{
     margin:5px;
     margin-top: 20px;
@@ -1079,4 +1084,80 @@ body {
 .calculated_search_text{
     border-right-style: none;
     width: calc(100% - 39px);
+}
+
+#notification_li {
+    position:relative;
+}
+#notificationContainer {
+    background-color: #fff;
+    border: 1px solid rgba(100, 100, 100, .4);
+    -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+    overflow: visible;
+    position: absolute;
+    top: 50px;
+    margin-left: -80px;
+    width: 400px;
+    z-index: -1;
+    display: none;
+}
+#notificationContainer:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    color: transparent;
+    border: 10px solid black;
+    border-color: transparent transparent white;
+    margin-top: -20px;
+    margin-left: 188px;
+}
+#notificationTitle {
+    z-index: 1000;
+    font-weight: bold;
+    padding: 8px;
+    font-size: 13px;
+    background-color: #ffffff;
+    width: 384px;
+    border-bottom: 1px solid #dddddd;
+}
+#notificationsBody {
+    padding: 10px 0px 0px 0px !important;
+    min-height:300px;
+}
+#notificationFooter {
+    background-color: #e9eaed;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+    font-size: 12px;
+    border-top: 1px solid #dddddd;
+}
+#notification_count {
+    padding: 3px 7px 3px 7px;
+    background: #cc0000;
+    color: #ffffff;
+    font-weight: bold;
+    margin-left: 115px;
+    border-radius: 9px;
+    position: absolute;
+    margin-top: 5px;
+    font-size: 11px;
+}
+
+.notification_content{
+    background-color: red;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    height: 50px;
+}
+
+.notification_content_profile{
+    padding: 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: inline-block;
+    width: 40px;
 }
