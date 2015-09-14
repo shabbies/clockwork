@@ -120,7 +120,7 @@ String query = request.getParameter("q");%>
             <% if(!currentUser.getUsername().equals(post.getCompany())){ 
             if(currentUser.getAccountType().equals("job_seeker")){%>
 
-            <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
+            <a href="#"  class="btn btn-primary btnnohover pull-right row-content">Apply now</a>
             <% }else{ %>
 
             <%  } %>
@@ -251,6 +251,10 @@ $("#search_clear").hover(function(){}, function(){
 $("#searchText").keyup(function(){
     $(this).addClass("calculated_search_text");
     $(".search_cross").removeClass("hidden");
+    if ($(this).val() === ""){
+        $(this).removeClass("calculated_search_text");
+        $(".search_cross").addClass("hidden");
+    }
 });
 
 $("#searchText").focusout(function(){
