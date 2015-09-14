@@ -5,6 +5,7 @@
     
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.google.gson.Gson" %>
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
 <%@ page buffer="16kb" %>
@@ -19,6 +20,8 @@ response.sendRedirect("/index.jsp");
 return;}
 
 ArrayList <Post> completedJobs = new ArrayList <Post> ();
+ArrayList <Post> pendingAcceptance = new ArrayList <Post> ();
+String postsJSONString = null;
 HashMap <Integer, Post> appliedJobsMap = (HashMap <Integer, Post>)session.getAttribute("appliedJobsMap"); 
 HashMap <Integer, String> appliedJobsStatusMap = (HashMap <Integer, String>)session.getAttribute("appliedJobsStatusMap"); 
 if (appliedJobsMap == null || appliedJobsStatusMap == null){ %>
@@ -51,21 +54,24 @@ session.removeAttribute("appliedJobsStatusMap");
                 </thead>
 
                 <tbody> 
-                    <% for (Post post : appliedJobsMap.values()) { %>
-                    <%  if (appliedJobsStatusMap.get(post.getId()).equals("completed")){
-                            completedJobs.add(post);
-                            continue;
-                        }
-                        String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
-                        if(currentUser != null){
-                            currentuserid = String.valueOf(currentUser.getId());
-                            if(currentUser.getUsername().equals(post.getCompany())){
-                                jobEditStyle =  "job-edit";
-                                jobStyle =  "job-entry-edit";
-                                jobEditColor = "job-edit-color";
-                                ownjob = "true";
+                    <%  for (Post post : appliedJobsMap.values()) {
+                            String status = appliedJobsStatusMap.get(post.getId());
+                            if (status.equals("completed")){
+                                completedJobs.add(post);
+                                continue;
+                            } else if (status.equals("pending") || status.equals("offered")){
+                                pendingAcceptance.add(post);
                             }
-                        } %> 
+                            String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
+                            if(currentUser != null){
+                                currentuserid = String.valueOf(currentUser.getId());
+                                if(currentUser.getUsername().equals(post.getCompany())){
+                                    jobEditStyle =  "job-edit";
+                                    jobStyle =  "job-entry-edit";
+                                    jobEditColor = "job-edit-color";
+                                    ownjob = "true";
+                                }
+                            } %> 
                     <tr class="row-content" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                         <td><%=post.getHeader()%></td>
                         <td><%=post.getCompany()%></td>
@@ -82,6 +88,8 @@ session.removeAttribute("appliedJobsStatusMap");
                     </tr>
                     <% }
                     session.setAttribute("completedJobs", completedJobs);
+                    Gson gson = new Gson();
+                    postsJSONString = gson.toJson(pendingAcceptance);
                     if (appliedJobsMap.isEmpty()){ %>
                         <tr class="text-center"><td colspan="4">You have not applied for any jobs</td></tr>
                     <% } %>
@@ -299,6 +307,22 @@ $(".withdraw-job").click(function(){
 
 $(".accept-job").click(function(){
     var postID = $(this).data("postid");
+    $.ajax({
+        url: '/CheckJobDateClashServlet',
+        dataType: 'json',
+        method: "POST",
+        async: false,
+        data: {
+            post_id: postID,
+            posts: '<%=postsJSONString%>'
+        },
+        success: function(resultString) {
+            alert("you did it!")
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+    });
     $("#accept_post_id").val(postID);
     $('#accept_job_modal').modal('show');
 });

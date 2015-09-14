@@ -115,7 +115,7 @@ String query = request.getParameter("q");%>
         <div class="col-xs-12">
 
             <% if(currentUser==null){ %>
-            <a href="#"  class="btn btn-primary btnnohover pull-right">Apply now</a>
+            <a href="#"  class="btn btn-primary btnnohover pull-right row-content">Apply now</a>
             <%} else { %>
             <% if(!currentUser.getUsername().equals(post.getCompany())){ 
             if(currentUser.getAccountType().equals("job_seeker")){%>
