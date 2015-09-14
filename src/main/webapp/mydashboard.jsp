@@ -88,8 +88,7 @@ session.removeAttribute("appliedJobsStatusMap");
                     </tr>
                     <% }
                     session.setAttribute("completedJobs", completedJobs);
-                    Gson gson = new Gson();
-                    postsJSONString = gson.toJson(pendingAcceptance);
+                    session.setAttribute("pendingAcceptanceJobs", pendingAcceptance);
                     if (appliedJobsMap.isEmpty()){ %>
                         <tr class="text-center"><td colspan="4">You have not applied for any jobs</td></tr>
                     <% } %>
@@ -313,8 +312,7 @@ $(".accept-job").click(function(){
         method: "POST",
         async: false,
         data: {
-            post_id: postID,
-            posts: '<%=postsJSONString%>'
+            post_id: postID
         },
         success: function(resultString) {
             alert("you did it!")

@@ -1,5 +1,7 @@
 package servlet;
 
+import controller.AppController;
+import controller.PostController;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -22,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpSession;
+import model.Post;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
@@ -37,8 +40,11 @@ public class CheckJobDateClashServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         User currentUser = (User)session.getAttribute("currentUser");
-        System.out.println(request.getParameter("post_id"));
-        System.out.println(request.getParameter("posts"));
-        
+        AppController appController = (AppController)session.getAttribute("appController");
+        PostController postController = appController.getPostController();
+        int postID = Integer.parseInt(request.getParameter("post_id"));
+        Post post = postController.getPost(postID);
+        ArrayList <Post> postList = (ArrayList <Post>)session.getAttribute("pendingAcceptance");
+        session.removeAttribute("pendingAcceptance");
     }
 }
