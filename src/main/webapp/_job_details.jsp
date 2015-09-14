@@ -59,21 +59,23 @@
         
 <script>
 
-$(document).on("click", ".open-jobModal", function() {
-    if( $(this).data("ownjob") === ''){
-        var headerText = $(this).data('header');
-        var descText = $(this).data('desc');
-        var salaryText = $(this).data('salary');
-        var companyText = $(this).data('company');
-        var locationText = $(this).data('location');
-        var jobDateText = $(this).data("dateposted");
-        var endDateText = $(this).data("enddate");
-        var id = $(this).data("id");
-        var uid = $(this).data("userid");
-        var applied = $(this).data("applied");
-        var avatar_path = $(this).data("avatar");
-        var startTimeText = $(this).data("starttime");
-        var endTimeText = $(this).data("endtime");
+$(document).on("click", ".row-content", function() {
+    var job_details = $(this);
+    if( job_details.data("ownjob") === ''){
+        var headerText = job_details.data('header');
+        var descText = job_details.data('desc');
+        var salaryText = job_details.data('salary');
+        var companyText = job_details.data('company');
+        var locationText = job_details.data('location');
+        var jobDateText = job_details.data("dateposted");
+        var endDateText = job_details.data("enddate");
+        var id = job_details.data("id");
+        var uid = job_details.data("userid");
+        var applied = job_details.data("applied");
+        var avatar_path = job_details.data("avatar");
+        var startTimeText = job_details.data("starttime");
+        var endTimeText = job_details.data("endtime");
+
 
         $('#jobModalLabel').html(headerText);
         $('#modalHeader').html("<strong>"+headerText+"</strong>");
@@ -121,22 +123,17 @@ $(document).on("click", ".open-jobModal", function() {
                     }
                 });
             },
-            //events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
             eventAfterRender: function(event, element, view) {
                 $(element).css('height','30px');
                 $(element).css('font-weight','700');
-            }/*, eventRender: function (event, element, view) { 
-        var dateString = event.start.format("YYYY-MM-DD");
-        $(view.el[0]).find('.fc-day[data-date="' + dateString + '"]').css('background-color', '#ee4054');
-    }*/
-
+            }
         });
 
 
-        $('#calendar').fullCalendar( 'gotoDate', new Date($(this).data("cdate")));
+        $('#calendar').fullCalendar( 'gotoDate', new Date(job_details.data("cdate")));
 
-        var start_date = new Date($(this).data("cdate"));
-        var end_date = new Date($(this).data("cdateend"));
+        var start_date = new Date(job_details.data("cdate"));
+        var end_date = new Date(job_details.data("cdateend"));
         start_date.setHours(0);
         while (start_date <= end_date){
             var myevent = {title: headerText, start: start_date.toString(), color: '#ee4054'};
@@ -150,7 +147,7 @@ $(document).on("click", ".open-jobModal", function() {
         $('#jobModal').modal('show');
 
     } else {
-        var jobstatus = $(this).data('jobstatus');
+        var jobstatus = job_details.data('jobstatus');
         if(jobstatus === 'listed'){
             window.location.href="/edit_post.jsp?id="+$(this).data("id");
         }
@@ -158,11 +155,12 @@ $(document).on("click", ".open-jobModal", function() {
 });
 
 
-
 $('#jobModal').on('shown.bs.modal', function () {
 
     $("#calendar").fullCalendar('render');
     $("#calendar").fullCalendar( 'rerenderEvents' );
 });
+
+
 </script>
 <!-- End of Job Modal -->

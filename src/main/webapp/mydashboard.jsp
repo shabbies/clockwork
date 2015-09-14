@@ -59,30 +59,31 @@ session.removeAttribute("appliedJobsStatusMap");
                         String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
                         if(currentUser != null){
                             currentuserid = String.valueOf(currentUser.getId());
-                                if(currentUser.getUsername().equals(post.getCompany())){
+                            if(currentUser.getUsername().equals(post.getCompany())){
                                 jobEditStyle =  "job-edit";
                                 jobStyle =  "job-entry-edit";
                                 jobEditColor = "job-edit-color";
                                 ownjob = "true";
                             }
                         } %> 
-                    <tr class="row-content"> 
+                    <tr class="row-content" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                         <td><%=post.getHeader()%></td>
                         <td><%=post.getCompany()%></td>
                         <% if (appliedJobsStatusMap.get(post.getId()).equals("pending")) {%>
-                        <td><span class="badge db-default-badge">Pending</span></td>
-                        <td><input type="button" class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>" value="Withdraw"/></td>
+                            <td><span class="badge db-default-badge">Pending</span></td>
+                            <td><a class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>">Withdraw</a></td>
                         <% } else if ((appliedJobsStatusMap.get(post.getId()).equals("offered"))){ %>
-                        <td><span class="badge db-default-badge offered">Offered</span></td>
-                        <td><input type="button" class="btn btn-success accept-job" data-postid="<%=post.getId()%>" value="Accept Job Offer"/></td>
+                            <td><span class="badge db-default-badge offered">Offered</span></td>
+                            <td><a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a></td>
                         <% } else {%>
-                        <td><span class="badge db-default-badge success">Hired</span></td>
-                        <td><button class="btn btn-warning" id="open-jobModal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>">Job Details</button></td>
+                            <td><span class="badge db-default-badge success">Hired</span></td>
+                            <td><button class="btn btn-warning" id="open-jobModal">Job Details</button></td>
                         <% } %>
                     </tr>
-                    <%}
-                if(appliedJobsMap.isEmpty()){ %>
-                    <tr class="text-center"><td colspan="4">You have not applied for any jobs</td></tr>
+                    <% }
+                    session.setAttribute("completedJobs", completedJobs);
+                    if (appliedJobsMap.isEmpty()){ %>
+                        <tr class="text-center"><td colspan="4">You have not applied for any jobs</td></tr>
                     <% } %>
                     %>
                 </tbody>
@@ -157,7 +158,7 @@ session.removeAttribute("appliedJobsStatusMap");
                 <a href="/complete_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
                 <% } else { %> 
                 <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Update my Profile</a><% } %>
-                <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
+                <a href="/all_ratings.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
                 <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
             </div>
         </div>
