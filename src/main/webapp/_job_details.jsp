@@ -59,7 +59,7 @@
         
 <script>
 
-$(document).on("click", "#open-jobModal", function() {
+$(document).on("click", ".open-jobModal", function() {
     if( $(this).data("ownjob") === ''){
         var headerText = $(this).data('header');
         var descText = $(this).data('desc');
