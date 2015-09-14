@@ -99,7 +99,7 @@ String query = request.getParameter("q");%>
         </div>
 
 
-        <div class="row job-entry-apply <%=jobStyle%> row-content" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>" data-id="<%=post.getId()%>" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>">
+        <div class="row job-entry-apply <%=jobStyle%> open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%>/hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>" data-id="<%=post.getId()%>" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>">
 
             <!--
             <div class="col-xs-6"> 
@@ -116,12 +116,12 @@ String query = request.getParameter("q");%>
         <div class="col-xs-12">
 
             <% if(currentUser==null){ %>
-            <a href="#"  class="btn row-content btn-primary btnnohover pull-right">Apply now</a>
+            <button class="btn open-job-modal btn-primary btnnohover pull-right">Apply now</button>
             <%} else { %>
             <% if(!currentUser.getUsername().equals(post.getCompany())){ 
             if(currentUser.getAccountType().equals("job_seeker")){%>
 
-            <a href="#"  class="btn row-content btn-primary btnnohover pull-right">Apply now</a>
+            <button class="btn open-job-modal btn-primary btnnohover pull-right">Apply now</button>
             <% }else{ %>
 
             <%  } %>

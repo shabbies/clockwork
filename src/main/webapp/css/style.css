@@ -786,7 +786,7 @@ body {
     width: 150px;
 }
 
-.db-job-table .row-content{
+.db-job-table .open-job-modal{
     cursor: hand;
     cursor: pointer;
 }
