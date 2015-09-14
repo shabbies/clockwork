@@ -59,11 +59,6 @@
         
 <script>
 
-$(document).on("click", "a", function(e) {
-    e.stopPropagation();
-});
-
-
 $(document).on("click", ".row-content", function() {
     var job_details = $(this);
     if( job_details.data("ownjob") === ''){
@@ -80,6 +75,7 @@ $(document).on("click", ".row-content", function() {
         var avatar_path = job_details.data("avatar");
         var startTimeText = job_details.data("starttime");
         var endTimeText = job_details.data("endtime");
+
 
         $('#jobModalLabel').html(headerText);
         $('#modalHeader').html("<strong>"+headerText+"</strong>");
