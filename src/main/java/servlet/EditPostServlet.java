@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpSession;
 import model.Post;
 import model.User;
@@ -90,16 +91,17 @@ public class EditPostServlet extends HttpServlet {
         
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
-        long durationSecs = (endTime.getTime() - startTime.getTime()) / 1000;
-        int duration = (int)(durationSecs / 3600);    
-        durationSecs = durationSecs % 3600;
-        int durationMin = (int)(durationSecs / 60);
-        if (durationMin > 0){
-            duration++;
-        }
+        long difference = endDate.getTime() - jobDate.getTime();
+        int duration = (int)TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
         
         if (duration > 7){
             session.setAttribute("error", "The maxmimum job duration should be 7 days!");
+            response.sendRedirect("/edit_post.jsp?id=" + postID);
+            return;
+        }
+        
+        if (endTime.before(startTime) || endTime.equals(startTime)){
+            session.setAttribute("error", "The end time should be after the start time!");
             response.sendRedirect("/edit_post.jsp?id=" + postID);
             return;
         }
@@ -146,7 +148,7 @@ public class EditPostServlet extends HttpServlet {
                     post.setDuration(duration);
                     post.setStartTime(jobStartTime);
                     post.setEndTime(jobEndTime);
-                    String message = "Post has been successfully updated!";
+                    String message = "Post <strong>(" + post.getHeader() + ")</strong>has been successfully updated!";
                     session.setAttribute("message", message);
                     response.sendRedirect("/dashboard.jsp");
                     return;
