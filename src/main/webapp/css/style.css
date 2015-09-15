@@ -1187,3 +1187,8 @@ body {
         width: 80% !important;
     }
 }
+
+.drop-application-warning{
+    color: red;
+    padding-top: 10px;
+}

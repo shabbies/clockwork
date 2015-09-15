@@ -40,4 +40,9 @@ public class PostController {
     public HashMap <Integer, String> getApplicationPostStatus(){
         return postManager.getApplicationPostStatus();
     }
+    
+    public ArrayList <Post> identifyConflictedPosts(ArrayList <Post> postList, int postID){
+        Post post = getPost(postID);
+        return postManager.getConflictedPosts(postList, post);
+    }
 }

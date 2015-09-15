@@ -134,4 +134,21 @@ public class PostManager {
     public HashMap<Integer, String> getApplicationPostStatus() {
         return applicationPostStatus;
     }
+    
+    public ArrayList <Post> getConflictedPosts (ArrayList <Post> postList, Post post){
+        ArrayList <Post> returningList = new ArrayList <Post> ();
+        Date startDate = post.getJobDate();
+        Date endDate = post.getEndDate();
+        for (Post retrievedPost : postList){
+            if (retrievedPost == post){
+                continue;
+            }
+            Date retrievedStartDate = retrievedPost.getJobDate();
+            Date retrievedEndDate = retrievedPost.getEndDate();
+            if (startDate.before(retrievedEndDate) && endDate.after(retrievedStartDate)){
+                returningList.add(retrievedPost);
+            }
+        }
+        return returningList;
+    }
 }

@@ -58,6 +58,9 @@
 </div>
         
 <script>
+$(document).on("click", "a", function(e){
+   e.stopPropagation();
+});
 
 $(document).on("click", ".open-job-modal", function() {
     var job_details = $(this);

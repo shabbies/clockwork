@@ -99,12 +99,7 @@ session.removeAttribute("offeredList");}%>
                                             </div>
                                         </td>
                                         <td>Pending</td>
-                                        <td>
-                                            <form action="/OfferJobServlet" method="POST" class="display-inline">
-                                                <input type="hidden" name="post_id" value="<%=postID%>" />
-                                                <input type="hidden" name="user_id" value="<%=user.getId()%>" />
-                                                <input type="submit" value="Offer Job" class="btn btn-success" />
-                                            </form>
+                                        <td><button id="open_offer_job_modal" class="btn btn-success" data-postid="<%=postID%>" data-userid="<%=user.getId()%>">Offer Job</button>
                                         </td>
                                         <td><a href="#" id="view_profile" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                                     </tr>
@@ -323,6 +318,15 @@ session.removeAttribute("offeredList");}%>
         $('#hireModal').modal('show');
     });
     
+    $(document).on("click", "#open_offer_job_modal", function() {
+        var userID = $(this).data("userid");
+        var postID = $(this).data("postid");
+        
+        $("#offer_user_id").val(userID);
+        $("#offer_post_id").val(postID);
+        $('#offer_job_modal').modal('show');
+    });
+    
     function submitPaypalForm(){
         var userID = $("#form_user_id").val();
         var postID = $("#form_post_id").val();
@@ -345,7 +349,31 @@ session.removeAttribute("offeredList");}%>
         $("#completeJobModal").modal('show');
     };
 </script>
-<!-- End of Hire Modal -->
+<!-- offer job confirmation modal -->
+<div class="modal fade" id="offer_job_modal" tabindex="-1" role="dialog" aria-labelledby="offerJobModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    
+            </div>
+            <div class="modal-body payment-mode text-center">
+                
+                <h4>Offer this this applicant the job?</h4>
+                <form action="/OfferJobServlet" method="POST" class="display-inline">
+                    <input type="hidden" id="offer_post_id" name="post_id"/>
+                    <input type="hidden" id="offer_user_id" name="user_id"/>
+                    <input type="submit" class="btn btn-primary btn-lg" value="Yes"/>
+                </form>
+                <button class="btn btn-lg btn-primary" data-dismiss="modal">No</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END offer job modal -->
     
 
     

@@ -278,9 +278,16 @@ session.removeAttribute("appliedJobsStatusMap");
             <div class="modal-body payment-mode text-center">
                 
                 <h4>Accept this job application?</h4>
-                    
+                <div id="drop-application" class="hidden">
+                    <h4 class="drop-application-warning"><i class="fa fa-warning"></i> Warning!</h4>
+                    <div>Accepting this job offer will cause the following applications to be dropped!</div>
+                    <div id="drop-application-content">
+
+                    </div>
+                </div>
                 <form action="/AcceptJobOfferServlet" method="POST" class="display-inline"/>
                     <input type="hidden" id="accept_post_id" name="post_id" />
+                    <input type="hidden" id="accept_post_clash_ids" name="clash_post_id" />
                     <input type="submit" class="btn btn-primary btn-lg" value="Yes"/>
                 </form>
                 <button class="btn btn-lg btn-primary" data-dismiss="modal">No</button>
@@ -291,7 +298,7 @@ session.removeAttribute("appliedJobsStatusMap");
         </div>
     </div>
 </div>
-<!-- END withdraw job modal -->
+<!-- END accept job modal -->
 
 <script>
 $(".incomplete").click(function(){
@@ -310,12 +317,24 @@ $(".accept-job").click(function(){
         url: '/CheckJobDateClashServlet',
         dataType: 'json',
         method: "POST",
-        async: false,
         data: {
             post_id: postID
         },
-        success: function(resultString) {
-            alert("you did it!")
+        success: function(result) {
+            if ((result.toString()) !== ""){
+                $("#drop-application").removeClass("hidden");
+                var postIDArray = [];
+                var formedHTML = "";
+                result.forEach(function(element){
+                   var key = Object.keys(element);
+                   postIDArray.push(key);
+                   formedHTML += "<div><strong>" + element[key] + "</strong></div>"
+                });
+                $("#drop-application-content").html(formedHTML);
+                $("#accept_post_clash_ids").val(postIDArray);
+            } else {
+                $("#drop-application").addClass("hidden");
+            }
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log(textStatus, errorThrown);
