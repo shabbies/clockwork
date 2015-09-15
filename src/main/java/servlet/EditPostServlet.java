@@ -148,7 +148,7 @@ public class EditPostServlet extends HttpServlet {
                     post.setDuration(duration);
                     post.setStartTime(jobStartTime);
                     post.setEndTime(jobEndTime);
-                    String message = "Post <strong>(" + post.getHeader() + ")</strong>has been successfully updated!";
+                    String message = "Post <strong>(" + post.getHeader() + ")</strong> has been successfully updated!";
                     session.setAttribute("message", message);
                     response.sendRedirect("/dashboard.jsp");
                     return;

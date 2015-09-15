@@ -359,7 +359,7 @@ session.removeAttribute("offeredList");}%>
             </div>
             <div class="modal-body payment-mode text-center">
                 
-                <h4>Offer this this applicant the job?</h4>
+                <h4>Offer this applicant the job?</h4>
                 <form action="/OfferJobServlet" method="POST" class="display-inline">
                     <input type="hidden" id="offer_post_id" name="post_id"/>
                     <input type="hidden" id="offer_user_id" name="user_id"/>

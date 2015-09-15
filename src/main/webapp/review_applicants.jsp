@@ -132,7 +132,7 @@ session.removeAttribute("matchMap");
                                         </div>
                                     </td>
                                     <td><button class="btn btn-success btn-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="enabled">Leave Comment</button></td>
-                                    <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
+                                    <td><button class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</button></td>
                                 </tr> 
                             <% } %>
                             <tr>
@@ -181,7 +181,7 @@ session.removeAttribute("matchMap");
                                         </div>
                                     </td>
                                     <td><button class="btn btn-success btn-view-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="disabled">View Comments</button></td>
-                                    <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
+                                    <td><button class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</button></td>
                                 </tr>
                             <% } %>
                         <% } else { %>
