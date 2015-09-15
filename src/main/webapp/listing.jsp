@@ -454,7 +454,7 @@ session.removeAttribute("offeredList");}%>
     
 <script>
     $(document).on("click", ".expire-post", function(){
-        var expireURL = $(this).data('expireURL')
+        var expireURL = $(this).data('expireurl');
         $.ajax({
             url: expireURL,
             success: function(doc) {
