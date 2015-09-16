@@ -5,7 +5,7 @@
 <%@ page import="model.Post"%>
 
 <header class="main">
-<div class="header-content">
+<div class="header-full-content">
 <div class="header-content-inner">
 
 <%  String postID = request.getParameter("id");
@@ -67,9 +67,15 @@
     </div>
 </div>
 <div class="col-md-5 modal-job-calendar">
-    <h4><strong>Schedule for the Month</strong></h4>
-    <div id="calendar"></div>
-</div>
+        <h4><strong>Schedule for the Month</strong></h4>
+        <div id="calendar"></div>
+        <h6><span class="label label-default bg-primary">Job Date</span>
+            <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
+            <span class="label label-apply">Your Applied Jobs</span>
+            <span class="label label-hire">Your Hired Jobs</span></h6>
+            <% } %>
+        </div>
+    </div>
 
 <div class="text-center">
     <form action="/ApplyJobServlet" method="POST" class="display-inline"/>
@@ -97,7 +103,7 @@
         $('#calendar').fullCalendar({
             editable: false,
             allDayDefault: true,
-            contentHeight: 240,
+            contentHeight: 400,
             titleFormat: 'MMMM',
             eventColor: 'grey',
             events: function(start, end, timezone, callback) {
@@ -113,7 +119,7 @@
                         $(obj).each(function() {
                             events.push({
                                 title: $(this).attr('title'),
-                                start: $(this).attr('start_date'), 
+                                start: $(this).attr('job_date'), 
                                 color: $(this).attr('color')
                             });
                         });
