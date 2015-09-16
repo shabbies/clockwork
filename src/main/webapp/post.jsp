@@ -5,68 +5,84 @@
 <%@ page import="model.Post"%>
 
 <header class="main">
-  <div class="header-content">
-    <div class="header-content-inner">
-    
-      <%  String postID = request.getParameter("id");
-      String formURL = "/GetPostServlet?id=" + postID + "&location=post";
-      Post post = (Post)session.getAttribute("post");
-      if (post == null){%>
-      <jsp:forward page="<%=formURL%>" />
-      <%} else { session.removeAttribute("post");}%>
-      <% if (session.getAttribute("error") != null){%>
-      <div class="alert alert-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span>
-        <%=session.getAttribute("error")%>
-      </div>
-      <%session.removeAttribute("error");}%>
-      <% if (session.getAttribute("message") != null){%>
-      <div class="alert alert-success" role="alert">
-        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-        <%=session.getAttribute("message")%>
-      </div>
-      <%session.removeAttribute("message");}%>
+<div class="header-content">
+<div class="header-content-inner">
 
-
-      <h2 class="text-center"><strong><%=post.getHeader()%></strong> @ <%=post.getCompany()%></h2>
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-            <div class="panel-body  grey">
-              <div class="col-md-7 modal-job-details">
-               <div class="col-md-4 text-center">
-                <img src="http://placehold.it/200x200" alt="" class="db-user-pic img-rounded img-responsive"/>
-
-                <h1 id="modalSalary"><%=post.getSalary()%></h1>
-              </div>
-
-              <div class="col-md-8">
-               <h4 id="modalHeader"><strong><%=post.getHeader()%></strong> @ <%=post.getCompany()%></h4>
-               <h4><%=post.getLocation()%></h4>
-               <h4><%=post.getJobDateString()%></h4>
-
-               <h5><%=post.getDescription()%></h5>
-             </div>
-           </div>
-           <div class="col-md-5 modal-job-calendar">
-            <h4><strong>Schedule for the Month</strong></h4>
-            <div id="calendar"></div>
-          </div>
-
-          <div class="text-center">
-            <form action="/ApplyJobServlet" method="POST" class="display-inline"/>
-                <input type="text" value="<%=post.getId()%>" name="post_id" hidden />
-                <input type="submit" class="btn btn-primary btn-lg" value="Apply For Job"/>
-            </form>
-            <button type="button" class="btn btn-warning btn-lg hidden">Edit Job</button>
-          </div>
-
+<%  String postID = request.getParameter("id");
+    String formURL = "/GetPostServlet?id=" + postID + "&location=post";
+    Post post = (Post)session.getAttribute("post");
+    if (post == null){%>
+        <jsp:forward page="<%=formURL%>" />
+    <%} else { 
+        session.removeAttribute("post");
+    }
+    if (session.getAttribute("error") != null) { %>
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <%=session.getAttribute("error")%>
         </div>
-      </div>
+        <%session.removeAttribute("error");}%>
+        <% if (session.getAttribute("message") != null){%>
+        <div class="alert alert-success" role="alert">
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+            <%=session.getAttribute("message")%>
+        </div>
+        <%session.removeAttribute("message");
+    }
+%>
+
+
+<h2 class="text-center"><strong><%=post.getHeader()%></strong> @ <%=post.getCompany()%></h2>
+
+<div class="row">
+<div class="col-md-12">
+<div class="panel panel-default">
+<div class="panel-body  grey">
+    
+<div class="col-md-7 modal-job-details">
+    <div class="col-md-4 text-center">
+        <% if (post.getAvatarPath() == null) { %>
+        <img src="img/user-placeholder.jpg" alt="" class="db-user-pic img-rounded img-responsive"/>
+        <% } else { %>
+        <img src="<%=post.getAvatarPath()%>" alt="" class="db-user-pic img-rounded img-responsive"/>
+        <% } %>
+        <h2 id="modalSalary">$<%=post.getSalary()%> / hr</h2>
     </div>
-  </div>
+
+    <div class="col-md-8 text-left">
+        <h5 id="modalHeader"><strong><%=post.getHeader()%></strong></h5>
+        <h5 id="modalCompany"><%=post.getCompany()%></h5>
+        <h5> <i class="fa fa-map-marker primary"></i> <%=post.getLocation()%></h5>
+        <h5 id="modalDatePosted" class="display-inline"><%=post.getJobDateString()%></h5>
+        <div id="modal_date_splitter" class="display-inline" >    to    </div>
+        <h5 id="modalEndDate" class="display-inline"><%=post.getEndDateString()%></h5>
+        <div>
+            <h5 id="modalStartTime" class="display-inline"><%=post.getStartTime()%></h5>
+            <div id="modal_date_splitter" class="display-inline" >    to    </div>
+            <h5 id="modalEndTime" class="display-inline"><%=post.getEndTime()%></h5>
+        </div>
+
+        <h5><%=post.getDescription()%></h5>
+    </div>
+</div>
+<div class="col-md-5 modal-job-calendar">
+    <h4><strong>Schedule for the Month</strong></h4>
+    <div id="calendar"></div>
+</div>
+
+<div class="text-center">
+    <form action="/ApplyJobServlet" method="POST" class="display-inline"/>
+    <input type="text" value="<%=post.getId()%>" name="post_id" hidden />
+    <input type="submit" class="btn btn-primary btn-lg" value="Apply For Job"/>
+    </form>
+    <button type="button" class="btn btn-warning btn-lg hidden">Edit Job</button>
+</div>
+
+</div>
+</div>
+</div>
+</div>
 
 
 </div>
@@ -76,8 +92,9 @@
 
 <script>
 
-$(document).ready(function() {
-  $('#calendar').fullCalendar({
+    $(document).ready(function() {
+    
+        $('#calendar').fullCalendar({
             editable: false,
             allDayDefault: true,
             contentHeight: 240,
@@ -88,7 +105,7 @@ $(document).ready(function() {
                     url: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json',
                     dataType: 'json',
                     data: {
-                        id:
+                        id: <%=currentUser.getId()%>
                     },
                     success: function(doc) {
                         var events = [];
@@ -103,30 +120,27 @@ $(document).ready(function() {
                         callback(events);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                      console.log(textStatus, errorThrown);
-                  }
-              });
+                        console.log(textStatus, errorThrown);
+                    }
+                });
             },
-            //events: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json?id='+uid,
             eventAfterRender: function(event, element, view) {
                 $(element).css('height','30px');
                 $(element).css('font-weight','700');
-  }/*, eventRender: function (event, element, view) { 
-        var dateString = event.start.format("YYYY-MM-DD");
-        $(view.el[0]).find('.fc-day[data-date="' + dateString + '"]').css('background-color', '#ee4054');
-    }*/
+            }
+        });
 
-});
+        $('#calendar').fullCalendar( 'gotoDate', new Date("<%=post.getJobDateStringForInput()%>"));
 
-
-
-$('#calendar').fullCalendar( 'gotoDate', new Date($(this).data("cdate")));
-
-var myevent = {title: headerText,start: new Date($(this).data("cdate")),color: '#ee4054'};
-$('#calendar').fullCalendar( 'renderEvent', myevent, true);
-
-
-});
+        var start_date = new Date("<%=post.getJobDateStringForInput()%>");
+        var end_date = new Date("<%=post.getJobEndDateStringForInput()%>");
+        start_date.setHours(0);
+        while (start_date <= end_date){
+            var myevent = {title: "<%=post.getHeader()%>", start: start_date.toString(), color: '#ee4054'};
+            $('#calendar').fullCalendar( 'renderEvent', myevent, true);
+            start_date.setDate(start_date.getDate() + 1);
+        }
+    });
 
 
 </script>

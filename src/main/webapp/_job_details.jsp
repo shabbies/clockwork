@@ -12,19 +12,21 @@
            <div class="col-md-4 text-center">
             <img id="post_avatar" src="img/user-placeholder.jpg" alt="" class="db-user-pic img-rounded img-responsive"/>
             
-            <h2 id="modalSalary">$10/hr</h2>
+            <h2 id="modalSalary">$10/h2>
         </div>
 
         <div class="col-md-8">
             <h4 id="modalHeader"><strong>Bellboy</strong> @ HardRock Hotel</h4>
+            <h4 id="modalCompany"></h4>
             <h5 id="modalLocation">Resort World Singapore</h5>
             <h5 id="modalDatePosted" class="display-inline">21/08/2015</h5>
             <div id="modal_date_splitter" class="display-inline" >    to    </div>
             <h5 id="modalEndDate" class="display-inline">21/08/2015</h5>
             <div>
-            <h5 id="modalStartTime" class="display-inline">11:00</h5>
-            <div id="modal_date_splitter" class="display-inline" >    to    </div>
-            <h5 id="modalEndTime" class="display-inline">15:00</h5></div>
+                <h5 id="modalStartTime" class="display-inline">11:00</h5>
+                <div id="modal_date_splitter" class="display-inline" >    to    </div>
+                <h5 id="modalEndTime" class="display-inline">15:00</h5>
+            </div>
 
             <h5 id="modalDesc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.
             </h5>
@@ -92,7 +94,9 @@ $(document).on("click", ".open-job-modal", function() {
         $('#modalStartTime').html(startTimeText);
         $('#modalEndTime').html(endTimeText);
         $('#hiddenJobID').val(id);
-        $('#post_avatar').attr("src", avatar_path);
+        if (avatar_path !== null){
+            $('#post_avatar').attr("src", avatar_path);
+        }
 
         $('#calendar').fullCalendar( 'destroy' );
 
