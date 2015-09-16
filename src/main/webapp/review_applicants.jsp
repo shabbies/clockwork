@@ -45,7 +45,7 @@ session.removeAttribute("matchMap");
 %>
 
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-body db-user">
                 <div class="text-center">
@@ -64,7 +64,7 @@ session.removeAttribute("matchMap");
         </div>
     </div>
 
-    <div class="col-md-7">
+    <div class="col-md-8">
         <div class="panel panel-default">
             <div class="panel-heading"> 
                 <h4>Applicants Awaiting Job Completion</h4> 
