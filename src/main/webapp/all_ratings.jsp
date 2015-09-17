@@ -18,7 +18,7 @@ session.setAttribute("error", "Only a job seeker account can view his own rating
 response.sendRedirect("/index.jsp");
 return;}
 
-ArrayList <Post> completedJobs = (ArrayList <Post>)session.getAttribute("completedJobs");
+ArrayList <Post> completedJobs = (ArrayList <Post>)session.getAttribute("completedJobsList");
 %>
 <header class="main">
 <div class="header-full-content">
@@ -78,10 +78,12 @@ ArrayList <Post> completedJobs = (ArrayList <Post>)session.getAttribute("complet
                     </tr>
                     <% }
                     if (completedJobs.isEmpty()) { %>
-                        <tr class="text-center"><td colspan="5">You have not completed any jobs yet! Try doing a job first!</td></tr>
-                        <tr class="text-center"><td colspan="5">
-                            <a href="/index.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Search for a Job</a>
-                            </td></tr>
+                        <tr class="text-center"><td colspan="6">You have not completed any jobs yet! Try doing a job first!</td></tr>
+                        <tr class="text-center">
+                            <td colspan="6">
+                                <a href="/index.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Find Job!</a>
+                            </td>
+                        </tr>
                     <% } %>
                     %>
                 </tbody>

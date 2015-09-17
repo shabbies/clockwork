@@ -17,12 +17,14 @@ public class PostManager {
     private HashMap <String, ArrayList <Post>> publishedMap;    // map of all post sorted by type (listed, applied, reviewing, completed)
     private HashMap <Integer, Post> postMap;                    // hashmap of :id => post
     private HashMap <Integer, String> applicationPostStatus;    // hashmap of postID => post_status
+    private HashMap <String, ArrayList <Post>> appliedJobs;     // hashmap of jobs (status, list) (status: pending, offered, hired)
     
     public PostManager(){
         postList = new ArrayList <Post> ();
         publishedMap = new HashMap <String, ArrayList <Post>> ();
         postMap = new HashMap <Integer, Post> ();
         applicationPostStatus = new HashMap <Integer, String> ();
+        appliedJobs = new HashMap <String, ArrayList <Post>> ();
     }
     
     public Post getPostFromHash(int postID){
@@ -159,6 +161,61 @@ public class PostManager {
         }
         return appliedJobsMap;
     }
+    
+    public void loadAppliedJobs(String JSONString) throws ParseException {
+        Gson gson = new Gson();
+        Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
+        ArrayList <HashMap<String, Object>> postsHash = gson.fromJson(JSONString, listType);
+        
+        ArrayList <Post> pendingList = new ArrayList <Post> ();
+        ArrayList <Post> offeredList = new ArrayList <Post> ();
+        ArrayList <Post> hiredList = new ArrayList <Post> ();
+        ArrayList <Post> completedList = new ArrayList <Post> ();
+        for (HashMap <String, Object> postHash : postsHash){
+            int postID = ((Double)postHash.get("id")).intValue();
+            Post post = postMap.get(postID);
+            if (post == null){
+                String postString = gson.toJson(postHash);
+                post = createNewPostFromJSON(postString);
+                postMap.put(post.getId(), post);
+            }
+            String applicationStatus = (String)postHash.get("status");
+            switch (applicationStatus){
+                case "pending":
+                    pendingList.add(post);
+                    break;
+                case "offered":
+                    offeredList.add(post);
+                    break;
+                case "hired":
+                    hiredList.add(post);
+                    break;
+                case "completed":
+                    completedList.add(post);
+                    break;
+            }
+        }
+        
+        appliedJobs.put("pending", pendingList);
+        appliedJobs.put("offered", offeredList);
+        appliedJobs.put("hired", hiredList);
+        appliedJobs.put("completed", completedList);
+    }
+    
+    public HashMap <String, ArrayList <Post>> getAppliedJobs(){
+        HashMap <String, ArrayList <Post>> appliedJobsMap = new HashMap <String, ArrayList <Post>> ();
+        appliedJobsMap.put("pending", appliedJobs.get("pending"));
+        appliedJobsMap.put("offered", appliedJobs.get("offered"));
+        appliedJobsMap.put("hired", appliedJobs.get("hired"));
+        return appliedJobsMap;
+    }
+    
+    public ArrayList <Post> getPendingAndOfferedJobs(){
+        ArrayList <Post> list = new ArrayList <Post> ();
+        list.addAll(appliedJobs.get("offered"));
+        list.addAll(appliedJobs.get("pending"));
+        return list;
+    }
 
     public HashMap<Integer, String> getApplicationPostStatus() {
         return applicationPostStatus;
@@ -179,5 +236,9 @@ public class PostManager {
             }
         }
         return returningList;
+    }
+    
+    public ArrayList<Post> getCompletedJobs(){
+        return appliedJobs.get("completed");
     }
 }

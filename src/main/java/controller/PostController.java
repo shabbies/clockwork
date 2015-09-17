@@ -33,12 +33,21 @@ public class PostController {
         return postManager.getJobApplicantCount(postID);
     }
     
-    public HashMap <Integer, Post> loadAppliedJobsMap(String JSONString) throws ParseException {
-        return postManager.loadAppliedJobsMap(JSONString);
+    public HashMap <String, ArrayList <Post>> loadAppliedJobs(String JSONString) throws ParseException {
+        postManager.loadAppliedJobs(JSONString);
+        return postManager.getAppliedJobs();
+    }
+    
+    public ArrayList <Post> getPendingAndOfferedJobs(){
+        return postManager.getPendingAndOfferedJobs();
     }
     
     public HashMap <Integer, String> getApplicationPostStatus(){
         return postManager.getApplicationPostStatus();
+    }
+    
+    public ArrayList <Post> getCompletedJobs(){
+        return postManager.getCompletedJobs();
     }
     
     public ArrayList <Post> identifyConflictedPosts(ArrayList <Post> postList, int postID){

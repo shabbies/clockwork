@@ -52,8 +52,9 @@ public class GetAppliedJobsServlet extends HttpServlet {
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
 
         HttpEntity entity = null;
-        HashMap <Integer, Post> appliedJobsMap = new HashMap <Integer, Post> ();
+        HashMap <String, ArrayList <Post>> appliedJobs = new HashMap <String, ArrayList <Post>> ();
         HashMap <Integer, String> appliedJobsStatusMap = new HashMap <Integer, String> ();
+        ArrayList <Post> completedJobs;
         try {
             entity = httpResponse.getEntity();
             if(httpResponse.getStatusLine().getStatusCode() == 200){
@@ -61,8 +62,9 @@ public class GetAppliedJobsServlet extends HttpServlet {
                 InputStream readingStream = entity.getContent();
                 IOUtils.copy(readingStream, writer, "UTF-8");
                 String responseString = writer.toString();
-                appliedJobsMap = postController.loadAppliedJobsMap(responseString);
+                appliedJobs = postController.loadAppliedJobs(responseString);
                 appliedJobsStatusMap = postController.getApplicationPostStatus();
+                completedJobs = postController.getCompletedJobs();
             } else {
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
@@ -77,8 +79,9 @@ public class GetAppliedJobsServlet extends HttpServlet {
             EntityUtils.consume(entity);
             httpResponse.close();
         }
-        session.setAttribute("appliedJobsMap", appliedJobsMap);
+        session.setAttribute("appliedJobsMap", appliedJobs);
         session.setAttribute("appliedJobsStatusMap", appliedJobsStatusMap);
+        session.setAttribute("completedJobsList", completedJobs);
         response.sendRedirect("/mydashboard.jsp");
     }
 }
