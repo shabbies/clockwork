@@ -72,7 +72,7 @@ return;
                             <% for (Post post : publishedList){%>
                             <tr class="open-job-modal" data-userid="0" data-jobstatus="<%= post.getStatus() %>" data-ownjob="" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%> / hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                                 <td><%=post.getHeader()%></td>
-                                <td><%=post.getJobDateString()%></td>
+                                <td><%=post.getJobDateString()%></td>   
                                 <% if (post.getStatus().equals("listed")){
                                     String redirectURL = "/edit_post.jsp?id=" + post.getId(); %>
                                     <td><span class="badge db-default-badge">No Applicant</span></td>
@@ -92,7 +92,7 @@ return;
                                     <% } %>
                                 <% } else if (post.getStatus().equals("expired")){ %>
                                     <td><span class="badge db-default-badge">Expired</span></td>
-                                    <td><a href="#" class="btn btn-danger incomplete"> Archive</a></td>
+                                    <td><button class="btn btn-danger incomplete"> Archive</button></td>
                                 <% } else if (post.getStatus().equals("reviewing")){ %>
                                     <td><span class="badge db-default-badge">Pending Review</span></td>
                                     <% String formedURL = "review_applicants.jsp?id=" + post.getId();%>

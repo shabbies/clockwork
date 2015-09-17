@@ -17,6 +17,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.io.StringWriter;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.servlet.http.HttpSession;
@@ -72,6 +73,10 @@ public class GetAllPostsServlet extends HttpServlet {
             postList = postController.loadPostList(theString);
             EntityUtils.consume(entity);
             IOUtils.closeQuietly(readingStream);
+        } catch (ParseException e){
+            session.setAttribute("error", "An error has occurred, please contact the administrator");
+            response.sendRedirect("/index.jsp");
+            return;
         } finally {
             httpResponse.close();
         }

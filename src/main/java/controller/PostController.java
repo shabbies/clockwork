@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import model.Post;
@@ -13,15 +14,14 @@ public class PostController {
         postManager = new PostManager();
     }
     
-    public ArrayList <Post> loadPostList(String JSONString){
+    public ArrayList <Post> loadPostList(String JSONString) throws ParseException {
         ArrayList <Post> postList = postManager.createPostArrayFromJSON(JSONString);
         postManager.setPostList(postList);
         return postList;
     }
     
-    public ArrayList <Post> loadPublishedPostList(String JSONString){
-        ArrayList <Post> postList = postManager.createPostArrayFromJSON(JSONString);
-        postManager.setPublishedList(postList);
+    public ArrayList <Post> loadPublishedPostList(String JSONString) throws ParseException {
+        ArrayList <Post> postList = postManager.loadPublishedPost(JSONString);
         return postList;
     }
     
@@ -33,7 +33,7 @@ public class PostController {
         return postManager.getJobApplicantCount(postID);
     }
     
-    public HashMap <Integer, Post> loadAppliedJobsMap(String JSONString){
+    public HashMap <Integer, Post> loadAppliedJobsMap(String JSONString) throws ParseException {
         return postManager.loadAppliedJobsMap(JSONString);
     }
     

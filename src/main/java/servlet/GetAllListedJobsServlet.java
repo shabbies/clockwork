@@ -16,6 +16,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.io.StringWriter;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -65,6 +66,11 @@ public class GetAllListedJobsServlet extends HttpServlet {
                 response.sendRedirect("/index.jsp");
                 return;
             }
+        } catch (ParseException e){
+            String error = "A system error has occurred, please contact the administrator";
+            session.setAttribute("error", error);
+            response.sendRedirect("/index.jsp");
+            return;
         } finally {
             EntityUtils.consume(entity);
             httpResponse.close();
