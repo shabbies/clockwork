@@ -46,7 +46,7 @@ h3,
 h4,
 h5,
 h6 {
- font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; 
+   font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; 
 }
 
 p {
@@ -98,7 +98,7 @@ aside {
 }
 
 .navbar-nav i {
- color:#ee4054 !important;
+   color:#ee4054 !important;
 } 
 
 .navbar {
@@ -120,11 +120,11 @@ aside {
   }
 
   .modal-job-details{
-   padding-right: 0px;
-   padding-left: 0px;
-}
+     padding-right: 0px;
+     padding-left: 0px;
+ }
 
-.modal-job-calendar{
+ .modal-job-calendar{
     margin-top: 40px;
 }
 }
@@ -716,7 +716,7 @@ body {
 }
 
 .modal-footer {
-   border-top: none;
+ border-top: none;
 }
 
 .cursor-pointer{
@@ -738,12 +738,12 @@ body {
 }
 
 #calendar{
- margin-top: 10px;
- margin-bottom: 10px;
+   margin-top: 10px;
+   margin-bottom: 10px;
 }
 
 .fc h2 {
-   font-size: 20px;
+ font-size: 20px;
 }
 
 .fc-today {
@@ -771,15 +771,15 @@ body {
 }
 
 .db-default-badge{
- display: inline-block;
- border-radius: 300px;
- text-transform: uppercase;
- /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
- font-weight: 700;
- padding: 9px 12px;
- font-size: 14px;
- width: 150px;
- cursor: default;
+   display: inline-block;
+   border-radius: 300px;
+   text-transform: uppercase;
+   /* font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif; */
+   font-weight: 700;
+   padding: 9px 12px;
+   font-size: 14px;
+   width: 150px;
+   cursor: default;
 }
 
 .db-job-table a, .btn-hire, .db-job-table input, .db-job-table button{
@@ -814,8 +814,8 @@ body {
 }
 
 .alert{
- margin-bottom: 0;
- text-align: center;   
+   margin-bottom: 0;
+   text-align: center;   
 }
 
 .password_length_error {
@@ -850,7 +850,7 @@ body {
 }
 
 .profile-div .panel{
- padding: 0px;
+   padding: 0px;
 }
 
 .profile-div img{
@@ -875,11 +875,11 @@ body {
 }
 
 .register-icon-emp:hover{
- content: url('../img/register-emp-selected.png');
+   content: url('../img/register-emp-selected.png');
 }
 
 .register-icon-js:hover{
- content: url('../img/register-js-selected.png');
+   content: url('../img/register-js-selected.png');
 }
 
 
@@ -1191,4 +1191,138 @@ body {
 .drop-application-warning{
     color: red;
     padding-top: 10px;
+}
+
+.pricing-div{
+    color:black;
+}
+
+.pricing-header{
+    font-size: 40px;
+}
+
+/* COMMON PRICING STYLES */
+.panel.price,
+.panel.price>.panel-heading{
+    border-radius:0px;
+    -moz-transition: all .3s ease;
+    -o-transition:  all .3s ease;
+    -webkit-transition:  all .3s ease;
+}
+
+.panel.price>.panel-heading> h3{
+    font-weight: 600;
+}
+
+.panel.price:hover{
+    box-shadow: 0px 0px 30px rgba(0,0,0, .7);
+    cursor: pointer;
+}
+.panel.price:hover>.panel-heading{
+    box-shadow: 0px 0px 30px rgba(0,0,0, .2) inset;
+}
+
+
+.panel.price>.panel-heading{
+    box-shadow: 0px 5px 0px rgba(50,50,50, .2) inset;
+   /* text-shadow:0px 3px 0px rgba(50,50,50, .6); */ 
+}
+
+.price .list-group-item{
+    border-bottom-:1px solid rgba(250,250,250, .5);
+}
+
+.panel.price .list-group-item:last-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.panel.price .list-group-item:first-child {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.price .panel-footer {
+    color: #fff;
+    border-bottom:0px;
+    background-color:  white;
+}
+
+
+.panel.price .btn{
+    box-shadow: 0 -1px 0px rgba(50,50,50, .2) inset;
+    border:0px;
+}
+
+/* green panel */
+
+
+.price.panel-plat>.panel-heading {
+    color: #fff;
+    background-color: #68228B;
+    border-color: #2E0854;
+    border-bottom: 1px solid #2E0854;
+}
+
+
+.price.panel-plat>.panel-body {
+    color: #fff;
+    background-color: #68228B;
+}
+
+
+.price.panel-plat .list-group-item {
+    color: #333;
+    background-color: rgba(50,50,50, .01);
+    font-weight:600;
+    text-shadow: 0px 1px 0px rgba(250,250,250, .75);
+}
+
+/* blue panel */
+
+
+.price.panel-gold>.panel-heading {
+    color: #fff;
+    background-color: #bf9b30;
+    border-color: #a67c00;
+    border-bottom: 1px solid #a67c00;
+}
+
+
+.price.panel-gold>.panel-body {
+    color: #fff;
+    background-color: #bf9b30;
+}
+
+
+
+.price.panel-gold .list-group-item {
+    color: #333;
+    background-color: rgba(50,50,50, .01);
+    font-weight:600;
+    text-shadow: 0px 1px 0px rgba(250,250,250, .75);
+}
+
+
+/* white price */
+
+
+.price.panel-silver>.panel-heading {
+    color: #333;
+    background-color: #dfdfdf;
+    border-color: #ccc;
+    border-bottom: 1px solid #ccc;
+    text-shadow: 0px 2px 0px rgba(250,250,250, .7);
+}
+
+
+.price.panel-silver>.panel-body {
+    color: #fff;
+    background-color: #dfdfdf;
+}
+
+.price.panel-silver .list-group-item {
+    color: #333;
+    background-color: rgba(50,50,50, .01);
+    font-weight:600;
+    text-shadow: 0px 1px 0px rgba(250,250,250, .75);
 }
