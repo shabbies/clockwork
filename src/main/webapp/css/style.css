@@ -1063,6 +1063,8 @@ body {
 .ratings_icon:hover {
     cursor: pointer;
     background: yellow;
+    border: 1px solid transparent;
+    border-radius: 300px;
 }
 
 .hidden{

@@ -49,11 +49,11 @@ ArrayList <Post> completedJobs = (ArrayList <Post>)session.getAttribute("complet
                     <% for (Post post : completedJobs) { %>
                     <% int rating = post.getRating();%>
                     <% if (rating == -1){ %>
-                        <tr class="negative">
+                        <tr class="danger">
                     <% } else if (rating == 0) { %>
-                        <tr class="neutral">
+                        <tr class="warning">
                     <% } else { %>
-                        <tr class="positive">
+                        <tr class="success">
                     <% } %>
                             <td><%=post.getHeader()%></td>
                             <td><%=post.getCompany()%></td>
