@@ -100,7 +100,7 @@
 
     $(document).ready(function() {
     
-        <% if (currentUser != null){ %>
+        
         $('#calendar').fullCalendar({
             editable: false,
             allDayDefault: true,
@@ -108,6 +108,7 @@
             titleFormat: 'MMMM',
             eventColor: 'grey',
             events: function(start, end, timezone, callback) {
+                <% if (currentUser != null){ %>
                 $.ajax({
                     url: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json',
                     dataType: 'json',
@@ -130,13 +131,14 @@
                         console.log(textStatus, errorThrown);
                     }
                 });
+                <% } %>
             },
             eventAfterRender: function(event, element, view) {
                 $(element).css('height','30px');
                 $(element).css('font-weight','700');
             }
         });
-        <% } %>
+        
 
         $('#calendar').fullCalendar( 'gotoDate', new Date("<%=post.getJobDateStringForInput()%>"));
 
