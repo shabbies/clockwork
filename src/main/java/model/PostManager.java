@@ -13,14 +13,14 @@ import java.util.Locale;
 
 public class PostManager {
 
-    private ArrayList <Post> postList;              // all jobs for index page
-    private ArrayList <Post> publishedList;         // list of listed posts
-    private HashMap <Integer, Post> postMap;        // hashmap of :id => post
-    private HashMap <Integer, String> applicationPostStatus;   //hashmap of postID => post_status
+    private ArrayList <Post> postList;                          // all jobs for index page
+    private HashMap <String, ArrayList <Post>> publishedMap;    // map of all post sorted by type (listed, applied, reviewing, completed)
+    private HashMap <Integer, Post> postMap;                    // hashmap of :id => post
+    private HashMap <Integer, String> applicationPostStatus;    // hashmap of postID => post_status
     
     public PostManager(){
         postList = new ArrayList <Post> ();
-        publishedList = new ArrayList <Post> ();
+        publishedMap = new HashMap <String, ArrayList <Post>> ();
         postMap = new HashMap <Integer, Post> ();
         applicationPostStatus = new HashMap <Integer, String> ();
     }
@@ -35,14 +35,6 @@ public class PostManager {
     
     public ArrayList <Post> getPostList (){
         return postList;
-    }
-    
-    public void setPublishedList (ArrayList <Post> publishedList){
-        this.publishedList = publishedList;
-    }
-    
-    public ArrayList <Post> getPublishedList (){
-        return publishedList;
     }
     
     public Post createNewPostFromJSON(String jsonString) throws ParseException {
@@ -82,23 +74,64 @@ public class PostManager {
         return post;
     }
     
-    public ArrayList <Post> createPostArrayFromJSON(String JSONString){
+    public ArrayList <Post> createPostArrayFromJSON(String JSONString) throws ParseException {
         ArrayList <Post> newPostList = new ArrayList <Post> ();
         Gson gson = new Gson();
         Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
         ArrayList <HashMap<String, Object>> postsHash = gson.fromJson(JSONString, listType);
         for (HashMap <String, Object> postHash : postsHash){
             String postString = gson.toJson(postHash);
-            Post post = null;
-            try {
-                post = createNewPostFromJSON(postString);
-            } catch (ParseException ex){
-                ex.printStackTrace();
-            }
+            Post post = createNewPostFromJSON(postString);
             newPostList.add(post);
             postMap.put(post.getId(), post);
         }
         return newPostList;
+    }
+    
+    public ArrayList <Post> loadPublishedPost(String JSONString) throws ParseException {
+        ArrayList <Post> fullPostList = createPostArrayFromJSON(JSONString);
+        
+        ArrayList <Post> listedList = new ArrayList <Post> ();
+        ArrayList <Post> appliedList = new ArrayList <Post> ();
+        ArrayList <Post> reviewingList = new ArrayList <Post> ();
+        ArrayList <Post> completedList = new ArrayList <Post> ();
+        ArrayList <Post> expiredList = new ArrayList <Post> ();
+ 
+        for (Post post : fullPostList){
+            String status = post.getStatus();
+            switch (status){
+                case "listed":
+                    listedList.add(post);
+                    break;
+                case "applied":
+                    appliedList.add(post);
+                    break;
+                case "reviewing":
+                    reviewingList.add(post);
+                    break;
+                case "completed":
+                    completedList.add(post);
+                    break;
+                case "expired":
+                    expiredList.add(post);
+                    break;
+            }
+        }
+        
+        publishedMap.put("listed", listedList);
+        publishedMap.put("applied", appliedList);
+        publishedMap.put("reviewing", reviewingList);
+        publishedMap.put("completed", completedList);
+        publishedMap.put("expired", expiredList);
+        
+        ArrayList <Post> returningList = new ArrayList <Post> ();
+        returningList.addAll(reviewingList);
+        returningList.addAll(appliedList);
+        returningList.addAll(listedList);
+        returningList.addAll(completedList);
+        returningList.addAll(expiredList);
+        
+        return returningList;
     }
     
     public int getJobApplicantCount(int postID){
@@ -106,7 +139,7 @@ public class PostManager {
         return post.getApplicantCount();
     }
     
-    public HashMap <Integer, Post> loadAppliedJobsMap(String JSONString){
+    public HashMap <Integer, Post> loadAppliedJobsMap(String JSONString) throws ParseException {
         HashMap <Integer, Post> appliedJobsMap = new HashMap <Integer, Post> ();
         Gson gson = new Gson();
         Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
@@ -116,12 +149,8 @@ public class PostManager {
             Post post = postMap.get(postID);
             String applicationStatus = (String)postHash.get("status");
             if (post == null){
-                try {
-                    String postString = gson.toJson(postHash);
-                    post = createNewPostFromJSON(postString);
-                } catch (ParseException ex){
-                    ex.printStackTrace();
-                }
+                String postString = gson.toJson(postHash);
+                post = createNewPostFromJSON(postString);
                 appliedJobsMap.put(post.getId(), post);
                 postMap.put(post.getId(), post);
             }

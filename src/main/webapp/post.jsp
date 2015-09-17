@@ -100,6 +100,7 @@
 
     $(document).ready(function() {
     
+        <% if (currentUser != null){ %>
         $('#calendar').fullCalendar({
             editable: false,
             allDayDefault: true,
@@ -135,6 +136,7 @@
                 $(element).css('font-weight','700');
             }
         });
+        <% } %>
 
         $('#calendar').fullCalendar( 'gotoDate', new Date("<%=post.getJobDateStringForInput()%>"));
 
