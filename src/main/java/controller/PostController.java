@@ -54,4 +54,9 @@ public class PostController {
         Post post = getPost(postID);
         return postManager.getConflictedPosts(postList, post);
     }
+    
+    public boolean checkIfJobApplied(int postID){
+        Post post = getPost(postID);
+        return postManager.checkIfJobApplied(post);
+    }
 }

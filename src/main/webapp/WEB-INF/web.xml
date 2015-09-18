@@ -123,6 +123,10 @@
     <servlet-name>CheckJobDateClashServlet</servlet-name>
     <servlet-class>servlet.CheckJobDateClashServlet</servlet-class>
   </servlet>
+  <servlet>  
+    <servlet-name>CheckJobAppliedServlet</servlet-name>
+    <servlet-class>servlet.CheckJobAppliedServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>GetAllPostsServlet</servlet-name>
@@ -235,5 +239,9 @@
   <servlet-mapping>
     <servlet-name>CheckJobDateClashServlet</servlet-name>
     <url-pattern>/CheckJobDateClashServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CheckJobAppliedServlet</servlet-name>
+    <url-pattern>/CheckJobAppliedServlet</url-pattern>
   </servlet-mapping>
 </web-app>    

@@ -28,6 +28,7 @@
                 <% } %>
 
                 <li><a class="page-scroll" href="#portfolio">How it works</a></li>
+                <li><a class="page-scroll" href="/pricing.jsp">Pricing Plans</a></li>
                 <% if (currentUser == null){ %>
                     <li><button class="btn btn-primary wow tada" onclick="location.href='/login.jsp'">Login / Register</button></li>
                 <% } else {  %>

@@ -73,7 +73,7 @@
               <li class="list-group-item"><i class="icon-ok text-success"></i> Unlimited Posting</li>
               <li class="list-group-item"><i class="icon-ok text-success"></i> Unlimited Hires</li>
                 <li class="list-group-item"><i class="icon-ok text-info"></i> LIVE Analytics on all platforms</li>
-              <li class="list-group-item"><i class="icon-ok text-success"></i> 27/7 Email & Phone Support</li>
+              <li class="list-group-item"><i class="icon-ok text-success"></i> 24/7 Email & Phone Support</li>
                <li class="list-group-item"><i class="icon-ok text-success"></i> 2 Free Featured Post / Month</li>
             </ul>
             <div class="panel-footer">

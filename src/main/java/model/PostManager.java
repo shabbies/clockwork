@@ -17,7 +17,7 @@ public class PostManager {
     private HashMap <String, ArrayList <Post>> publishedMap;    // map of all post sorted by type (listed, applied, reviewing, completed)
     private HashMap <Integer, Post> postMap;                    // hashmap of :id => post
     private HashMap <Integer, String> applicationPostStatus;    // hashmap of postID => post_status
-    private HashMap <String, ArrayList <Post>> appliedJobs;     // hashmap of jobs (status, list) (status: pending, offered, hired)
+    private HashMap <String, ArrayList <Post>> appliedJobs;     // hashmap of jobs (status, list) (status: pending, offered, hired, completed)
     
     public PostManager(){
         postList = new ArrayList <Post> ();
@@ -73,6 +73,7 @@ public class PostManager {
         if (postJSONMap.get("applicant_count") != null){
             post.setApplicantCount(((Double)postJSONMap.get("applicant_count")).intValue());
         }
+        postMap.put(post.getId(), post);
         return post;
     }
     
@@ -82,10 +83,13 @@ public class PostManager {
         Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
         ArrayList <HashMap<String, Object>> postsHash = gson.fromJson(JSONString, listType);
         for (HashMap <String, Object> postHash : postsHash){
-            String postString = gson.toJson(postHash);
-            Post post = createNewPostFromJSON(postString);
+            int id = ((Double)postHash.get("id")).intValue();
+            Post post = getPostFromHash(id);
+            if (post == null){
+                String postString = gson.toJson(postHash);
+                post = createNewPostFromJSON(postString);
+            }
             newPostList.add(post);
-            postMap.put(post.getId(), post);
         }
         return newPostList;
     }
@@ -154,7 +158,6 @@ public class PostManager {
                 String postString = gson.toJson(postHash);
                 post = createNewPostFromJSON(postString);
                 appliedJobsMap.put(post.getId(), post);
-                postMap.put(post.getId(), post);
             }
             applicationPostStatus.put(post.getId(), applicationStatus);
             appliedJobsMap.put(post.getId(), post);
@@ -240,5 +243,13 @@ public class PostManager {
     
     public ArrayList<Post> getCompletedJobs(){
         return appliedJobs.get("completed");
+    }
+    
+    public boolean checkIfJobApplied(Post post){
+        ArrayList <Post> pendingList = appliedJobs.get("pending");
+        ArrayList <Post> offeredList = appliedJobs.get("offered");
+        ArrayList <Post> hiredList = appliedJobs.get("hired");
+
+        return pendingList.contains(post) || offeredList.contains(post) || hiredList.contains(post);
     }
 }
