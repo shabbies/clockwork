@@ -4,7 +4,7 @@
 <%@ page import="model.Post"%>
 
 <%@include file="_job_details.jsp"%>
-<%@ page buffer="16kb" %>
+<%@ page buffer="32kb" %>
 <%  
 if (currentUser == null){
 session.setAttribute("error", "Please login or register first before viewing your job applications!");

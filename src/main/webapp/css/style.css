@@ -1195,6 +1195,11 @@ body {
     padding-top: 10px;
 }
 
+.apply-application-warning{
+    color: red;
+    padding-top: 10px;
+}
+
 .pricing-div{
     color:black;
 }

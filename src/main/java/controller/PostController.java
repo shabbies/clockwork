@@ -46,6 +46,10 @@ public class PostController {
         return postManager.getApplicationPostStatus();
     }
     
+    public ArrayList <Post> getHiredJobs(){
+        return postManager.getHiredJobs();
+    }
+    
     public ArrayList <Post> getCompletedJobs(){
         return postManager.getCompletedJobs();
     }

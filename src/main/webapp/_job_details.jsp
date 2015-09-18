@@ -1,10 +1,20 @@
 <!-- Job Modal -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=879787135436221";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
 <div class="modal-header text-center">
-    <div class="col-md-11 job-clashing-warning hidden">
-        <strong class="drop-application-warning"><i class="fa fa-warning"></i> You have already applied for this job!</strong>
+    <div class="col-md-11 job-clashing-warning">
+        <strong class="apply-application-warning" id="already_applied"><i class="fa fa-warning"></i> You have already applied for this job!</strong>
+        <strong class="apply-application-warning" id="already_hired"><i class="fa fa-warning"></i> This job clashes with one that you are already hired for!</strong>
     </div>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 </div>
@@ -57,12 +67,20 @@
             <% } %>
         </form>
     </div>
+    <div class="pull-left">
+        <div><button type="button" id="facebook_share" class="btn btn-info btn-lg incomplete">Share on Facebook</button></div>
+        <div class="fb-share-button hidden" data-href="http://clockworksmu.herokuapp.com/post.jsp" data-layout="button"></div>
+    </div>
 </div>
 </div>
 </div>
 </div>
     
 <script>
+    $(document).on("click", "#facebook_share", function(e){
+        $(".fb-share-button").click();
+    });
+    
     $(document).on("click", "a", function(e){
         e.stopPropagation();
     });
@@ -84,7 +102,8 @@
             var startTimeText = job_details.data("starttime");
             var endTimeText = job_details.data("endtime");
             
-            $(".job-clashing-warning").addClass("hidden");
+            $("#already_applied").addClass("hidden");
+            $("#already_hired").addClass("hidden");
             var current_location = window.location.href.toString();
             if (current_location.indexOf("dashboard") === -1){
             <% if (currentUser != null) { %>
@@ -98,8 +117,29 @@
                     },
                     success: function(hasClashed) {
                         if (hasClashed){
-                            $(".job-clashing-warning").removeClass("hidden");
+                            $("#already_applied").removeClass("hidden");
                             applied = "true";
+                        } else {
+                            $.ajax({
+                                url: '/CheckJobDateClashServlet',
+                                dataType: 'json',
+                                method: "POST",
+                                async: false,
+                                data: {
+                                    post_id: job_details.data("id"),
+                                    type: "apply"
+                                },
+                                success: function(clashedJobs) {
+                                    var clashed = clashedJobs.toString();
+                                    if (clashed !== ""){
+                                        $("#already_hired").removeClass("hidden");
+                                        applied = "true";
+                                    }
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                  console.log(textStatus, errorThrown);
+                                }
+                            });    
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -126,6 +166,20 @@
             
             $('#calendar').fullCalendar( 'destroy' );
             
+            var calendar_dates = {};
+            if (typeof applied !== "undefined" && current_location.indexOf("index") !== -1){
+                $("#apply_job_button").hide();
+            } else {
+                $("#apply_job_button").show();
+                var start_date = new Date(job_details.data("cdate"));
+                var end_date = new Date(job_details.data("cdateend"));
+                start_date.setHours(0);
+                while (start_date <= end_date){
+                    var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + start_date.getDate();
+                    calendar_dates[start_date_string] = {title: headerText, start: start_date_string, color: '#ee4054'};
+                    start_date.setDate(start_date.getDate() + 1);
+                }
+            }
             $('#calendar').fullCalendar({
                 editable: false,
                 allDayDefault: true,
@@ -141,7 +195,6 @@
                         },
                         success: function(doc) {
                             var events = [];
-                            var calendar_dates = {};
                             obj = JSON.parse(doc);
                             $(obj).each(function() {
                                 var title = $(this).attr('title');
@@ -172,19 +225,6 @@
             
             $('#calendar').fullCalendar( 'gotoDate', new Date(job_details.data("cdate")));
             
-            if (typeof applied !== "undefined"){
-                $("#apply_job_button").hide();
-            } else {
-                $("#apply_job_button").show();
-                var start_date = new Date(job_details.data("cdate"));
-                var end_date = new Date(job_details.data("cdateend"));
-                start_date.setHours(0);
-                while (start_date <= end_date){
-                    var myevent = {title: headerText, start: start_date.toString(), color: '#ee4054'};
-                    $('#calendar').fullCalendar( 'renderEvent', myevent, true);
-                    start_date.setDate(start_date.getDate() + 1);
-                }
-            }
             $('#jobModal').modal('show');
             
         } else {

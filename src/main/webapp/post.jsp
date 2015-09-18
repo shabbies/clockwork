@@ -28,10 +28,15 @@
             <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
             <%=session.getAttribute("message")%>
         </div>
-        <%session.removeAttribute("message");
+        <% session.removeAttribute("message");
     }
 %>
-
+<%  shareURL = "http://clockworksmu.herokuapp.com/post.jsp?id=" + postID; 
+    shareContent = post.getHeader() + " at " + post.getCompany();%>
+<meta property="og:url"                content="<%=shareURL%>" />
+<meta property="og:title"              content="<%=shareContent%>" />
+<meta property="og:description"        content="Have fun working at Clockwork!" />
+<meta property="og:image"              content="https://s3-ap-southeast-1.amazonaws.com/media.clockworksmu.herokuapp.com/app/public/assets/cw+logo.jpg" />
 
 <h2 class="text-center"><strong><%=post.getHeader()%></strong> @ <%=post.getCompany()%></h2>
 

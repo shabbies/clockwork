@@ -8,7 +8,7 @@
 <%@ page import="com.google.gson.Gson" %>
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
-<%@ page buffer="16kb" %>
+<%@ page buffer="32kb" %>
 <%
 if (currentUser == null){
 session.setAttribute("error", "Please login or register first before viewing your job applications!");
@@ -310,7 +310,8 @@ $(".accept-job").click(function(){
         dataType: 'json',
         method: "POST",
         data: {
-            post_id: postID
+            post_id: postID,
+            type: "accept"
         },
         success: function(result) {
             if ((result.toString()) !== ""){

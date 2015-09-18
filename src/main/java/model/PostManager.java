@@ -219,6 +219,10 @@ public class PostManager {
         list.addAll(appliedJobs.get("pending"));
         return list;
     }
+    
+    public ArrayList <Post> getHiredJobs(){
+        return appliedJobs.get("hired");
+    }
 
     public HashMap<Integer, String> getApplicationPostStatus() {
         return applicationPostStatus;

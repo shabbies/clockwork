@@ -26,9 +26,15 @@ public class CheckJobDateClashServlet extends HttpServlet {
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
         PostController postController = appController.getPostController();
-        ArrayList <Post> postList = postController.getPendingAndOfferedJobs();
+        ArrayList <Post> postList = null;
+        String type = request.getParameter("type");
         int postID = Integer.parseInt(request.getParameter("post_id"));
-        session.removeAttribute("pendingAcceptance");
+        
+        if (type.equals("accept")){
+            postList = postController.getPendingAndOfferedJobs();
+        } else {
+            postList = postController.getHiredJobs();
+        }
         
         ArrayList<Post> conflictedPosts = postController.identifyConflictedPosts(postList, postID);
         Gson gson = new Gson();
