@@ -84,11 +84,8 @@ public class PostManager {
         ArrayList <HashMap<String, Object>> postsHash = gson.fromJson(JSONString, listType);
         for (HashMap <String, Object> postHash : postsHash){
             int id = ((Double)postHash.get("id")).intValue();
-            Post post = getPostFromHash(id);
-            if (post == null){
-                String postString = gson.toJson(postHash);
-                post = createNewPostFromJSON(postString);
-            }
+            String postString = gson.toJson(postHash);
+            Post post = createNewPostFromJSON(postString);
             newPostList.add(post);
         }
         return newPostList;

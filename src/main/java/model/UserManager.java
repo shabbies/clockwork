@@ -61,23 +61,18 @@ public class UserManager {
         int badRating = ((Double)userHash.get("bad_rating")).intValue();        
         int neutralRating = ((Double)userHash.get("neutral_rating")).intValue();
         int goodRating = ((Double)userHash.get("good_rating")).intValue();
-
         User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating);
         return user;
     }
     
     public void updateUser(String JSONString){
         User user = createUserFromJSON(JSONString);
-        if (currentUser == null){
-            currentUser = user;
-        } else {
-            currentUser.setAddress(user.getAddress());
-            currentUser.setUsername(user.getUsername());
-            currentUser.setAvatar(user.getAvatar());
-            currentUser.setContactNumber(user.getContactNumber());
-            currentUser.setGender(user.getGender());
-            currentUser.setNationality(user.getNationality());
-            currentUser.setDateOfBirth(user.getDateOfBirth());
-        }
+        currentUser.setAddress(user.getAddress());
+        currentUser.setUsername(user.getUsername());
+        currentUser.setAvatar(user.getAvatar());
+        currentUser.setContactNumber(user.getContactNumber());
+        currentUser.setGender(user.getGender());
+        currentUser.setNationality(user.getNationality());
+        currentUser.setDateOfBirth(user.getDateOfBirth());
     }
 }

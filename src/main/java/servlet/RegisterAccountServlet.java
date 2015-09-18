@@ -61,6 +61,7 @@ public class RegisterAccountServlet extends HttpServlet {
                 AppController appController = (AppController)session.getAttribute("appController");
                 UserController userController = appController.getUserController();
                 user = userController.createUserFromJSON(responseString);
+                userController.login(user);
             } else {
                 String error;
                 if (responseString.contains("email")){

@@ -58,8 +58,8 @@ public class GetAllListedJobsServlet extends HttpServlet {
                 StringWriter writer = new StringWriter();
                 InputStream readingStream = entity.getContent();
                 IOUtils.copy(readingStream, writer, "UTF-8");
-                String theString = writer.toString();
-                publishedList = postController.loadPublishedPostList(theString);
+                String responseString = writer.toString();
+                publishedList = postController.loadPublishedPostList(responseString);
             } else {
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
