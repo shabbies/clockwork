@@ -1,5 +1,6 @@
 package servlet;
 
+import controller.AppController;
 import controller.UserController;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -57,8 +58,10 @@ public class LoginServlet extends HttpServlet {
             StringWriter writer = new StringWriter();
             IOUtils.copy(entity2.getContent(), writer, "UTF-8");
             String theString = writer.toString();
-            UserController userController = new UserController();
+            AppController appController = (AppController)session.getAttribute("appController");
+            UserController userController = appController.getUserController();
             user = userController.createUserFromJSON(theString);
+            user = userController.login(user);
             EntityUtils.consume(entity2);
         } finally {
             response2.close();

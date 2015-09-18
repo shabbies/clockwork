@@ -1,5 +1,6 @@
 package servlet;
 
+import controller.AppController;
 import controller.UserController;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -57,7 +58,8 @@ public class RegisterAccountServlet extends HttpServlet {
             IOUtils.copy(entity.getContent(), writer, "UTF-8");
             String responseString = writer.toString();
             if (response2.getStatusLine().getStatusCode() == 201){
-                UserController userController = new UserController();
+                AppController appController = (AppController)session.getAttribute("appController");
+                UserController userController = appController.getUserController();
                 user = userController.createUserFromJSON(responseString);
             } else {
                 String error;

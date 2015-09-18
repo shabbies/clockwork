@@ -1,5 +1,6 @@
 package servlet;
 
+import controller.AppController;
 import controller.UserController;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -126,7 +127,8 @@ public class UpdateUserProfileServlet extends HttpServlet {
                 StringWriter writer = new StringWriter();
                 IOUtils.copy(entity.getContent(), writer, "UTF-8");
                 String theString = writer.toString();
-                UserController userController = new UserController();
+                AppController appController = (AppController)session.getAttribute("appController");
+                UserController userController = appController.getUserController();
                 user = userController.createUserFromJSON(theString);
                 session.setAttribute("currentUser", user);
                 String message = "Your profile has been successfully updated.";

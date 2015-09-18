@@ -2,6 +2,7 @@ package servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import controller.AppController;
 import controller.UserController;
 import java.io.IOException;
 import java.io.InputStream;
@@ -111,13 +112,13 @@ public class FacebookLoginServlet extends HttpServlet {
             StringWriter writer = new StringWriter();
             IOUtils.copy(entity.getContent(), writer, "UTF-8");
             String responseString = writer.toString();
-            UserController userController = new UserController();
+            AppController appController = (AppController)session.getAttribute("appController");
+            UserController userController = appController.getUserController();
             user = userController.createUserFromJSON(responseString);
             EntityUtils.consume(entity);
         } finally {
             response3.close();
         }
-        
         session.setAttribute("currentUser", user);
     }
 }

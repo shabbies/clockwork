@@ -1,5 +1,6 @@
 package servlet;
 
+import controller.AppController;
 import controller.UserController;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -117,10 +118,10 @@ public class CompleteProfileServlet extends HttpServlet {
             String theString = writer.toString();
             int statusCode = response2.getStatusLine().getStatusCode();
             if (statusCode == 200){
-                UserController userController = new UserController();
-                user = userController.createUserFromJSON(theString);
+                AppController appController = (AppController)session.getAttribute("appController");
+                UserController userController = appController.getUserController();
+                userController.updateUser(theString);
                 String message = "Your profile has been successfully updated.";
-                session.setAttribute("currentUser", user);
                 session.setAttribute("message", message);
             } else {
                 String error = theString;

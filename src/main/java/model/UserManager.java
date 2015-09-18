@@ -11,13 +11,13 @@ import java.util.HashMap;
 public class UserManager {
     private User currentUser;
     
-    public User login(int id, String username, String email, String companyName, String accountType, String address, int contactNumber, String dateOfBirthStr, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating){
-        Gson gson = new Gson();
-        Type dateType = new TypeToken<Date>(){}.getType();
-        Date dateOfBirth = gson.fromJson(dateOfBirthStr, dateType);
-        User user = new User(id, username, email, companyName, accountType, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating);
+    public UserManager(){
+        currentUser = null;
+    }
+    
+    public User login(User user){
         currentUser = user;
-        return user;
+        return currentUser;
     }
     
     public User getCurrentUser(){
@@ -64,5 +64,16 @@ public class UserManager {
 
         User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating);
         return user;
+    }
+    
+    public void updateUser(String JSONString){
+        User user = createUserFromJSON(JSONString);
+        currentUser.setAddress(user.getAddress());
+        currentUser.setUsername(user.getUsername());
+        currentUser.setAvatar(user.getAvatar());
+        currentUser.setContactNumber(user.getContactNumber());
+        currentUser.setGender(user.getGender());
+        currentUser.setNationality(user.getNationality());
+        currentUser.setDateOfBirth(user.getDateOfBirth());
     }
 }

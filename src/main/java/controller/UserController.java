@@ -9,20 +9,26 @@ import model.User;
 import model.UserManager;
 
 public class UserController {
-    private User currentUser;
     private UserManager userManager;
     
     public UserController(){
         userManager = new UserManager();
-        currentUser = userManager.getCurrentUser();
     }
     
     public User getCurrentUser(){
-        return currentUser;
+        return userManager.getCurrentUser();
+    }
+    
+    public User login(User user){
+        return userManager.login(user);
     }
     
     public User createUserFromJSON(String JSONString){
         return userManager.createUserFromJSON(JSONString);
+    }
+    
+    public void updateUser(String JSONString){
+        userManager.updateUser(JSONString);
     }
     
     public ArrayList<User> createUsersFromJSONArray(String JSONString){

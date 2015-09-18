@@ -85,6 +85,8 @@
             var endTimeText = job_details.data("endtime");
             
             $(".job-clashing-warning").addClass("hidden");
+            var current_location = window.location.href.toString();
+            if (current_location.indexOf("dashboard") === -1){
             <% if (currentUser != null) { %>
                 $.ajax({
                     url: '/CheckJobAppliedServlet',
@@ -105,7 +107,7 @@
                     }
                 });
             <% } %>
-            
+            }
             $('#jobModalLabel').html(headerText);
             $('#modalHeader').html("<strong>"+headerText+"</strong>");
             $('#modalDesc').html(descText);
@@ -139,14 +141,21 @@
                         },
                         success: function(doc) {
                             var events = [];
+                            var calendar_dates = {};
                             obj = JSON.parse(doc);
                             $(obj).each(function() {
-                                events.push({
-                                    title: $(this).attr('title'),
-                                    start: $(this).attr('job_date'), 
-                                    color: $(this).attr('color')
-                                });
+                                var title = $(this).attr('title');
+                                var start = $(this).attr("job_date");
+                                var color = $(this).attr("color");
+                                calendar_dates[start] = {
+                                    title: title,
+                                    start: start,
+                                    color: color
+                                };
                             });
+                            for (var key in calendar_dates){
+                                events.push(calendar_dates[key]);
+                            }
                             callback(events);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
@@ -163,19 +172,18 @@
             
             $('#calendar').fullCalendar( 'gotoDate', new Date(job_details.data("cdate")));
             
-            var start_date = new Date(job_details.data("cdate"));
-            var end_date = new Date(job_details.data("cdateend"));
-            start_date.setHours(0);
-            while (start_date <= end_date){
-                var myevent = {title: headerText, start: start_date.toString(), color: '#ee4054'};
-                $('#calendar').fullCalendar( 'renderEvent', myevent, true);
-                start_date.setDate(start_date.getDate() + 1);
-            }
-            
             if (typeof applied !== "undefined"){
                 $("#apply_job_button").hide();
             } else {
                 $("#apply_job_button").show();
+                var start_date = new Date(job_details.data("cdate"));
+                var end_date = new Date(job_details.data("cdateend"));
+                start_date.setHours(0);
+                while (start_date <= end_date){
+                    var myevent = {title: headerText, start: start_date.toString(), color: '#ee4054'};
+                    $('#calendar').fullCalendar( 'renderEvent', myevent, true);
+                    start_date.setDate(start_date.getDate() + 1);
+                }
             }
             $('#jobModal').modal('show');
             
