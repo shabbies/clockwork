@@ -31,8 +31,8 @@
         <% session.removeAttribute("message");
     }
 %>
-<%  shareURL = "http://clockworksmu.herokuapp.com/post.jsp?id=" + postID; 
-    shareContent = post.getHeader() + " at " + post.getCompany();%>
+<%  String shareURL = "http://clockworksmu.herokuapp.com/post.jsp?id=" + postID; 
+    String shareContent = post.getHeader() + " at " + post.getCompany();%>
 <meta property="og:url"                content="<%=shareURL%>" />
 <meta property="og:title"              content="<%=shareContent%>" />
 <meta property="og:description"        content="Have fun working at Clockwork!" />

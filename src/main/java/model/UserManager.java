@@ -68,12 +68,16 @@ public class UserManager {
     
     public void updateUser(String JSONString){
         User user = createUserFromJSON(JSONString);
-        currentUser.setAddress(user.getAddress());
-        currentUser.setUsername(user.getUsername());
-        currentUser.setAvatar(user.getAvatar());
-        currentUser.setContactNumber(user.getContactNumber());
-        currentUser.setGender(user.getGender());
-        currentUser.setNationality(user.getNationality());
-        currentUser.setDateOfBirth(user.getDateOfBirth());
+        if (currentUser == null){
+            currentUser = user;
+        } else {
+            currentUser.setAddress(user.getAddress());
+            currentUser.setUsername(user.getUsername());
+            currentUser.setAvatar(user.getAvatar());
+            currentUser.setContactNumber(user.getContactNumber());
+            currentUser.setGender(user.getGender());
+            currentUser.setNationality(user.getNationality());
+            currentUser.setDateOfBirth(user.getDateOfBirth());
+        }
     }
 }
