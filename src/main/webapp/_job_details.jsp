@@ -68,8 +68,7 @@
         </form>
     </div>
     <div class="pull-left">
-        <div><button type="button" id="facebook_share" class="btn btn-info btn-lg incomplete">Share on Facebook</button></div>
-        <div class="fb-share-button hidden" data-href="http://clockworksmu.herokuapp.com/post.jsp" data-layout="button"></div>
+        <div><button type="button" id="facebook_share" class="btn btn-info btn-lg">Share on Facebook</button></div>
     </div>
 </div>
 </div>
@@ -77,8 +76,10 @@
 </div>
     
 <script>
+    var postID = null;
+    
     $(document).on("click", "#facebook_share", function(e){
-        $(".fb-share-button").click();
+        window.open("http://www.facebook.com/sharer/sharer.php?u=https://clockworksmu.herokuapp.com/post.jsp?id=" + postID + "&title=blahblah", "Share on Facebook!", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600");
     });
     
     $(document).on("click", "a", function(e){
@@ -101,6 +102,7 @@
             var avatar_path = job_details.data("avatar");
             var startTimeText = job_details.data("starttime");
             var endTimeText = job_details.data("endtime");
+            postID = id;
             
             $("#already_applied").addClass("hidden");
             $("#already_hired").addClass("hidden");
