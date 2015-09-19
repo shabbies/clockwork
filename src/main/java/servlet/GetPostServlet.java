@@ -68,15 +68,23 @@ public class GetPostServlet extends HttpServlet {
             }
         }
         session.setAttribute("post", post);
-        if (location.equals("post")){
-            RequestDispatcher rd = request.getRequestDispatcher("/post.jsp?id=" + postID);
-            rd.forward(request, response);
-        } else if (location.equals("edit")){
-            response.sendRedirect("/edit_post.jsp?id=" + postID);
-            return;
-        } else if (location.equals("listing") || location.equals("completed") || location.equals("reviewing")){
-            RequestDispatcher rd = request.getRequestDispatcher("/GetJobApplicantsServlet?id=" + postID + "&location=" + location);
-            rd.forward(request, response);
+        RequestDispatcher rd = null;
+        switch (location) {
+            case "post":
+                request.setAttribute("facebookURL", "http://clockworksmu.herokuapp.com/post.jsp?id=" + postID);
+                request.setAttribute("facebookTitle", post.getHeader() + " at " + post.getCompany());
+                rd = request.getRequestDispatcher("/post.jsp?id=" + postID);
+                rd.forward(request, response);
+                break;
+            case "edit":
+                response.sendRedirect("/edit_post.jsp?id=" + postID);
+                return;
+            case "listing":
+            case "completed":
+            case "reviewing":
+                rd = request.getRequestDispatcher("/GetJobApplicantsServlet?id=" + postID + "&location=" + location);
+                rd.forward(request, response);
+                break;
         }
     }
 }

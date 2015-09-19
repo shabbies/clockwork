@@ -98,10 +98,6 @@
 <script>
 
     $(document).ready(function() {
-        var fb_share_title = "<%=post.getHeader()%>" + " at " + "<%=post.getCompany()%>";
-        var fb_share_url = window.location.href;
-        $("meta[property='og\\:title']").attr("content", fb_share_title);
-        $("meta[property='og\\:url']").attr("content", fb_share_url);
         
         $('#calendar').fullCalendar({
             editable: false,
