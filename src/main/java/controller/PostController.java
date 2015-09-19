@@ -25,6 +25,10 @@ public class PostController {
         return postList;
     }
     
+    public Post getPostFromJSON(String JSONString) throws ParseException {
+        return postManager.createNewPostFromJSON(JSONString);
+    }
+    
     public Post getPost(int postID){
         return postManager.getPostFromHash(postID);
     }
