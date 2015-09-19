@@ -36,8 +36,8 @@ public class GetPostServlet extends HttpServlet {
         }
         session.setAttribute("post", post);
         if (location.equals("post")){
-            response.sendRedirect("/post.jsp?id=" + postID);
-            return;
+            RequestDispatcher rd = request.getRequestDispatcher("/post.jsp?id=" + postID);
+            rd.forward(request, response);
         } else if (location.equals("edit")){
             response.sendRedirect("/edit_post.jsp?id=" + postID);
             return;
