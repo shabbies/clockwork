@@ -31,10 +31,6 @@
         <% session.removeAttribute("message");
     }
 %>
-<%  String shareContent = post.getHeader() + " at " + post.getCompany();%>
-<meta property="og:title"              content="<%=shareContent%>" />
-<meta property="og:description"        content="Have fun working at Clockwork!" />
-<meta property="og:image"              content="https://s3-ap-southeast-1.amazonaws.com/media.clockworksmu.herokuapp.com/app/public/assets/cw+logo.jpg" />
 
 <h2 class="text-center"><strong><%=post.getHeader()%></strong> @ <%=post.getCompany()%></h2>
 
@@ -102,7 +98,10 @@
 <script>
 
     $(document).ready(function() {
-    
+        var fb_share_title = "<%=post.getHeader()%>" + " at " + "<%=post.getCompany()%>";
+        var fb_share_url = window.location.href;
+        $("meta[property='og\\:title']").attr("content", fb_share_title);
+        $("meta[property='og\\:url']").attr("content", fb_share_url);
         
         $('#calendar').fullCalendar({
             editable: false,

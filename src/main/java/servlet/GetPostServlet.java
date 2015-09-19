@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.text.ParseException;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 
 import javax.servlet.ServletException;

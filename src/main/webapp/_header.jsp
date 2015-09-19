@@ -59,6 +59,11 @@
             session.setAttribute("appController", appController);
         }
     %>
+    
+    <meta property="og:title"       content="Working at Clockwork!" />
+    <meta property="og:url"         content="Working at Clockwork!" />
+    <meta property="og:description" content="Have fun working at Clockwork!" />
+    <meta property="og:image"       content="https://s3-ap-southeast-1.amazonaws.com/media.clockworksmu.herokuapp.com/app/public/assets/cw+logo.jpg" />
 </head>
 
 <body id="page-top">
