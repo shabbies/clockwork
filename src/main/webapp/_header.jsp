@@ -64,8 +64,8 @@
     <meta property="og:url"         content="<%=request.getAttribute("facebookURL")%>" />
     <meta property="og:description" content="Have fun working at Clockwork!" />
     <meta property="og:image"       content="https://s3-ap-southeast-1.amazonaws.com/media.clockworksmu.herokuapp.com/app/public/assets/cw+logo.jpg" />
-    <meta property="og:image:width" content="450"/>
-    <meta property="og:image:height" content="298"/>
+    <meta property="og:image:width" content="300"/>
+    <meta property="og:image:height" content="200"/>
     <% } %>
 </head>
 
