@@ -31,9 +31,7 @@
         <% session.removeAttribute("message");
     }
 %>
-<%  String shareURL = "http://clockworksmu.herokuapp.com/post.jsp?id=" + postID; 
-    String shareContent = post.getHeader() + " at " + post.getCompany();%>
-<meta property="og:url"                content="<%=shareURL%>" />
+<%  String shareContent = post.getHeader() + " at " + post.getCompany();%>
 <meta property="og:title"              content="<%=shareContent%>" />
 <meta property="og:description"        content="Have fun working at Clockwork!" />
 <meta property="og:image"              content="https://s3-ap-southeast-1.amazonaws.com/media.clockworksmu.herokuapp.com/app/public/assets/cw+logo.jpg" />
