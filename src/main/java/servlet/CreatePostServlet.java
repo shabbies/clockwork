@@ -90,7 +90,7 @@ public class CreatePostServlet extends HttpServlet {
         } 
         long msDifference = endDate.getTime() - jobDate.getTime();
         long dayDifference = TimeUnit.DAYS.convert(msDifference, TimeUnit.MILLISECONDS);
-        if (dayDifference > 7){
+        if (dayDifference > 6){ // 7 includes the first day
             session.setAttribute("error", "The maxmimum job duration should be 7 days!");
             response.sendRedirect("/create_post.jsp");
             return;

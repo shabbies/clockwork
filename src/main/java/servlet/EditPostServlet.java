@@ -94,7 +94,7 @@ public class EditPostServlet extends HttpServlet {
         long difference = endDate.getTime() - jobDate.getTime();
         int duration = (int)TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
         
-        if (duration > 7){
+        if (duration > 6){ // 7 is inclusive of first day
             session.setAttribute("error", "The maxmimum job duration should be 7 days!");
             response.sendRedirect("/edit_post.jsp?id=" + postID);
             return;

@@ -62,6 +62,7 @@ public class GetAllPostsServlet extends HttpServlet {
         // httpget request
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("https://clockwork-api.herokuapp.com/api/v1/posts/all.json");
+        System.out.println(getServletContext().getInitParameter("API"));
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
         ArrayList <Post> postList;
         try {
