@@ -19,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
@@ -34,6 +35,8 @@ public class RateUserServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPRate();
         UserController userController = appController.getUserController();
         User currentUser = (User)session.getAttribute("currentUser");
         String formRatings = request.getParameter("ratings");
@@ -44,7 +47,7 @@ public class RateUserServlet extends HttpServlet {
         
         String userRatings = userController.loadUserRatingsList(formRatings, formComments);
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/rate");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("email", email));

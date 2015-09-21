@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.Match;
 import model.User;
 import org.apache.commons.io.IOUtils;
@@ -42,10 +43,12 @@ public class GetCompletedApplicantsServlet extends HttpServlet {
         String postID = request.getParameter("id");
         String location = request.getParameter("location");
         AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPCompletedApplicants();
         MatchController matchController = appController.getMatchController();
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/get_completed");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("email", email));

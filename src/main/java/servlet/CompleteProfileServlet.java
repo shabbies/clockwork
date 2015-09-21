@@ -21,6 +21,7 @@ import java.util.Date;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import model.APIManager;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.HttpPost;
@@ -35,6 +36,9 @@ public class CompleteProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPCompleteProfile();
         User currentUser = (User)session.getAttribute("currentUser");
         String token = currentUser.getAuthenticationToken();
         String email = currentUser.getEmail();
@@ -75,7 +79,7 @@ public class CompleteProfileServlet extends HttpServlet {
         }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/complete_profile");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
         
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -118,7 +122,6 @@ public class CompleteProfileServlet extends HttpServlet {
             String theString = writer.toString();
             int statusCode = response2.getStatusLine().getStatusCode();
             if (statusCode == 200){
-                AppController appController = (AppController)session.getAttribute("appController");
                 UserController userController = appController.getUserController();
                 userController.updateUser(theString);
                 String message = "Your profile has been successfully updated.";

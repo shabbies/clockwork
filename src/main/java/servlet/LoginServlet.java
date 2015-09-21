@@ -19,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
@@ -33,11 +34,14 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
+        AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPLogin();
         String email = (String)request.getParameter("email");
         String password = (String)request.getParameter("password");
         
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/users/sign_in.json");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Accept", "application/json");
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("user[email]", email));
@@ -58,7 +62,6 @@ public class LoginServlet extends HttpServlet {
             StringWriter writer = new StringWriter();
             IOUtils.copy(entity2.getContent(), writer, "UTF-8");
             String theString = writer.toString();
-            AppController appController = (AppController)session.getAttribute("appController");
             UserController userController = appController.getUserController();
             user = userController.createUserFromJSON(theString);
             user = userController.login(user);

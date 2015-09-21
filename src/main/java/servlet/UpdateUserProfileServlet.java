@@ -18,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import model.APIManager;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.HttpPost;
@@ -32,6 +33,9 @@ public class UpdateUserProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPUpdate();
         User currentUser = (User)session.getAttribute("currentUser");
         String token = currentUser.getAuthenticationToken();
         String email = currentUser.getEmail();
@@ -86,7 +90,7 @@ public class UpdateUserProfileServlet extends HttpServlet {
         }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/update");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
         
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -127,7 +131,6 @@ public class UpdateUserProfileServlet extends HttpServlet {
                 StringWriter writer = new StringWriter();
                 IOUtils.copy(entity.getContent(), writer, "UTF-8");
                 String theString = writer.toString();
-                AppController appController = (AppController)session.getAttribute("appController");
                 UserController userController = appController.getUserController();
                 user = userController.createUserFromJSON(theString);
                 session.setAttribute("currentUser", user);

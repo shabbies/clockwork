@@ -1,5 +1,6 @@
 package servlet;
 
+import controller.AppController;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import org.apache.http.client.methods.HttpDelete;
 
 public class LogoutServlet extends HttpServlet {
@@ -21,8 +23,11 @@ public class LogoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPLogout();
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpDelete httpDelete = new HttpDelete("https://clockwork-api.herokuapp.com/users/sign_out.json");
+        HttpDelete httpDelete = new HttpDelete(URL);
         httpDelete.setHeader("Accept", "application/json");
         CloseableHttpResponse response2 = httpClient.execute(httpDelete);
 

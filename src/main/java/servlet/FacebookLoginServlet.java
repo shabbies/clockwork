@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
@@ -48,6 +49,10 @@ public class FacebookLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPLogin();
+        
         String shortAccessToken = request.getParameter("access_token");
         String userID = request.getParameter("user_id");
         String longAccessToken = null;
@@ -95,7 +100,7 @@ public class FacebookLoginServlet extends HttpServlet {
         }
         
         // Registering user
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/users.json");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Accept", "application/json");
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("user[email]", email));
@@ -112,7 +117,6 @@ public class FacebookLoginServlet extends HttpServlet {
             StringWriter writer = new StringWriter();
             IOUtils.copy(entity.getContent(), writer, "UTF-8");
             String responseString = writer.toString();
-            AppController appController = (AppController)session.getAttribute("appController");
             UserController userController = appController.getUserController();
             user = userController.createUserFromJSON(responseString);
             EntityUtils.consume(entity);

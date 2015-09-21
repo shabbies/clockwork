@@ -1,13 +1,3 @@
-<!-- Job Modal -->
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=879787135436221";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
 <div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -203,7 +193,7 @@
                                 var start = $(this).attr("job_date");
                                 var color = $(this).attr("color");
                                 calendar_dates[start] = {
-                                    title: title,
+                                    title: "",
                                     start: start,
                                     color: color
                                 };

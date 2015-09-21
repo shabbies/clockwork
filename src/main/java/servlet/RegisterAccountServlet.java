@@ -18,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
@@ -31,6 +32,9 @@ public class RegisterAccountServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPNewUser();
         String email = (String)request.getParameter("email");
         String username = (String)request.getParameter("username");
         String password = (String)request.getParameter("password");
@@ -39,7 +43,7 @@ public class RegisterAccountServlet extends HttpServlet {
         String accountType = (String)request.getParameter("account_type");
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/users.json");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Accept", "application/json");
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("user[email]", email));
@@ -58,7 +62,6 @@ public class RegisterAccountServlet extends HttpServlet {
             IOUtils.copy(entity.getContent(), writer, "UTF-8");
             String responseString = writer.toString();
             if (response2.getStatusLine().getStatusCode() == 201){
-                AppController appController = (AppController)session.getAttribute("appController");
                 UserController userController = appController.getUserController();
                 user = userController.createUserFromJSON(responseString);
                 userController.login(user);

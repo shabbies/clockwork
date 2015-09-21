@@ -1,5 +1,6 @@
 package servlet;
 
+import controller.AppController;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.User;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -28,6 +30,9 @@ public class WithdrawOfferServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
+        AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPWithdrawOffer();
         int postID = Integer.parseInt(request.getParameter("post_id"));
         int applicantID = Integer.parseInt(request.getParameter("user_id"));
         User currentUser = (User)session.getAttribute("currentUser");
@@ -36,7 +41,7 @@ public class WithdrawOfferServlet extends HttpServlet {
         String token = currentUser.getAuthenticationToken();
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/withdraw_offer");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("post_id", "" + postID));

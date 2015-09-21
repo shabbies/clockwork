@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.Post;
 import model.User;
 import org.apache.commons.io.IOUtils;
@@ -40,6 +41,10 @@ public class EditPostServlet extends HttpServlet {
         
         // preparing variables
         HttpSession session = request.getSession();
+        AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPEditPost();
+        
         User currentUser = (User)session.getAttribute("currentUser");
         int postID = Integer.parseInt(request.getParameter("post_id"));
         String header = (String)request.getParameter("header");
@@ -107,12 +112,11 @@ public class EditPostServlet extends HttpServlet {
         }
         
         // retrieve post object
-        AppController appController = (AppController)session.getAttribute("appController");
         PostController postController = appController.getPostController();
         Post post = postController.getPost(postID);
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/update");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("header", header));

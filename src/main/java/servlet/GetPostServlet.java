@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.Post;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -34,13 +35,15 @@ public class GetPostServlet extends HttpServlet {
         String postID = request.getParameter("id");
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPPost();
         PostController postController = appController.getPostController();
         
         // retrieve stored data
         Post post = postController.getPost(Integer.parseInt(postID));
         if (post == null){
             CloseableHttpClient httpclient = HttpClients.createDefault();
-            HttpGet httpGet = new HttpGet("https://clockwork-api.herokuapp.com/api/v1/posts/get_post?post_id=" + postID);
+            HttpGet httpGet = new HttpGet(URL + postID);
             CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
             HttpEntity entity = null;
             try {

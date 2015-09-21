@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.Post;
 import org.apache.commons.io.IOUtils;
 
@@ -33,6 +34,8 @@ public class GetAllPostsServlet extends HttpServlet {
         // preparing variables
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPAllPosts();
         PostController postController = appController.getPostController();
         String sortingOrder = request.getParameter("order");
         String query = (String)session.getAttribute("query");
@@ -61,8 +64,7 @@ public class GetAllPostsServlet extends HttpServlet {
         session.removeAttribute("query");
         // httpget request
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("https://clockwork-api.herokuapp.com/api/v1/posts/all.json");
-        System.out.println(getServletContext().getInitParameter("API"));
+        HttpGet httpGet = new HttpGet(URL);
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
         ArrayList <Post> postList;
         try {

@@ -1,5 +1,6 @@
 package servlet;
 
+import controller.AppController;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
@@ -36,6 +38,9 @@ public class CreatePostServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
+        AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPNewPost();
         User currentUser = (User)session.getAttribute("currentUser");
         if (currentUser == null){
             session.setAttribute("error", "Please login or register first before posting a job");
@@ -100,7 +105,7 @@ public class CreatePostServlet extends HttpServlet {
         String token = currentUser.getAuthenticationToken();
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/posts/new");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("header", header));

@@ -21,6 +21,7 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.Post;
 import org.apache.commons.io.IOUtils;
 
@@ -33,8 +34,10 @@ public class SearchPostServlet extends HttpServlet {
         // preparing variables
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPSearch();
         PostController postController = appController.getPostController();
-        String requestURL = "https://clockwork-api.herokuapp.com/api/v1/posts/search?query=";
+        String requestURL = URL;
         String query = request.getParameter("query");
         session.setAttribute("query", query);
         requestURL += URLEncoder.encode(query, "UTF-8");

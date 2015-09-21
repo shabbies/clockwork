@@ -17,6 +17,7 @@ import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import model.APIManager;
 import model.Post;
 import model.User;
 import org.apache.http.NameValuePair;
@@ -51,11 +52,13 @@ public class ApplyJobServlet extends HttpServlet {
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
         AppController appController = (AppController)session.getAttribute("appController");
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPApply();
         PostController postController = appController.getPostController();
         Post post = postController.getPost(postID);
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("https://clockwork-api.herokuapp.com/api/v1/users/apply");
+        HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("post_id", "" + postID));
