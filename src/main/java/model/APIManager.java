@@ -27,6 +27,7 @@ public class APIManager {
     String EPUpdate = "/api/v1/users/update";
     String EPWithdraw = "/api/v1/users/withdraw";
     String EPWithdrawOffer = "/api/v1/users/withdraw_offer";
+    String EPCalendarFormatDates = "/api/v1/users/get_calendar_formatted_dates.json";
     
     public APIManager(String mode){
         if (mode.equals("production")){
@@ -140,5 +141,9 @@ public class APIManager {
 
     public String getEPWithdrawOffer() {
         return prefix + EPWithdrawOffer;
+    }
+
+    public String getEPCalendarFormatDates() {
+        return prefix + EPCalendarFormatDates;
     }
 }

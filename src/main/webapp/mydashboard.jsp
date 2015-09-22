@@ -307,7 +307,7 @@ $(".accept-job").click(function(){
     $.ajax({
         url: '/CheckJobDateClashServlet',
         dataType: 'json',
-        method: "POST",
+        method: "GET",
         data: {
             post_id: postID,
             type: "accept"

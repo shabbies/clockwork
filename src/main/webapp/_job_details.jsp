@@ -1,3 +1,5 @@
+<%@ page import="model.APIManager"%>
+
 <div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel">
 <div class="modal-dialog modal-lg" role="document">
 <div class="modal-content">
@@ -30,8 +32,8 @@
                 <h5 id="modalEndTime" class="display-inline">15:00</h5>
             </div>
 
-            <h5 id="modalDesc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.
-            </h5>
+            <pre><h5 id="modalDesc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.
+            </h5></pre>
         </div>
 
     </div>
@@ -101,37 +103,19 @@
             <% if (currentUser != null) { %>
                 $.ajax({
                     url: '/CheckJobAppliedServlet',
-                    dataType: 'json',
-                    method: "POST",
+                    method: "GET",
                     async: false,
                     data: {
                         post_id: job_details.data("id")
                     },
-                    success: function(hasClashed) {
-                        if (hasClashed){
+                    success: function(hasAppliedJSON) {
+                        var hasApplied = JSON.parse(hasAppliedJSON);
+                        if (hasApplied === true){
                             $("#already_applied").removeClass("hidden");
                             applied = "true";
-                        } else {
-                            $.ajax({
-                                url: '/CheckJobDateClashServlet',
-                                dataType: 'json',
-                                method: "POST",
-                                async: false,
-                                data: {
-                                    post_id: job_details.data("id"),
-                                    type: "apply"
-                                },
-                                success: function(clashedJobs) {
-                                    var clashed = clashedJobs.toString();
-                                    if (clashed !== ""){
-                                        $("#already_hired").removeClass("hidden");
-                                        applied = "true";
-                                    }
-                                },
-                                error: function(jqXHR, textStatus, errorThrown) {
-                                  console.log(textStatus, errorThrown);
-                                }
-                            });    
+                        } else if (hasApplied.toString() !== ""){
+                            $("#already_hired").removeClass("hidden");
+                            applied = "true";
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -179,8 +163,12 @@
                 titleFormat: 'MMMM',
                 eventColor: 'grey',
                 events: function(start, end, timezone, callback) {
+                <%  if (session.getAttribute("currentUser") != null){ 
+                    appController = (AppController)session.getAttribute("appController");
+                    APIManager apiManager = appController.getAPIManager();
+                    String URL = apiManager.getEPCalendarFormatDates();%>
                     $.ajax({
-                        url: 'https://clockwork-api.herokuapp.com/api/v1/users/get_calendar_formatted_dates.json',
+                        url: '<%=URL%>',
                         dataType: 'json',
                         data: {
                             id:uid
@@ -217,6 +205,7 @@
                             console.log(textStatus, errorThrown);
                         }
                     });
+                <% } %>
                 },
                 eventAfterRender: function(event, element, view) {
                     $(element).css('height','30px');
@@ -226,6 +215,14 @@
             
             
             $('#calendar').fullCalendar( 'gotoDate', new Date(job_details.data("cdate")));
+            
+            <% if (currentUser == null){ %>
+                var events = [];
+                for (var key in calendar_dates){
+                    events.push(calendar_dates[key]);
+                }
+                $('#calendar').fullCalendar( 'addEventSource', events);
+            <% } %>
             
             $('#jobModal').modal('show');
             

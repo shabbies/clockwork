@@ -235,7 +235,7 @@ public class PostManager {
             }
             Date retrievedStartDate = retrievedPost.getJobDate();
             Date retrievedEndDate = retrievedPost.getEndDate();
-            if (startDate.before(retrievedEndDate) && endDate.after(retrievedStartDate)){
+            if ((startDate.before(retrievedEndDate) || startDate.equals(retrievedEndDate)) && (endDate.after(retrievedStartDate) || endDate.equals(retrievedStartDate))){
                 returningList.add(retrievedPost);
             }
         }

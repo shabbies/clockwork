@@ -3,6 +3,8 @@ package servlet;
 import controller.AppController;
 import controller.PostController;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import model.APIManager;
 import model.Post;
 import model.User;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -69,22 +72,52 @@ public class ApplyJobServlet extends HttpServlet {
         HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
-            if(httpResponse.getStatusLine().getStatusCode() == 403){
-                String error = "You have already applied for this job!";
-                session.setAttribute("error", error);
-                response.sendRedirect("/index.jsp");
-                return;
-            } else {
-                post.setStatus("applied");
+            int statusCode = httpResponse.getStatusLine().getStatusCode();
+            String error = null;
+            switch (statusCode){
+                case 403:
+                    error = "You have already applied for this job!";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/index.jsp");
+                    return;
+                case 401:
+                    error = "There is a problem with the job application, please contact the administrator";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/index.jsp");
+                    return;
+                case 200:
+                    post.setStatus("applied");
+                    String message = "You have successfully applied for this job!";
+                    session.setAttribute("message", message);
+                    response.sendRedirect("/mydashboard.jsp");
+                    return;
+                case 400:
+                    StringWriter writer = new StringWriter();
+                    InputStream readingStream = entity.getContent();
+                    IOUtils.copy(readingStream, writer, "UTF-8");
+                    String responseString = writer.toString();
+                    switch (responseString){
+                        case "Bad Request - Post not found":
+                            error = "There is a problem with the job application, please contact the administrator";
+                            break;
+                        case "Bad Request - Only job seekers are allowed to apply for a job":
+                            error = "Only job seekers are allowed to apply for a job!";
+                            break;
+                        case "Bad Request - You have already applied for another job that clashes with this":
+                            error = "You have applied for another job that clashes with this!";
+                            break;
+                    }
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/index.jsp");
+                    return;
             }
+            
         } finally {
             httpResponse.close();
             EntityUtils.consume(entity);
         }
         
-        String message = "You have successfully applied for this job!";
-        session.setAttribute("message", message);
-        response.sendRedirect("/mydashboard.jsp");
+        
     }
 
 }

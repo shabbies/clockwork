@@ -89,9 +89,9 @@ return;
             <div class="form-group col-md-12 text-left">
                 <label for="job-desc" class="control-label">Job Description</label> 
                 <% if (repopulate == null){%>
-                <textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required></textarea> 
+                <pre><textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required></textarea></pre>
                 <%} else {%>
-                <textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required><%=repopulate[2]%></textarea> <%}%>
+                <pre><textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required><%=repopulate[2]%></textarea></pre> <%}%>
             </div>
         </tr>
         <tr>

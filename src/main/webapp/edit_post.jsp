@@ -73,7 +73,7 @@
             <tr>
                 <div class="form-group col-md-12 text-left"> 
                     <label for="job-desc" class="control-label">Job Description</label> 
-                    <textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required><%=post.getDescription()%></textarea> 
+                    <pre><textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required><%=post.getDescription()%></textarea></pre>
                 </div>
             </tr>
             <tr>
