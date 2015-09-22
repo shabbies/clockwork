@@ -31,6 +31,8 @@ public class APIManager {
     public APIManager(String mode){
         if (mode.equals("production")){
             prefix = "https://clockwork-api.herokuapp.com";
+        } else if (mode.equals("development")){
+            prefix = "http://localhost:3000";
         } else {
             prefix = "https://staging-clockwork-api.herokuapp.com";
         }

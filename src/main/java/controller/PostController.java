@@ -46,6 +46,10 @@ public class PostController {
         return postManager.getPendingAndOfferedJobs();
     }
     
+    public void removeAppliedPost(int postID){
+        postManager.removeAppliedPost(postID);
+    }
+    
     public HashMap <Integer, String> getApplicationPostStatus(){
         return postManager.getApplicationPostStatus();
     }

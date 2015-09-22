@@ -253,4 +253,12 @@ public class PostManager {
 
         return pendingList.contains(post) || offeredList.contains(post) || hiredList.contains(post);
     }
+    
+    public void removeAppliedPost(int postID){
+        Post post = getPostFromHash(postID);
+        for (String key : appliedJobs.keySet()){
+            ArrayList <Post> retrievedList = appliedJobs.get(key);
+            retrievedList.remove(post);
+        }
+    }
 }

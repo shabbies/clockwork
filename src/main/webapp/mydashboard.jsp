@@ -279,7 +279,6 @@ session.removeAttribute("appliedJobsStatusMap");
                 </div>
                 <form action="/AcceptJobOfferServlet" method="POST" class="display-inline"/>
                     <input type="hidden" id="accept_post_id" name="post_id" />
-                    <input type="hidden" id="accept_post_clash_ids" name="clash_post_id" />
                     <input type="submit" class="btn btn-primary btn-lg" value="Yes"/>
                 </form>
                 <button class="btn btn-lg btn-primary" data-dismiss="modal">No</button>
@@ -316,15 +315,12 @@ $(".accept-job").click(function(){
         success: function(result) {
             if ((result.toString()) !== ""){
                 $("#drop-application").removeClass("hidden");
-                var postIDArray = [];
                 var formedHTML = "";
                 result.forEach(function(element){
                    var key = Object.keys(element);
-                   postIDArray.push(key);
                    formedHTML += "<div><strong>" + element[key] + "</strong></div>"
                 });
                 $("#drop-application-content").html(formedHTML);
-                $("#accept_post_clash_ids").val(postIDArray);
             } else {
                 $("#drop-application").addClass("hidden");
             }

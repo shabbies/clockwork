@@ -159,7 +159,7 @@
             $('#calendar').fullCalendar( 'destroy' );
             
             var calendar_dates = {};
-            if (typeof applied !== "undefined" && current_location.indexOf("index") !== -1){
+            if (current_location.indexOf("dashboard") > 0 || (typeof applied !== "undefined" && current_location.indexOf("index") !== -1)){
                 $("#apply_job_button").hide();
             } else {
                 $("#apply_job_button").show();
@@ -167,8 +167,8 @@
                 var end_date = new Date(job_details.data("cdateend"));
                 start_date.setHours(0);
                 while (start_date <= end_date){
-                    var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + start_date.getDate();
-                    calendar_dates[start_date_string] = {title: headerText, start: start_date_string, color: '#ee4054'};
+                    var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
+                    calendar_dates[start_date_string] = {title: "", start: start_date_string, color: '#ee4054'};
                     start_date.setDate(start_date.getDate() + 1);
                 }
             }
@@ -198,6 +198,16 @@
                                     color: color
                                 };
                             });
+                            
+                            var start_date = new Date(job_details.data("cdate"));
+                            var end_date = new Date(job_details.data("cdateend"));
+                            start_date.setHours(0);
+                            while (start_date <= end_date){
+                                var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
+                                calendar_dates[start_date_string] = {title: "", start: start_date_string, color: '#ee4054'};
+                                start_date.setDate(start_date.getDate() + 1);
+                            }
+                            
                             for (var key in calendar_dates){
                                 events.push(calendar_dates[key]);
                             }

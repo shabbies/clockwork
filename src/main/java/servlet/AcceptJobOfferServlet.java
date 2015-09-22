@@ -3,6 +3,7 @@ package servlet;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import controller.AppController;
+import controller.PostController;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -37,11 +38,11 @@ public class AcceptJobOfferServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
+        PostController postController = appController.getPostController();
         APIManager apiManager = appController.getAPIManager();
         String URL = apiManager.getEPAccept();
         User currentUser = (User)session.getAttribute("currentUser");
         int postID = Integer.parseInt(request.getParameter("post_id"));
-        String clashingIDs = request.getParameter("clash_post_id");
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
         
@@ -50,8 +51,7 @@ public class AcceptJobOfferServlet extends HttpServlet {
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("post_id", "" + postID));
-        nvps.add(new BasicNameValuePair("email", email));        
-        nvps.add(new BasicNameValuePair("drop_posts", clashingIDs));
+        nvps.add(new BasicNameValuePair("email", email));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
@@ -83,11 +83,13 @@ public class AcceptJobOfferServlet extends HttpServlet {
                     Gson gson = new Gson();
                     Type listType = new TypeToken<ArrayList<String>>(){}.getType();
                     ArrayList <String> postList = gson.fromJson(responseString, listType);
-                    message = "You have accepted the job, but withdrawn your applications for the following:";
-                    for (String postName : postList){
-                        message += "<strong>" + postName + "</strong>";
+                    message = "You have accepted the job, but withdrawn your applications for the following:  ";
+                    for (String postDropped : postList){
+                        String[] valuesSplit = postDropped.split("\\|");
+                        message += "<strong>" + valuesSplit[1] + ", </strong>";
+                        postController.removeAppliedPost(Integer.parseInt(valuesSplit[0]));
                     }
-                    message.substring(0, message.lastIndexOf(","));
+                    message = message.substring(0, message.lastIndexOf(","));
                     session.setAttribute("message", message);
                     break;
             }
