@@ -28,29 +28,11 @@
                 <% } %>
 
                 <li><a class="page-scroll" href="#portfolio">How it works</a></li>
-                <li><a class="page-scroll" href="/pricing.jsp">Pricing Plans</a></li>
                 <% if (currentUser == null){ %>
                     <li><button class="btn btn-primary wow tada" onclick="location.href='/login.jsp'">Login / Register</button></li>
                 <% } else {  %>
                   
-                    <li id="notification_li">
-                        <span id="notification_count">3</span>
-                        <a href="#" id="notificationLink">Notifications</a>
-                        <div id="notificationContainer">
-                        <div id="notificationTitle">Notifications</div>
-                        <div id="notificationsBody" class="notifications">
-                            <div class="notification_content">
-                                <img src="img/user-placeholder.jpg" alt="" class="col-md-3 notification_content_profile img-rounded img-responsive display-inline" />
-                                <div class="col-md-9 display-inline">kennethsohsc has just offered you a job! Click here to accept it now!</div>
-                            </div>
-                            <div class="notification_content">
-                                <img src="img/user-placeholder.jpg" alt="" class="col-md-3 notification_content_profile img-rounded img-responsive display-inline" />
-                                <div class="col-md-10 display-inline">kennethsohsc has just offered you a job! Click here to accept it now!</div>
-                            </div>
-                        </div>
-                        <div id="notificationFooter"><a href="#">See All</a></div>
-                        </div>
-                    </li>
+                    
                     <li><span>Welcome, <%=currentUser.getUsername()%></span></li>
                     <li><button class="btn btn-primary wow tada" onclick="$('#logout_form').submit();">Logout</button></li>
                <% } %>
