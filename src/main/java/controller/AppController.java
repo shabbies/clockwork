@@ -8,12 +8,15 @@ public class AppController {
     private UserController userController;
     private MatchController matchController;
     private APIManager apiManager;
+    private String environment;
     
     public AppController(){
+        String env = "staging";
         postController = new PostController();
         userController = new UserController();
         matchController = new MatchController();
-        apiManager = new APIManager("staging");
+        apiManager = new APIManager(env);
+        environment = env;
     }
 
     public PostController getPostController() {
@@ -30,5 +33,9 @@ public class AppController {
     
     public APIManager getAPIManager(){
         return apiManager;
+    }
+    
+    public String getEnvironment(){
+        return environment;
     }
 }

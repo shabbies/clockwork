@@ -38,11 +38,15 @@ public class FacebookLoginServlet extends HttpServlet {
 
     private String appID = null;
     private String appSecret = null;
+    private String stagingAppID = null;
+    private String stagingAppSecret = null;
     
     @Override
     public void init(ServletConfig servletConfig) throws ServletException{
         appID = servletConfig.getInitParameter("facebookAppID");
         appSecret = servletConfig.getInitParameter("facebookAppSecret");
+        stagingAppID = servletConfig.getInitParameter("staging-facebookAppID");
+        stagingAppSecret = servletConfig.getInitParameter("staging-facebookAppSecret");
     }
 
     @Override
@@ -66,7 +70,12 @@ public class FacebookLoginServlet extends HttpServlet {
         
         // Extending access token
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + URLEncoder.encode(appID, "UTF-8") + "&client_secret=" + URLEncoder.encode(appSecret, "UTF-8") + "&fb_exchange_token=" + URLEncoder.encode(shortAccessToken, "UTF-8"));
+        String accessTokenExtensionURL = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + URLEncoder.encode(appID, "UTF-8") + "&client_secret=" + URLEncoder.encode(appSecret, "UTF-8") + "&fb_exchange_token=" + URLEncoder.encode(shortAccessToken, "UTF-8");
+        if (appController.getEnvironment().equals("staging")){
+            accessTokenExtensionURL = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + URLEncoder.encode(stagingAppID, "UTF-8") + "&client_secret=" + URLEncoder.encode(stagingAppSecret, "UTF-8") + "&fb_exchange_token=" + URLEncoder.encode(shortAccessToken, "UTF-8");
+        }
+        
+        HttpGet httpGet = new HttpGet(accessTokenExtensionURL);
         CloseableHttpResponse httpResponse = httpclient.execute(httpGet);
         try {
             HttpEntity entity = httpResponse.getEntity();

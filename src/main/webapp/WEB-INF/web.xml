@@ -41,6 +41,16 @@
             <param-value>3d9e32b868319f0066f7f2958af45f80</param-value>
             <load-on-startup>1</load-on-startup>
         </init-param>
+        <init-param>
+            <param-name>staging-facebookAppID</param-name>
+            <param-value>908772012537733</param-value>
+            <load-on-startup>1</load-on-startup>
+        </init-param>
+        <init-param>
+            <param-name>staging-facebookAppSecret</param-name>
+            <param-value>c102fef8db00757b6c80026b4df03451</param-value>
+            <load-on-startup>1</load-on-startup>
+        </init-param>
     </servlet>
     <servlet>  
         <servlet-name>UpdateUserProfileServlet</servlet-name>
