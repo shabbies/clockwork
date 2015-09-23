@@ -112,6 +112,8 @@ public class FacebookLoginServlet extends HttpServlet {
         HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Accept", "application/json");
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+        
+            System.out.println(email);
         nvps.add(new BasicNameValuePair("user[email]", email));
         nvps.add(new BasicNameValuePair("user[username]", fullname));
         nvps.add(new BasicNameValuePair("user[account_type]",accountType));
