@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
-
+<%  String paypalAuthToken = request.getParameter("auth"); 
+    session.setAttribute("paypalAuthToken", paypalAuthToken); %>
 <header class="main">
   <div class="header-content">
     <div class="header-content-inner">
@@ -25,16 +26,20 @@
 
 <script>
     $(document).ready(function(){
-        var referrer = document.referrer;
-        if (referrer.indexOf("paypal") === -1){
-            $.ajax({
-                url: '/HireUserServlet',
-                type: 'POST',
-                success: function(data) {
-                    window.location.replace("/"); 
-                }
-            });
-        }
+        window.setTimeout(function(){
+            var referrer = document.referrer;
+            if (referrer.indexOf("paypal") === -1){
+                $.ajax({
+                    url: '/StoreSessionVariableServlet',
+                    data: { "message": "Please register to complete your payment process!"},
+                    type: 'POST',
+                    success: function(data) {
+                        window.location.replace("/register_employer.jsp"); 
+                    }
+                });
+            }    
+            window.location.replace("/"); 
+        }, 500);  
     });
 </script>
 

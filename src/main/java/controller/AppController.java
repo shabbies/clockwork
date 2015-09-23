@@ -13,7 +13,7 @@ public class AppController {
         postController = new PostController();
         userController = new UserController();
         matchController = new MatchController();
-        apiManager = new APIManager("staging");
+        apiManager = new APIManager("development");
     }
 
     public PostController getPostController() {

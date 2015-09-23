@@ -71,8 +71,10 @@
     var postID = null;
     
     $(document).on("click", "#facebook_share", function(e){
+        var left = (screen.width - 600) / 2;
+        var top = (screen.height - 300) / 4; 
         var host = window.location.origin.toString();
-        window.open("http://www.facebook.com/sharer/sharer.php?u=" + host + "/post.jsp?id=" + postID, "Share on Facebook!", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600");
+        window.open("http://www.facebook.com/sharer/sharer.php?u=" + host + "/post.jsp?id=" + postID, "Share on Facebook!", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600,top=" + top + ",left=" + left);
     });
     
     $(document).on("click", "a", function(e){

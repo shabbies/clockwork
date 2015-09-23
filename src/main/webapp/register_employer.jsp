@@ -3,6 +3,7 @@
 
 <header class="main">
     <div class="header-content">
+        <%@include file="_message.jsp"%>
         <div class="header-content-inner">
             <h2 class="text-center">Hello!</h2>
             <h3 class="text-center">Hiring on Clockwork is simple & effective. Give it a go!</h3>

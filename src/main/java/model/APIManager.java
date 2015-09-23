@@ -146,4 +146,8 @@ public class APIManager {
     public String getEPCalendarFormatDates() {
         return prefix + EPCalendarFormatDates;
     }
+    
+    public String getPrefix(){
+        return prefix;
+    }
 }

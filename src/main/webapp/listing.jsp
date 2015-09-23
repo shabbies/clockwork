@@ -7,6 +7,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page buffer="16kb" %>
 <%  String postID = request.getParameter("id");
+appController = (AppController)session.getAttribute("appController");
 ArrayList <User> applicantList = (ArrayList <User>)session.getAttribute("applicantList");
 ArrayList <User> offeredList = (ArrayList <User>)session.getAttribute("offeredList");
 ArrayList <User> hiredList = (ArrayList <User>)session.getAttribute("hiredList");
@@ -41,7 +42,7 @@ session.removeAttribute("offeredList");}%>
     <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-body db-user">
-                <% String expirePostURL = "https://clockwork-api.herokuapp.com/api/v1/posts/dev_expire_post?id=" + post.getId(); %>
+                <% String expirePostURL = appController.getAPIManager().getPrefix() + "/api/v1/posts/dev_expire_post?id=" + post.getId(); %>
                 <button data-expireURL="<%=expirePostURL%>" class="btn btn-primary pull-right expire-post">Expire Post</button>
                 <div class="text-center">
                     <% if (post.getAvatarPath() == null){%>
@@ -326,19 +327,6 @@ session.removeAttribute("offeredList");}%>
         $("#offer_post_id").val(postID);
         $('#offer_job_modal').modal('show');
     });
-    
-    function submitPaypalForm(){
-        var userID = $("#form_user_id").val();
-        var postID = $("#form_post_id").val();
-        $.ajax({
-            url: '/StoreSessionVariableServlet',
-            data: { "hiring_applicant_id": userID, "hiring_post_id": postID },
-            type: 'POST',
-            success: function(data) {
-                $("#paypalform").submit();  
-            }
-        });
-    };
     
     function showCompleteJobConfirmation(){
         var userID = $(this).data("userid");
