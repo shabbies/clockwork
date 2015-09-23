@@ -81,13 +81,23 @@ function facebookLogin() {
 }
 
 window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '879787135436221',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.4' // use version 2.2
-  });
+    if (window.location.origin.toString().indexOf("staging") !== -1){
+        FB.init({
+          appId      : '879787135436221',
+          cookie     : true,  // enable cookies to allow the server to access 
+                              // the session
+          xfbml      : true,  // parse social plugins on this page
+          version    : 'v2.4' // use version 2.2
+        });
+    } else {
+        FB.init({
+          appId      : '908772012537733',
+          cookie     : true,  // enable cookies to allow the server to access 
+                              // the session
+          xfbml      : true,  // parse social plugins on this page
+          version    : 'v2.4' // use version 2.2
+        });
+    }
 };
 
   // Load the SDK asynchronously
