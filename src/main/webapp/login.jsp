@@ -81,10 +81,9 @@ function facebookLogin() {
 }
 
 window.fbAsyncInit = function() {
-    alert(window.location.href.toString().indexOf("staging"));
-    if (window.location.href.toString().indexOf("staging") !== -1){
+    if (window.location.href.toString().indexOf("staging") > -1){
         FB.init({
-          appId      : '879787135436221',
+          appId      : '908772012537733',
           cookie     : true,  // enable cookies to allow the server to access 
                               // the session
           xfbml      : true,  // parse social plugins on this page
@@ -92,7 +91,7 @@ window.fbAsyncInit = function() {
         });
     } else {
         FB.init({
-          appId      : '908772012537733',
+          appId      : '879787135436221',
           cookie     : true,  // enable cookies to allow the server to access 
                               // the session
           xfbml      : true,  // parse social plugins on this page
