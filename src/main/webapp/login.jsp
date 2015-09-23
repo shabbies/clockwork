@@ -76,12 +76,13 @@ function facebookLogin() {
       });
     } else if (response.status === 'not_authorized') {
             //console.log(response);
-          } 
-        }, {scope: 'public_profile,email'});
+    } 
+  }, {scope: 'public_profile,email'});
 }
 
 window.fbAsyncInit = function() {
-    if (window.location.origin.toString().indexOf("staging") !== -1){
+    alert(window.location.href.toString().indexOf("staging"));
+    if (window.location.href.toString().indexOf("staging") !== -1){
         FB.init({
           appId      : '879787135436221',
           cookie     : true,  // enable cookies to allow the server to access 
