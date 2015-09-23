@@ -126,6 +126,7 @@ public class FacebookLoginServlet extends HttpServlet {
             StringWriter writer = new StringWriter();
             IOUtils.copy(entity.getContent(), writer, "UTF-8");
             String responseString = writer.toString();
+            System.out.println(responseString);
             UserController userController = appController.getUserController();
             user = userController.createUserFromJSON(responseString);
             EntityUtils.consume(entity);
