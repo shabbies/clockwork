@@ -71,7 +71,8 @@
     var postID = null;
     
     $(document).on("click", "#facebook_share", function(e){
-        window.open("http://www.facebook.com/sharer/sharer.php?u=https://clockworksmu.herokuapp.com/post.jsp?id=" + postID + "&title=blahblah", "Share on Facebook!", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600");
+        var host = window.location.origin.toString();
+        window.open("http://www.facebook.com/sharer/sharer.php?u=" + host + "/post.jsp?id=" + postID, "Share on Facebook!", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600");
     });
     
     $(document).on("click", "a", function(e){

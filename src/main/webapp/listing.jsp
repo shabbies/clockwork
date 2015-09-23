@@ -41,6 +41,8 @@ session.removeAttribute("offeredList");}%>
     <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-body db-user">
+                <% String expirePostURL = "https://clockwork-api.herokuapp.com/api/v1/posts/dev_expire_post?id=" + post.getId(); %>
+                <button data-expireURL="<%=expirePostURL%>" class="btn btn-primary pull-right expire-post">Expire Post</button>
                 <div class="text-center">
                     <% if (post.getAvatarPath() == null){%>
                     <img src="http://placehold.it/120x120" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
