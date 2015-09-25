@@ -1173,6 +1173,12 @@ body {
     border-bottom: 1px solid #ddd;
     position: relative;
     height: 50px;
+    overflow: hidden;
+}
+
+.notification_content:hover {
+    background-color: #F5FAFA;
+    cursor: pointer;
 }
 
 .notification_content_profile{

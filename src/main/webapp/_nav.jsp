@@ -34,19 +34,12 @@
                 <% } else {  %>
                   
                     <li id="notification_li">
-                        <span id="notification_count">3</span>
+                        <span id="notification_count">0</span>
                         <a href="#" id="notificationLink">Notifications</a>
                         <div id="notificationContainer">
                         <div id="notificationTitle">Notifications</div>
                         <div id="notificationsBody" class="notifications">
-                            <div class="notification_content">
-                                <img src="img/user-placeholder.jpg" alt="" class="col-md-3 notification_content_profile img-rounded img-responsive display-inline" />
-                                <div class="col-md-9 display-inline">kennethsohsc has just offered you a job! Click here to accept it now!</div>
-                            </div>
-                            <div class="notification_content">
-                                <img src="img/user-placeholder.jpg" alt="" class="col-md-3 notification_content_profile img-rounded img-responsive display-inline" />
-                                <div class="col-md-10 display-inline">kennethsohsc has just offered you a job! Click here to accept it now!</div>
-                            </div>
+                            
                         </div>
                         <div id="notificationFooter"><a href="#">See All</a></div>
                         </div>
@@ -81,18 +74,42 @@ $(document).ready(function(){
     
     <% if (currentUser != null){ %>
         $.ajax({
-            url: 'https://clockwork-api.herokuapp.com/api/v1/users/get_unread_notifications',
-            dataType: 'json',
+            url: "/GetNotificationsServlet",
             method: "POST",
             async: true,
-            beforeSend: function(xhr){
-                xhr.setRequestHeader('Authentication-Token', "<%=currentUser.getAuthenticationToken()%>");
-            },
             data: {
-                email: "<%=currentUser.getEmail()%>"
+                location: "nav"
             },
             success: function(resultString) {
-                var result = JSON.parse(resultString);
+                if (resultString !== "") {
+                    var results = JSON.parse(resultString);
+                    $("#notification_count").html(results.length);
+                    $(results).each(function(){
+                        var id = $(this).attr("id");
+                        var post_id = $(this).attr("postId");
+                        var content = $(this).attr("content");
+                        var image = $(this).attr("avatarPath");
+                        if(typeof image === "undefined"){
+                            image = "img/user-placeholder.jpg";
+                        }
+                        var linkURL = null;
+                        if (content.indexOf("accepted") !== -1 || content.indexOf("new applicant") !== -1){
+                            linkURL = "/listing.jsp?id=" + post_id;
+                        } else if (content.indexOf("a new rating") !== -1){
+                            linkURL = "/all_ratings.jsp";
+                        } else {
+                            linkURL = "/mydashboard.jsp";
+                        }
+                        var $div = $("<div>", {class: "notification_content", onclick: "window.location='" + linkURL + "'"});
+                        var $image = $("<img>", {class: "col-md-3 notification_content_profile img-rounded img-responsive display-inline", src: image});
+                        var $content = $("<div>", {class: "col-md-10 display-inline noti-bar-content"})
+                        $content.append(content);
+                        $div.append($image);
+                        $div.append($content);
+                        $(".notifications").append($div);
+                    });
+                    dotdot();
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
               console.log(textStatus, errorThrown);
@@ -100,5 +117,33 @@ $(document).ready(function(){
         });
     <% } %>
 
+    function dotdot(){
+        $(".noti-bar-content").dotdotdot({
+            /*  The text to add as ellipsis. */
+            ellipsis    : '... ',
+            /*  How to cut off the text/html: 'word'/'letter'/'children' */
+            wrap        : 'word',
+            /*  Wrap-option fallback to 'letter' for long words */
+            fallbackToLetter: true,
+            /*  jQuery-selector for the element to keep and put after the ellipsis. */
+            after       : null,
+            /*  Whether to update the ellipsis: true/'window' */
+            watch       : false,
+            /*  Optionally set a max-height, if null, the height will be measured. */
+            height      : null,
+            /*  Deviation for the height-option. */
+            tolerance   : 0,
+            /*  Callback function that is fired after the ellipsis is added,
+            receives two parameters: isTruncated(boolean), orgContent(string). */
+            callback    : function( isTruncated, orgContent ) {},
+            lastCharacter   : {
+                /*  Remove these characters from the end of the truncated text. */
+                remove      : [ ' ', ',', ';', '.', '!', '?' ],
+                /*  Don't add an ellipsis if this array contains 
+                the last character of the truncated text. */
+                noEllipsis  : []
+            }
+        });
+    }
 });
 </script>

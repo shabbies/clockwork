@@ -7,6 +7,7 @@ public class AppController {
     private PostController postController;
     private UserController userController;
     private MatchController matchController;
+    private NotificationController notificationController;
     private APIManager apiManager;
     private String environment;
     
@@ -15,6 +16,7 @@ public class AppController {
         postController = new PostController();
         userController = new UserController();
         matchController = new MatchController();
+        notificationController = new NotificationController();
         apiManager = new APIManager(env);
         environment = env;
     }
@@ -29,6 +31,10 @@ public class AppController {
 
     public MatchController getMatchController() {
         return matchController;
+    }
+    
+    public NotificationController getNotificationController(){
+        return notificationController;
     }
     
     public APIManager getAPIManager(){
