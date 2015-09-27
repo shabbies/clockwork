@@ -6,7 +6,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.User"%>
-<%@ page import="model.Post"%>
+<%@ page import="model.Notification"%>
 <%@ page buffer="16kb" %>
 <%
 if (currentUser == null){
@@ -17,6 +17,9 @@ return;
 
 ArrayList <Notification> readList = (ArrayList <Notification>)session.getAttribute("readList");
 ArrayList <Notification> unreadList = (ArrayList <Notification>)session.getAttribute("unreadList");
+ArrayList <Notification> allNotifications = new ArrayList <Notification> ();
+allNotifications.addAll(unreadList);
+allNotifications.addAll(readList);
 %>
 <header class="main">
 <div class="header-full-content">
@@ -27,58 +30,35 @@ ArrayList <Notification> unreadList = (ArrayList <Notification>)session.getAttri
     <div class="col-md-8">
         <div class="panel panel-default">
             <div class="panel-heading"> 
-                <h4>Completed Jobs</h4> 
+                <h4>Your Notifications</h4> 
             </div> 
 
             <table class="table db-job-table db-rating-table"> 
 
                 <thead> 
                     <tr id="header-row"> 
-                        <th>Job</th>
-                        <th>Company</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Rating</th>
-                        <th>Comments</th>
+                        <th col-span="2">Recent Notifications</th>
                     </tr>
                 </thead>
 
                 <tbody> 
-                    <% for (Post post : completedJobs) { %>
-                    <% int rating = post.getRating();%>
-                    <% if (rating == -1){ %>
+                    <% for (Notification notification : allNotifications) { %>
+                    <% String status = notification.getStatus();
+                        String image = notification.getAvatarPath();
+                        if (image == null){
+                            image = "img/user-placeholder.jpg";}%>
+                    <% if (status.equals("unread")){ %>
                         <tr class="danger">
-                    <% } else if (rating == 0) { %>
-                        <tr class="warning">
                     <% } else { %>
                         <tr class="success">
                     <% } %>
-                            <td><%=post.getHeader()%></td>
-                            <td><%=post.getCompany()%></td>
-                            <td><%=post.getJobDateString()%></td>
-                            <td><%=post.getEndDateString()%></td>
-                            <td>
-                                <% if (rating == -1){ %>
-                                    <img src="img/bad.png" class="listing_ratings" />
-                                <% } else if (rating == 0) { %>
-                                    <img src="img/neutral.png" class="listing_ratings" />
-                                <% } else { %>
-                                    <img src="img/good.png" class="listing_ratings" />
-                                <% } %>
-                            </td>
-                            <td>
-                                <% if (post.getComment() == null){ %>
-                                    You did not receive a comment!
-                                <% } else { %>
-                                    <%=post.getComment()%>
-                                <% } %>
-                            </td>
+                    <td><img class="col-md-1 notification_content_profile img-rounded img-responsive" src="<%=image%>"/><div class="col-md-11 display-inline"><%=notification.getContent()%></div></td>
                     </tr>
                     <% }
-                    if (completedJobs.isEmpty()) { %>
-                        <tr class="text-center"><td colspan="6">You have no notifications!</td></tr>
+                    if (allNotifications.isEmpty()) { %>
+                        <tr class="text-center"><td>You have no notifications!</td></tr>
                         <tr class="text-center">
-                            <td colspan="6">
+                            <td>
                                 <a href="/index.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Find Job!</a>
                             </td>
                         </tr>

@@ -38,10 +38,8 @@
                         <a href="#" id="notificationLink">Notifications</a>
                         <div id="notificationContainer">
                         <div id="notificationTitle">Notifications</div>
-                        <div id="notificationsBody" class="notifications">
-                            
-                        </div>
-                        <div id="notificationFooter"><a href="#">See All</a></div>
+                        <div id="notificationsBody" class="notifications"></div>
+                        <div id="notificationFooter"><a href="/GetNotificationsServlet?location=all">See All</a></div>
                         </div>
                     </li>
                     <li><span>Welcome, <%=currentUser.getUsername()%></span></li>
@@ -67,15 +65,11 @@ $(document).ready(function(){
     $(document).click(function(){
         $("#notificationContainer").hide();
     });
-    //Popup Click
-    $("#notificationContainer").click(function(){
-        return false
-    });
     
     <% if (currentUser != null){ %>
         $.ajax({
             url: "/GetNotificationsServlet",
-            method: "POST",
+            method: "GET",
             async: true,
             data: {
                 location: "nav"
