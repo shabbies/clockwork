@@ -16,7 +16,7 @@
         <div class="col-md-4 text-center">
             <img id="post_avatar" src="img/user-placeholder.jpg" alt="" class="db-user-pic img-rounded img-responsive"/>
 
-            <h2 id="modalSalary">$10/h2>
+            <h2 id="modalSalary">$10</h2>
         </div>
 
         <div class="col-md-8">
@@ -61,7 +61,7 @@
         </form>
     </div>
     <div class="pull-left">
-        <div><button type="button" id="facebook_share" class="btn btn-info btn-lg">Share on Facebook</button></div>
+        <div><button type="button" id="facebook_share" class="btn btn-facebook btn-lg">Share on Facebook</button></div>
     </div>
 </div>
 </div>

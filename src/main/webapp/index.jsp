@@ -88,7 +88,15 @@ String query = request.getParameter("q");%>
                         <%=post.getLocation()%>
                     </h5>
                 </div>
-                <span class="job-entry-price pull-right primary <%= jobEditColor %>"><strong>$<%=post.getSalary()%>/hr</strong></span>
+                <span class="job-entry-price pull-right primary <%= jobEditColor %>">
+                    <% String salary = "$" + post.getSalary();
+                        if (post.getPayType().equals("hour")){
+                            salary += " / hr";
+                        } else {
+                            salary += " / day";
+                        }%>
+                    <strong><%=salary%></strong>
+                </span>
             </div>
 
             <div class="row">
@@ -99,7 +107,7 @@ String query = request.getParameter("q");%>
         </div>
 
 
-        <div class="row job-entry-apply <%=jobStyle%> open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%> / hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>" data-id="<%=post.getId()%>" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>">
+        <div class="row job-entry-apply <%=jobStyle%> open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>" data-id="<%=post.getId()%>" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>">
 
             <!--
             <div class="col-xs-6"> 

@@ -62,7 +62,7 @@ public class CompleteProfileServlet extends HttpServlet {
         String dateOfBirthString = request.getParameter("dob_date");
         Date dateOfBirth = null;
         if (dateOfBirthString != null){
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat df = new SimpleDateFormat("MMMMM d, yyyy");
             try {
                 dateOfBirth = df.parse(dateOfBirthString);
             } catch (ParseException e){
@@ -103,7 +103,8 @@ public class CompleteProfileServlet extends HttpServlet {
             builder.addTextBody("gender", gender, ContentType.TEXT_PLAIN);
         }
         if (dateOfBirthString != null){
-            builder.addTextBody("date_of_birth", dateOfBirthString, ContentType.TEXT_PLAIN);
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            builder.addTextBody("date_of_birth", df.format(dateOfBirth), ContentType.TEXT_PLAIN);
         }
         if (contactNumber != 0){
             builder.addTextBody("contact_number", String.valueOf(contactNumber), ContentType.TEXT_PLAIN);

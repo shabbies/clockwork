@@ -306,7 +306,7 @@ aside {
 }
 
 .job-entry-price{
-    font-size:20px;
+    font-size:17px;
     padding-top:15px;
     padding-right: 15px;
     margin-left:-26px;
@@ -670,6 +670,26 @@ fieldset[disabled] .btn-primary.active {
 
 .btn-xl {
     padding: 15px 30px;
+}
+
+.btn-facebook {
+    border-color: #3b5998;
+    color: #fff;
+    background-color: #3b5998;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+}
+
+.btn-facebook:hover,
+.btn-facebook:focus,
+.btn-facebook.focus,
+.btn-facebook:active,
+.btn-facebook.active,
+.open > .dropdown-toggle.btn-primary {
+    border-color: #355088;
+    color: #fff;
+    background-color: #355088;
 }
 
 ::-moz-selection {

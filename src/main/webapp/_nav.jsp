@@ -51,7 +51,8 @@
                         <div id="notificationFooter"><a href="#">See All</a></div>
                         </div>
                     </li>
-                    <li><span>Welcome, <%=currentUser.getUsername()%></span></li>
+                    <% String profileUpdateLink = (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null)? "/complete_profile.jsp": "/edit_profile.jsp";%>
+                    <li><a href="<%=profileUpdateLink%>"><span>Welcome, <%=currentUser.getUsername()%></span></a></li>
                     <li><button class="btn btn-primary wow tada" onclick="$('#logout_form').submit();">Logout</button></li>
                <% } %>
            </ul>

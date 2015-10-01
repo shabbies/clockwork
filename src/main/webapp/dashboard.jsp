@@ -70,7 +70,13 @@ return;
 
                         <tbody>
                             <% for (Post post : publishedList){%>
-                            <tr class="open-job-modal" data-userid="0" data-jobstatus="<%= post.getStatus() %>" data-ownjob="" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%> / hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
+                            <%  String salary = "" + post.getSalary();
+                                if (post.getPayType().equals("hour")){
+                                    salary += " / hr";
+                                } else {
+                                    salary += " / day";
+                                }%>
+                            <tr class="open-job-modal" data-userid="0" data-jobstatus="<%= post.getStatus() %>" data-ownjob="" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                                 <td><%=post.getHeader()%></td>
                                 <td><%=post.getJobDateString()%></td>   
                                 <% if (post.getStatus().equals("listed")){
@@ -122,11 +128,13 @@ return;
                     <div class="panel-body db-user">
 
                         <div class="text-center">
-                          <% if (currentUser.getAvatar() == null){%>
-                          <img src="img/user-placeholder.jpg" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                          <% } else { %>
-                          <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                          <%}%>
+                            <a href="/edit_profile.jsp">
+                                <% if (currentUser.getAvatar() == null){%>
+                                    <img src="img/user-placeholder.jpg" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
+                                <% } else { %>
+                                    <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
+                                <%}%>
+                            </a>
                         </div>
 
                         <div class="db-user-info">

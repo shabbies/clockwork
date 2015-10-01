@@ -64,8 +64,14 @@ session.removeAttribute("appliedJobsStatusMap");
                                         jobEditColor = "job-edit-color";
                                         ownjob = "true";
                                     }
-                                } %>
-                    <tr class="open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%> / hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
+                                } 
+                                String salary = "" + post.getSalary();
+                                
+                                if (post.getPayType().equals("hour")){
+                                    salary += " / hr";
+                                } else {
+                                    salary += " / day";%>
+                    <tr class="open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                         <td><%=post.getHeader()%></td>
                         <td><%=post.getCompany()%></td>
                         <% if (status.equals("pending")) {%>
@@ -134,13 +140,18 @@ session.removeAttribute("appliedJobsStatusMap");
     <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-body db-user">
-
+                <% String editURL = "/edit_profile.jsp";
+                if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){
+                    editURL = "/complete_profile.jsp";
+                }%>
                 <div class="text-center">
+                    <a href="<%=editURL%>">
                     <% if (currentUser.getAvatar() == null){%>
                     <img src="img/user-placeholder.jpg" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
                     <% } else { %>
                     <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
                     <%}%>
+                    </a>
                 </div>
 
                 <div class="db-user-info">
@@ -153,10 +164,13 @@ session.removeAttribute("appliedJobsStatusMap");
                     </div>
                     <span>What would you like to do today?</span>
                 </div>
-                <%if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){%>
-                <a href="/complete_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
-                <% } else { %> 
-                <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Update my Profile</a><% } %>
+                <a href="<%=editURL%>" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> 
+                    <% if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){ %>
+                    Complete my Profile
+                    <% } else { %>
+                    Update my Profile
+                    <% } %>
+                </a>
                 <a href="/all_ratings.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
                 <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
             </div>

@@ -60,7 +60,43 @@ $(document).ready(function(){
     var today = new Date().toISOString().split('T')[0];
     $("#job-date").attr("min", today);
     $("#end-date").attr("min", today);
+        
+    var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+
+    var today = new Date();
+    today.setDate(today.getDate() + 2);
+    var max_date = new Date();
+    max_date.setDate(max_date.getDate() + 8);
+
+    var min_date_string = monthNames[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
+    var max_date_string = monthNames[max_date.getMonth()] + " " + max_date.getDate() + ", " + max_date.getFullYear();
+    $("#job-date").daterangepicker({
+        locale: {
+            format: 'MMMM D, YYYY'
+        },
+        startDate: min_date_string,
+        endDate: max_date_string,
+        dateLimit: {
+            "days": 6
+        },
+        minDate: min_date_string
+    }); 
+    
+    $("#job-date-edit").daterangepicker({
+        locale: {
+            format: 'MMMM D, YYYY'
+        },
+        dateLimit: {
+            "days": 6
+        },
+        minDate: min_date_string
+    }); 
 });
+
+$(document).on("click", "#job-date-icon", function(){
+    $("#job-date").focus(); 
+    $("#job-date-edit").focus(); 
+ });
 
 $("#job-pay").change(function(){
     var amount = parseFloat($(this).val()).toFixed(2);
@@ -139,21 +175,32 @@ $("#end-date").focusout(function(){
     }
 });
 
-$("#dob-date").focusout(function(){
-    $(".dob-error").attr("style", "display:none;");
-    $("#dob-date").css("border", "1px solid #ccc" );
-    $("#dob-date").css("box-shadow", "inset 0 1px 1px rgba(0,0,0,.075)");
-    var dob_string = $("#dob-date").val();
-    var today = new Date();
-    var dob = new Date(dob_string);
-    
-    today.setHours(0,0,0,0);
-    dob.setHours(0,0,0,0);
-    if (today.getFullYear() - 15 < dob.getFullYear()){
-        $("#dob-date").css("border", "1px solid #ee4054" );
-        $("#dob-date").css("box-shadow", "none");
-        $(".dob-error").removeAttr("style");
-        $("#dob-date").val("");
-    }
+//$("#dob-date").focusout(function(){
+//    $(".dob-error").attr("style", "display:none;");
+//    $("#dob-date").css("border", "1px solid #ccc" );
+//    $("#dob-date").css("box-shadow", "inset 0 1px 1px rgba(0,0,0,.075)");
+//    var dob_string = $("#dob-date").val();
+//    var today = new Date();
+//    var dob = new Date(dob_string);
+//    
+//    today.setHours(0,0,0,0);
+//    dob.setHours(0,0,0,0);
+//    if (today.getFullYear() - 15 < dob.getFullYear()){
+//        $("#dob-date").css("border", "1px solid #ee4054" );
+//        $("#dob-date").css("box-shadow", "none");
+//        $(".dob-error").removeAttr("style");
+//        $("#dob-date").val("");
+//    }
+//});
+
+$("#avatar").change(function (evt) {
+    var pic = evt.target.files[0];
+    var reader = new FileReader();
+    reader.onload = (function() {
+      return function(e) {
+        $("#profile-pic").attr("src", e.target.result);
+      };
+    })(pic);
+    reader.readAsDataURL(pic);
 });
 </script>
