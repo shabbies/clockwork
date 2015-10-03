@@ -73,7 +73,6 @@ public class GetJobApplicantsServlet extends HttpServlet {
                     return;
                 } else if (location.equals("reviewing")){
                     session.setAttribute("hiredList", applicantMap.get("hired"));
-                    session.setAttribute("reviewingList", applicantMap.get("reviewing"));
                     session.setAttribute("completedList", applicantMap.get("completed"));
                     RequestDispatcher rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=reviewing");
                     rd.forward(request, response);

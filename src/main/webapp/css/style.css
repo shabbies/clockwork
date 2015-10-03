@@ -306,7 +306,7 @@ aside {
 }
 
 .job-entry-price{
-    font-size:20px;
+    font-size:17px;
     padding-top:15px;
     padding-right: 15px;
     margin-left:-26px;
@@ -671,6 +671,71 @@ fieldset[disabled] .btn-primary.active {
 .btn-xl {
     padding: 15px 30px;
 }
+
+.btn-facebook {
+    border-color: #3b5998;
+    color: #fff;
+    background-color: #3b5998;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+}
+
+.btn-facebook:hover,
+.btn-facebook:focus,
+.btn-facebook.focus,
+.btn-facebook:active,
+.btn-facebook.active,
+.open > .dropdown-toggle.btn-primary {
+    border-color: #355088;
+    color: #fff;
+    background-color: #355088;
+}
+
+.btn-reject {
+    border-color: #FF0033;
+    color: #fff;
+    background-color: #FF0033;
+    border-left: 1px solid black;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+}
+
+.btn-reject:hover,
+.btn-reject:focus,
+.btn-reject.focus,
+.btn-reject:active,
+.btn-reject.active,
+.open > .dropdown-toggle.btn-reject {
+    border-color: #CC0000;
+    border-left: 1px solid black;
+    color: #fff;
+    background-color: #CC0000;
+}
+
+.btn-accept {
+    border-color: #0000FF;
+    color: #fff;
+    background-color: #0000FF;
+    border-right: 1px solid black;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+}
+
+.btn-accept:hover,
+.btn-accept:focus,
+.btn-accept.focus,
+.btn-accept:active,
+.btn-accept.active,
+.open > .dropdown-toggle.btn-accept {
+    border-color: #0000CC;
+    border-right: 1px solid black;
+    color: #fff;
+    background-color: #0000CC;
+}
+
 
 ::-moz-selection {
     text-shadow: none;
@@ -1054,17 +1119,24 @@ body {
 
 .ratings_icon {
     height: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .ratings_icon_selected{
-    background: yellow;
+    opacity: 1;
+}
+
+.ratings_icon_unselected{
+    opacity: 0.2;
 }
 
 .ratings_icon:hover {
+    opacity: 1;
     cursor: pointer;
-    background: yellow;
-    border: 1px solid transparent;
     border-radius: 300px;
+    -webkit-transform: scale(1.2,1.2);
+    -moz-transform:scale(1.2,1.2);
 }
 
 .hidden{
@@ -1356,4 +1428,32 @@ body {
     background-color: rgba(50,50,50, .01);
     font-weight:600;
     text-shadow: 0px 1px 0px rgba(250,250,250, .75);
+}
+
+pre{
+    margin: 0;
+    border: 0;
+    background: none;
+    font-family: inherit !important;
+}
+
+.pay-type-selector{
+    cursor: pointer;
+    width: 20%;
+}
+
+.pay-type-selector:hover{
+    cursor: pointer;
+    width: 20%;
+    background-color: #FF9933;
+}
+
+.review-table>tbody>tr>td{
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.override-table-hover{
+    cursor: default; 
+    background-color: white;
 }

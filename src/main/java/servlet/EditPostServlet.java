@@ -53,10 +53,17 @@ public class EditPostServlet extends HttpServlet {
         String description = (String)request.getParameter("description");
         String location = (String)request.getParameter("location");
         String jobDateString = (String)request.getParameter("job_date");
-        String endDateString = request.getParameter("end_date");
+        String startDateString = jobDateString.substring(0, jobDateString.indexOf("-") - 1);
+        String endDateString = jobDateString.substring(jobDateString.indexOf("-") + 2);
+//        String endDateString = request.getParameter("end_date");
         String jobStartTime = request.getParameter("start_time");
         String jobEndTime = request.getParameter("end_time");
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String payType = "hour"; // on or null
+        if (request.getParameter("pay-type") == null){
+            payType = "day";
+        }
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat("MMMMM d, yyyy");
         SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
         Date startTime = null;
         Date endTime = null;
@@ -64,7 +71,7 @@ public class EditPostServlet extends HttpServlet {
         Date endDate = null;
         Date today = new Date();
         try {
-            jobDate = df.parse(jobDateString);
+            jobDate = df.parse(startDateString);
             endDate = df.parse(endDateString);
             startTime = tf.parse(jobStartTime);
             endTime = tf.parse(jobEndTime);
@@ -130,6 +137,7 @@ public class EditPostServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("post_id", String.valueOf(postID)));
         nvps.add(new BasicNameValuePair("start_time", jobStartTime));
         nvps.add(new BasicNameValuePair("end_time", jobEndTime));
+        nvps.add(new BasicNameValuePair("pay_type", payType));
         
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
@@ -153,6 +161,7 @@ public class EditPostServlet extends HttpServlet {
                     post.setDuration(duration);
                     post.setStartTime(jobStartTime);
                     post.setEndTime(jobEndTime);
+                    post.setPayType(payType);
                     String message = "Post <strong>(" + post.getHeader() + ")</strong> has been successfully updated!";
                     session.setAttribute("message", message);
                     response.sendRedirect("/dashboard.jsp");

@@ -77,7 +77,29 @@
                 </div>
             </tr>
             <tr>
-                <div class="form-group form-group-lg col-md-6 text-left"> 
+                <div class="form-group form-group-lg col-md-7 text-left"> 
+                    <label for="job-date" class="control-label">Job Date</label> 
+                    <div class="input-group"> 
+                        <div class="input-group-addon" id="job-date-icon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
+                        <input id="job-date-edit" class="form-control" type="text" name="job_date" value="<%=post.getStartAndEndDate()%>" required>
+                    </div> 
+                </div>
+                    
+                <div class="form-group form-group-lg col-md-5 pull-left text-left"> 
+                    <label for="job-pay" class="control-label">Pay</label> 
+                    <div class="input-group"> 
+                        <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
+                        <input id="job-pay" class="form-control" type="number" name="salary" value="<%=post.getSalary()%>" min="0" step="0.1"required> 
+                        <div class="input-group-addon pay-type-selector btn-warning" id="hour">
+                            <strong>/hour</strong>
+                        </div>
+                        <div class="input-group-addon pay-type-selector btn-warning" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" id="day">
+                            <strong>/day</strong>
+                        </div>
+                        <input id="pay-switch" type="checkbox" class="switch" name="pay-type" data-on-text="/hour" data-off-text="/day" checked hidden/>
+                    </div> 
+                </div>
+                <!--<div class="form-group form-group-lg col-md-6 text-left"> 
                     <label for="job-date" class="control-label">Job Start Date</label> 
                     <div class="input-group"> 
                         <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
@@ -107,7 +129,7 @@
                         <span aria-hidden="true"></span>
                         &nbsp;
                     </div>  
-                </div>
+                </div>-->
             </tr>
             <tr>
                 <div class="form-group form-group-lg col-md-6 text-left"> 
@@ -123,16 +145,6 @@
                     <div class="input-group"> 
                         <div class="input-group-addon"><i class="fa fa-clock-o fa-lg fa-fw"></i></div> 
                         <input id="end-time" class="form-control" type="time" name="end_time" value="<%=post.getEndTime()%>" required>
-                    </div> 
-                </div>
-            </tr>
-            <tr>
-                <div class="form-group form-group-lg col-md-5 pull-left text-left"> 
-                    <label for="job-pay" class="control-label">Pay</label> 
-                    <div class="input-group"> 
-                        <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
-                        <input id="job-pay" class="form-control" type="number" name="salary" value="<%=post.getSalary()%>" min="0" step="0.1"required> 
-                        <div class="input-group-addon" style="font-weight:600;"> / Hr</div> 
                     </div> 
                 </div>
             </tr>
@@ -159,3 +171,13 @@
 
 <jsp:include page="_footer.jsp" />
 <jsp:include page="_javascript_checker.jsp" />
+
+<script>
+    $(document).ready(function(){
+    <% if(post.getPayType().equals("hour")){ %>
+        $("#hour").addClass("active");
+    <% } else { %>
+        $("#day").addClass("active");
+    <% } %>    
+    });
+</script>

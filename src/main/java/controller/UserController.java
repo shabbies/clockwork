@@ -52,20 +52,17 @@ public class UserController {
         ArrayList<HashMap> pendingMap = applicantMap.get("pending");
         ArrayList<HashMap> offeredMap = applicantMap.get("offered");
         ArrayList<HashMap> hiredMap = applicantMap.get("hired");
-        ArrayList<HashMap> reviewingMap = applicantMap.get("reviewing");
         ArrayList<HashMap> completedMap = applicantMap.get("completed");
         
         ArrayList<User> pendingUsers = createUsersFromJSONArray(gson.toJson(pendingMap));
         ArrayList<User> offeredUsers = createUsersFromJSONArray(gson.toJson(offeredMap));
         ArrayList<User> hiredUsers = createUsersFromJSONArray(gson.toJson(hiredMap));
-        ArrayList<User> reviewingUsers = createUsersFromJSONArray(gson.toJson(reviewingMap));
         ArrayList<User> completedUsers = createUsersFromJSONArray(gson.toJson(completedMap));
         
         HashMap <String, ArrayList <User>> returnMap = new HashMap <String, ArrayList <User>> ();
         returnMap.put("pending", pendingUsers);
         returnMap.put("offered", offeredUsers);
         returnMap.put("hired", hiredUsers);
-        returnMap.put("reviewing", reviewingUsers);
         returnMap.put("completed", completedUsers);
         
         return returnMap;

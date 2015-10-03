@@ -12,6 +12,8 @@
     <title>Clockwork</title>
 
     <!-- Bootstrap Core CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
     <!-- Custom Fonts -->
@@ -29,12 +31,7 @@
     <link href='fc/fullcalendar.css' rel='stylesheet' />
     <link href='fc/fullcalendar.print.css' rel='stylesheet' media='print' />
     <link href='rating/jquery.raty.css' rel='stylesheet' />
-<!--    <link href="MultiDatesPicker/css/jquery-ui.css" rel="stylesheet" />
-    <link href="MultiDatesPicker/css/jquery-ui.structure.css" rel="stylesheet" />
-    <link href="MultiDatesPicker/css/jquery-ui.theme.css" rel="stylesheet" />
-    <link href="MultiDatesPicker/css/mdp.css" rel="stylesheet" />
-    <link href="MultiDatesPicker/css/pepper-ginder-custom.css" rel="stylesheet" />
-    <link href="MultiDatesPicker/css/prettify.css" rel="stylesheet" />-->
+    <link href="css/bootstrap-switch.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -43,9 +40,7 @@
     <![endif]-->
 
     <!-- Javascript Imports -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src='fc/lib/moment.min.js'></script>
-    <script src='fc/lib/jquery.min.js'></script>
     <script src='fc/fullcalendar.min.js'></script>
     <script src='rating/jquery.raty.js'></script>
 
@@ -68,5 +63,4 @@
     <meta property="og:image:height" content="200"/>
     <% } %>
 </head>
-
 <body id="page-top">

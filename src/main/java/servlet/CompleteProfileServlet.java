@@ -18,6 +18,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
@@ -62,7 +63,7 @@ public class CompleteProfileServlet extends HttpServlet {
         String dateOfBirthString = request.getParameter("dob_date");
         Date dateOfBirth = null;
         if (dateOfBirthString != null){
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat df = new SimpleDateFormat("MMMMM d, yyyy");
             try {
                 dateOfBirth = df.parse(dateOfBirthString);
             } catch (ParseException e){
@@ -103,7 +104,8 @@ public class CompleteProfileServlet extends HttpServlet {
             builder.addTextBody("gender", gender, ContentType.TEXT_PLAIN);
         }
         if (dateOfBirthString != null){
-            builder.addTextBody("date_of_birth", dateOfBirthString, ContentType.TEXT_PLAIN);
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            builder.addTextBody("date_of_birth", df.format(dateOfBirth), ContentType.TEXT_PLAIN);
         }
         if (contactNumber != 0){
             builder.addTextBody("contact_number", String.valueOf(contactNumber), ContentType.TEXT_PLAIN);
@@ -142,10 +144,8 @@ public class CompleteProfileServlet extends HttpServlet {
             session.removeAttribute("updateSource");
             if (updateSource.contains("apply_job")){
                 String postID = updateSource.substring(updateSource.indexOf("-") + 1);
-                String message = "Please proceed with your job application here!";
-                session.setAttribute("message", message);
-                response.sendRedirect("/post.jsp?id=" + postID);
-                return;
+                RequestDispatcher rd = request.getRequestDispatcher("/ApplyJobServlet?post_id=" + postID);
+                rd.forward(request, response);
             }
         }
         

@@ -16,7 +16,7 @@
         <div class="col-md-4 text-center">
             <img id="post_avatar" src="img/user-placeholder.jpg" alt="" class="db-user-pic img-rounded img-responsive"/>
 
-            <h2 id="modalSalary">$10/h2>
+            <h2 id="modalSalary">$10</h2>
         </div>
 
         <div class="col-md-8">
@@ -61,7 +61,7 @@
         </form>
     </div>
     <div class="pull-left">
-        <div><button type="button" id="facebook_share" class="btn btn-info btn-lg">Share on Facebook</button></div>
+        <div><button type="button" id="facebook_share" class="btn btn-facebook btn-lg">Share on Facebook</button></div>
     </div>
 </div>
 </div>
@@ -168,48 +168,50 @@
                 eventColor: 'grey',
                 events: function(start, end, timezone, callback) {
                 <%  if (session.getAttribute("currentUser") != null){ 
-                    appController = (AppController)session.getAttribute("appController");
-                    APIManager apiManager = appController.getAPIManager();
-                    String URL = apiManager.getEPCalendarFormatDates();%>
-                    $.ajax({
-                        url: '<%=URL%>',
-                        dataType: 'json',
-                        data: {
-                            id:uid
-                        },
-                        success: function(doc) {
-                            var events = [];
-                            obj = JSON.parse(doc);
-                            $(obj).each(function() {
-                                var title = $(this).attr('title');
-                                var start = $(this).attr("job_date");
-                                var color = $(this).attr("color");
-                                calendar_dates[start] = {
-                                    title: "",
-                                    start: start,
-                                    color: color
-                                };
-                            });
-                            
-                            var start_date = new Date(job_details.data("cdate"));
-                            var end_date = new Date(job_details.data("cdateend"));
-                            start_date.setHours(0);
-                            while (start_date <= end_date){
-                                var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
-                                calendar_dates[start_date_string] = {title: "", start: start_date_string, color: '#ee4054'};
-                                start_date.setDate(start_date.getDate() + 1);
+                        if (((User)session.getAttribute("currentUser")).getAccountType().equals("job_seeker")){
+                        appController = (AppController)session.getAttribute("appController");
+                        APIManager apiManager = appController.getAPIManager();
+                        String URL = apiManager.getEPCalendarFormatDates();%>
+                        $.ajax({
+                            url: '<%=URL%>',
+                            dataType: 'json',
+                            data: {
+                                id:uid
+                            },
+                            success: function(doc) {
+                                var events = [];
+                                obj = JSON.parse(doc);
+                                $(obj).each(function() {
+                                    var title = $(this).attr('title');
+                                    var start = $(this).attr("job_date");
+                                    var color = $(this).attr("color");
+                                    calendar_dates[start] = {
+                                        title: "",
+                                        start: start,
+                                        color: color
+                                    };
+                                });
+
+                                var start_date = new Date(job_details.data("cdate"));
+                                var end_date = new Date(job_details.data("cdateend"));
+                                start_date.setHours(0);
+                                while (start_date <= end_date){
+                                    var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
+                                    calendar_dates[start_date_string] = {title: "", start: start_date_string, color: '#ee4054'};
+                                    start_date.setDate(start_date.getDate() + 1);
+                                }
+
+                                for (var key in calendar_dates){
+                                    events.push(calendar_dates[key]);
+                                }
+                                callback(events);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
                             }
-                            
-                            for (var key in calendar_dates){
-                                events.push(calendar_dates[key]);
-                            }
-                            callback(events);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log(textStatus, errorThrown);
-                        }
-                    });
-                <% } %>
+                        });
+                    <% }
+                    } %>
                 },
                 eventAfterRender: function(event, element, view) {
                     $(element).css('height','30px');
