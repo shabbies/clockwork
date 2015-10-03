@@ -18,6 +18,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
@@ -143,10 +144,8 @@ public class CompleteProfileServlet extends HttpServlet {
             session.removeAttribute("updateSource");
             if (updateSource.contains("apply_job")){
                 String postID = updateSource.substring(updateSource.indexOf("-") + 1);
-                String message = "Please proceed with your job application here!";
-                session.setAttribute("message", message);
-                response.sendRedirect("/post.jsp?id=" + postID);
-                return;
+                RequestDispatcher rd = request.getRequestDispatcher("/ApplyJobServlet?post_id=" + postID);
+                rd.forward(request, response);
             }
         }
         

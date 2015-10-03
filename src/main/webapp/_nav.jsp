@@ -32,27 +32,8 @@
                 <% if (currentUser == null){ %>
                     <li><button class="btn btn-primary wow tada" onclick="location.href='/login.jsp'">Login / Register</button></li>
                 <% } else {  %>
-                  
-                    <li id="notification_li">
-                        <span id="notification_count">3</span>
-                        <a href="#" id="notificationLink">Notifications</a>
-                        <div id="notificationContainer">
-                        <div id="notificationTitle">Notifications</div>
-                        <div id="notificationsBody" class="notifications">
-                            <div class="notification_content">
-                                <img src="img/user-placeholder.jpg" alt="" class="col-md-3 notification_content_profile img-rounded img-responsive display-inline" />
-                                <div class="col-md-9 display-inline">kennethsohsc has just offered you a job! Click here to accept it now!</div>
-                            </div>
-                            <div class="notification_content">
-                                <img src="img/user-placeholder.jpg" alt="" class="col-md-3 notification_content_profile img-rounded img-responsive display-inline" />
-                                <div class="col-md-10 display-inline">kennethsohsc has just offered you a job! Click here to accept it now!</div>
-                            </div>
-                        </div>
-                        <div id="notificationFooter"><a href="#">See All</a></div>
-                        </div>
-                    </li>
                     <% String profileUpdateLink = (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null)? "/complete_profile.jsp": "/edit_profile.jsp";%>
-                    <li><a href="<%=profileUpdateLink%>"><span>Welcome, <%=currentUser.getUsername()%></span></a></li>
+                    <li><a href="<%=profileUpdateLink%>" class="page-scroll">Welcome, <%=currentUser.getUsername()%></a></li>
                     <li><button class="btn btn-primary wow tada" onclick="$('#logout_form').submit();">Logout</button></li>
                <% } %>
            </ul>
@@ -79,27 +60,6 @@ $(document).ready(function(){
     $("#notificationContainer").click(function(){
         return false
     });
-    
-    <% if (currentUser != null){ %>
-        $.ajax({
-            url: 'https://clockwork-api.herokuapp.com/api/v1/users/get_unread_notifications',
-            dataType: 'json',
-            method: "POST",
-            async: true,
-            beforeSend: function(xhr){
-                xhr.setRequestHeader('Authentication-Token', "<%=currentUser.getAuthenticationToken()%>");
-            },
-            data: {
-                email: "<%=currentUser.getEmail()%>"
-            },
-            success: function(resultString) {
-                var result = JSON.parse(resultString);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-              console.log(textStatus, errorThrown);
-            }
-        });
-    <% } %>
-
+   
 });
 </script>

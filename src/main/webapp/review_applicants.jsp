@@ -12,7 +12,6 @@
 <%@ page buffer="16kb" %>
 <%  String postID = request.getParameter("id");
 ArrayList <User> hiredList = (ArrayList <User>)session.getAttribute("hiredList");
-ArrayList <User> reviewingList = (ArrayList <User>)session.getAttribute("reviewingList");
 ArrayList <User> completedList = (ArrayList <User>)session.getAttribute("completedList");
 HashMap <Integer, Match> matchMap = (HashMap <Integer, Match>)session.getAttribute("matchMap");
 String formURL = "/GetPostServlet?id=" + postID + "&location=reviewing";
@@ -67,61 +66,22 @@ session.removeAttribute("matchMap");
     <div class="col-md-8">
         <div class="panel panel-default">
             <div class="panel-heading"> 
-                <h4>Applicants Awaiting Job Completion</h4> 
+                <h4>Applicants Pending Reviews</h4> 
             </div> 
-            <table class="table db-job-table"> 
+            <table class="table db-job-table table-hover review-table"> 
                 <thead> 
-                    <tr> 
+                    <tr style="cursor: default;"> 
                         <th>Name</th>
                         <th>Status</th>
-                        <th>Rating</th>
+                        <th style="text-align: center;">Rating</th>
                         <th>Action</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody> 
                     <%  if (hiredList.size() > 0){   
-                            for (User user : hiredList){ %>
-                                <tr> 
-                                    <td><%=user.getUsername()%></td>
-                                    <td>Hired</td>
-                                    <td>
-                                        <div class="ratings">
-                                            <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
-                                            <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
-                                            <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
-                                        </div>
-                                    </td>
-                                    <td><button class="btn btn-info btn-complete" data-userid="<%=user.getId()%>" data-postid="<%=post.getId()%>">Mark Complete</button></td>
-                                    <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
-                                </tr>
-                            <% } %>
-                        <% } else { %>
-                            <tr><td colspan="4" class="text-center">There are no applicants pending completion!</td></tr>
-                        <% } %>   
-                </tbody>
-            </table>
-        </div>
-                
-        <div class="panel panel-default">
-            <div class="panel-heading"> 
-                <h4>Applicants Pending Reviews</h4> 
-            </div> 
-            <table class="table db-job-table"> 
-                <thead> 
-                    <tr> 
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th>Rating</th>
-                        <th>Action</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody> 
-                    <%  if (reviewingList.size() > 0){   
-                            for (User user : reviewingList){ 
+                            for (User user : hiredList){ 
                                 Match match = matchMap.get(user.getId());%>
-                                <tr> 
+                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"> 
                                     <td><%=user.getUsername()%></td>
                                     <td>Completed</td>
                                     <td align="center">
@@ -131,17 +91,17 @@ session.removeAttribute("matchMap");
                                             <img class="ratings_icon" id="rating_good" src="/img/good.png"/>
                                         </div>
                                     </td>
-                                    <td><button class="btn btn-success btn-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="enabled">Leave Comment</button></td>
-                                    <td><button class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</button></td>
+                                    <td><textarea data-userid="<%=user.getId()%>" class="form-control user_comment" style="min-width: 100%"></textarea></td>
+                                    <!--<td><button class="btn btn-success btn-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="enabled">Leave Comment</button></td>-->
                                 </tr> 
                             <% } %>
-                            <tr>
+                            <tr style="cursor: default; background-color: white;">
                                 <td colspan="5" class="text-center">
                                     <input type="button" class="btn btn-primary btn-lg btn-rate" value="Submit" />
                                 </td>
                             </tr>
                         <% } else { %>
-                            <tr><td colspan="5" class="text-center">There are no applicants awaiting ratings!</td></tr>
+                            <tr style="cursor: default; background-color: white;"><td colspan="5" class="text-center">There are no applicants awaiting ratings!</td></tr>
                         <% } %>   
                 </tbody>
             </table>
@@ -151,21 +111,20 @@ session.removeAttribute("matchMap");
             <div class="panel-heading"> 
                 <h4>Reviewed Applicants</h4> 
             </div> 
-            <table class="table db-job-table"> 
+            <table class="table db-job-table table-hover review-table"> 
                 <thead> 
-                    <tr> 
+                    <tr style="cursor: default;"> 
                         <th>Name</th>
                         <th>Status</th>
                         <th>Rating</th>
                         <th>Action</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody> 
                     <%  if (completedList.size() > 0){   
                             for (User user : completedList){ 
                             Match match = matchMap.get(user.getId());%>
-                                <tr> 
+                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"> 
                                     <td><%=user.getUsername()%></td>
                                     <td>Reviewed</td>
                                     <td align="center">
@@ -181,11 +140,10 @@ session.removeAttribute("matchMap");
                                         </div>
                                     </td>
                                     <td><button class="btn btn-success btn-view-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="disabled">View Comments</button></td>
-                                    <td><button class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</button></td>
                                 </tr>
                             <% } %>
                         <% } else { %>
-                            <tr><td colspan="4" class="text-center">There are no reviewed applicants yet!</td></tr>
+                            <tr style="cursor: default; background-color: white;"><td colspan="4" class="text-center">There are no reviewed applicants yet!</td></tr>
                         <% } %>   
                 </tbody>
             </table>
@@ -322,6 +280,20 @@ session.removeAttribute("matchMap");
     $("#commentModal").on('hidden.bs.modal', function(){
        comments[$("#comment_userid").val()] = $("#user_comment").val();
     });
+    
+    $(".user_comment").focusout(function(){
+       var user_id = $(this).data("userid");
+       var comment = $(this).val();
+       comments[user_id] = comment;
+    });
+    
+    $(document).on("click", "button", function(e){
+        e.stopPropagation();
+    });
+    
+    $(document).on("click", "textarea", function(e){
+        e.stopPropagation();
+    });
 </script>
 <!-- End of Hire Modal -->
     
@@ -350,25 +322,33 @@ session.removeAttribute("matchMap");
         $("#completeJobModal").modal('show');
     });
     
-    $(document).on("click", ".ratings_icon", function() {
+    $(document).on("click", ".ratings_icon", function(e) {
+        e.stopPropagation();
         if ($(this).hasClass("ratings_icon_selected")){
             $(this).removeClass("ratings_icon_selected");
             $(this).parent().data("score", "2"); // 2 is set when no ratings
         } else {
             $(this).addClass("ratings_icon_selected");
+            $(this).removeClass("ratings_icon_unselected");
             var image = $(this).attr("src");
             if (image.indexOf("bad") !== -1){
                 $(this).parent().data("score", "-1");
                 $("#rating_good").removeClass("ratings_icon_selected");
+                $("#rating_good").addClass("ratings_icon_unselected");
                 $("#rating_neutral").removeClass("ratings_icon_selected");
+                $("#rating_neutral").addClass("ratings_icon_unselected");
             } else if (image.indexOf("good") !== -1){
                 $(this).parent().data("score", "1");
                 $("#rating_bad").removeClass("ratings_icon_selected");
+                $("#rating_bad").addClass("ratings_icon_unselected");
                 $("#rating_neutral").removeClass("ratings_icon_selected");
+                $("#rating_neutral").addClass("ratings_icon_unselected");
             } else {
                 $(this).parent().data("score", "0");
                 $("#rating_good").removeClass("ratings_icon_selected");
+                $("#rating_good").addClass("ratings_icon_unselected");
                 $("#rating_bad").removeClass("ratings_icon_selected");
+                $("#rating_bad").addClass("ratings_icon_unselected");
             }  
         }
     });

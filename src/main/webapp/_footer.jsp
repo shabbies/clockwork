@@ -1,7 +1,7 @@
 <!-- jQuery -->
 
 <!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+
 
 <!-- Plugin JavaScript -->
 <script src="js/jquery.easing.min.js"></script>

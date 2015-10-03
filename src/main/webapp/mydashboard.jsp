@@ -70,7 +70,8 @@ session.removeAttribute("appliedJobsStatusMap");
                                 if (post.getPayType().equals("hour")){
                                     salary += " / hr";
                                 } else {
-                                    salary += " / day";%>
+                                    salary += " / day";
+                                } %>
                     <tr class="open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                         <td><%=post.getHeader()%></td>
                         <td><%=post.getCompany()%></td>
@@ -79,7 +80,13 @@ session.removeAttribute("appliedJobsStatusMap");
                             <td><a class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>">Withdraw</a></td>
                         <% } else if (status.equals("offered")){ %>
                             <td><span class="badge db-default-badge offered">Offered</span></td>
-                            <td><a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-accept accept-job" style="width: 75px;" data-postid="<%=post.getId()%>">Accept</button>
+                                    <button type="button" class="btn btn-reject withdraw-job" style="width: 75px;" data-postid="<%=post.getId()%>">Reject</button>
+                                </div>
+                                <!--<a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a>-->
+                            </td>
                         <% } else {%>
                             <td><span class="badge db-default-badge success">Hired</span></td>
                             <td><button class="btn btn-warning" id="open-jobModal">Job Details</button></td>
@@ -314,6 +321,10 @@ $(".withdraw-job").click(function(){
     var postID = $(this).data("postid");
     $("#withdraw_post_id").val(postID);
     $('#withdraw_job_modal').modal('show');
+});
+
+$(document).on("click", "button", function(e){
+    e.stopPropagation();
 });
 
 $(".accept-job").click(function(){

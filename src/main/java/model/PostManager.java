@@ -247,6 +247,10 @@ public class PostManager {
         return appliedJobs.get("completed");
     }
     
+    public ArrayList<Post> getEmployerReviewingJobs(){
+        return publishedMap.get("reviewing");
+    }
+    
     public boolean checkIfJobApplied(Post post){
         ArrayList <Post> pendingList = appliedJobs.get("pending");
         ArrayList <Post> offeredList = appliedJobs.get("offered");

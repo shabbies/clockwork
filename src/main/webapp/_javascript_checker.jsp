@@ -1,4 +1,5 @@
 <script>
+    
 $('.form-signup').on('submit', function () {
     if ($('#new-password').val() !== "" && $("#old-password").val() !== ""){
         if ($('#new-password').val().length < 8){
@@ -203,4 +204,16 @@ $("#avatar").change(function (evt) {
     })(pic);
     reader.readAsDataURL(pic);
 });
+
+$(document).on("click", ".pay-type-selector", function(){
+    if (this.id === "hour"){
+        $("#hour").addClass("active");
+        $("#day").removeClass("active");
+        $("#pay-switch").attr("checked", true);
+    } else {
+        $("#day").addClass("active");
+        $("#hour").removeClass("active");
+        $("#pay-switch").attr("checked", false);
+    }
+ });
 </script>

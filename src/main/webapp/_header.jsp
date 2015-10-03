@@ -12,6 +12,8 @@
     <title>Clockwork</title>
 
     <!-- Bootstrap Core CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
     <!-- Custom Fonts -->
@@ -38,9 +40,7 @@
     <![endif]-->
 
     <!-- Javascript Imports -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src='fc/lib/moment.min.js'></script>
-    <script src='fc/lib/jquery.min.js'></script>
     <script src='fc/fullcalendar.min.js'></script>
     <script src='rating/jquery.raty.js'></script>
 
@@ -63,5 +63,4 @@
     <meta property="og:image:height" content="200"/>
     <% } %>
 </head>
-
 <body id="page-top">

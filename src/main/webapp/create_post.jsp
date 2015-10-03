@@ -2,6 +2,7 @@
 <%@include file="_nav.jsp"%>
 
 <%@ page import="model.User"%>
+<%@ page import="controller.PostController"%>
 
 <%  
 if (currentUser == null){
@@ -13,6 +14,14 @@ return;
 session.setAttribute("error", "Only an employer account is able to post a job!");
 response.sendRedirect("/index.jsp");
 return;
+} else {
+appController = (AppController)session.getAttribute("appController");
+PostController postController = appController.getPostController();
+if (postController.getEmployerReviewingJobs().size() != 0){
+    session.setAttribute("error", "Please submit your pending reviews before posting a new job!");
+    response.sendRedirect("/dashboard.jsp");
+    return;
+}
 }%>
 
 <!-- Initialising Google Places for location autofill -->
@@ -119,16 +128,18 @@ return;
                 <label for="job-pay" class="control-label">Pay</label> 
                 <div class="input-group"> 
                     <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
-                        <% if (repopulate != null && repopulate[4] != null){%>
+                    <% if (repopulate != null && repopulate[4] != null){%>
                     <input id="job-pay" class="form-control" type="number" value="<%=repopulate[6]%>" name="salary" min="0" step="0.1" required>
-                    <%} else {%>
-                    <input id="job-pay" class="form-control" type="number" value="10" name="salary" min="0" step="0.1" required><%}%>
-                    <div class="input-group-addon" style="font-weight:600;">
-                    <input type="checkbox" class="switch" name="pay-type"
-                        data-on-text="/hour"
-                        data-off-text="/day"
-                     checked/>
-                    </div> 
+                    <% } else { %>
+                    <input id="job-pay" class="form-control" type="number" value="10" name="salary" min="0" step="0.1" required>
+                    <% } %>
+                    <div class="input-group-addon pay-type-selector btn-warning active" id="hour">
+                        <strong>/hour</strong>
+                    </div>
+                    <div class="input-group-addon pay-type-selector btn-warning" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" id="day">
+                        <strong>/day</strong>
+                    </div>
+                    <input id="pay-switch" type="checkbox" class="switch" name="pay-type" data-on-text="/hour" data-off-text="/day" checked hidden/>
                 </div> 
             </div>
                 
@@ -210,9 +221,3 @@ return;
 </header>
 <jsp:include page="_footer.jsp" />
 <jsp:include page="_javascript_checker.jsp" />
-
-<script>
-    $(document).ready(function(){
-       $("[name='pay-type']").bootstrapSwitch();
-    });
-</script>

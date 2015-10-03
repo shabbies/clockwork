@@ -62,7 +62,7 @@
             <h5 id="modalEndTime" class="display-inline"><%=post.getEndTime()%></h5>
         </div>
         <strong class="col-md-12 text-center" style="padding-top: 10px; padding-bottom: 10px;">Job Description</strong>
-        <pre><h5><%=post.getDescription()%></h5></pre>
+        <pre><%=post.getDescription()%></pre>
     </div>
 </div>
 <div class="col-md-5 modal-job-calendar">
@@ -71,9 +71,12 @@
     <h6><span class="label label-default bg-primary">Job Date</span>
         <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
         <span class="label label-apply">Your Applied Jobs</span>
-        <span class="label label-hire">Your Hired Jobs</span></h6>
+        <span class="label label-hire">Your Hired Jobs</span>
         <% } %>
-    </div>
+    </h6>
+</div>
+    
+<div class="col-md-12">
 <div class="col-md-1">
     <div><button type="button" id="facebook_share" class="btn btn-facebook btn-lg">Share on Facebook</button></div>
 </div>

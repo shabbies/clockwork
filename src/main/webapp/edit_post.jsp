@@ -90,9 +90,13 @@
                     <div class="input-group"> 
                         <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
                         <input id="job-pay" class="form-control" type="number" name="salary" value="<%=post.getSalary()%>" min="0" step="0.1"required> 
-                        <div class="input-group-addon" style="font-weight:600;">
-                            <input type="checkbox" class="switch" name="pay-type" data-on-text="/hour" data-off-text="/day" checked />
-                        </div> 
+                        <div class="input-group-addon pay-type-selector btn-warning" id="hour">
+                            <strong>/hour</strong>
+                        </div>
+                        <div class="input-group-addon pay-type-selector btn-warning" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" id="day">
+                            <strong>/day</strong>
+                        </div>
+                        <input id="pay-switch" type="checkbox" class="switch" name="pay-type" data-on-text="/hour" data-off-text="/day" checked hidden/>
                     </div> 
                 </div>
                 <!--<div class="form-group form-group-lg col-md-6 text-left"> 
@@ -170,6 +174,10 @@
 
 <script>
     $(document).ready(function(){
-       $("[name='pay-type']").bootstrapSwitch();
+    <% if(post.getPayType().equals("hour")){ %>
+        $("#hour").addClass("active");
+    <% } else { %>
+        $("#day").addClass("active");
+    <% } %>    
     });
 </script>

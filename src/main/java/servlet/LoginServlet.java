@@ -18,6 +18,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import model.APIManager;
 import model.User;
@@ -82,10 +83,8 @@ public class LoginServlet extends HttpServlet {
             } else if (loginSource.contains("apply_job")){
                 if (user.getAccountType().equals("job_seeker")){
                     String postID = loginSource.substring(loginSource.indexOf("-") + 1);
-                    String message = "Please proceed with your job application here!";
-                    session.setAttribute("message", message);
-                    response.sendRedirect("/post.jsp?id=" + postID);
-                    return;
+                    RequestDispatcher rd = request.getRequestDispatcher("/ApplyJobServlet?post_id=" + postID);
+                    rd.forward(request, response);
                 } else {
                     String error = "Only job seekers are allowed to apply for jobs!";
                     session.setAttribute("error", error);
