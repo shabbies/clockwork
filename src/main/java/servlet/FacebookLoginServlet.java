@@ -55,7 +55,7 @@ public class FacebookLoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
         APIManager apiManager = appController.getAPIManager();
-        String URL = apiManager.getEPLogin();
+        String URL = apiManager.getEPNewUser();
         
         String shortAccessToken = request.getParameter("access_token");
         String userID = request.getParameter("user_id");
@@ -112,8 +112,6 @@ public class FacebookLoginServlet extends HttpServlet {
         HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Accept", "application/json");
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        
-            System.out.println(email);
         nvps.add(new BasicNameValuePair("user[email]", email));
         nvps.add(new BasicNameValuePair("user[username]", fullname));
         nvps.add(new BasicNameValuePair("user[account_type]",accountType));
@@ -128,7 +126,6 @@ public class FacebookLoginServlet extends HttpServlet {
             StringWriter writer = new StringWriter();
             IOUtils.copy(entity.getContent(), writer, "UTF-8");
             String responseString = writer.toString();
-            System.out.println(responseString);
             UserController userController = appController.getUserController();
             user = userController.createUserFromJSON(responseString);
             EntityUtils.consume(entity);
