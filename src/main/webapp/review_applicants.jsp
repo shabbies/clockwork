@@ -101,7 +101,7 @@ session.removeAttribute("matchMap");
                                 </td>
                             </tr>
                         <% } else { %>
-                            <tr style="cursor: default; background-color: white;"><td colspan="5" class="text-center">There are no applicants awaiting ratings!</td></tr>
+                            <tr style="background-color: white;"><td colspan="5" class="text-center" style="cursor: auto;">There are no applicants awaiting ratings!</td></tr>
                         <% } %>   
                 </tbody>
             </table>

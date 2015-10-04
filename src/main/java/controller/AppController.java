@@ -11,7 +11,7 @@ public class AppController {
     private String environment;
     
     public AppController(){
-        String env = "staging";
+        String env = "development";
         postController = new PostController();
         userController = new UserController();
         matchController = new MatchController();

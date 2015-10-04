@@ -1128,11 +1128,9 @@ if (typeof jQuery === 'undefined') {
   }
 
   Modal.prototype.adjustBackdrop = function () {
-      setTimeout(function(){
-          this.$backdrop
+    this.$backdrop
       .css('height', 0)
       .css('height', this.$element[0].scrollHeight)
-      }, 100)
   }
 
   Modal.prototype.adjustDialog = function () {
