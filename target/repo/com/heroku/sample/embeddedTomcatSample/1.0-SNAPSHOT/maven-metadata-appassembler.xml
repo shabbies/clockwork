@@ -7,12 +7,20 @@
     <snapshot>
       <localCopy>true</localCopy>
     </snapshot>
+<<<<<<< HEAD
     <lastUpdated>20150923152755</lastUpdated>
+=======
+    <lastUpdated>20151003165811</lastUpdated>
+>>>>>>> 56a67b24d2970a23dc30e0e4d8dee083c3da8190
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
         <value>1.0-SNAPSHOT</value>
+<<<<<<< HEAD
         <updated>20150923152755</updated>
+=======
+        <updated>20151003165811</updated>
+>>>>>>> 56a67b24d2970a23dc30e0e4d8dee083c3da8190
       </snapshotVersion>
     </snapshotVersions>
   </versioning>

@@ -58,16 +58,22 @@ public class CreatePostServlet extends HttpServlet {
         String description = (String)request.getParameter("description");
         String location = (String)request.getParameter("location");
         String jobDateString = (String)request.getParameter("job_date");
-        String endDateString = (String)request.getParameter("job_end");
-
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String startDateString = jobDateString.substring(0, jobDateString.indexOf("-") - 1);
+        String endDateString = jobDateString.substring(jobDateString.indexOf("-") + 2);
+//        String endDateString = (String)request.getParameter("job_end");
+        String payType = "hour"; // on or null
+        if (request.getParameter("pay-type") == null){
+            payType = "day";
+        }
+        
+        SimpleDateFormat df = new SimpleDateFormat("MMMMM d, yyyy");
         String startTime = request.getParameter("start_time");
         String endTime = request.getParameter("end_time");
         Date jobDate = null;
         Date endDate = null;
         Date today = new Date();
         try {
-            jobDate = df.parse(jobDateString);
+            jobDate = df.parse(startDateString);
             endDate = df.parse(endDateString);
         } catch (ParseException ex){
             session.setAttribute("error", "System error, please inform the administrator");
@@ -118,6 +124,7 @@ public class CreatePostServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("email", email));
         nvps.add(new BasicNameValuePair("start_time", startTime));
         nvps.add(new BasicNameValuePair("end_time", endTime));
+        nvps.add(new BasicNameValuePair("pay_type", payType));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
@@ -140,20 +147,19 @@ public class CreatePostServlet extends HttpServlet {
                     switch (responseString){
                         case "Bad Request - The job date should be after today":
                             error = "The job date should be after today!";
-                            repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
+                            repopulate = new String[] {header, location, description, "", startTime, endTime, "" + salary};
                             break;
                         case "Bad Request - The end date should be after the start date":
                             error = "The end date should be after start date!";
-                            repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
+                            repopulate = new String[] {header, location, description, "", startTime, endTime, "" + salary};
                             break;
                         case "Bad Request - The salary should not be negative":
                             error = "Salary should not be negative!";
-                            repopulate = new String[] {header, location, description, jobDateString, 
-                                endDateString, startTime, endTime, ""};
+                            repopulate = new String[] {header, location, description, jobDateString, startTime, endTime, ""};
                             break;
                         case "Bad Request - End time should be after start time":
                             error = "The end date should be after start date!";
-                            repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
+                            repopulate = new String[] {header, location, description, "", startTime, endTime, "" + salary};
                             break;
                         case "Bad Request - Post has already been created":
                             error = "This post has already been created!";
@@ -163,7 +169,7 @@ public class CreatePostServlet extends HttpServlet {
                         case "Bad Request - The maximum job duration should be 7 days":
                             error = "The maximum duration of the job is 7 days!";
                             session.setAttribute("error", error);
-                            repopulate = new String[] {header, location, description, "", "", startTime, endTime, "" + salary};
+                            repopulate = new String[] {header, location, description, "", startTime, endTime, "" + salary};
                     }
                     session.setAttribute("error", error);
                     session.setAttribute("repopulate", repopulate);

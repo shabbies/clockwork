@@ -16,24 +16,25 @@
         <div class="col-md-4 text-center">
             <img id="post_avatar" src="img/user-placeholder.jpg" alt="" class="db-user-pic img-rounded img-responsive"/>
 
-            <h2 id="modalSalary">$10/h2>
+            <h2 id="modalSalary">$10</h2>
         </div>
 
         <div class="col-md-8">
-            <h4 id="modalHeader"><strong>Bellboy</strong> @ HardRock Hotel</h4>
-            <h4 id="modalCompany"></h4>
-            <h5 id="modalLocation">Resort World Singapore</h5>
-            <h5 id="modalDatePosted" class="display-inline">21/08/2015</h5>
-            <div id="modal_date_splitter" class="display-inline" >    to    </div>
-            <h5 id="modalEndDate" class="display-inline">21/08/2015</h5>
-            <div>
-                <h5 id="modalStartTime" class="display-inline">11:00</h5>
-                <div id="modal_date_splitter" class="display-inline" >    to    </div>
-                <h5 id="modalEndTime" class="display-inline">15:00</h5>
-            </div>
-
-            <pre><h5 id="modalDesc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.
-            </h5></pre>
+                <h4 class="col-md-12 col-lg-12" id="modalHeader"><strong>Bellboy</strong> @ HardRock Hotel</h4>
+                <h4 class="col-md-12" id="modalCompany"></h4>
+                <strong class="col-md-4">Location</strong><h5 class="col-md-8" id="modalLocation">Resort World Singapore</h5>
+                <strong class="col-md-4">Start Date</strong><h5 class="col-md-8" id="modalDatePosted">21/08/2015</h5>
+                <strong class="col-md-4">End Date</strong><h5 class="col-md-8" id="modalEndDate">21/08/2015</h5>
+                <strong class="col-md-4">Timing</strong>
+                <div class="col-md-8">
+                    <h5 id="modalStartTime" class="display-inline">11:00</h5>
+                    <div id="modal_date_splitter" class="display-inline" >    to    </div>
+                    <h5 id="modalEndTime" class="display-inline">15:00</h5>
+                </div>
+                <strong class="col-md-12 text-center" style="padding-top: 10px; padding-bottom: 10px;">Job Description</strong>
+                <pre class="col-md-12"><h5 id="modalDesc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.</br></br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga repellat corrupti nam provident praesentium vel! Nobis vel distinctio deserunt similique, nemo, voluptate a rem excepturi cumque ut quam quia minima.
+                </h5></pre>
+            
         </div>
 
     </div>
@@ -60,7 +61,7 @@
         </form>
     </div>
     <div class="pull-left">
-        <div><button type="button" id="facebook_share" class="btn btn-info btn-lg">Share on Facebook</button></div>
+        <div><button type="button" id="facebook_share" class="btn btn-facebook btn-lg">Share on Facebook</button></div>
     </div>
 </div>
 </div>
@@ -132,7 +133,7 @@
             $('#modalDesc').html(descText);
             $('#modalSalary').html(salaryText);
             $('#modalDesc').html(descText);
-            $('#modalCompany').html(companyText);
+            $('#modalCompany').html("<strong>" + companyText + "</strong>");
             $('#modalLocation').html(" <i class=\"fa fa-map-marker primary\"></i> "+locationText);
             $('#modalDatePosted').html(jobDateText);
             $('#modalEndDate').html(endDateText);
@@ -167,48 +168,50 @@
                 eventColor: 'grey',
                 events: function(start, end, timezone, callback) {
                 <%  if (session.getAttribute("currentUser") != null){ 
-                    appController = (AppController)session.getAttribute("appController");
-                    APIManager apiManager = appController.getAPIManager();
-                    String URL = apiManager.getEPCalendarFormatDates();%>
-                    $.ajax({
-                        url: '<%=URL%>',
-                        dataType: 'json',
-                        data: {
-                            id:uid
-                        },
-                        success: function(doc) {
-                            var events = [];
-                            obj = JSON.parse(doc);
-                            $(obj).each(function() {
-                                var title = $(this).attr('title');
-                                var start = $(this).attr("job_date");
-                                var color = $(this).attr("color");
-                                calendar_dates[start] = {
-                                    title: "",
-                                    start: start,
-                                    color: color
-                                };
-                            });
-                            
-                            var start_date = new Date(job_details.data("cdate"));
-                            var end_date = new Date(job_details.data("cdateend"));
-                            start_date.setHours(0);
-                            while (start_date <= end_date){
-                                var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
-                                calendar_dates[start_date_string] = {title: "", start: start_date_string, color: '#ee4054'};
-                                start_date.setDate(start_date.getDate() + 1);
+                        if (((User)session.getAttribute("currentUser")).getAccountType().equals("job_seeker")){
+                        appController = (AppController)session.getAttribute("appController");
+                        APIManager apiManager = appController.getAPIManager();
+                        String URL = apiManager.getEPCalendarFormatDates();%>
+                        $.ajax({
+                            url: '<%=URL%>',
+                            dataType: 'json',
+                            data: {
+                                id:uid
+                            },
+                            success: function(doc) {
+                                var events = [];
+                                obj = JSON.parse(doc);
+                                $(obj).each(function() {
+                                    var title = $(this).attr('title');
+                                    var start = $(this).attr("job_date");
+                                    var color = $(this).attr("color");
+                                    calendar_dates[start] = {
+                                        title: "",
+                                        start: start,
+                                        color: color
+                                    };
+                                });
+
+                                var start_date = new Date(job_details.data("cdate"));
+                                var end_date = new Date(job_details.data("cdateend"));
+                                start_date.setHours(0);
+                                while (start_date <= end_date){
+                                    var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
+                                    calendar_dates[start_date_string] = {title: "", start: start_date_string, color: '#ee4054'};
+                                    start_date.setDate(start_date.getDate() + 1);
+                                }
+
+                                for (var key in calendar_dates){
+                                    events.push(calendar_dates[key]);
+                                }
+                                callback(events);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
                             }
-                            
-                            for (var key in calendar_dates){
-                                events.push(calendar_dates[key]);
-                            }
-                            callback(events);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log(textStatus, errorThrown);
-                        }
-                    });
-                <% } %>
+                        });
+                    <% }
+                    } %>
                 },
                 eventAfterRender: function(event, element, view) {
                     $(element).css('height','30px');

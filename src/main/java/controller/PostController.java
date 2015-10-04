@@ -62,6 +62,10 @@ public class PostController {
         return postManager.getCompletedJobs();
     }
     
+    public ArrayList <Post> getEmployerReviewingJobs(){
+        return postManager.getEmployerReviewingJobs();
+    }
+    
     public ArrayList <Post> identifyConflictedPosts(ArrayList <Post> postList, int postID){
         Post post = getPost(postID);
         return postManager.getConflictedPosts(postList, post);
