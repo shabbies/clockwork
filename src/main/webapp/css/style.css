@@ -1459,7 +1459,7 @@ pre{
 }
 
 .leftArrow{
-    background: url(https://www.care.com/img/cms/web/landingPage/segmentationVhpSeriesV2/arrow-left.png) no-repeat;
+    background: url(/img/arrow-left.png) no-repeat;
     width: 40px;
     height: 80px;
     position: absolute;
@@ -1470,7 +1470,7 @@ pre{
     width: 42px;
     height: 80px;
     position: absolute;
-    background: url(https://www.care.com/img/cms/web/landingPage/segmentationVhpSeriesV2/arrow-right.png) no-repeat;
+    background: url(/img/arrow-right.png) no-repeat;
 }
 
 .faq{
