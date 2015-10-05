@@ -29,19 +29,7 @@
 <div class="header-content-inner">
 <div class="row profile-div">
 
-<% if (session.getAttribute("error") != null){%>
-<div class="alert alert-danger" role="alert">
-    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-    <span class="sr-only">Error:</span>
-    <%=session.getAttribute("error")%>
-</div>
-<%session.removeAttribute("error");}%>
-<% if (session.getAttribute("message") != null){%>
-<div class="alert alert-success" role="alert">
-    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-    <%=session.getAttribute("message")%>
-</div>
-<%session.removeAttribute("message");}%>
+<%@include file="_message.jsp"%>
 
 <div class="col-sm-2"></div>
 <div class="col-sm-8">

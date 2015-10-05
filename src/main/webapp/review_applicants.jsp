@@ -28,20 +28,13 @@ session.removeAttribute("matchMap");
     
 <header class="main">
 <div class="header-full-content">
-<% if (session.getAttribute("error") != null){%>
-    <div class="alert alert-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span>
-        <%=session.getAttribute("error")%>
-    </div>
-    <%session.removeAttribute("error");}%>
-    <% if (session.getAttribute("message") != null){%>
-    <div class="alert alert-success" role="alert">
-        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-        <%=session.getAttribute("message")%>
-    </div>
-    <% session.removeAttribute("message");}
-%>
+<jsp:include page="_message.jsp" />
+
+<div id="review-error" class="alert alert-danger" role="alert" style="font-size: 14px;" hidden>
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  <strong>Please rate all the job seekers before submitting</strong>
+</div>
 
 <div class="row">
     <div class="col-md-4">
@@ -91,12 +84,13 @@ session.removeAttribute("matchMap");
                                             <img class="ratings_icon" id="rating_good" src="/img/good.png"/>
                                         </div>
                                     </td>
-                                    <td><textarea data-userid="<%=user.getId()%>" class="form-control user_comment" style="min-width: 100%"></textarea></td>
-                                    <!--<td><button class="btn btn-success btn-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="enabled">Leave Comment</button></td>-->
+                                    <td>
+                                        <textarea data-userid="<%=user.getId()%>" class="form-control user_comment" style="min-width: 100%"></textarea>
+                                    </td>
                                 </tr> 
                             <% } %>
                             <tr style="cursor: default; background-color: white;">
-                                <td colspan="5" class="text-center">
+                                <td colspan="4" class="text-center">
                                     <input type="button" class="btn btn-primary btn-lg btn-rate" value="Submit" />
                                 </td>
                             </tr>
@@ -301,14 +295,27 @@ session.removeAttribute("matchMap");
 <script>
     $(document).on("click", ".btn-rate", function(event) {
         var scores = {};
+        $("#review-error").attr("hidden", true);
+        var cont = true;
         $('.score').each(function() {
+            $(this).parent().parent().removeClass("rate-error");
             var id = $(this).attr("id");
             var score = $(this).data('score');
+            if(score === 2){
+                $(this).parent().parent().addClass("rate-error");
+                cont = false;
+            }
             scores[id] = score;
         });
+        
+        if (cont){
         $("#form_ratings").val(JSON.stringify(scores));
         $("#form_comments").val(JSON.stringify(comments));
         $('#submit_rating_modal').modal('show');
+        } else {
+            $("#review-error").attr("hidden", false);
+            return false;
+        } 
     });
 </script>
     
