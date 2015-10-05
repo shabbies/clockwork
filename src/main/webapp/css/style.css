@@ -1118,7 +1118,7 @@ body {
 }
 
 .ratings_icon {
-    height: 20px;
+    height: 25px;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -1458,6 +1458,7 @@ pre{
     background-color: white;
 }
 
+<<<<<<< HEAD
 .leftArrow{
     background: url(https://www.care.com/img/cms/web/landingPage/segmentationVhpSeriesV2/arrow-left.png) no-repeat;
     width: 40px;
@@ -1519,4 +1520,7 @@ pre{
         margin-left:50px
     }
 
+}
+.rate-error{
+    border: 3px solid red;
 }

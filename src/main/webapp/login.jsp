@@ -9,17 +9,11 @@
           <div class="panel panel-default">
             <div class="panel-body">
 
-             <%if (session.getAttribute("error") != null){%>      
-             <div class="alert alert-danger" role="alert">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              <%=session.getAttribute("error")%>
-            </div>
-            <%  session.removeAttribute("error");}%>
-
+             <%@include file="_message.jsp"%>
 
             <div class="text-center login-logo">
               <img src="img/cw.png" alt="" class="img-responsive" />
-              <h3 class="text-center text-dark">Making this work</h3>
+              <h3 class="text-center text-dark">Time to Earn Money</h3>
             </div>
             
 

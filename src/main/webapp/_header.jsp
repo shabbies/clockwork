@@ -12,7 +12,7 @@
     <title>Clockwork</title>
 
     <!-- Bootstrap Core CSS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 

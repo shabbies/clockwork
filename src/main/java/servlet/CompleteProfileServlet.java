@@ -146,6 +146,7 @@ public class CompleteProfileServlet extends HttpServlet {
                 String postID = updateSource.substring(updateSource.indexOf("-") + 1);
                 RequestDispatcher rd = request.getRequestDispatcher("/ApplyJobServlet?post_id=" + postID);
                 rd.forward(request, response);
+                return;
             }
         }
         
