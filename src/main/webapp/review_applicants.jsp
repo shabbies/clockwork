@@ -79,9 +79,9 @@ session.removeAttribute("matchMap");
                                     <td>Completed</td>
                                     <td align="center">
                                         <div id="<%=user.getId()%>" class="score" data-score="2">
-                                            <img class="ratings_icon" id="rating_bad" src="/img/bad.png"/>
-                                            <img class="ratings_icon" id="rating_neutral" src="/img/neutral.png"/>
                                             <img class="ratings_icon" id="rating_good" src="/img/good.png"/>
+                                            <img class="ratings_icon" id="rating_neutral" src="/img/neutral.png"/>
+                                            <img class="ratings_icon" id="rating_bad" src="/img/bad.png"/>
                                         </div>
                                     </td>
                                     <td>
@@ -95,7 +95,7 @@ session.removeAttribute("matchMap");
                                 </td>
                             </tr>
                         <% } else { %>
-                            <tr style="cursor: default; background-color: white;"><td colspan="5" class="text-center">There are no applicants awaiting ratings!</td></tr>
+                            <tr style="background-color: white;"><td colspan="5" class="text-center" style="cursor: auto;">There are no applicants awaiting ratings!</td></tr>
                         <% } %>   
                 </tbody>
             </table>

@@ -64,4 +64,39 @@
                 </div>
             </div>
         </div>
-        <jsp:include page="_footer.jsp" />
+    </div>
+</header>
+
+<footer style="background-color: white; color: black;">
+    
+<hr class="grey" style="background-color: white;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-xs-4">
+                <span class="copyright">Copyright &#169; Clockwork 2015</span>
+            </div>
+            <div class="col-md-4 col-xs-4">
+                <ul class="list-inline social-buttons text-center">
+                    <li><a href="#"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-xs-4">
+                <ul class="list-inline quicklinks pull-right">
+                    <li><a href="/faq.jsp">FAQ</a>
+                    </li>
+                    <li><a href="#">Privacy Policy</a>
+                    </li>
+                    <li><a href="#">Terms of Use</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<jsp:include page="_footer.jsp" />

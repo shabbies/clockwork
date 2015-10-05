@@ -292,9 +292,9 @@ public class Post {
            Date postingDate2 = p2.postingDate;
 
            if (postingDate1.before(postingDate2)){
-               return -1;
-           } else if (postingDate2.before(postingDate1)){
                return 1;
+           } else if (postingDate2.before(postingDate1)){
+               return -1;
            } else {
                return 0;
            }
