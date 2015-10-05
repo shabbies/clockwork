@@ -121,7 +121,7 @@ session.removeAttribute("matchMap");
                                 <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"> 
                                     <td><%=user.getUsername()%></td>
                                     <td>Reviewed</td>
-                                    <td align="center">
+                                    <td align="left">
                                         <div id="<%=user.getId()%>">
                                             <% int rating = match.getRating();%>
                                             <% if (rating == -1) { %>
@@ -133,7 +133,8 @@ session.removeAttribute("matchMap");
                                             <% } %>
                                         </div>
                                     </td>
-                                    <td><button class="btn btn-success btn-view-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="disabled">View Comments</button></td>
+                                    <% String comment = (match.getComment() == null) ? "You did not receive any comments!" : match.getComment(); %>
+                                    <td><%=comment%></td>
                                 </tr>
                             <% } %>
                         <% } else { %>

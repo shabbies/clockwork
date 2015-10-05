@@ -14,8 +14,8 @@
                     </div>
                         
                     <div class="col-md-8">
-                        <h4 id="modalName"></h4>
-                        <h5 id="modalContact"></h5>
+                        <h4 id="modalName" class="col-md-12"></h4>
+                        <strong class="col-md-4"> Contact Number: </strong><h5 id="modalContact"></h5>
                         <h5 id="modalEmail"></h5>
                         <div id="modalRating">
                             <h5>Ratings</h5>

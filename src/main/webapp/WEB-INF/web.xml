@@ -8,6 +8,10 @@
         </jsp-property-group>
     </jsp-config>
     
+    <session-config>
+        <session-timeout>2880</session-timeout>
+    </session-config>
+    
     <servlet>
         <servlet-name>GetAllPostsServlet</servlet-name>
         <servlet-class>servlet.GetAllPostsServlet</servlet-class>
