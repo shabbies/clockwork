@@ -86,9 +86,9 @@ session.removeAttribute("matchMap");
                                     <td>Completed</td>
                                     <td align="center">
                                         <div id="<%=user.getId()%>" class="score" data-score="2">
-                                            <img class="ratings_icon" id="rating_bad" src="/img/bad.png"/>
-                                            <img class="ratings_icon" id="rating_neutral" src="/img/neutral.png"/>
                                             <img class="ratings_icon" id="rating_good" src="/img/good.png"/>
+                                            <img class="ratings_icon" id="rating_neutral" src="/img/neutral.png"/>
+                                            <img class="ratings_icon" id="rating_bad" src="/img/bad.png"/>
                                         </div>
                                     </td>
                                     <td><textarea data-userid="<%=user.getId()%>" class="form-control user_comment" style="min-width: 100%"></textarea></td>
