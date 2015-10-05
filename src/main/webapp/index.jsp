@@ -50,7 +50,7 @@ String query = (request.getParameter("q") != null) ? request.getParameter("q") :
         <div class="col-lg-4 col-sm-height col-bottom"> 
             <% if (postList.size() != 0){ %>
             <h5 class="pull-right sortlink">Sort by 
-                <a href="/GetAllPostsServlet?order=oldest">OLDEST</a>  
+                <a href="/GetAllPostsServlet?order=oldest">SOONEST</a>  
                 <a href="/GetAllPostsServlet?order=latest">LATEST</a>
                 <a href="/GetAllPostsServlet?order=salary">SALARY</a>
             </h5>
@@ -162,7 +162,7 @@ String jobDateString = jobDate.toString();
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-xs-4">
-                <span class="copyright">Copyright © Clockwork 2015</span>
+                <span class="copyright">Copyright &#169; Clockwork 2015</span>
             </div>
             <div class="col-md-4 col-xs-4">
                 <ul class="list-inline social-buttons text-center">
@@ -176,6 +176,8 @@ String jobDateString = jobDate.toString();
             </div>
             <div class="col-md-4 col-xs-4">
                 <ul class="list-inline quicklinks pull-right">
+                    <li><a href="/faq.jsp">FAQ</a>
+                    </li>
                     <li><a href="#">Privacy Policy</a>
                     </li>
                     <li><a href="#">Terms of Use</a>

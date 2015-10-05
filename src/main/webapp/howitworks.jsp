@@ -21,7 +21,7 @@
                         <dd>"Plenty of opportunities for you to choose from."</dd>
                         <div class="leftArrow" style="top: 370px;"></div>
                         <dt><i class="fa fa-check-circle"></i> Apply for the job</dt>
-                        <dd>"Found an interesting job? One that matches your schedule? High pay? Hooray, you've just got applied for it"</dd>
+                        <dd>"Found an interesting job? One that matches your schedule? High pay? Apply for it!"</dd>
                         <div class="rightArrow" style="top: 530px"></div>
                         <dt><i class="fa fa-dollar"></i> Get awesome reviews</dt>
                         <dd>"Perform well and see your ratings get bumped up."</dd>
@@ -49,4 +49,39 @@
                 </div>
             </div>
         </div>
-        <jsp:include page="_footer.jsp" />
+    </div>
+</div>
+
+<footer style="background-color: white; color: black;">
+    
+<hr class="grey" style="background-color: white;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-xs-4">
+                <span class="copyright">Copyright &#169; Clockwork 2015</span>
+            </div>
+            <div class="col-md-4 col-xs-4">
+                <ul class="list-inline social-buttons text-center">
+                    <li><a href="#"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-xs-4">
+                <ul class="list-inline quicklinks pull-right">
+                    <li><a href="/faq.jsp">FAQ</a>
+                    </li>
+                    <li><a href="#">Privacy Policy</a>
+                    </li>
+                    <li><a href="#">Terms of Use</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<jsp:include page="_footer.jsp" />
