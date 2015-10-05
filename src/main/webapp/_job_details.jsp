@@ -104,29 +104,31 @@
             $("#already_hired").addClass("hidden");
             var current_location = window.location.href.toString();
             if (current_location.indexOf("dashboard") === -1){
-            <% if (currentUser != null) { %>
-                $.ajax({
-                    url: '/CheckJobAppliedServlet',
-                    method: "GET",
-                    async: false,
-                    data: {
-                        post_id: job_details.data("id")
-                    },
-                    success: function(hasAppliedJSON) {
-                        var hasApplied = JSON.parse(hasAppliedJSON);
-                        if (hasApplied === true){
-                            $("#already_applied").removeClass("hidden");
-                            applied = "true";
-                        } else if (hasApplied.toString() !== ""){
-                            $("#already_hired").removeClass("hidden");
-                            applied = "true";
+            <%  if (currentUser != null) {
+                    if (((User)session.getAttribute("currentUser")).getAccountType().equals("job_seeker")){%>
+                    $.ajax({
+                        url: '/CheckJobAppliedServlet',
+                        method: "GET",
+                        async: false,
+                        data: {
+                            post_id: job_details.data("id")
+                        },
+                        success: function(hasAppliedJSON) {
+                            var hasApplied = JSON.parse(hasAppliedJSON);
+                            if (hasApplied === true){
+                                $("#already_applied").removeClass("hidden");
+                                applied = "true";
+                            } else if (hasApplied.toString() !== ""){
+                                $("#already_hired").removeClass("hidden");
+                                applied = "true";
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                          console.log(textStatus, errorThrown);
                         }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                      console.log(textStatus, errorThrown);
-                    }
-                });
-            <% } %>
+                    });
+                <% }
+                } %>
             }
             $('#jobModalLabel').html(headerText);
             $('#modalHeader').html("<strong>"+headerText+"</strong>");
@@ -169,49 +171,61 @@
                 events: function(start, end, timezone, callback) {
                 <%  if (session.getAttribute("currentUser") != null){ 
                         if (((User)session.getAttribute("currentUser")).getAccountType().equals("job_seeker")){
-                        appController = (AppController)session.getAttribute("appController");
-                        APIManager apiManager = appController.getAPIManager();
-                        String URL = apiManager.getEPCalendarFormatDates();%>
-                        $.ajax({
-                            url: '<%=URL%>',
-                            dataType: 'json',
-                            data: {
-                                id:uid
-                            },
-                            success: function(doc) {
-                                var events = [];
-                                obj = JSON.parse(doc);
-                                $(obj).each(function() {
-                                    var title = $(this).attr('title');
-                                    var start = $(this).attr("job_date");
-                                    var color = $(this).attr("color");
-                                    calendar_dates[start] = {
-                                        title: "",
-                                        start: start,
-                                        color: color
-                                    };
-                                });
+                            appController = (AppController)session.getAttribute("appController");
+                            APIManager apiManager = appController.getAPIManager();
+                            String URL = apiManager.getEPCalendarFormatDates();%>
+                            $.ajax({
+                                url: '<%=URL%>',
+                                dataType: 'json',
+                                data: {
+                                    id:uid
+                                },
+                                success: function(doc) {
+                                    var events = [];
+                                    obj = JSON.parse(doc);
+                                    $(obj).each(function() {
+                                        var title = $(this).attr('title');
+                                        var start = $(this).attr("job_date");
+                                        var color = $(this).attr("color");
+                                        calendar_dates[start] = {
+                                            title: "",
+                                            start: start,
+                                            color: color
+                                        };
+                                    });
 
-                                var start_date = new Date(job_details.data("cdate"));
-                                var end_date = new Date(job_details.data("cdateend"));
-                                start_date.setHours(0);
-                                while (start_date <= end_date){
-                                    var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
-                                    calendar_dates[start_date_string] = {title: "", start: start_date_string, color: '#ee4054'};
-                                    start_date.setDate(start_date.getDate() + 1);
-                                }
+                                    var start_date = new Date(job_details.data("cdate"));
+                                    var end_date = new Date(job_details.data("cdateend"));
+                                    start_date.setHours(0);
+                                    while (start_date <= end_date){
+                                        var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
+                                        calendar_dates[start_date_string] = {title: "", start: start_date_string, color: '#ee4054'};
+                                        start_date.setDate(start_date.getDate() + 1);
+                                    }
 
-                                for (var key in calendar_dates){
-                                    events.push(calendar_dates[key]);
+                                    for (var key in calendar_dates){
+                                        events.push(calendar_dates[key]);
+                                    }
+                                    callback(events);
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    console.log(textStatus, errorThrown);
                                 }
-                                callback(events);
-                            },
-                            error: function(jqXHR, textStatus, errorThrown) {
-                                console.log(textStatus, errorThrown);
+                            });
+                    <%  } else { %>
+                            var events = [];
+                            for (var key in calendar_dates){
+                                events.push(calendar_dates[key]);
                             }
-                        });
-                    <% }
-                    } %>
+                            callback(events);
+                    <%  }
+                    } else { %>
+                        var events = [];
+                        for (var key in calendar_dates){
+                            events.push(calendar_dates[key]);
+                        }
+                        callback(events);
+                <%  } %>
                 },
                 eventAfterRender: function(event, element, view) {
                     $(element).css('height','30px');
@@ -219,16 +233,7 @@
                 }
             });
             
-            
             $('#calendar').fullCalendar( 'gotoDate', new Date(job_details.data("cdate")));
-            
-            <% if (currentUser == null){ %>
-                var events = [];
-                for (var key in calendar_dates){
-                    events.push(calendar_dates[key]);
-                }
-                $('#calendar').fullCalendar( 'addEventSource', events);
-            <% } %>
             
             $('#jobModal').modal('show');
             

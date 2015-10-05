@@ -255,7 +255,6 @@ public class PostManager {
         ArrayList <Post> pendingList = appliedJobs.get("pending");
         ArrayList <Post> offeredList = appliedJobs.get("offered");
         ArrayList <Post> hiredList = appliedJobs.get("hired");
-
         return pendingList.contains(post) || offeredList.contains(post) || hiredList.contains(post);
     }
     

@@ -1118,7 +1118,7 @@ body {
 }
 
 .ratings_icon {
-    height: 20px;
+    height: 25px;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -1304,7 +1304,7 @@ body {
 
 .panel.price>.panel-heading{
     box-shadow: 0px 5px 0px rgba(50,50,50, .2) inset;
-   /* text-shadow:0px 3px 0px rgba(50,50,50, .6); */ 
+    /* text-shadow:0px 3px 0px rgba(50,50,50, .6); */ 
 }
 
 .price .list-group-item{
@@ -1456,4 +1456,71 @@ pre{
 .override-table-hover{
     cursor: default; 
     background-color: white;
+}
+
+<<<<<<< HEAD
+.leftArrow{
+    background: url(https://www.care.com/img/cms/web/landingPage/segmentationVhpSeriesV2/arrow-left.png) no-repeat;
+    width: 40px;
+    height: 80px;
+    position: absolute;
+}
+
+.rightArrow {
+    right:0;
+    width: 42px;
+    height: 80px;
+    position: absolute;
+    background: url(https://www.care.com/img/cms/web/landingPage/segmentationVhpSeriesV2/arrow-right.png) no-repeat;
+}
+
+.faq{
+    max-width: 900px;
+}
+
+.faq dt{
+    font-size:24px;
+    margin-top: 40px;
+    
+}
+
+.faq dd{
+    font-size: 16px;
+    margin-bottom:50px;
+}
+
+.howitworks dt{
+    font-size:24px;
+    margin-top: 40px;
+    
+}
+
+.howitworks dd{
+    font-size: 16px;
+    margin-bottom:50px;
+    width: 300px;
+}
+
+@media (min-width: 992px){
+
+    .leftArrow{
+        left:-20px;
+    }
+
+
+    .rightArrow {
+        right: -25px;
+    }
+
+    .lefthow{
+        margin-right:50px
+    }
+
+    .righthow{
+        margin-left:50px
+    }
+
+}
+.rate-error{
+    border: 3px solid red;
 }
