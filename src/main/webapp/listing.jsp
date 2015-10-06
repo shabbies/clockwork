@@ -59,14 +59,13 @@ session.removeAttribute("offeredList");}%>
         <div class="panel-heading"> 
             <h4>Your Applicants</h4> 
         </div> 
-        <table class="table db-job-table"> 
+        <table class="table db-job-table review-table table-hover"> 
             <thead> 
                 <tr> 
                     <th>Name</th>
                     <th>Rating</th>
                     <th>Status</th>
                     <th>Action</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody> 
@@ -74,7 +73,7 @@ session.removeAttribute("offeredList");}%>
                         if (applicantList.size() > 0){   
                             for (User user : applicantList){ 
                                 applicantListUID.add(user.getId());%>
-                <tr> 
+                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">  
                     <td><%=user.getUsername()%></td>
                     <td>
                         <div class="ratings">
@@ -86,20 +85,18 @@ session.removeAttribute("offeredList");}%>
                     <td>Pending</td>
                     <td><button id="open_offer_job_modal" class="btn btn-success" data-postid="<%=postID%>" data-userid="<%=user.getId()%>">Offer Job</button>
                     </td>
-                    <td><a href="#" id="view_profile" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                 </tr>
                 <% } %>
                 <% if (applicantList.size() > 0) { %>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><button class="btn btn-lg btn-primary" id="open_offer_all_job_modal" data-postid="<%=post.getId()%>"><span class="badge"><%=applicantList.size()%></span> Offer All </button></td>
-                    <td>
+                <tr style="background-color: white;">
+                    <td style="cursor: default;"></td>
+                    <td style="cursor: default;"></td>
+                    <td style="cursor: default;"></td>
+                    <td style="cursor: default;"><button class="btn btn-lg btn-primary" id="open_offer_all_job_modal" data-postid="<%=post.getId()%>"><span class="badge"><%=applicantList.size()%></span> Offer All </button></td>
                 </tr>
                 <%}%>
                 <% } else { %>
-                <tr><td colspan="4" class="text-center">No New Applicants</td></tr>
+                <tr style="background-color: white;"><td style="cursor: default;" colspan="4" class="text-center">No New Applicants</td></tr>
                 <% } %>
                 <% } %>    
             </tbody>
@@ -111,14 +108,13 @@ session.removeAttribute("offeredList");}%>
         <div class="panel-heading"> 
             <h4>Your Offered Applicants</h4> 
         </div> 
-        <table class="table db-job-table"> 
+        <table class="table db-job-table review-table table-hover"> 
             <thead> 
                 <tr> 
                     <th>Name</th>
                     <th>Rating</th>
                     <th>Status</th>
                     <th>Action</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody> 
@@ -127,7 +123,7 @@ session.removeAttribute("offeredList");}%>
                 <% if (offeredList.size() > 0) {%>
                 <% for (User user : offeredList){ %>
 
-                <tr> 
+                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">  
                     <td><%=user.getUsername()%></td>
                     <td>
                         <div class="ratings">
@@ -137,17 +133,17 @@ session.removeAttribute("offeredList");}%>
                         </div>
                     </td>
                     <td>Offered</td>
-                    <td><form action="/WithdrawOfferServlet" method="POST" class="display-inline">
+                    <td>
+                        <form action="/WithdrawOfferServlet" method="POST" class="display-inline">
                             <input type="hidden" name="post_id" value="<%=postID%>" />
                             <input type="hidden" name="user_id" value="<%=user.getId()%>" />
                             <input type="submit" value="Withdraw Offer" class="btn btn-danger" />
                         </form>
                     </td>
-                    <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                 </tr>
                 <% } %>
                 <% } else { %>
-                <tr><td colspan="4" class="text-center">No Offers Given</td></tr>
+                <tr style="background-color: white;"><td colspan="4" class="text-center" style="cursor: default;">No Offers Given</td></tr>
                 <% }
         } %>
             </tbody>
@@ -159,7 +155,7 @@ session.removeAttribute("offeredList");}%>
         <div class="panel-heading"> 
             <h4>Your Hired Applicants</h4> 
         </div> 
-        <table class="table db-job-table"> 
+        <table class="table db-job-table review-table table-hover"> 
             <thead> 
                 <tr> 
                     <th>Name</th>
@@ -174,7 +170,7 @@ session.removeAttribute("offeredList");}%>
                 <% if (hiredList.size() > 0){ %>
                 <% for (User user : hiredList){ %>
 
-                <tr> 
+                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">
                     <td><%=user.getUsername()%></td>
                     <td>
                         <div class="ratings">
@@ -184,11 +180,11 @@ session.removeAttribute("offeredList");}%>
                         </div>
                     </td>
                     <td>Hired</td>
-                    <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
+                    <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
                 </tr>
                 <% } %>
                 <% } else { %>
-                <tr><td colspan="4" class="text-center">No Hired Applicants</td></tr>
+                <tr style="background-color: white;"><td colspan="4" class="text-center" style="cursor: default;">No Hired Applicants</td></tr>
                 <% } %>
                 <% } %>
             </tbody>
@@ -343,6 +339,10 @@ session.removeAttribute("offeredList");}%>
     
     $(document).on("click", ".btn-comment", function() {
         $('#commentModal').modal('show');
+    });
+    
+    $(document).on("click", "button", function(e){
+        e.stopPropagation();
     });
 </script>
 <!-- End of Hire Modal -->
