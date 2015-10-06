@@ -9,16 +9,18 @@
             <div class="modal-body">
                 
                 <div class="col-md-12 modal-job-details">
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-3 text-center">
                         <img id="hiring_avatar" src="http://placehold.it/120x120" alt="" class="db-user-pic img-rounded img-responsive"/>
                     </div>
                         
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <h4 id="modalName" class="col-md-12"></h4>
-                        <strong class="col-md-4"> Contact Number: </strong><h5 id="modalContact"></h5>
-                        <h5 id="modalEmail"></h5>
-                        <div id="modalRating">
-                            <h5>Ratings</h5>
+                        <strong class="col-md-5 user_profile_content"> Contact Number </strong><div id="modalContact" class="col-md-7 user_profile_content"></div>
+                        <strong class="col-md-5 user_profile_content"> Email</strong><div id="modalEmail" class="col-md-7 user_profile_content"></div>
+                        <strong class="col-md-5 user_profile_content"> Gender</strong><div id="modalGender" class="col-md-7 user_profile_content"></div>
+                        <strong class="col-md-5 user_profile_content"> Nationality</strong><div id="modalNationality" class="col-md-7 user_profile_content"></div>
+                        <strong class="col-md-5 user_profile_content"> Ratings</strong>
+                        <div id="modalRating" class="col-md-7 user_profile_content">
                             <div class="display-inline">
                                 <div class="display-inline" id="modalGoodRating"> 0 </div>
                                 <img src="/img/good.png" class="listing_ratings"/>
@@ -48,6 +50,8 @@
         var nameText = $(this).data('name');
         var contactText = $(this).data('contact');
         var emailText = $(this).data('email');
+        var genderText = ($(this).data('gender') === "M") ? "Male" : "Female";
+        var nationalityText = $(this).data("nationality");
         var avatarText = $(this).data('avatar');
         var goodText = $(this).data('good');
         var neutralText = $(this).data('neutral');
@@ -55,15 +59,17 @@
         
         $('#modalName').html("<strong>"+nameText+"</strong>");
         if (typeof contactText === 'undefined'){
-            $('#modalContact').html("Phone number: Phone number has been hidden");
+            $('#modalContact').html("[HIDDEN]");
         } else {
-            $('#modalContact').html("Phone number: " + contactText);
+            $('#modalContact').html(contactText);
         }
         if (typeof emailText === 'undefined'){
-            $('#modalEmail').html("Email: Email has been hidden");
+            $('#modalEmail').html("[HIDDEN]");
         } else {
-            $('#modalEmail').html("Email: " + emailText);
+            $('#modalEmail').html(emailText);
         }
+        $("#modalGender").html(genderText);
+        $("#modalNationality").html(nationalityText);
         if (avatarText !== null){
             $('#hiring_avatar').attr("src", avatarText); 
         } else {

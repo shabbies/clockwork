@@ -74,7 +74,7 @@ session.removeAttribute("matchMap");
                     <%  if (hiredList.size() > 0){   
                             for (User user : hiredList){ 
                                 Match match = matchMap.get(user.getId());%>
-                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"> 
+                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"> 
                                     <td><%=user.getUsername()%></td>
                                     <td>Completed</td>
                                     <td align="center">
@@ -118,7 +118,7 @@ session.removeAttribute("matchMap");
                     <%  if (completedList.size() > 0){   
                             for (User user : completedList){ 
                             Match match = matchMap.get(user.getId());%>
-                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"> 
+                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"> 
                                     <td><%=user.getUsername()%></td>
                                     <td>Reviewed</td>
                                     <td align="left">
