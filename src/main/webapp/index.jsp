@@ -50,7 +50,7 @@ String query = (request.getParameter("q") != null) ? request.getParameter("q") :
         <div class="col-lg-4 col-sm-height col-bottom"> 
             <% if (postList.size() != 0){ %>
             <h5 class="pull-right sortlink">Sort by 
-                <a href="/GetAllPostsServlet?order=oldest">SOONEST</a>  
+                <a href="/GetAllPostsServlet?order=oldest">MOST URGENT</a>  
                 <a href="/GetAllPostsServlet?order=latest">LATEST</a>
                 <a href="/GetAllPostsServlet?order=salary">SALARY</a>
             </h5>

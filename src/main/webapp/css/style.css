@@ -1523,3 +1523,9 @@ pre{
 .rate-error{
     border: 3px solid red;
 }
+
+.user_profile_content{
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
