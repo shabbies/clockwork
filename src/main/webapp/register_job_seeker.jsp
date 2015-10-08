@@ -11,7 +11,7 @@
                 <div class="col-md-6 col-md-offset-3">
                     <div class="panel panel-default">
                         <div class="panel-body">
-
+                            <%@include file="_message.jsp"%>
                             <form class="form form-signup" action="/RegisterAccountServlet" method="POST" role="form">
 
                                 <div class="form-group form-group-lg col-md-12 text-left"> 
@@ -34,7 +34,7 @@
                                     <label for="register-password" class="control-label">Password</label> 
                                     <div class="input-group"> 
                                         <div id="register-password-icon" class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw"></i></div>            
-                                        <input id="register-password" class="form-control" type="password" placeholder="Password" name="password" required> 
+                                        <input id="new-password" class="form-control" type="password" placeholder="Password" name="password" required> 
                                     </div> 
 
                                     <div class="password_length_error" style="display:none;">  

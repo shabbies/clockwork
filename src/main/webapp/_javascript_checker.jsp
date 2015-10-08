@@ -1,8 +1,9 @@
 <script>
     
 $('.form-signup').on('submit', function () {
-    if ($('#new-password').val() !== "" && $("#old-password").val() !== ""){
-        if ($('#new-password').val().length < 8){
+    var location = window.location.href;
+    if ($('#new-password').val() !== "" && $("#old-password").val() !== "" || location.indexOf("register") > -1){
+        if ($('#new-password').val().length < 8 || $("#register-password").val().length < 8){
             $('.password_length_error').removeAttr("style");
             $("#new-password").val('');
             $("#confirm-password").val('');
