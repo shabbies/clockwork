@@ -1,8 +1,9 @@
 <script>
     
 $('.form-signup').on('submit', function () {
-    if ($('#new-password').val() !== "" && $("#old-password").val() !== ""){
-        if ($('#new-password').val().length < 8){
+    var location = window.location.href;
+    if ($('#new-password').val() !== "" && $("#old-password").val() !== "" || location.indexOf("register") > -1){
+        if ($('#new-password').val().length < 8 || $("#register-password").val().length < 8){
             $('.password_length_error').removeAttr("style");
             $("#new-password").val('');
             $("#confirm-password").val('');
@@ -215,5 +216,25 @@ $(document).on("click", ".pay-type-selector", function(){
         $("#hour").removeClass("active");
         $("#pay-switch").attr("checked", false);
     }
- });
+});
+ 
+$("#job-location").focusout(function(){
+    var address = $(this).val();
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status === "ZERO_RESULTS"){
+            $("#job-location-error").show();
+        } else {
+            $("#job-location-error").hide();
+        }
+    });
+});
+
+$(".form-post").submit(function( event ) {
+    if ($("#job-location-error").is(":visible")){
+        $("#error-message").html("Please fix the errors before submitting the form!");
+        $("#error-text").show();
+        return false;
+    }
+});
+    
 </script>

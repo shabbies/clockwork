@@ -24,10 +24,10 @@ public class UserManager {
         return currentUser;
     } 
     
-    public User createUserFromJSON(String jsonString){
+    public User createUserFromJSON(String JSONString){
         Gson gson = new Gson();
         Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
-        HashMap userHash = gson.fromJson(jsonString, hashType);
+        HashMap userHash = gson.fromJson(JSONString, hashType);
         Double idDouble = (Double)userHash.get("id");
         int id = idDouble.intValue();
         String username = (String)userHash.get("username");

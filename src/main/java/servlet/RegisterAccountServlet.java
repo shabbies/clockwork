@@ -73,7 +73,7 @@ public class RegisterAccountServlet extends HttpServlet {
                     error = "This password is too short, please ensure that it is at least 8 characters long";
                 }
                 session.setAttribute("error", error);
-                response.sendRedirect("/index.jsp");
+                response.sendRedirect("/register_" + accountType + ".jsp");
                 return;
             }
             

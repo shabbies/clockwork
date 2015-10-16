@@ -7,6 +7,10 @@
     <versions>
       <version>4.4.1</version>
     </versions>
+<<<<<<< HEAD
     <lastUpdated>20151006180004</lastUpdated>
+=======
+    <lastUpdated>20151016175442</lastUpdated>
+>>>>>>> dev-notification
   </versioning>
 </metadata>

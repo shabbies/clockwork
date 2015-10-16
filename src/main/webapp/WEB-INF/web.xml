@@ -148,6 +148,14 @@
         <servlet-name>CheckJobAppliedServlet</servlet-name>
         <servlet-class>servlet.CheckJobAppliedServlet</servlet-class>
     </servlet>
+    <servlet>  
+        <servlet-name>GetNotificationsServlet</servlet-name>
+        <servlet-class>servlet.GetNotificationsServlet</servlet-class>
+    </servlet>
+    <servlet>  
+        <servlet-name>ReadNotificationsServlet</servlet-name>
+        <servlet-class>servlet.ReadNotificationsServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>GetAllPostsServlet</servlet-name>
@@ -264,5 +272,13 @@
     <servlet-mapping>
         <servlet-name>CheckJobAppliedServlet</servlet-name>
         <url-pattern>/CheckJobAppliedServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetNotificationsServlet</servlet-name>
+        <url-pattern>/GetNotificationsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadNotificationsServlet</servlet-name>
+        <url-pattern>/ReadNotificationsServlet</url-pattern>
     </servlet-mapping>
 </web-app>    
