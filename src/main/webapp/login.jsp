@@ -9,17 +9,11 @@
           <div class="panel panel-default">
             <div class="panel-body">
 
-             <%if (session.getAttribute("error") != null){%>      
-             <div class="alert alert-danger" role="alert">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              <%=session.getAttribute("error")%>
-            </div>
-            <%  session.removeAttribute("error");}%>
-
+             <%@include file="_message.jsp"%>
 
             <div class="text-center login-logo">
               <img src="img/cw.png" alt="" class="img-responsive" />
-              <h3 class="text-center text-dark">Making this work</h3>
+              <h3 class="text-center text-dark">Time to Earn Money</h3>
             </div>
             
 
@@ -38,15 +32,15 @@
                 </div>
               </div>
 
-              <div class="form-group form-group-lg col-md-12 text-left"> 
+              <div class="form-group form-group-lg col-md-6 text-left"> 
                 <input type="submit" class="btn btn-lg btn-block btn-primary btn-srad" value="Login"/>
               </div>
             </form>
-            <div class="form-group form-group-lg col-md-12 text-left"> 
-              <button href="" class="btn btn-lg btn-block btn-info btn-srad" onclick="facebookLogin();">Login thru Facebook</button>
+            <div class="form-group form-group-lg col-md-6 text-left"> 
+              <button href="" class="btn btn-lg btn-block btn-facebook btn-srad" onclick="facebookLogin();">Facebook Login</button>
             </div>
             <div class="form-group form-group-lg col-md-12 text-left"> 
-              <a href="/register.jsp" class="btn btn-lg btn-block btn-default btn-srad">New to Clockwork? Click Here</a>
+              <a href="/register.jsp" class="btn btn-lg btn-block btn-warning btn-srad">Register Now!</a>
             </div>
           </div>
         </div>

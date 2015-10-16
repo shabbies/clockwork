@@ -29,19 +29,7 @@
 <div class="header-content-inner">
 <div class="row profile-div">
 
-<% if (session.getAttribute("error") != null){%>
-<div class="alert alert-danger" role="alert">
-    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-    <span class="sr-only">Error:</span>
-    <%=session.getAttribute("error")%>
-</div>
-<%session.removeAttribute("error");}%>
-<% if (session.getAttribute("message") != null){%>
-<div class="alert alert-success" role="alert">
-    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-    <%=session.getAttribute("message")%>
-</div>
-<%session.removeAttribute("message");}%>
+<%@include file="_message.jsp"%>
 
 <div class="col-sm-2"></div>
 <div class="col-sm-8">
@@ -52,9 +40,9 @@
 <form class="form form_complete_profile" action="/CompleteProfileServlet" method="POST" role="form" enctype="multipart/form-data">
     <div class="text-center">
         <% if (currentUser.getAvatar() == null){%>
-        <img src="img/user-placeholder.jpg" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
+        <img id="profile-pic" src="img/user-placeholder.jpg" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
         <% } else { %>
-        <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
+        <img id="profile-pic" src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
         <% } %>
     </div>
 
@@ -126,11 +114,11 @@
     <div class="form-group col-sm-6 text-left"> 
         <label for="dob-date" class="control-label">Date of Birth*</label> 
         <div class="input-group"> 
-            <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
+            <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw" id="dob-date-icon"></i></div> 
                 <% if (currentUser.getDateOfBirth() == null){ %>
-            <input id="dob-date" class="form-control" type="date" name="dob_date" required> 
+            <input id="dob-date" class="form-control" type="text" name="dob_date" required> 
             <% } else { %>
-            <input id="dob-date" class="form-control" type="date" name="dob_date" value="<%=currentUser.getDateOfBirthString()%>" required> <% } %>
+            <input id="dob-date" class="form-control" type="text" name="dob_date" value="<%=currentUser.getDateOfBirthString()%>" required> <% } %>
         </div> 
         <div class="dob-error col-md-12 profile_error" style="display:none;">  
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
@@ -160,3 +148,27 @@
 </header>
 <jsp:include page="_javascript_checker.jsp" />
 <jsp:include page="_footer.jsp" />
+
+<script>
+    $("#dob-date").daterangepicker({
+        locale: {
+            format: 'MMMM D, YYYY'
+        },
+        dateLimit: {
+            "days": 6
+        },
+        singleDatePicker: true
+    }, function(start, end, label) {
+        var years = moment().diff(start, 'years');
+        if (years < 15){
+            $("#dob-date").css("border", "1px solid #ee4054" );
+            $("#dob-date").css("box-shadow", "none");
+            $(".dob-error").removeAttr("style");
+            $("#dob-date").val("");
+        }
+    }); 
+    
+    $(document).on("click", "#dob-date-icon", function(){
+       $("#dob-date").focus(); 
+    });
+</script>

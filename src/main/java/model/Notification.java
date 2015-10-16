@@ -50,4 +50,24 @@ public class Notification {
     public void setStatus(String status) {
         this.status = status;
     }
+    
+    @Override
+    public boolean equals(Object other){
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof Notification))return false;
+        Notification other2 = (Notification)other;
+        if (other2.id == id){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + this.id;
+        return hash;
+    }
 }

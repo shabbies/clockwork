@@ -15,22 +15,8 @@
         <jsp:forward page="<%=formURL%>" />
     <%} else { 
         session.removeAttribute("post");
-    }
-    if (session.getAttribute("error") != null) { %>
-        <div class="alert alert-danger" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            <%=session.getAttribute("error")%>
-        </div>
-        <%session.removeAttribute("error");}%>
-        <% if (session.getAttribute("message") != null){%>
-        <div class="alert alert-success" role="alert">
-            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-            <%=session.getAttribute("message")%>
-        </div>
-        <% session.removeAttribute("message");
-    }
-%>
+    }%>
+    <%@include file="_message.jsp"%>
 
 <h2 class="text-center"><strong><%=post.getHeader()%></strong> @ <%=post.getCompany()%></h2>
 
@@ -50,39 +36,45 @@
     </div>
 
     <div class="col-md-8 text-left">
-        <h5 id="modalHeader"><strong><%=post.getHeader()%></strong></h5>
-        <h5 id="modalCompany"><%=post.getCompany()%></h5>
-        <h5> <i class="fa fa-map-marker primary"></i> <%=post.getLocation()%></h5>
-        <h5 id="modalDatePosted" class="display-inline"><%=post.getJobDateString()%></h5>
-        <div id="modal_date_splitter" class="display-inline" >    to    </div>
-        <h5 id="modalEndDate" class="display-inline"><%=post.getEndDateString()%></h5>
-        <div>
+        <h5 class="col-md-12 col-lg-12" id="modalHeader"><strong><%=post.getHeader()%></strong></h5>
+        <h5 class="col-md-12" id="modalCompany"><%=post.getCompany()%></h5>
+        <strong class="col-md-4">Location</strong><h5 class="col-md-8" id="modalLocation"><%=post.getLocation()%></h5>
+        <strong class="col-md-4">Start Date</strong><h5 class="col-md-8" id="modalDatePosted"><%=post.getJobDateString()%></h5>
+        <strong class="col-md-4">End Date</strong><h5 class="col-md-8" id="modalEndDate"><%=post.getEndDateString()%></h5>
+        <strong class="col-md-4">Timing</strong>
+        <div class="col-md-8">
             <h5 id="modalStartTime" class="display-inline"><%=post.getStartTime()%></h5>
             <div id="modal_date_splitter" class="display-inline" >    to    </div>
             <h5 id="modalEndTime" class="display-inline"><%=post.getEndTime()%></h5>
         </div>
-
-        <h5><%=post.getDescription()%></h5>
+        <strong class="col-md-12 text-center" style="padding-top: 10px; padding-bottom: 10px;">Job Description</strong>
+        <pre><%=post.getDescription()%></pre>
     </div>
 </div>
 <div class="col-md-5 modal-job-calendar">
-        <h4><strong>Schedule for the Month</strong></h4>
-        <div id="calendar"></div>
-        <h6><span class="label label-default bg-primary">Job Date</span>
-            <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
-            <span class="label label-apply">Your Applied Jobs</span>
-            <span class="label label-hire">Your Hired Jobs</span></h6>
-            <% } %>
-        </div>
-    </div>
-
-<div class="text-center">
+    <h4><strong>Schedule for the Month</strong></h4>
+    <div id="calendar"></div>
+    <h6><span class="label label-default bg-primary">Job Date</span>
+        <%  if(currentUser!=null && currentUser.getAccountType().equals("job_seeker")){ %>
+        <span class="label label-apply">Your Applied Jobs</span>
+        <span class="label label-hire">Your Hired Jobs</span>
+        <% } %>
+    </h6>
+</div>
+    
+<div class="col-md-12">
+<div class="col-md-1">
+    <div><button type="button" id="facebook_share" class="btn btn-facebook btn-lg">Share on Facebook</button></div>
+</div>
+<div class="col-md-11">
     <form action="/ApplyJobServlet" method="POST" class="display-inline"/>
     <input type="text" value="<%=post.getId()%>" name="post_id" hidden />
     <input type="submit" class="btn btn-primary btn-lg" value="Apply For Job"/>
     </form>
     <button type="button" class="btn btn-warning btn-lg hidden">Edit Job</button>
 </div>
+</div>
+
 
 </div>
 </div>

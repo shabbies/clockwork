@@ -25,20 +25,7 @@ session.removeAttribute("matchMap");
     
 <header class="main">
 <div class="header-content">
-<% if (session.getAttribute("error") != null){%>
-    <div class="alert alert-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span>
-        <%=session.getAttribute("error")%>
-    </div>
-    <%session.removeAttribute("error");}%>
-    <% if (session.getAttribute("message") != null){%>
-    <div class="alert alert-success" role="alert">
-        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-        <%=session.getAttribute("message")%>
-    </div>
-    <% session.removeAttribute("message");}
-%>
+<%@include file="_message.jsp"%>
 <div class="row">
     <div class="col-md-5">
         <div class="panel panel-default">
@@ -65,21 +52,20 @@ session.removeAttribute("matchMap");
             <div class="panel-heading"> 
                 <h4>Reviewed Applicants</h4> 
             </div> 
-            <table class="table db-job-table"> 
+            <table class="table db-job-table review-table table-hover"> 
                 <thead> 
                     <tr> 
                         <th>Name</th>
                         <th>Status</th>
                         <th>Rating</th>
                         <th>Action</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody> 
                     <%  if (completedList.size() > 0){   
                             for (User user : completedList){ 
                                 Match match = matchMap.get(user.getId());%>
-                                <tr> 
+                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"> 
                                     <td><%=user.getUsername()%></td>
                                     <td>Reviewed</td>
                                     <td align="center">
@@ -94,8 +80,7 @@ session.removeAttribute("matchMap");
                                             <% } %>
                                         </div>
                                     </td>
-                                    <td><button class="btn btn-success btn-view-comment" data-id="<%=user.getId()%>" data-rating="<%=match.getRating()%>" data-comment="<%=match.getComment()%>" data-enabled="disabled">View Comments</button></td>
-                                    <td><a href="#" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
+                                    <td><%=match.getComment()%></td>
                                 </tr>
                             <% } %>
                         <% } else { %>

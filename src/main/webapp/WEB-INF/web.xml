@@ -8,6 +8,10 @@
         </jsp-property-group>
     </jsp-config>
     
+    <session-config>
+        <session-timeout>2880</session-timeout>
+    </session-config>
+    
     <servlet>
         <servlet-name>GetAllPostsServlet</servlet-name>
         <servlet-class>servlet.GetAllPostsServlet</servlet-class>
@@ -148,6 +152,10 @@
         <servlet-name>GetNotificationsServlet</servlet-name>
         <servlet-class>servlet.GetNotificationsServlet</servlet-class>
     </servlet>
+    <servlet>  
+        <servlet-name>ReadNotificationsServlet</servlet-name>
+        <servlet-class>servlet.ReadNotificationsServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>GetAllPostsServlet</servlet-name>
@@ -268,5 +276,9 @@
     <servlet-mapping>
         <servlet-name>GetNotificationsServlet</servlet-name>
         <url-pattern>/GetNotificationsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReadNotificationsServlet</servlet-name>
+        <url-pattern>/ReadNotificationsServlet</url-pattern>
     </servlet-mapping>
 </web-app>    

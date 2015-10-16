@@ -2,25 +2,36 @@
 <%@include file="_nav.jsp"%>
 
 <%@ page import="model.User"%>
+<%@ page import="controller.PostController"%>
 
 <%  
 if (currentUser == null){
 session.setAttribute("error", "Please login or register first before posting a job");
+session.setAttribute("loginSource", "create_new_post");
 response.sendRedirect("/login.jsp");
 return;
 } else if (!currentUser.getAccountType().equals("employer")){
 session.setAttribute("error", "Only an employer account is able to post a job!");
 response.sendRedirect("/index.jsp");
 return;
+} else {
+appController = (AppController)session.getAttribute("appController");
+PostController postController = appController.getPostController();
+if (postController.getEmployerReviewingJobs().size() != 0){
+    session.setAttribute("error", "Please submit your pending reviews before posting a new job!");
+    response.sendRedirect("/dashboard.jsp");
+    return;
+}
 }%>
 
 <!-- Initialising Google Places for location autofill -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 <script>
+    var geocoder;
     function initialize() {
         var input = /** @type {HTMLInputElement} */(
                 document.getElementById('job-location'));
-
+        geocoder = new google.maps.Geocoder();
         var autocomplete = new google.maps.places.Autocomplete(input);
 
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -45,22 +56,15 @@ return;
 <header class="main">
 <div class="header-full-content">
     
-<% if (session.getAttribute("error") != null){%>
-<div class="alert alert-danger" role="alert">
-    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-    <span class="sr-only">Error:</span>
-    <%=session.getAttribute("error")%>
-</div>
-<%session.removeAttribute("error");}%>
-<% if (session.getAttribute("message") != null){%>
-<div class="alert alert-success" role="alert">
-    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-    <%=session.getAttribute("message")%>
-</div>
-<%session.removeAttribute("message");}%>
+<%@include file="_message.jsp"%>
     
 <div class="header-content-inner">
 <h2 class="text-center">Let's Create a new listing!</h2>
+
+<div id="error-text" class="alert alert-danger" role="alert" style="font-size: 14px; display: none;">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <strong id="error-message"></strong>
+</div>
 
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
@@ -84,6 +88,11 @@ return;
                 <% } else { %>
                 <input id="job-location" class="form-control" type="text" placeholder="" name="location" value="<%=repopulate[1]%>"required><%}%>
             </div>
+            
+            <div id="job-location-error" class="col-md-6 pull-right details-error" style="display: none;">  
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+                Please select a valid address!
+            </div
         </tr>
         <tr>    
             <div class="form-group col-md-12 text-left">
@@ -95,14 +104,52 @@ return;
             </div>
         </tr>
         <tr>
-             <div class="form-group form-group-lg col-md-6 text-left"> 
+            <div class="form-group form-group-lg col-md-7 text-left"> 
+                <label for="job-date" class="control-label">Job Date</label> 
+                <div class="input-group"> 
+                    <div class="input-group-addon" id="job-date-icon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
+                    <% if (repopulate != null && repopulate[3] != null){%>
+                        <input id="job-date" class="form-control" type="text" name="job_date" value="<%=repopulate[3]%>" onchange="test()" required> 
+                    <%} else {%>
+                        <input id="job-date" class="form-control" type="text" name="job_date" required><%}%>
+                </div> 
+                <div class="job-start-date col-md-12 profile_error" style="display:none;">  
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+                    Start date should be at least 2 days from today
+                </div>
+                <div class="job-end-date col-md-12 profile_error start-filler" style="display:none;">  
+                    <span aria-hidden="true"></span>
+                    &nbsp;
+                </div>
+            </div>
+                
+            <div class="form-group form-group-lg col-md-5 pull-left text-left"> 
+                <label for="job-pay" class="control-label">Pay</label> 
+                <div class="input-group"> 
+                    <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
+                    <% if (repopulate != null && repopulate[4] != null){%>
+                    <input id="job-pay" class="form-control" type="number" value="<%=repopulate[6]%>" name="salary" min="0" step="0.1" required>
+                    <% } else { %>
+                    <input id="job-pay" class="form-control" type="number" value="10" name="salary" min="0" step="0.1" required>
+                    <% } %>
+                    <div class="input-group-addon pay-type-selector btn-warning active" id="hour">
+                        <strong>/hour</strong>
+                    </div>
+                    <div class="input-group-addon pay-type-selector btn-warning" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" id="day">
+                        <strong>/day</strong>
+                    </div>
+                    <input id="pay-switch" type="checkbox" class="switch" name="pay-type" data-on-text="/hour" data-off-text="/day" checked hidden/>
+                </div> 
+            </div>
+                
+            <!--<div class="form-group form-group-lg col-md-12 text-center"> 
                 <label for="job-date" class="control-label">Job Start Date</label> 
                 <div class="input-group"> 
-                    <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
+                    <div class="input-group-addon" id="job-date-icon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
                     <% if (repopulate != null && repopulate[3] != null){%>
-                        <input id="job-date" class="form-control" type="date" name="job_date" value="<%=repopulate[3]%>" onchange="test()" required> 
+                        <input id="job-date" class="form-control" type="text" name="job_date" value="<%=repopulate[3]%>" onchange="test()" required> 
                     <%} else {%>
-                        <input id="job-date" class="form-control" type="date" name="job_date" required><%}%>
+                        <input id="job-date" class="form-control" type="text" name="job_date" required><%}%>
                 </div> 
                 <div class="job-start-date col-md-12 profile_error" style="display:none;">  
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
@@ -132,7 +179,7 @@ return;
                     <span aria-hidden="true"></span>
                     &nbsp;
                 </div>
-            </div> 
+            </div> -->
         </tr>
         <tr>
             <div class="form-group form-group-lg col-md-6 text-left"> 
@@ -140,9 +187,9 @@ return;
                 <div class="input-group"> 
                     <div class="input-group-addon"><i class="fa fa-clock-o fa-lg fa-fw"></i></div> 
                         <% if (repopulate != null && repopulate[5] != null){%>
-                    <input id="start-time" class="form-control" type="time" name="start_time" value="<%=repopulate[5]%>" required> 
+                    <input id="start-time" class="form-control" type="time" name="start_time" value="<%=repopulate[4]%>" required> 
                     <%} else {%>
-                    <input id="start-time" class="form-control" type="time" name="start_time" required><%}%>
+                    <input id="start-time" class="form-control" type="time" name="start_time" value="09:00" required><%}%>
                 </div> 
             </div>
 
@@ -151,22 +198,9 @@ return;
                 <div class="input-group"> 
                     <div class="input-group-addon"><i class="fa fa-clock-o fa-lg fa-fw"></i></div> 
                         <% if (repopulate != null && repopulate[5] != null){%>
-                    <input id="end-time" class="form-control" type="time" name="end_time" value="<%=repopulate[6]%>" required> 
+                    <input id="end-time" class="form-control" type="time" name="end_time" value="<%=repopulate[5]%>" required> 
                     <%} else {%>
-                    <input id="end-time" class="form-control" type="time" name="end_time" required><%}%>
-                </div> 
-            </div>
-        </tr>
-        <tr>
-            <div class="form-group form-group-lg col-md-5 pull-left text-left"> 
-                <label for="job-pay" class="control-label">Pay</label> 
-                <div class="input-group"> 
-                    <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
-                        <% if (repopulate != null && repopulate[4] != null){%>
-                    <input id="job-pay" class="form-control" type="number" value="<%=repopulate[7]%>" name="salary" min="0" step="0.1" required>
-                    <%} else {%>
-                    <input id="job-pay" class="form-control" type="number" value="10" name="salary" min="0" step="0.1" required><%}%>
-                    <div class="input-group-addon" style="font-weight:600;"> / Hr</div> 
+                    <input id="end-time" class="form-control" type="time" name="end_time" value="18:00" required><%}%>
                 </div> 
             </div>
         </tr>

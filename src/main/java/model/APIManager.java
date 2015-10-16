@@ -30,6 +30,7 @@ public class APIManager {
     String EPCalendarFormatDates = "/api/v1/users/get_calendar_formatted_dates.json";
     String EPUnreadNotifications = "/api/v1/users/get_unread_notifications";
     String EPAllNotifications = "/api/v1/users/get_all_notifications";
+    String EPReadNotifications = "/api/v1/users/read_notifications";
     
     public APIManager(String mode){
         if (mode.equals("production")){
@@ -155,6 +156,10 @@ public class APIManager {
     
     public String getEPAllNotifications() {
         return prefix + EPAllNotifications;
+    }
+
+    public String getEPReadNotifications() {
+        return prefix + EPReadNotifications;
     }
     
     public String getPrefix(){

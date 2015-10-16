@@ -73,7 +73,7 @@ public class RegisterAccountServlet extends HttpServlet {
                     error = "This password is too short, please ensure that it is at least 8 characters long";
                 }
                 session.setAttribute("error", error);
-                response.sendRedirect("/index.jsp");
+                response.sendRedirect("/register_" + accountType + ".jsp");
                 return;
             }
             
@@ -87,9 +87,25 @@ public class RegisterAccountServlet extends HttpServlet {
         // Redirection based on initial location
         if (session.getAttribute("loginSource") != null){
             String loginSource = (String)session.getAttribute("loginSource");
+            session.removeAttribute("loginSource");
             if (loginSource.equals("create_new_post")){
-                session.removeAttribute("loginSource");
-                response.sendRedirect("/create_post.jsp");
+                if (accountType.equals("employer")){
+                    response.sendRedirect("/create_post.jsp");
+                } else {
+                    String error = "Only employers are allowed to post jobs";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/index.jsp");
+                }
+                return;
+            } else if (loginSource.contains("apply_job")){
+                if (accountType.equals("job_seeker")){
+                    session.setAttribute("updateSource", loginSource);
+                    response.sendRedirect("/complete_profile.jsp");
+                } else {
+                    String error = "Only job seekers are allowed to apply for jobs!";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/index.jsp");
+                }
                 return;
             }
         } else {

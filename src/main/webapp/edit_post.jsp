@@ -2,7 +2,7 @@
 <%@include file="_nav.jsp"%>
 
 <%@ page import="model.Post"%>
-
+<%@ page buffer="16kb" %>
 <%  String postID = request.getParameter("id");
       String formURL = "/GetPostServlet?id=" + postID + "&location=edit";
       Post post = (Post)session.getAttribute("post");
@@ -13,10 +13,11 @@
 <!-- Initialising Google Places for location autofill -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 <script>
+    var geocoder;
     function initialize() {
         var input = /** @type {HTMLInputElement} */(
                 document.getElementById('job-location'));
-
+        geocoder = new google.maps.Geocoder();
         var autocomplete = new google.maps.places.Autocomplete(input);
 
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -35,28 +36,21 @@
 <header class="main">
 <div class="header-full-content">
     
-<% if (session.getAttribute("error") != null){%>
-<div class="alert alert-danger" role="alert">
-    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-    <span class="sr-only">Error:</span>
-    <%=session.getAttribute("error")%>
-</div>
-<%session.removeAttribute("error");}%>
-<% if (session.getAttribute("message") != null){%>
-<div class="alert alert-success" role="alert">
-    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-    <%=session.getAttribute("message")%>
-</div>
-<%session.removeAttribute("message");}%>
+<%@include file="_message.jsp"%>
 
 <div class="header-content-inner">
 <h2 class="text-center"><%=post.getHeader()%></h2>
+
+<div id="error-text" class="alert alert-danger" role="alert" style="font-size: 14px; display: none;">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <strong id="error-message"></strong>
+</div>
 
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
 <div class="panel panel-default">
 <div class="panel-body">
-    <form class="form form-signup" action="/EditPostServlet" method="POST" role="form">
+    <form class="form form-post" action="/EditPostServlet" method="POST" role="form">
         <input type="text" name="post_id" value="<%=post.getId()%>" hidden />
         <table>
             <tr>
@@ -69,6 +63,10 @@
                     <label for="job-location" class="controls control-label">Job Location</label> 
                     <input id="job-location" class="form-control" type="text" value="<%=post.getLocation()%>" name="location" required>  
                 </div>
+                <div id="job-location-error" class="col-md-6 pull-right details-error" style="display: none;">  
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+                    Please select a valid address!
+                </div>
             </tr>
             <tr>
                 <div class="form-group col-md-12 text-left"> 
@@ -77,7 +75,29 @@
                 </div>
             </tr>
             <tr>
-                <div class="form-group form-group-lg col-md-6 text-left"> 
+                <div class="form-group form-group-lg col-md-7 text-left"> 
+                    <label for="job-date" class="control-label">Job Date</label> 
+                    <div class="input-group"> 
+                        <div class="input-group-addon" id="job-date-icon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
+                        <input id="job-date-edit" class="form-control" type="text" name="job_date" value="<%=post.getStartAndEndDate()%>" required>
+                    </div> 
+                </div>
+                    
+                <div class="form-group form-group-lg col-md-5 pull-left text-left"> 
+                    <label for="job-pay" class="control-label">Pay</label> 
+                    <div class="input-group"> 
+                        <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
+                        <input id="job-pay" class="form-control" type="number" name="salary" value="<%=post.getSalary()%>" min="0" step="0.1"required> 
+                        <div class="input-group-addon pay-type-selector btn-warning" id="hour">
+                            <strong>/hour</strong>
+                        </div>
+                        <div class="input-group-addon pay-type-selector btn-warning" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" id="day">
+                            <strong>/day</strong>
+                        </div>
+                        <input id="pay-switch" type="checkbox" class="switch" name="pay-type" data-on-text="/hour" data-off-text="/day" checked hidden/>
+                    </div> 
+                </div>
+                <!--<div class="form-group form-group-lg col-md-6 text-left"> 
                     <label for="job-date" class="control-label">Job Start Date</label> 
                     <div class="input-group"> 
                         <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw"></i></div> 
@@ -107,7 +127,7 @@
                         <span aria-hidden="true"></span>
                         &nbsp;
                     </div>  
-                </div>
+                </div>-->
             </tr>
             <tr>
                 <div class="form-group form-group-lg col-md-6 text-left"> 
@@ -123,16 +143,6 @@
                     <div class="input-group"> 
                         <div class="input-group-addon"><i class="fa fa-clock-o fa-lg fa-fw"></i></div> 
                         <input id="end-time" class="form-control" type="time" name="end_time" value="<%=post.getEndTime()%>" required>
-                    </div> 
-                </div>
-            </tr>
-            <tr>
-                <div class="form-group form-group-lg col-md-5 pull-left text-left"> 
-                    <label for="job-pay" class="control-label">Pay</label> 
-                    <div class="input-group"> 
-                        <div class="input-group-addon"><i class="fa fa-dollar fa-lg fa-fw"></i></div> 
-                        <input id="job-pay" class="form-control" type="number" name="salary" value="<%=post.getSalary()%>" min="0" step="0.1"required> 
-                        <div class="input-group-addon" style="font-weight:600;"> / Hr</div> 
                     </div> 
                 </div>
             </tr>
@@ -159,3 +169,13 @@
 
 <jsp:include page="_footer.jsp" />
 <jsp:include page="_javascript_checker.jsp" />
+
+<script>
+    $(document).ready(function(){
+    <% if(post.getPayType().equals("hour")){ %>
+        $("#hour").addClass("active");
+    <% } else { %>
+        $("#day").addClass("active");
+    <% } %>    
+    });
+</script>

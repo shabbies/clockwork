@@ -46,7 +46,7 @@
                         <ul class="list-group list-group-flush text-center">
                             <li class="list-group-item"><i class="icon-ok text-danger"></i> Unlimited Posting</li>
                             <li class="list-group-item"><i class="icon-ok text-danger"></i> Up to 5 Hires</li>
-                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Summarised Report after Job Expiry</li>
+                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Summarised Reports</li>
                             <li class="list-group-item"><i class="icon-ok text-danger"></i> Email Support</li>
                             <li class="list-group-item"><i class="icon-ok text-danger"></i> No Featured Posting</li>
                         </ul>

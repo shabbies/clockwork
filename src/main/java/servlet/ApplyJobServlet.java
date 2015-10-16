@@ -78,7 +78,7 @@ public class ApplyJobServlet extends HttpServlet {
                 case 403:
                     error = "You have already applied for this job!";
                     session.setAttribute("error", error);
-                    response.sendRedirect("/index.jsp");
+                    response.sendRedirect("/mydashboard.jsp");
                     return;
                 case 401:
                     error = "There is a problem with the job application, please contact the administrator";

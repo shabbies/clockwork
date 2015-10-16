@@ -34,19 +34,7 @@ return;
 
 <header class="main">
     <div class="header-full-content">
-        <% if (session.getAttribute("error") != null){%>
-        <div class="alert alert-danger" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            <%=session.getAttribute("error")%>
-        </div>
-        <%session.removeAttribute("error");}%>
-        <% if (session.getAttribute("message") != null){%>
-        <div class="alert alert-success" role="alert">
-            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-            <%=session.getAttribute("message")%>
-        </div>
-        <%session.removeAttribute("message");}%>
+        <%@include file="_message.jsp"%>
 
         <div class="row">
             <div class="col-md-8">
@@ -70,7 +58,13 @@ return;
 
                         <tbody>
                             <% for (Post post : publishedList){%>
-                            <tr class="open-job-modal" data-userid="0" data-jobstatus="<%= post.getStatus() %>" data-ownjob="" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%> / hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
+                            <%  String salary = "" + post.getSalary();
+                                if (post.getPayType().equals("hour")){
+                                    salary += " / hr";
+                                } else {
+                                    salary += " / day";
+                                }%>
+                            <tr class="open-job-modal" data-userid="0" data-jobstatus="<%= post.getStatus() %>" data-ownjob="" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                                 <td><%=post.getHeader()%></td>
                                 <td><%=post.getJobDateString()%></td>   
                                 <% if (post.getStatus().equals("listed")){
@@ -117,36 +111,9 @@ return;
                 </div> 
             </div>
 
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-body db-user">
-
-                        <div class="text-center">
-                          <% if (currentUser.getAvatar() == null){%>
-                          <img src="img/user-placeholder.jpg" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                          <% } else { %>
-                          <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                          <%}%>
-                        </div>
-
-                        <div class="db-user-info">
-                            <h2>Hi <%=currentUser.getUsername()%>!</h2> 
-                            <span>What would you like to do today?</span>
-                        </div>
-                        <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Update My Profile</a>
-                        <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-male"></i> View my past employees</a>
-                        <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
-                    </div>
-                </div>
-            </div>
+            <%@include file="_emp_dashboard.jsp"%>
         </div>
 
     </div>
 </header>
 <jsp:include page="_footer.jsp" />
-
-<script>
-$(".incomplete").click(function(){
-    alert("Oops! This is not yet available!")
-});
-</script>

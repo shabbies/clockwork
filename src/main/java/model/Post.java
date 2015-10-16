@@ -25,8 +25,9 @@ public class Post {
     private int rating;
     private String comment;
     private String avatarPath;
+    private String payType;
 
-    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, Date endDate, String status, int applicantCount, Date expiryDate, String startTime, String endTime, int duration, String avatarPath) {
+    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, Date endDate, String status, int applicantCount, Date expiryDate, String startTime, String endTime, int duration, String avatarPath, String payType) {
         this.id = id;
         this.header = header;
         this.company = company;
@@ -43,9 +44,10 @@ public class Post {
         this.endTime = endTime;
         this.duration = duration;
         this.avatarPath = avatarPath;
+        this.payType = payType;
     }
     
-    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, Date endDate, String status, int applicantCount, Date expiryDate, String startTime, String endTime, int duration, int rating, String comment, String avatarPath) {
+    public Post(int id, String header, String company, double salary, String description, String location, Date postingDate, Date jobDate, Date endDate, String status, int applicantCount, Date expiryDate, String startTime, String endTime, int duration, int rating, String comment, String avatarPath, String payType) {
         this.id = id;
         this.header = header;
         this.company = company;
@@ -64,6 +66,7 @@ public class Post {
         this.rating = rating;
         this.comment = comment;
         this.avatarPath = avatarPath;
+        this.payType = payType;
     }
 
     public int getId() {
@@ -209,6 +212,14 @@ public class Post {
     public void setAvatarPath(String avatarPath) {
         this.avatarPath = avatarPath;
     }
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
     
     public String getJobDateString(){
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -233,6 +244,13 @@ public class Post {
     public String getPostExpiryStringForInput(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(expiryDate);
+    }
+    
+    public String getStartAndEndDate(){
+        DateFormat df = new SimpleDateFormat("MMMMM d, yyyy");
+        String start = df.format(jobDate);
+        String end = df.format(endDate);
+        return start + " - " + end;
     }
     
     public static Comparator<Post> SalaryComparator = new Comparator<Post>() {
@@ -274,9 +292,9 @@ public class Post {
            Date postingDate2 = p2.postingDate;
 
            if (postingDate1.before(postingDate2)){
-               return -1;
-           } else if (postingDate2.before(postingDate1)){
                return 1;
+           } else if (postingDate2.before(postingDate1)){
+               return -1;
            } else {
                return 0;
            }

@@ -22,4 +22,8 @@ public class NotificationController {
     public ArrayList <Notification> getReadList(){
         return notificationManager.getReadList();
     }
+    
+    public void readNotifications(String notificationIDs){
+        notificationManager.readNotifications(notificationIDs);
+    }
 }

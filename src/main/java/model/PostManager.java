@@ -59,6 +59,7 @@ public class PostManager {
         String endTime = (String)postJSONMap.get("end_time");
         int duration = ((Double)postJSONMap.get("duration")).intValue();
         String avatarPath = (String)postJSONMap.get("avatar_path");
+        String payType = (String)postJSONMap.get("pay_type");
         Post post = null;
         if (status.equals("completed")){
             int rating = 2;
@@ -66,9 +67,9 @@ public class PostManager {
                 rating = ((Double)postJSONMap.get("rating")).intValue();
             }
             String comment = ((String)postJSONMap.get("comment"));
-            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, endDate, status, 0, expiryDate, startTime, endTime, duration, rating, comment, avatarPath);
+            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, endDate, status, 0, expiryDate, startTime, endTime, duration, rating, comment, avatarPath, payType);
         } else {
-            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, endDate, status, 0, expiryDate, startTime, endTime, duration, avatarPath);
+            post = new Post(id, header, company, salary, description, location, postingDate, jobDate, endDate, status, 0, expiryDate, startTime, endTime, duration, avatarPath, payType);
         }
         if (postJSONMap.get("applicant_count") != null){
             post.setApplicantCount(((Double)postJSONMap.get("applicant_count")).intValue());
@@ -246,11 +247,14 @@ public class PostManager {
         return appliedJobs.get("completed");
     }
     
+    public ArrayList<Post> getEmployerReviewingJobs(){
+        return publishedMap.get("reviewing");
+    }
+    
     public boolean checkIfJobApplied(Post post){
         ArrayList <Post> pendingList = appliedJobs.get("pending");
         ArrayList <Post> offeredList = appliedJobs.get("offered");
         ArrayList <Post> hiredList = appliedJobs.get("hired");
-
         return pendingList.contains(post) || offeredList.contains(post) || hiredList.contains(post);
     }
     

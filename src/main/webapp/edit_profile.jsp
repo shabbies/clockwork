@@ -9,18 +9,13 @@
                 document.getElementById('street-address'));
         
         var autocomplete = new google.maps.places.Autocomplete(input);
-        autocomplete.bindTo('bounds', map);
         
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            infowindow.close();
-            marker.setVisible(false);
             var place = autocomplete.getPlace();
             if (!place.geometry) {
                 window.alert("Autocomplete's returned place contains no geometry");
                 return;
             }
-            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-            infowindow.open(map, marker);
         });
     }
     
@@ -33,19 +28,7 @@
 
 <div class="row profile-div">
 
-    <% if (session.getAttribute("error") != null){%>
-    <div class="alert alert-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span>
-        <%=session.getAttribute("error")%>
-    </div>
-    <%session.removeAttribute("error");}%>
-    <% if (session.getAttribute("message") != null){%>
-    <div class="alert alert-success" role="alert">
-        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-        <%=session.getAttribute("message")%>
-    </div>
-    <%session.removeAttribute("message");}%>
+    <%@include file="_message.jsp"%>
 
     <div class="col-sm-6">
 
@@ -57,9 +40,9 @@
 
                     <div class="text-center">
                         <% if (currentUser.getAvatar() == null){%>
-                        <img src="img/user-placeholder.jpg" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
+                        <img id="profile-pic" src="img/user-placeholder.jpg" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
                         <% } else { %>
-                        <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
+                        <img id="profile-pic" src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic modal-pic col-centered img-rounded img-responsive" />
                         <% } %>
                     </div>
 
@@ -164,11 +147,11 @@
     </div>
                     
 </div>
-<% if (currentUser.getAccountType().equals("job_seeker")) { %>
+<!--<% if (currentUser.getAccountType().equals("job_seeker")) { %>
     <a href="/mydashboard.jsp" class="btn btn-lg btn-warning btn-srad" type="button">Back to Dashboard</a>
 <% } else { %>
     <a href="/dashboard.jsp" class="btn btn-lg btn-warning btn-srad" type="button">Back to Dashboard</a>
-<% } %>
+<% } %>-->
 </div>
 </div>
 </header>

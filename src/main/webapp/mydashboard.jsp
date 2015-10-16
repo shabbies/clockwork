@@ -64,8 +64,15 @@ session.removeAttribute("appliedJobsStatusMap");
                                         jobEditColor = "job-edit-color";
                                         ownjob = "true";
                                     }
+                                } 
+                                String salary = "" + post.getSalary();
+                                
+                                if (post.getPayType().equals("hour")){
+                                    salary += " / hr";
+                                } else {
+                                    salary += " / day";
                                 } %>
-                    <tr class="open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=post.getSalary()%> / hr" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
+                    <tr class="open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                         <td><%=post.getHeader()%></td>
                         <td><%=post.getCompany()%></td>
                         <% if (status.equals("pending")) {%>
@@ -73,7 +80,13 @@ session.removeAttribute("appliedJobsStatusMap");
                             <td><a class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>">Withdraw</a></td>
                         <% } else if (status.equals("offered")){ %>
                             <td><span class="badge db-default-badge offered">Offered</span></td>
-                            <td><a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a></td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-accept accept-job" style="width: 75px;" data-postid="<%=post.getId()%>">Accept</button>
+                                    <button type="button" class="btn btn-reject withdraw-job" style="width: 75px;" data-postid="<%=post.getId()%>">Reject</button>
+                                </div>
+                                <!--<a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a>-->
+                            </td>
                         <% } else {%>
                             <td><span class="badge db-default-badge success">Hired</span></td>
                             <td><button class="btn btn-warning" id="open-jobModal">Job Details</button></td>
@@ -131,37 +144,7 @@ session.removeAttribute("appliedJobsStatusMap");
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-body db-user">
-
-                <div class="text-center">
-                    <% if (currentUser.getAvatar() == null){%>
-                    <img src="img/user-placeholder.jpg" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                    <% } else { %>
-                    <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                    <%}%>
-                </div>
-
-                <div class="db-user-info">
-                    <h2>Hi <%= currentUser.getUsername()%>!</h2>
-                    <div class="text-center ratings_info">
-                        <div>My ratings:</div>
-                        <%=currentUser.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
-                        <%=currentUser.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
-                        <%=currentUser.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
-                    </div>
-                    <span>What would you like to do today?</span>
-                </div>
-                <%if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){%>
-                <a href="/complete_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
-                <% } else { %> 
-                <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Update my Profile</a><% } %>
-                <a href="/all_ratings.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
-                <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
-            </div>
-        </div>
-    </div>
+    <%@include file="_js_dashboard.jsp"%>
 </div>
 
 </div>
@@ -300,6 +283,10 @@ $(".withdraw-job").click(function(){
     var postID = $(this).data("postid");
     $("#withdraw_post_id").val(postID);
     $('#withdraw_job_modal').modal('show');
+});
+
+$(document).on("click", "button", function(e){
+    e.stopPropagation();
 });
 
 $(".accept-job").click(function(){
