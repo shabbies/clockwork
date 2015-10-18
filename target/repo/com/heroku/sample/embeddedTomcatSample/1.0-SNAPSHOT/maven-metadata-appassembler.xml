@@ -8,18 +8,26 @@
       <localCopy>true</localCopy>
     </snapshot>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <lastUpdated>20151006180004</lastUpdated>
 =======
     <lastUpdated>20151016175443</lastUpdated>
+>>>>>>> dev-notification
+=======
+    <lastUpdated>20151018115957</lastUpdated>
 >>>>>>> dev-notification
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
         <value>1.0-SNAPSHOT</value>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <updated>20151006180004</updated>
 =======
         <updated>20151016175443</updated>
+>>>>>>> dev-notification
+=======
+        <updated>20151018115957</updated>
 >>>>>>> dev-notification
       </snapshotVersion>
     </snapshotVersions>

@@ -883,6 +883,12 @@ body {
    text-align: center;   
 }
 
+.nric_error {
+    color: #ee4054;
+    text-align: center;
+    margin-top: 8px;
+}
+
 .password_length_error {
     color: #ee4054;
     text-align: center;
