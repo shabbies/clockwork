@@ -61,7 +61,9 @@ public class UserManager {
         int badRating = ((Double)userHash.get("bad_rating")).intValue();        
         int neutralRating = ((Double)userHash.get("neutral_rating")).intValue();
         int goodRating = ((Double)userHash.get("good_rating")).intValue();
-        User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating);
+        String referralID = (String)userHash.get("referral_id");
+        int referredUsers = ((Double)userHash.get("referred_users")).intValue(); 
+        User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating, referralID, referredUsers);
         return user;
     }
     

@@ -118,32 +118,16 @@
                 </form>
             </div>
         </div>
-
-        <!-- Commenting out until we find something nice to put here
+        
         <div class="panel panel-default">
           <div class="panel-body">
-
-            <form class="form form-signup" action="/RegisterAccountServlet" method="POST" role="form">
-
-              <div class="form-group col-sm-6 text-left"> 
-                <label for="paypal-full-name" class="control-label">Full Name</label> 
-
-                <input id="paypal-full-name" class="form-control" type="text" placeholder="Name" name="username" required> 
-
+              <div class="form-group col-sm-6 text-left col-md-offset-3"> 
+                <label for="referral_code" class="control-label">Referral Code</label> 
+                <input id="referral_code" class="form-control" value="<%=currentUser.getReferralID()%>" type="text" disabled> 
               </div>
-
-              <div class="form-group col-sm-6 text-left"> 
-                <label for="paypal-email" class="control-label">Paypal Email</label> 
-
-                <input id="paypal-email" class="form-control" type="email" placeholder="Email address" name="email" required> 
-
-              </div>
-
-              <input type="hidden" name="account_type" value="job_seeker">
-              <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Update Payment Details">
-            </form>
+              <input id="referral_link_copy" class="btn btn-lg btn-warning btn-srad" value="Copy Referral Link">
           </div>
-        </div> -->
+        </div>
     </div>
                     
 </div>
@@ -157,3 +141,53 @@
 </header>
 <jsp:include page="_javascript_checker.jsp" />
 <jsp:include page="_footer.jsp" />
+
+<script>
+    function copyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+
+        // Place in top-left corner of screen regardless of scroll position.
+        textArea.style.position = 'fixed';
+        textArea.style.top = 0;
+        textArea.style.left = 0;
+
+        // Ensure it has a small width and height. Setting to 1px / 1em
+        // doesn't work as this gives a negative w/h on some browsers.
+        textArea.style.width = '2em';
+        textArea.style.height = '2em';
+
+        // We don't need padding, reducing the size if it does flash render.
+        textArea.style.padding = 0;
+
+        // Clean up any borders.
+        textArea.style.border = 'none';
+        textArea.style.outline = 'none';
+        textArea.style.boxShadow = 'none';
+
+        // Avoid flash of white box if rendered for any reason.
+        textArea.style.background = 'transparent';
+
+
+        textArea.value = text;
+
+        document.body.appendChild(textArea);
+
+        textArea.select();
+
+        try {
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copying text command was ' + msg);
+        } catch (err) {
+          console.log('Oops, unable to copy');
+        }
+
+        document.body.removeChild(textArea);
+    }
+    
+    $("#referral_link_copy").on("click", function(){
+        var code = $("#referral_code").val();
+        var text = window.location.host.toString() + "/register_job_seeker.jsp?rf=" + code
+        copyTextToClipboard(text);
+    });
+</script>
