@@ -216,5 +216,25 @@ $(document).on("click", ".pay-type-selector", function(){
         $("#hour").removeClass("active");
         $("#pay-switch").attr("checked", false);
     }
- });
+});
+ 
+$("#job-location").focusout(function(){
+    var address = $(this).val();
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status === "ZERO_RESULTS"){
+            $("#job-location-error").show();
+        } else {
+            $("#job-location-error").hide();
+        }
+    });
+});
+
+$(".form-post").submit(function( event ) {
+    if ($("#job-location-error").is(":visible")){
+        $("#error-message").html("Please fix the errors before submitting the form!");
+        $("#error-text").show();
+        return false;
+    }
+});
+    
 </script>

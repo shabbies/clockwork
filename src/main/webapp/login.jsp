@@ -77,19 +77,17 @@ function facebookLogin() {
 window.fbAsyncInit = function() {
     if (window.location.href.toString().indexOf("staging") > -1){
         FB.init({
-          appId      : '908772012537733',
-          cookie     : true,  // enable cookies to allow the server to access 
-                              // the session
-          xfbml      : true,  // parse social plugins on this page
-          version    : 'v2.4' // use version 2.2
+            appId      : '1657218827890648',
+            xfbml      : true,
+            version    : 'v2.4'
         });
     } else {
         FB.init({
-          appId      : '879787135436221',
-          cookie     : true,  // enable cookies to allow the server to access 
-                              // the session
-          xfbml      : true,  // parse social plugins on this page
-          version    : 'v2.4' // use version 2.2
+            appId      : '879787135436221',
+            cookie     : true,  // enable cookies to allow the server to access 
+                                // the session
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.4' // use version 2.2
         });
     }
 };

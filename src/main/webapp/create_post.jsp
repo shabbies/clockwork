@@ -27,10 +27,11 @@ if (postController.getEmployerReviewingJobs().size() != 0){
 <!-- Initialising Google Places for location autofill -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 <script>
+    var geocoder;
     function initialize() {
         var input = /** @type {HTMLInputElement} */(
                 document.getElementById('job-location'));
-
+        geocoder = new google.maps.Geocoder();
         var autocomplete = new google.maps.places.Autocomplete(input);
 
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -60,6 +61,11 @@ if (postController.getEmployerReviewingJobs().size() != 0){
 <div class="header-content-inner">
 <h2 class="text-center">Let's Create a new listing!</h2>
 
+<div id="error-text" class="alert alert-danger" role="alert" style="font-size: 14px; display: none;">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <strong id="error-message"></strong>
+</div>
+
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
 <div class="panel panel-default">
@@ -82,6 +88,11 @@ if (postController.getEmployerReviewingJobs().size() != 0){
                 <% } else { %>
                 <input id="job-location" class="form-control" type="text" placeholder="" name="location" value="<%=repopulate[1]%>"required><%}%>
             </div>
+            
+            <div id="job-location-error" class="col-md-6 pull-right details-error" style="display: none;">  
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+                Please select a valid address!
+            </div
         </tr>
         <tr>    
             <div class="form-group col-md-12 text-left">

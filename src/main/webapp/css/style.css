@@ -883,6 +883,18 @@ body {
    text-align: center;   
 }
 
+.nric_error {
+    color: #ee4054;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.link-copied-text{
+    color: #5cb85c;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
 .password_length_error {
     color: #ee4054;
     text-align: center;
@@ -1215,6 +1227,8 @@ body {
 #notificationsBody {
     /*padding: 10px 0px 0px 0px !important;  */
     min-height:300px;
+    max-height: 300px;
+    overflow: scroll;
 }
 #notificationFooter {
     background-color: #ee4054;
@@ -1245,6 +1259,12 @@ body {
     border-bottom: 1px solid #ddd;
     position: relative;
     height: 50px;
+    overflow: hidden;
+}
+
+.notification_content:hover {
+    background-color: #F5FAFA;
+    cursor: pointer;
 }
 
 .notification_content_profile{
@@ -1254,6 +1274,11 @@ body {
     display: inline-block;
     width: 40px;
     border-radius: 50%;
+}
+
+#noNotifications{
+    text-align: center;
+    margin-top: 10px;
 }
 
 @media (min-width: 992px){
@@ -1528,4 +1553,8 @@ pre{
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     margin-top: 2px;
     margin-bottom: 2px;
+}
+
+.details-error{
+    color: #ee4054;
 }

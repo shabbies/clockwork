@@ -51,6 +51,7 @@
         AppController appController = null;
         if (session.getAttribute("appController") == null) {
             appController = new AppController();
+            session.setAttribute("environment", appController.getEnvironment());
             session.setAttribute("appController", appController);
         }
     %>

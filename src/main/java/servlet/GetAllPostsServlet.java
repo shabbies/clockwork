@@ -36,6 +36,9 @@ public class GetAllPostsServlet extends HttpServlet {
         AppController appController = (AppController)session.getAttribute("appController");
         APIManager apiManager = appController.getAPIManager();
         String URL = apiManager.getEPAllPosts();
+        if (appController.getUserController().getCurrentUser() != null){
+            URL += "?user_id=" + appController.getUserController().getCurrentUser().getId();
+        }
         PostController postController = appController.getPostController();
         String sortingOrder = request.getParameter("order");
         String query = (String)session.getAttribute("query");

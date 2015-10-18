@@ -39,8 +39,58 @@ public class RegisterAccountServlet extends HttpServlet {
         String username = (String)request.getParameter("username");
         String password = (String)request.getParameter("password");
         //password confirmation is to make sure that user remembers what he types, since password is censored
+        String referrer = (String)request.getParameter("referrer");
         String passwordConfirmation = password;
         String accountType = (String)request.getParameter("account_type");
+        String NRIC = (String)request.getParameter("nric");
+        
+        // NRIC Validation
+        if (accountType.equals("job_seeker")){
+            try {
+                if (NRIC.length() != 9){
+                    throw new Exception();
+                }
+                NRIC = NRIC.toUpperCase();
+                Object[] ICArray = new Object[9];
+                for (int i = 0; i < NRIC.length(); i++){
+                    ICArray[i] = NRIC.charAt(i);
+                }
+
+                ICArray[1] = Integer.parseInt(ICArray[1].toString()) * 2;
+                ICArray[2] = Integer.parseInt(ICArray[2].toString()) * 7;
+                ICArray[3] = Integer.parseInt(ICArray[3].toString()) * 6;
+                ICArray[4] = Integer.parseInt(ICArray[4].toString()) * 5;
+                ICArray[5] = Integer.parseInt(ICArray[5].toString()) * 4;
+                ICArray[6] = Integer.parseInt(ICArray[6].toString()) * 3;
+                ICArray[7] = Integer.parseInt(ICArray[7].toString()) * 2;
+
+                int weight = 0;
+                for (int i = 1; i < 8; i++){
+                    weight += (int)ICArray[i];
+                }
+                int offset = (ICArray[0] == "T" || ICArray[0] == "G") ? 4:0;
+                int temp = (offset + weight) % 11;
+
+                char[] st = {'J','Z','I','H','G','F','E','D','C','B','A'};
+                char[] fg = {'X','W','U','T','R','Q','P','N','M','L','K'};
+
+                char theAlpha = '0';
+                if ((char)ICArray[0] == 'S' || (char)ICArray[0] == 'T') { 
+                    theAlpha = st[temp]; 
+                } else if ((char)ICArray[0] == 'F' || (char)ICArray[0] == 'G') { 
+                    theAlpha = fg[temp]; 
+                }
+
+                if (theAlpha != (char)ICArray[8]){
+                    throw new Exception();
+                }
+            } catch (Exception e){
+                String error = "NRIC is invalid, please enter a valid one!";
+                session.setAttribute("error", error);
+                response.sendRedirect("/index.jsp");
+                return;
+            }
+        }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(URL);
@@ -50,8 +100,14 @@ public class RegisterAccountServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("user[username]", username));
         nvps.add(new BasicNameValuePair("user[password]", password));
         nvps.add(new BasicNameValuePair("user[password_confirmation]", passwordConfirmation));
-        nvps.add(new BasicNameValuePair("user[account_type]",accountType));
-
+        nvps.add(new BasicNameValuePair("user[account_type]", accountType));
+        if (referrer != null){
+            nvps.add(new BasicNameValuePair("user[referred_by]",referrer));
+        }
+        if (NRIC != null){
+            nvps.add(new BasicNameValuePair("user[nric]", NRIC));
+        }
+        
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response2 = httpclient.execute(httpPost);
         User user = null;
@@ -68,9 +124,14 @@ public class RegisterAccountServlet extends HttpServlet {
             } else {
                 String error;
                 if (responseString.contains("email")){
-                    error = "This email address has already been taken, please use an alternative.";
+                    error = "This email address has already been taken, please use an alternative!";
+                } else if (responseString.contains("nric")){
+                    error = "This NRIC has already been associated with another account, please login instead!";
+                    session.setAttribute("error", error);
+                    response.sendRedirect("/login.jsp");
+                    return;
                 } else {
-                    error = "This password is too short, please ensure that it is at least 8 characters long";
+                    error = "This password is too short, please ensure that it is at least 8 characters long!";
                 }
                 session.setAttribute("error", error);
                 response.sendRedirect("/register_" + accountType + ".jsp");
@@ -92,7 +153,7 @@ public class RegisterAccountServlet extends HttpServlet {
                 if (accountType.equals("employer")){
                     response.sendRedirect("/create_post.jsp");
                 } else {
-                    String error = "Only employers are allowed to post jobs";
+                    String error = "Only employers are allowed to post jobs!";
                     session.setAttribute("error", error);
                     response.sendRedirect("/index.jsp");
                 }
