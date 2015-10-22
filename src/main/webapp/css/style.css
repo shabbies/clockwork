@@ -1558,3 +1558,8 @@ pre{
 .details-error{
     color: #ee4054;
 }
+
+.center-panel-content{
+    max-width: 930px;
+    text-align: center;
+}

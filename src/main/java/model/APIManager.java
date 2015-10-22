@@ -31,6 +31,8 @@ public class APIManager {
     String EPUnreadNotifications = "/api/v1/users/get_unread_notifications";
     String EPAllNotifications = "/api/v1/users/get_all_notifications";
     String EPReadNotifications = "/api/v1/users/read_notifications";
+    String EPScore = "/api/v1/gamify/get_score";
+    String EPContestRegister = "/api/v1/competition/competition_register";
     
     public APIManager(String mode){
         if (mode.equals("production")){
@@ -160,6 +162,14 @@ public class APIManager {
 
     public String getEPReadNotifications() {
         return prefix + EPReadNotifications;
+    }
+    
+    public String getEPScore() {
+        return prefix + EPScore;
+    }
+    
+    public String getEPContestRegister(){
+        return prefix + EPContestRegister;
     }
     
     public String getPrefix(){

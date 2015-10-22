@@ -42,55 +42,6 @@ public class RegisterAccountServlet extends HttpServlet {
         String referrer = (String)request.getParameter("referrer");
         String passwordConfirmation = password;
         String accountType = (String)request.getParameter("account_type");
-        String NRIC = (String)request.getParameter("nric");
-        
-        // NRIC Validation
-        if (accountType.equals("job_seeker")){
-            try {
-                if (NRIC.length() != 9){
-                    throw new Exception();
-                }
-                NRIC = NRIC.toUpperCase();
-                Object[] ICArray = new Object[9];
-                for (int i = 0; i < NRIC.length(); i++){
-                    ICArray[i] = NRIC.charAt(i);
-                }
-
-                ICArray[1] = Integer.parseInt(ICArray[1].toString()) * 2;
-                ICArray[2] = Integer.parseInt(ICArray[2].toString()) * 7;
-                ICArray[3] = Integer.parseInt(ICArray[3].toString()) * 6;
-                ICArray[4] = Integer.parseInt(ICArray[4].toString()) * 5;
-                ICArray[5] = Integer.parseInt(ICArray[5].toString()) * 4;
-                ICArray[6] = Integer.parseInt(ICArray[6].toString()) * 3;
-                ICArray[7] = Integer.parseInt(ICArray[7].toString()) * 2;
-
-                int weight = 0;
-                for (int i = 1; i < 8; i++){
-                    weight += (int)ICArray[i];
-                }
-                int offset = (ICArray[0] == "T" || ICArray[0] == "G") ? 4:0;
-                int temp = (offset + weight) % 11;
-
-                char[] st = {'J','Z','I','H','G','F','E','D','C','B','A'};
-                char[] fg = {'X','W','U','T','R','Q','P','N','M','L','K'};
-
-                char theAlpha = '0';
-                if ((char)ICArray[0] == 'S' || (char)ICArray[0] == 'T') { 
-                    theAlpha = st[temp]; 
-                } else if ((char)ICArray[0] == 'F' || (char)ICArray[0] == 'G') { 
-                    theAlpha = fg[temp]; 
-                }
-
-                if (theAlpha != (char)ICArray[8]){
-                    throw new Exception();
-                }
-            } catch (Exception e){
-                String error = "NRIC is invalid, please enter a valid one!";
-                session.setAttribute("error", error);
-                response.sendRedirect("/index.jsp");
-                return;
-            }
-        }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(URL);
@@ -103,9 +54,6 @@ public class RegisterAccountServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("user[account_type]", accountType));
         if (referrer != null){
             nvps.add(new BasicNameValuePair("user[referred_by]",referrer));
-        }
-        if (NRIC != null){
-            nvps.add(new BasicNameValuePair("user[nric]", NRIC));
         }
         
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));

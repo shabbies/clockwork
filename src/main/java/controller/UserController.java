@@ -5,14 +5,17 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import model.ScoreManager;
 import model.User;
 import model.UserManager;
 
 public class UserController {
     private UserManager userManager;
+    private ScoreManager scoreManager;
     
     public UserController(){
         userManager = new UserManager();
+        scoreManager = new ScoreManager();
     }
     
     public User getCurrentUser(){
@@ -84,5 +87,9 @@ public class UserController {
         }
         
         return gson.toJson(returnList);
+    }
+    
+    public HashMap <String, Integer> loadScoreMap(String JSONString){
+        return scoreManager.loadScoreMap(JSONString);
     }
 }
