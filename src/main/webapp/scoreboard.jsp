@@ -53,6 +53,10 @@ session.removeAttribute("scoreMap");}%>
                     <% } %>
                 </tbody>
             </table>
+            <div>
+                <a href="/gamify_categories.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Improve your Score!</a>
+                <a href="/badges.jsp" class="btn btn-warning"> <i class="fa fa-fw fa-trophy"></i>View My Badges </a>
+            </div>
         </div> 
     </div>
     <%@include file="_js_dashboard.jsp"%>

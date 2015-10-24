@@ -164,6 +164,10 @@
         <servlet-name>ContestRegisterServlet</servlet-name>
         <servlet-class>servlet.ContestRegisterServlet</servlet-class>
     </servlet>
+    <servlet>  
+        <servlet-name>GetBadgesServlet</servlet-name>
+        <servlet-class>servlet.GetBadgesServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>GetAllPostsServlet</servlet-name>
@@ -296,5 +300,9 @@
     <servlet-mapping>
         <servlet-name>ContestRegisterServlet</servlet-name>
         <url-pattern>/ContestRegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetBadgesServlet</servlet-name>
+        <url-pattern>/GetBadgesServlet</url-pattern>
     </servlet-mapping>
 </web-app>    

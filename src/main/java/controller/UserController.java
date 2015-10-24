@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import model.Badge;
+import model.BadgeManager;
 import model.ScoreManager;
 import model.User;
 import model.UserManager;
@@ -12,10 +14,12 @@ import model.UserManager;
 public class UserController {
     private UserManager userManager;
     private ScoreManager scoreManager;
+    private BadgeManager badgeManager;
     
     public UserController(){
         userManager = new UserManager();
         scoreManager = new ScoreManager();
+        badgeManager = new BadgeManager();
     }
     
     public User getCurrentUser(){
@@ -91,5 +95,9 @@ public class UserController {
     
     public HashMap <String, Integer> loadScoreMap(String JSONString){
         return scoreManager.loadScoreMap(JSONString);
+    }
+    
+    public ArrayList <Badge> loadBadgeList(String JSONString){
+        return badgeManager.loadBadgeList(JSONString);
     }
 }
