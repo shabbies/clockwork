@@ -33,6 +33,7 @@ public class APIManager {
     String EPReadNotifications = "/api/v1/users/read_notifications";
     String EPScore = "/api/v1/gamify/get_score";
     String EPContestRegister = "/api/v1/competition/competition_register";
+    String EPBadges = "/api/v1/gamify/get_badges";
     
     public APIManager(String mode){
         if (mode.equals("production")){
@@ -170,6 +171,10 @@ public class APIManager {
     
     public String getEPContestRegister(){
         return prefix + EPContestRegister;
+    }
+    
+    public String getEPBadges(){
+        return prefix + EPBadges;
     }
     
     public String getPrefix(){

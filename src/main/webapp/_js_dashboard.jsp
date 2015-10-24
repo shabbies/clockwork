@@ -26,6 +26,7 @@
                 <span>What would you like to do today?</span>
             </div>
             <a href="/scoreboard.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-gamepad"></i> View my Scores </a>
+            <a href="/badges.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-trophy"></i> View my Badges </a>
             <a href="<%=editURL%>" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> 
                 <% if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){ %>
                 Complete my Profile
