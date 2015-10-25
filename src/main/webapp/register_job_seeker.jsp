@@ -48,6 +48,7 @@
                                 <input type="hidden" name="account_type" value="job_seeker">
                                 <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Create Account">
                             </form>
+                                <button href="" class="btn btn-lg btn-facebook btn-srad" onclick="facebookLogin();">Facebook Login</button>
                         </div>
                     </div>
                 </div>
