@@ -39,11 +39,12 @@
 
                         <div class="row text-center" style="padding-top:10px">
                             <div class="col-centered" style="max-width:300px; ">
-                                <a href="https://geo.itunes.apple.com/sg/app/clockworksg/id1046206671?mt=8" style="float:left;display:inline-block;overflow:hidden;background:url(http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;width:165px;height:40px;"></a>
+                                <a href="https://geo.itunes.apple.com/sg/app/clockworksg/id1046206671?mt=8"> <img alt="Get it on Apple Store"
+                                  src="img/appstore.png"/></a>
 
                                 <a href="https://play.google.com/store/apps/details?id=com.sg.clockwork">
                                   <img alt="Get it on Google Play"
-                                  src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
+                                  src="img/googleplay.png" />
                               </a>
                           </div>
                       </div>
