@@ -47,7 +47,7 @@ session.removeAttribute("scoreMap");}%>
                         <td><%=key%></td>
                         <td><%=scoreMap.get(key)%></td>
                         <td>
-                            <a href="/improve.jsp" class="btn btn-primary"> Improve </a>
+                            <a href="/improve.jsp" class="btn btn-primary incomplete"> Improve </a>
                         </td>
                     </tr>
                     <% } %>
@@ -65,3 +65,10 @@ session.removeAttribute("scoreMap");}%>
 </div>
 </header>
 <jsp:include page="_footer.jsp" />
+
+<script>
+    $(".incomplete").click(function(e){
+        e.preventDefault();
+        alert("Oops! This is not yet available!")
+    });
+</script>

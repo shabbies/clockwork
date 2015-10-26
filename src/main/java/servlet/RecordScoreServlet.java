@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.http.HttpSession;
 import model.APIManager;
-import model.Badge;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -28,21 +27,26 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-public class GetBadgesServlet extends HttpServlet {
+public class RecordScoreServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         // preparing variables
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
-        APIManager apiManager = appController.getAPIManager();
         UserController userController = appController.getUserController();
-        String URL = apiManager.getEPBadges();
+        APIManager apiManager = appController.getAPIManager();
+        String URL = apiManager.getEPRecordQuiz();
         User currentUser = (User)session.getAttribute("currentUser");
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
+        String genre = request.getParameter("genre");
+        String questions = request.getParameter("questions");
+        if (!questions.isEmpty()){
+            questions = questions.substring(0, questions.lastIndexOf(","));
+        }
         
         // retrieve stored data
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -50,11 +54,12 @@ public class GetBadgesServlet extends HttpServlet {
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("email", email));
+        nvps.add(new BasicNameValuePair("genre", genre));
+        nvps.add(new BasicNameValuePair("questions", questions));
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
         HttpEntity entity = null;
-        ArrayList <Badge> badgeList = null;
         try {
             entity = httpResponse.getEntity();
             StringWriter writer = new StringWriter();
@@ -64,8 +69,11 @@ public class GetBadgesServlet extends HttpServlet {
             int statusCode = httpResponse.getStatusLine().getStatusCode();
             switch (statusCode){
                 case 200:
-                    badgeList = userController.loadBadgeList(responseString);
-                    break;
+                    return;
+                case 400:
+                    session.setAttribute("error", "Invalid quiz genre, please contact the administrator");
+                    response.sendRedirect("/index.jsp");
+                    return;
                 case 401:
                 default:
                     session.setAttribute("error", "An error has occurred, please contact the administrator");
@@ -76,8 +84,5 @@ public class GetBadgesServlet extends HttpServlet {
             EntityUtils.consume(entity);
             httpResponse.close();
         }
-        
-        session.setAttribute("badgeList", badgeList);
-        response.sendRedirect("/badges.jsp");
     }
 }
