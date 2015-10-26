@@ -34,6 +34,8 @@ public class APIManager {
     String EPScore = "/api/v1/gamify/get_score";
     String EPContestRegister = "/api/v1/competition/competition_register";
     String EPBadges = "/api/v1/gamify/get_badges";
+    String EPQuiz = "/api/v1/gamify/get_quiz";
+    String EPRecordQuiz = "/api/v1/gamify/record_quiz";
     
     public APIManager(String mode){
         if (mode.equals("production")){
@@ -175,6 +177,14 @@ public class APIManager {
     
     public String getEPBadges(){
         return prefix + EPBadges;
+    }
+    
+    public String getEPQuiz(){
+        return prefix + EPQuiz;
+    }
+    
+    public String getEPRecordQuiz(){
+        return prefix + EPRecordQuiz;
     }
     
     public String getPrefix(){

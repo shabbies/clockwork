@@ -168,6 +168,17 @@
         <servlet-name>GetBadgesServlet</servlet-name>
         <servlet-class>servlet.GetBadgesServlet</servlet-class>
     </servlet>
+    <servlet>  
+        <servlet-name>GetQuizServlet</servlet-name>
+        <servlet-class>servlet.GetQuizServlet</servlet-class>
+    </servlet>
+    <servlet>  
+        <servlet-name>RecordScoreServlet</servlet-name>
+        <servlet-class>servlet.RecordScoreServlet</servlet-class>
+    </servlet>
+
+
+
 
     <servlet-mapping>
         <servlet-name>GetAllPostsServlet</servlet-name>
@@ -304,5 +315,13 @@
     <servlet-mapping>
         <servlet-name>GetBadgesServlet</servlet-name>
         <url-pattern>/GetBadgesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetQuizServlet</servlet-name>
+        <url-pattern>/GetQuizServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecordScoreServlet</servlet-name>
+        <url-pattern>/RecordScoreServlet</url-pattern>
     </servlet-mapping>
 </web-app>    

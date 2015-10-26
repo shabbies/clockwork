@@ -6,6 +6,10 @@
     <versions>
       <version>1.0-SNAPSHOT</version>
     </versions>
+<<<<<<< HEAD
     <lastUpdated>20151025101639</lastUpdated>
+=======
+    <lastUpdated>20151026194926</lastUpdated>
+>>>>>>> dev-gamification
   </versioning>
 </metadata>
