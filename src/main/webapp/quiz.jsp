@@ -1,18 +1,10 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_js.jsp"%>
 
 <%@ page import="model.Question"%>
 
 <%
-if (currentUser == null){
-session.setAttribute("error", "Please login or register first before answering questions!");
-response.sendRedirect("/login.jsp");
-return;
-} else if (currentUser.getAccountType().equals("employer")){
-session.setAttribute("error", "Only a job seeker account can do quizzes!");
-response.sendRedirect("/index.jsp");
-return;}
-
 int currentQuestion = 0;
 int score = 0;
 try {

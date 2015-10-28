@@ -2,19 +2,15 @@
 <%@include file="_nav.jsp"%>
 
 <%@include file="_job_details.jsp"%>
-    
+<%@include file="_only_registered.jsp"%>
+
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.User"%>
 <%@ page import="model.Notification"%>
 <%@ page buffer="32kb" %>
-<%
-if (currentUser == null){
-session.setAttribute("error", "Please login or register first before viewing your job notifications!");
-response.sendRedirect("/login.jsp");
-return;
-}
 
+<%
 ArrayList <Notification> readList = (ArrayList <Notification>)session.getAttribute("readList");
 ArrayList <Notification> unreadList = (ArrayList <Notification>)session.getAttribute("unreadList");
 

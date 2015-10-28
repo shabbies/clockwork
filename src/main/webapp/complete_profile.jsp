@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_js.jsp"%>
    
 <!-- Initialising Google Places for location autofill -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>

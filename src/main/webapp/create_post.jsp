@@ -1,27 +1,17 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_emp.jsp"%>
 
 <%@ page import="model.User"%>
 <%@ page import="controller.PostController"%>
 
 <%  
-if (currentUser == null){
-session.setAttribute("error", "Please login or register first before posting a job");
-session.setAttribute("loginSource", "create_new_post");
-response.sendRedirect("/login.jsp");
-return;
-} else if (!currentUser.getAccountType().equals("employer")){
-session.setAttribute("error", "Only an employer account is able to post a job!");
-response.sendRedirect("/index.jsp");
-return;
-} else {
 appController = (AppController)session.getAttribute("appController");
 PostController postController = appController.getPostController();
 if (postController.getEmployerReviewingJobs().size() != 0){
     session.setAttribute("error", "Please submit your pending reviews before posting a new job!");
     response.sendRedirect("/dashboard.jsp");
     return;
-}
 }%>
 
 <!-- Initialising Google Places for location autofill -->

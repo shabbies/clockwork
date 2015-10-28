@@ -7,20 +7,12 @@
     <snapshot>
       <localCopy>true</localCopy>
     </snapshot>
-<<<<<<< HEAD
-    <lastUpdated>20151025101639</lastUpdated>
-=======
-    <lastUpdated>20151026194926</lastUpdated>
->>>>>>> dev-gamification
+    <lastUpdated>20151028185028</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
         <value>1.0-SNAPSHOT</value>
-<<<<<<< HEAD
-        <updated>20151025101639</updated>
-=======
-        <updated>20151026194926</updated>
->>>>>>> dev-gamification
+        <updated>20151028185028</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>

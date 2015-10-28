@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_js.jsp"%>
 
 <%@include file="_job_details.jsp"%>
     
@@ -9,16 +10,8 @@
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
 <%@ page buffer="32kb" %>
-<%
-if (currentUser == null){
-session.setAttribute("error", "Please login or register first before viewing your job applications!");
-response.sendRedirect("/login.jsp");
-return;
-} else if (currentUser.getAccountType().equals("employer")){
-session.setAttribute("error", "Only a job seeker account can view job applications!");
-response.sendRedirect("/index.jsp");
-return;}
 
+<%
 HashMap <String, ArrayList <Post>> appliedJobsMap = (HashMap <String, ArrayList <Post>>)session.getAttribute("appliedJobsMap"); 
 HashMap <Integer, String> appliedJobsStatusMap = (HashMap <Integer, String>)session.getAttribute("appliedJobsStatusMap"); 
 ArrayList <Post> completedJobs = (ArrayList <Post>)session.getAttribute("completedJobsList");
@@ -82,8 +75,8 @@ session.removeAttribute("appliedJobsStatusMap");
                             <td><span class="badge db-default-badge offered">Offered</span></td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="...">
-                                    <button type="button" class="btn btn-accept accept-job" style="width: 75px;" data-postid="<%=post.getId()%>">Accept</button>
-                                    <button type="button" class="btn btn-reject withdraw-job" style="width: 75px;" data-postid="<%=post.getId()%>">Reject</button>
+                                    <a class="btn btn-accept accept-job" style="width: 75px;" data-postid="<%=post.getId()%>">Accept</a>
+                                    <a class="btn btn-reject withdraw-job" style="width: 75px;" data-postid="<%=post.getId()%>">Reject</a>
                                 </div>
                                 <!--<a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a>-->
                             </td>
@@ -286,7 +279,9 @@ $(".withdraw-job").click(function(){
 });
 
 $(document).on("click", "button", function(e){
-    e.stopPropagation();
+    if (!$(this).attr("id") === "open-jobModal"){
+        e.stopPropagation();
+    }
 });
 
 $(".accept-job").click(function(){

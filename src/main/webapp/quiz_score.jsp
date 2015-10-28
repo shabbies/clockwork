@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_js.jsp"%>
 
 <%@ page import="java.util.HashMap" %>
 

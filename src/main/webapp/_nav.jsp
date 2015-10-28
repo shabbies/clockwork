@@ -34,7 +34,7 @@
                     <% } else {  %>
                 
                 <li id="notification_li">
-                    <span id="notification_count">3</span>
+                    <span id="notification_count" style="display: none;">0</span>
                     <a href="#" id="notificationLink">Notifications</a>
                     <div id="notificationContainer">
                         <div id="notificationTitle">Notifications</div>
@@ -97,6 +97,8 @@
                         if (results.length === 0){
                             $("#notification_count").hide();
                             $("#noNotifications").show();
+                        } else {
+                            $("#notification_count").show();
                         }
                         $(results).each(function(){
                             var id = $(this).attr("id");
@@ -112,7 +114,11 @@
                             } else if (content.indexOf("a new rating") !== -1){
                                 linkURL = "/all_ratings.jsp";
                             } else {
+                                <% if (currentUser.getAccountType().equals("job_seeker")){%>
                                 linkURL = "/mydashboard.jsp";
+                                <% } else { %>
+                                linkURL = "/dashboard.jsp";
+                                <% } %>
                             }
                             var $div = $("<div>", {class: "notification_content", onclick: "window.location='" + linkURL + "'"});
                             var $image = $("<img>", {class: "col-md-3 notification_content_profile img-rounded img-responsive display-inline", src: image});
