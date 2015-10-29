@@ -49,7 +49,7 @@ session.removeAttribute("genre");
                 questions: "<%=(String)session.getAttribute("correctQuestions")%>"
             },
             success: function(){
-                
+                <% session.removeAttribute("correctQuestions"); %>
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);

@@ -42,6 +42,28 @@ public class RegisterAccountServlet extends HttpServlet {
         String referrer = (String)request.getParameter("referrer");
         String passwordConfirmation = password;
         String accountType = (String)request.getParameter("account_type");
+        String contactNumber = (String)request.getParameter("number");
+        
+        //verify contact number
+        if (contactNumber != null){
+            try {
+                if (contactNumber.length() != 8){
+                    throw new Exception();
+                }
+                int numVerify = Integer.parseInt(contactNumber);
+            } catch (Exception e){
+                session.setAttribute("error", "Please enter a valid contact number");
+                response.sendRedirect("/register_" + accountType + ".jsp");
+                return;
+            }
+        }
+        
+        //verify T&C agree
+        if (request.getParameterValues("tc-checkbox") == null){
+            session.setAttribute("error", "Please agree to the Terms before continuing");
+            response.sendRedirect("/register_" + accountType + ".jsp");
+            return;
+        }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(URL);
@@ -54,6 +76,9 @@ public class RegisterAccountServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("user[account_type]", accountType));
         if (referrer != null){
             nvps.add(new BasicNameValuePair("user[referred_by]",referrer));
+        }
+        if (contactNumber != null){
+            nvps.add(new BasicNameValuePair("user[contact_number]",contactNumber));
         }
         
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
@@ -71,13 +96,11 @@ public class RegisterAccountServlet extends HttpServlet {
                 userController.login(user);
             } else {
                 String error;
+                System.out.println(responseString);
                 if (responseString.contains("email")){
                     error = "This email address has already been taken, please use an alternative!";
-                } else if (responseString.contains("nric")){
-                    error = "This NRIC has already been associated with another account, please login instead!";
-                    session.setAttribute("error", error);
-                    response.sendRedirect("/login.jsp");
-                    return;
+                } else if (responseString.contains("contact")){
+                    error = "This contact number has already been associated with another account, please use an alternative!";
                 } else {
                     error = "This password is too short, please ensure that it is at least 8 characters long!";
                 }

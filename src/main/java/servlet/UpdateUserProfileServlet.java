@@ -123,16 +123,21 @@ public class UpdateUserProfileServlet extends HttpServlet {
         
         try {
             entity = response2.getEntity();
+            StringWriter writer = new StringWriter();
+            IOUtils.copy(entity.getContent(), writer, "UTF-8");
+            String responseString = writer.toString();
             int statusCode = response2.getStatusLine().getStatusCode();
             if (statusCode == 400){
-                String error = "You have to be at least 15 to use this service!";
+                String error;
+                if (responseString.contains("contact")){
+                    error = "This contact number is already used!";
+                } else {
+                    error = "You have to be at least 15 to use this service!";
+                }
                 session.setAttribute("error", error);
             } else if (statusCode == 200){
-                StringWriter writer = new StringWriter();
-                IOUtils.copy(entity.getContent(), writer, "UTF-8");
-                String theString = writer.toString();
                 UserController userController = appController.getUserController();
-                user = userController.createUserFromJSON(theString);
+                user = userController.createUserFromJSON(responseString);
                 session.setAttribute("currentUser", user);
                 String message = "Your profile has been successfully updated.";
                 session.setAttribute("message", message);
