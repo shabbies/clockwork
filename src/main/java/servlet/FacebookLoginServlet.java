@@ -130,6 +130,7 @@ public class FacebookLoginServlet extends HttpServlet {
             String responseString = writer.toString();
             UserController userController = appController.getUserController();
             user = userController.createUserFromJSON(responseString);
+            System.out.println(responseString);
             EntityUtils.consume(entity);
         } finally {
             response3.close();
