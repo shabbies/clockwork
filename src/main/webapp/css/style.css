@@ -1701,3 +1701,18 @@ pre{
     font-family: 'Raleway', sans-serif;
     font-weight: 1000;
 }
+
+.limited-event-banner{
+    height: 150px;
+    position: absolute;
+    left: -50px;
+    top: -20px;
+}
+
+#terms_link, #terms_link:hover{
+    cursor: pointer !important;
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}

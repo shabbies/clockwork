@@ -17,7 +17,7 @@ public class BadgeManager {
         if (!badgeList.isEmpty()){
             return badgeList;
         }
-        
+        badgeList.clear();
         Gson gson = new Gson();
         Type arrayType = new TypeToken<ArrayList <HashMap>>(){}.getType();
         ArrayList <HashMap> overallMap = gson.fromJson(JSONString, arrayType);

@@ -22,7 +22,7 @@ try {
     e.printStackTrace();
     response.sendRedirect("/gamify_categories.jsp");
 }
-String correctQuestions = (session.getAttribute("correctQuestions") != null ? (String)session.getAttribute("correctQuestions") : "");
+
 
 if (currentQuestion == 6){
     response.sendRedirect("/quiz_score.jsp");
@@ -102,8 +102,9 @@ int id = question.getId();
 
 <script>
     var score = <%=score%>;
-    var correct_questions = "<%=correctQuestions%>";
+    var correct_questions = "<%=(session.getAttribute("correctQuestions") != null ? (String)session.getAttribute("correctQuestions") : "")%>";
     var qid = <%=id%>;
+    var selected_answer = "";
     $(".incomplete").click(function(e){
         e.preventDefault()
         alert("Oops! This is not yet available!")
@@ -120,21 +121,25 @@ int id = question.getId();
     });
     
     $("#submit").click(function(){
-        var selected_answer = $(this).data("answer");
-        var correct_answer = "<%=question.getAnswer()%>";
-        if (selected_answer !== correct_answer){
-            $("#choice_" + correct_answer).addClass("quiz-selected-answer");
-            $("#choice_" + correct_answer).removeClass("quiz-unselected-answer");
-            $("#choice_" + selected_answer).addClass("wrong-answer");
-            $("#choice_" + selected_answer).removeClass("quiz-selected-answer");
-            $("#choice_" + selected_answer).children().children(".red-cross").removeClass("hidden");
+        if (selected_answer === ""){
+            selected_answer = $(this).data("answer");
+            var correct_answer = "<%=question.getAnswer()%>";
+            if (selected_answer !== correct_answer){
+                $("#choice_" + correct_answer).addClass("quiz-selected-answer");
+                $("#choice_" + correct_answer).removeClass("quiz-unselected-answer");
+                $("#choice_" + selected_answer).addClass("wrong-answer");
+                $("#choice_" + selected_answer).removeClass("quiz-selected-answer");
+                $("#choice_" + selected_answer).children().children(".red-cross").removeClass("hidden");
+            } else {
+                $("#choice_" + selected_answer).children().children(".green-tick").removeClass("hidden");
+                score++;
+                correct_questions += qid + ",";
+            }
+            $("#submit").addClass("hidden");
+            $("#next").removeClass("hidden");
         } else {
-            $("#choice_" + selected_answer).children().children(".green-tick").removeClass("hidden");
-            score++;
-            correct_questions += qid + ",";
+            return false;
         }
-        $("#submit").addClass("hidden");
-        $("#next").removeClass("hidden");
     });
     
     $("#next").click(function(){
