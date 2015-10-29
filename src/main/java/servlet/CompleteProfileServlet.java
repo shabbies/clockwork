@@ -56,6 +56,7 @@ public class CompleteProfileServlet extends HttpServlet {
                     String error = "Please enter a valid contact number";
                     session.setAttribute("error", error);
                     response.sendRedirect("/edit_profile.jsp");
+                    return;
                 }
             }
         }

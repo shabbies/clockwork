@@ -44,7 +44,10 @@
                         <div id="notificationFooter"><a href="/all_notifications.jsp">See All</a></div>
                     </div>
                 </li>
-                    <% String profileUpdateLink = (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null)? "/complete_profile.jsp": "/edit_profile.jsp";%>
+                    <% String profileUpdateLink = (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null)? "/complete_profile.jsp": "/edit_profile.jsp";
+                    if (currentUser.getAccountType().equals("employer")){
+                        profileUpdateLink = "/edit_profile.jsp";
+                    }%>
                 <li><span><a href="<%=profileUpdateLink%>" class="page-scroll" style="color: white;">Welcome, <%=currentUser.getUsername()%></a></span></li>
                 <li><button class="btn btn-primary wow tada" onclick="$('#logout_form').submit();">Logout</button></li>
                     <% } %>
