@@ -57,13 +57,14 @@ public class GetAllListedJobsServlet extends HttpServlet {
         ArrayList <Post> publishedList = null;
         try {
             entity = httpResponse.getEntity();
+            StringWriter writer = new StringWriter();
+            InputStream readingStream = entity.getContent();
+            IOUtils.copy(readingStream, writer, "UTF-8");
+            String responseString = writer.toString();
             if(httpResponse.getStatusLine().getStatusCode() == 200){
-                StringWriter writer = new StringWriter();
-                InputStream readingStream = entity.getContent();
-                IOUtils.copy(readingStream, writer, "UTF-8");
-                String responseString = writer.toString();
                 publishedList = postController.loadPublishedPostList(responseString);
             } else {
+                System.out.println(responseString);
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
                 response.sendRedirect("/index.jsp");

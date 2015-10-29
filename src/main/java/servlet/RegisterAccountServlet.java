@@ -39,8 +39,31 @@ public class RegisterAccountServlet extends HttpServlet {
         String username = (String)request.getParameter("username");
         String password = (String)request.getParameter("password");
         //password confirmation is to make sure that user remembers what he types, since password is censored
+        String referrer = (String)request.getParameter("referrer");
         String passwordConfirmation = password;
         String accountType = (String)request.getParameter("account_type");
+        String contactNumber = (String)request.getParameter("number");
+        
+        //verify contact number
+        if (contactNumber != null){
+            try {
+                if (contactNumber.length() != 8){
+                    throw new Exception();
+                }
+                int numVerify = Integer.parseInt(contactNumber);
+            } catch (Exception e){
+                session.setAttribute("error", "Please enter a valid contact number");
+                response.sendRedirect("/register_" + accountType + ".jsp");
+                return;
+            }
+        }
+        
+        //verify T&C agree
+        if (request.getParameterValues("tc-checkbox") == null){
+            session.setAttribute("error", "Please agree to the Terms before continuing");
+            response.sendRedirect("/register_" + accountType + ".jsp");
+            return;
+        }
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(URL);
@@ -50,8 +73,14 @@ public class RegisterAccountServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("user[username]", username));
         nvps.add(new BasicNameValuePair("user[password]", password));
         nvps.add(new BasicNameValuePair("user[password_confirmation]", passwordConfirmation));
-        nvps.add(new BasicNameValuePair("user[account_type]",accountType));
-
+        nvps.add(new BasicNameValuePair("user[account_type]", accountType));
+        if (referrer != null){
+            nvps.add(new BasicNameValuePair("user[referred_by]",referrer));
+        }
+        if (contactNumber != null){
+            nvps.add(new BasicNameValuePair("user[contact_number]",contactNumber));
+        }
+        
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response2 = httpclient.execute(httpPost);
         User user = null;
@@ -67,13 +96,16 @@ public class RegisterAccountServlet extends HttpServlet {
                 userController.login(user);
             } else {
                 String error;
+                System.out.println(responseString);
                 if (responseString.contains("email")){
-                    error = "This email address has already been taken, please use an alternative.";
+                    error = "This email address has already been taken, please use an alternative!";
+                } else if (responseString.contains("contact")){
+                    error = "This contact number has already been associated with another account, please use an alternative!";
                 } else {
-                    error = "This password is too short, please ensure that it is at least 8 characters long";
+                    error = "This password is too short, please ensure that it is at least 8 characters long!";
                 }
                 session.setAttribute("error", error);
-                response.sendRedirect("/index.jsp");
+                response.sendRedirect("/register_" + accountType + ".jsp");
                 return;
             }
             
@@ -92,7 +124,7 @@ public class RegisterAccountServlet extends HttpServlet {
                 if (accountType.equals("employer")){
                     response.sendRedirect("/create_post.jsp");
                 } else {
-                    String error = "Only employers are allowed to post jobs";
+                    String error = "Only employers are allowed to post jobs!";
                     session.setAttribute("error", error);
                     response.sendRedirect("/index.jsp");
                 }
@@ -113,7 +145,7 @@ public class RegisterAccountServlet extends HttpServlet {
                 response.sendRedirect("/dashboard.jsp");
                 return;
             } else {
-                response.sendRedirect("/mydashboard.jsp");
+                response.sendRedirect("/complete_profile.jsp");
             }
         }
     }

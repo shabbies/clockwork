@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_js.jsp"%>
 
 <%@include file="_job_details.jsp"%>
     
@@ -9,16 +10,8 @@
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
 <%@ page buffer="32kb" %>
-<%
-if (currentUser == null){
-session.setAttribute("error", "Please login or register first before viewing your job applications!");
-response.sendRedirect("/login.jsp");
-return;
-} else if (currentUser.getAccountType().equals("employer")){
-session.setAttribute("error", "Only a job seeker account can view job applications!");
-response.sendRedirect("/index.jsp");
-return;}
 
+<%
 HashMap <String, ArrayList <Post>> appliedJobsMap = (HashMap <String, ArrayList <Post>>)session.getAttribute("appliedJobsMap"); 
 HashMap <Integer, String> appliedJobsStatusMap = (HashMap <Integer, String>)session.getAttribute("appliedJobsStatusMap"); 
 ArrayList <Post> completedJobs = (ArrayList <Post>)session.getAttribute("completedJobsList");
@@ -82,8 +75,8 @@ session.removeAttribute("appliedJobsStatusMap");
                             <td><span class="badge db-default-badge offered">Offered</span></td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="...">
-                                    <button type="button" class="btn btn-accept accept-job" style="width: 75px;" data-postid="<%=post.getId()%>">Accept</button>
-                                    <button type="button" class="btn btn-reject withdraw-job" style="width: 75px;" data-postid="<%=post.getId()%>">Reject</button>
+                                    <a class="btn btn-accept accept-job" style="width: 75px;" data-postid="<%=post.getId()%>">Accept</a>
+                                    <a class="btn btn-reject withdraw-job" style="width: 75px;" data-postid="<%=post.getId()%>">Reject</a>
                                 </div>
                                 <!--<a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a>-->
                             </td>
@@ -144,45 +137,7 @@ session.removeAttribute("appliedJobsStatusMap");
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-body db-user">
-                <% String editURL = "/edit_profile.jsp";
-                if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){
-                    editURL = "/complete_profile.jsp";
-                }%>
-                <div class="text-center">
-                    <a href="<%=editURL%>">
-                    <% if (currentUser.getAvatar() == null){%>
-                    <img src="img/user-placeholder.jpg" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                    <% } else { %>
-                    <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                    <%}%>
-                    </a>
-                </div>
-
-                <div class="db-user-info">
-                    <h2>Hi <%= currentUser.getUsername()%>!</h2>
-                    <div class="text-center ratings_info">
-                        <div>My ratings:</div>
-                        <%=currentUser.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
-                        <%=currentUser.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
-                        <%=currentUser.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
-                    </div>
-                    <span>What would you like to do today?</span>
-                </div>
-                <a href="<%=editURL%>" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> 
-                    <% if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){ %>
-                    Complete my Profile
-                    <% } else { %>
-                    Update my Profile
-                    <% } %>
-                </a>
-                <a href="/all_ratings.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
-                <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
-            </div>
-        </div>
-    </div>
+    <%@include file="_js_dashboard.jsp"%>
 </div>
 
 </div>
@@ -324,7 +279,9 @@ $(".withdraw-job").click(function(){
 });
 
 $(document).on("click", "button", function(e){
-    e.stopPropagation();
+    if (!$(this).attr("id") === "open-jobModal"){
+        e.stopPropagation();
+    }
 });
 
 $(".accept-job").click(function(){

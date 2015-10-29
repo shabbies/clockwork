@@ -28,6 +28,14 @@ public class APIManager {
     String EPWithdraw = "/api/v1/users/withdraw";
     String EPWithdrawOffer = "/api/v1/users/withdraw_offer";
     String EPCalendarFormatDates = "/api/v1/users/get_calendar_formatted_dates.json";
+    String EPUnreadNotifications = "/api/v1/users/get_unread_notifications";
+    String EPAllNotifications = "/api/v1/users/get_all_notifications";
+    String EPReadNotifications = "/api/v1/users/read_notifications";
+    String EPScore = "/api/v1/gamify/get_score";
+    String EPContestRegister = "/api/v1/competition/competition_register";
+    String EPBadges = "/api/v1/gamify/get_badges";
+    String EPQuiz = "/api/v1/gamify/get_quiz";
+    String EPRecordQuiz = "/api/v1/gamify/record_quiz";
     
     public APIManager(String mode){
         if (mode.equals("production")){
@@ -145,6 +153,38 @@ public class APIManager {
 
     public String getEPCalendarFormatDates() {
         return prefix + EPCalendarFormatDates;
+    }
+
+    public String getEPUnreadNotifications() {
+        return prefix + EPUnreadNotifications;
+    }
+    
+    public String getEPAllNotifications() {
+        return prefix + EPAllNotifications;
+    }
+
+    public String getEPReadNotifications() {
+        return prefix + EPReadNotifications;
+    }
+    
+    public String getEPScore() {
+        return prefix + EPScore;
+    }
+    
+    public String getEPContestRegister(){
+        return prefix + EPContestRegister;
+    }
+    
+    public String getEPBadges(){
+        return prefix + EPBadges;
+    }
+    
+    public String getEPQuiz(){
+        return prefix + EPQuiz;
+    }
+    
+    public String getEPRecordQuiz(){
+        return prefix + EPRecordQuiz;
     }
     
     public String getPrefix(){

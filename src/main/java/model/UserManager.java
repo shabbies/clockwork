@@ -24,10 +24,10 @@ public class UserManager {
         return currentUser;
     } 
     
-    public User createUserFromJSON(String jsonString){
+    public User createUserFromJSON(String JSONString){
         Gson gson = new Gson();
         Type hashType = new TypeToken<HashMap<String, Object>>(){}.getType();
-        HashMap userHash = gson.fromJson(jsonString, hashType);
+        HashMap userHash = gson.fromJson(JSONString, hashType);
         Double idDouble = (Double)userHash.get("id");
         int id = idDouble.intValue();
         String username = (String)userHash.get("username");
@@ -61,7 +61,9 @@ public class UserManager {
         int badRating = ((Double)userHash.get("bad_rating")).intValue();        
         int neutralRating = ((Double)userHash.get("neutral_rating")).intValue();
         int goodRating = ((Double)userHash.get("good_rating")).intValue();
-        User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating);
+        String referralID = (String)userHash.get("referral_id");
+        int referredUsers = ((Double)userHash.get("referred_users")).intValue(); 
+        User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating, referralID, referredUsers);
         return user;
     }
     

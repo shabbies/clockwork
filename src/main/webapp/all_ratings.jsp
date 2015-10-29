@@ -2,22 +2,14 @@
 <%@include file="_nav.jsp"%>
 
 <%@include file="_job_details.jsp"%>
+<%@include file="_only_js.jsp"%>
     
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
-<%@ page buffer="16kb" %>
+<%@ page buffer="32kb" %>
 <%
-if (currentUser == null){
-session.setAttribute("error", "Please login or register first before viewing your job applications!");
-response.sendRedirect("/login.jsp");
-return;
-} else if (currentUser.getAccountType().equals("employer")){
-session.setAttribute("error", "Only a job seeker account can view his own ratings!");
-response.sendRedirect("/index.jsp");
-return;}
-
 ArrayList <Post> completedJobs = (ArrayList <Post>)session.getAttribute("completedJobsList");
 %>
 <header class="main">
@@ -91,37 +83,7 @@ ArrayList <Post> completedJobs = (ArrayList <Post>)session.getAttribute("complet
         </div> 
     </div>
 
-    <div class="col-md-4">
-        <div class="panel panel-default">
-            <div class="panel-body db-user">
-
-                <div class="text-center">
-                    <% if (currentUser.getAvatar() == null){%>
-                    <img src="img/user-placeholder.jpg" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                    <% } else { %>
-                    <img src="<%=currentUser.getAvatar()%>" alt="" class="db-user-pic col-centered img-rounded img-responsive" />
-                    <%}%>
-                </div>
-
-                <div class="db-user-info">
-                    <h2>Hi <%= currentUser.getUsername()%>!</h2>
-                    <div class="text-center ratings_info">
-                        <div>My ratings:</div>
-                        <%=currentUser.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
-                        <%=currentUser.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
-                        <%=currentUser.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
-                    </div>
-                    <span>What would you like to do today?</span>
-                </div>
-                <%if (currentUser.getContactNumber() == 0 || currentUser.getDateOfBirth() == null || currentUser.getGender() == '\u0000' || currentUser.getNationality() == null){%>
-                <a href="/complete_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Complete my Profile</a>
-                <% } else { %> 
-                <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Update my Profile</a><% } %>
-                <a href="/all_ratings.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
-                <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
-            </div>
-        </div>
-    </div>
+    <%@include file="_js_dashboard.jsp"%>
 <div>
     <a href="/mydashboard.jsp" class="btn btn-lg btn-warning btn-srad" type="button">Back to Dashboard</a>
 </div>

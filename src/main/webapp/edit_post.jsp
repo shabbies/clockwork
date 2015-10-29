@@ -1,8 +1,9 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_emp.jsp"%>
 
 <%@ page import="model.Post"%>
-
+<%@ page buffer="16kb" %>
 <%  String postID = request.getParameter("id");
       String formURL = "/GetPostServlet?id=" + postID + "&location=edit";
       Post post = (Post)session.getAttribute("post");
@@ -13,10 +14,11 @@
 <!-- Initialising Google Places for location autofill -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 <script>
+    var geocoder;
     function initialize() {
         var input = /** @type {HTMLInputElement} */(
                 document.getElementById('job-location'));
-
+        geocoder = new google.maps.Geocoder();
         var autocomplete = new google.maps.places.Autocomplete(input);
 
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -40,11 +42,16 @@
 <div class="header-content-inner">
 <h2 class="text-center"><%=post.getHeader()%></h2>
 
+<div id="error-text" class="alert alert-danger" role="alert" style="font-size: 14px; display: none;">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <strong id="error-message"></strong>
+</div>
+
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
 <div class="panel panel-default">
 <div class="panel-body">
-    <form class="form form-signup" action="/EditPostServlet" method="POST" role="form">
+    <form class="form form-post" action="/EditPostServlet" method="POST" role="form">
         <input type="text" name="post_id" value="<%=post.getId()%>" hidden />
         <table>
             <tr>
@@ -56,6 +63,10 @@
                 <div class="form-group form-group-lg col-md-6 text-left"> 
                     <label for="job-location" class="controls control-label">Job Location</label> 
                     <input id="job-location" class="form-control" type="text" value="<%=post.getLocation()%>" name="location" required>  
+                </div>
+                <div id="job-location-error" class="col-md-6 pull-right details-error" style="display: none;">  
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+                    Please select a valid address!
                 </div>
             </tr>
             <tr>

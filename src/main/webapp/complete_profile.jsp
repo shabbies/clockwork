@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_js.jsp"%>
    
 <!-- Initialising Google Places for location autofill -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
@@ -72,9 +73,9 @@
     <div class="form-group col-sm-6 text-left"> 
         <label for="contactnumber" class="control-label">Contact Number*</label> 
         <% if (currentUser.getContactNumber() == 0){ %>
-        <input id="contactnumber" class="form-control" type="text" name="contact_number" onkeypress="return isNumber(event)" required> 
+        <input id="contactnumber" class="form-control" type="text" name="contact_number" onkeypress="return isNumber(event)" required maxlength="8"> 
         <% } else { %>
-        <input id="contactnumber" class="form-control" type="text" name="contact_number" onkeypress="return isNumber(event)" value="<%=currentUser.getContactNumber()%>" required> <%}%>
+        <input id="contactnumber" class="form-control" type="text" name="contact_number" onkeypress="return isNumber(event)" value="<%=currentUser.getContactNumber()%>" required maxlength="8"> <%}%>
     </div>
 
     <div class="form-group col-sm-6 text-left"> 
