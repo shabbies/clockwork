@@ -1,18 +1,10 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_js.jsp"%>
 <%@ page buffer="32kb" %>
 
 <%@ page import="java.util.HashMap" %>
 <%
-if (currentUser == null){
-session.setAttribute("error", "Please login or register first before viewing your job scores!");
-response.sendRedirect("/login.jsp");
-return;
-} else if (currentUser.getAccountType().equals("employer")){
-session.setAttribute("error", "Only a job seeker account can view his scores!");
-response.sendRedirect("/index.jsp");
-return;}
-
 HashMap <String, Integer> scoreMap = (HashMap <String, Integer>)session.getAttribute("scoreMap");
 if (scoreMap == null){ %>
 <jsp:forward page="/GetScoreServlet" />

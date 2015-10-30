@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_emp.jsp"%>
 
 <%@ page import="model.Post"%>
 <%@ page buffer="16kb" %>

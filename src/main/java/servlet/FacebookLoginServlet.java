@@ -59,6 +59,7 @@ public class FacebookLoginServlet extends HttpServlet {
         
         String shortAccessToken = request.getParameter("access_token");
         String userID = request.getParameter("user_id");
+        String referrer = request.getParameter("referrer");
         String longAccessToken = null;
         String facebookAppID = null;
         String fullname = null;
@@ -116,6 +117,7 @@ public class FacebookLoginServlet extends HttpServlet {
         nvps.add(new BasicNameValuePair("user[username]", fullname));
         nvps.add(new BasicNameValuePair("user[account_type]",accountType));
         nvps.add(new BasicNameValuePair("user[facebook_id]", facebookAppID));
+        nvps.add(new BasicNameValuePair("user[referred_by]", referrer));
         nvps.add(new BasicNameValuePair("user[avatar_path]", "http://graph.facebook.com/" + facebookAppID + "/picture?type=large"));
         
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));

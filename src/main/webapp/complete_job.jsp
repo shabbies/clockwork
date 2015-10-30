@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_emp.jsp"%>
 <jsp:include page="_user_profile.jsp" />
     
 <%@ page import="model.User"%>
@@ -80,7 +81,7 @@ session.removeAttribute("matchMap");
                                             <% } %>
                                         </div>
                                     </td>
-                                    <td><%=match.getComment()%></td>
+                                    <td><%=(match.getComment() == null) ? "No comments" : match.getComment()%></td>
                                 </tr>
                             <% } %>
                         <% } else { %>

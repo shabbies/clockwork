@@ -2,22 +2,14 @@
 <%@include file="_nav.jsp"%>
 
 <%@include file="_job_details.jsp"%>
+<%@include file="_only_js.jsp"%>
     
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
-<%@ page buffer="16kb" %>
+<%@ page buffer="32kb" %>
 <%
-if (currentUser == null){
-session.setAttribute("error", "Please login or register first before viewing your job applications!");
-response.sendRedirect("/login.jsp");
-return;
-} else if (currentUser.getAccountType().equals("employer")){
-session.setAttribute("error", "Only a job seeker account can view his own ratings!");
-response.sendRedirect("/index.jsp");
-return;}
-
 ArrayList <Post> completedJobs = (ArrayList <Post>)session.getAttribute("completedJobsList");
 %>
 <header class="main">

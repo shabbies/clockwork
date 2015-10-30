@@ -7,6 +7,14 @@
     <versions>
       <version>2.4</version>
     </versions>
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <lastUpdated>20151028185028</lastUpdated>
+=======
+    <lastUpdated>20151029131932</lastUpdated>
+>>>>>>> dev-gamification
+=======
     <lastUpdated>20151029154140</lastUpdated>
+>>>>>>> dev-gamification
   </versioning>
 </metadata>

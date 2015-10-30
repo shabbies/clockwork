@@ -1,5 +1,6 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_emp.jsp"%>
 <jsp:include page="_user_profile.jsp" />
     
 <%@ page import="model.User"%>

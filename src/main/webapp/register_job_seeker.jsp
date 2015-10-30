@@ -39,7 +39,7 @@
                         <div class="panel-body">
                             <%@include file="_message.jsp"%>
                             <form class="form form-signup" action="/RegisterAccountServlet" method="POST" role="form">
-                                <input class="hidden" value="<%=request.getParameter("rf")%>" name="referrer"/>
+                                <input class="hidden" id="referrer" value="<%=request.getParameter("rf")%>" name="referrer"/>
                                 
                                 <div class="form-group form-group-lg col-md-12 text-left"> 
                                     <label for="register-company" class="control-label">Name</label> 
@@ -105,10 +105,18 @@ function facebookLogin() {
     if (response.status === 'connected') {
       var accessToken = response.authResponse.accessToken;
       var userID = response.authResponse.userID;
+<<<<<<< HEAD
+      var referrer = $("#referrer").val();
+      $.ajax({
+        type: "POST",
+        url: "/FacebookLoginServlet",
+        data: { "access_token" : accessToken, "user_id" : userID, "referrer": referrer },
+=======
       $.ajax({
         type: "POST",
         url: "/FacebookLoginServlet",
         data: { "access_token" : accessToken, "user_id" : userID },
+>>>>>>> dev-gamification
         success: function(){
           window.location.href ="/mydashboard.jsp";
         },

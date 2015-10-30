@@ -1,20 +1,12 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
+<%@include file="_only_js.jsp"%>
 <%@ page buffer="32kb" %>
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Badge"%>
 
 <%
-if (currentUser == null){
-session.setAttribute("error", "Please login or register first before viewing your badges!");
-response.sendRedirect("/login.jsp");
-return;
-} else if (currentUser.getAccountType().equals("employer")){
-session.setAttribute("error", "Only a job seeker account can view his badges!");
-response.sendRedirect("/index.jsp");
-return;}
-
 ArrayList <Badge> badgeList = (ArrayList <Badge>)session.getAttribute("badgeList");
 if (badgeList == null){ %>
 <jsp:forward page="/GetBadgesServlet" />

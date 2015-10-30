@@ -145,7 +145,7 @@ public class RegisterAccountServlet extends HttpServlet {
                 response.sendRedirect("/dashboard.jsp");
                 return;
             } else {
-                response.sendRedirect("/mydashboard.jsp");
+                response.sendRedirect("/complete_profile.jsp");
             }
         }
     }
