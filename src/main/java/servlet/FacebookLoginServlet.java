@@ -132,12 +132,14 @@ public class FacebookLoginServlet extends HttpServlet {
             String responseString = writer.toString();
             UserController userController = appController.getUserController();
             user = userController.createUserFromJSON(responseString);
+            user = userController.login(user);
             EntityUtils.consume(entity);
         } finally {
             response3.close();
         }
         session.setAttribute("currentUser", user);
         if (user.getContactNumber() == 0 || user.getDateOfBirth() == null || user.getGender() == '\u0000' || user.getNationality() == null){
+            session.setAttribute("message", "Please complete your profile to enter the competition!");
             out.println("/complete_profile.jsp");
         } else {
             out.println("/mydashboard.jsp");
