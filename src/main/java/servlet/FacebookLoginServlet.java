@@ -6,6 +6,7 @@ import controller.AppController;
 import controller.UserController;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
@@ -56,6 +57,7 @@ public class FacebookLoginServlet extends HttpServlet {
         AppController appController = (AppController)session.getAttribute("appController");
         APIManager apiManager = appController.getAPIManager();
         String URL = apiManager.getEPNewUser();
+        PrintWriter out = response.getWriter();
         
         String shortAccessToken = request.getParameter("access_token");
         String userID = request.getParameter("user_id");
@@ -135,5 +137,10 @@ public class FacebookLoginServlet extends HttpServlet {
             response3.close();
         }
         session.setAttribute("currentUser", user);
+        if (user.getContactNumber() == 0 || user.getDateOfBirth() == null || user.getGender() == '\u0000' || user.getNationality() == null){
+            out.println("/complete_profile.jsp");
+        } else {
+            out.println("/mydashboard.jsp");
+        }
     }
 }
