@@ -102,8 +102,8 @@ function facebookLogin() {
         type: "POST",
         url: "/FacebookLoginServlet",
         data: { "access_token" : accessToken, "user_id" : userID, "referrer": referrer },
-        success: function(){
-          window.location.href ="/mydashboard.jsp";
+        success: function(responseString){
+          window.location.href = responseString;
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log(textStatus, errorThrown);
