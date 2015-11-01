@@ -21,8 +21,9 @@ public class User {
     private int goodRating;
     private String referralID;
     private int referredUsers;
+    private boolean hasConfirmed;
 
-    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating, String referralID, int referredUsers) {
+    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating, String referralID, int referredUsers, boolean hasConfirmed) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -39,6 +40,7 @@ public class User {
         this.goodRating = goodRating;
         this.referralID = referralID;
         this.referredUsers = referredUsers;
+        this.hasConfirmed = hasConfirmed;
     }
 
     public User(String email, String accountType) {
@@ -170,5 +172,9 @@ public class User {
 
     public int getReferredUsers() {
         return referredUsers;
+    }
+    
+    public boolean getHasConfirmed(){
+        return hasConfirmed;
     }
 }

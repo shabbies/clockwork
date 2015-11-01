@@ -36,6 +36,7 @@ public class APIManager {
     String EPBadges = "/api/v1/gamify/get_badges";
     String EPQuiz = "/api/v1/gamify/get_quiz";
     String EPRecordQuiz = "/api/v1/gamify/record_quiz";
+    String EPSendConfirmationEmail = "/api/v1/users/send_confirmation_email";
     
     public APIManager(String mode){
         if (mode.equals("production")){
@@ -185,6 +186,10 @@ public class APIManager {
     
     public String getEPRecordQuiz(){
         return prefix + EPRecordQuiz;
+    }
+    
+    public String getEPSendConfirmationEmail(){
+        return prefix + EPSendConfirmationEmail;
     }
     
     public String getPrefix(){

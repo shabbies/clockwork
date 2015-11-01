@@ -48,14 +48,6 @@
                                         <input id="register-company" class="form-control" type="text" placeholder="Name" name="username" required> 
                                     </div> 
                                 </div>
-                                
-                                <div class="form-group form-group-lg col-md-12 text-left"> 
-                                    <label for="register-number" class="control-label">Contact Number</label> 
-                                    <div class="input-group"> 
-                                        <div class="input-group-addon"><i class="fa fa-phone fa-lg fa-fw"></i></div> 
-                                        <input id="register-number" class="form-control" type="text" name="number" placeholder="Contact Number" onkeypress="return isNumber(event)" maxlength="8" required> 
-                                    </div> 
-                                </div>
 
                                 <div class="form-group form-group-lg col-md-12 text-left"> 
                                     <label for="register-email" class="control-label">Email Address</label> 
@@ -105,20 +97,13 @@ function facebookLogin() {
     if (response.status === 'connected') {
       var accessToken = response.authResponse.accessToken;
       var userID = response.authResponse.userID;
-<<<<<<< HEAD
       var referrer = $("#referrer").val();
       $.ajax({
         type: "POST",
         url: "/FacebookLoginServlet",
         data: { "access_token" : accessToken, "user_id" : userID, "referrer": referrer },
-=======
-      $.ajax({
-        type: "POST",
-        url: "/FacebookLoginServlet",
-        data: { "access_token" : accessToken, "user_id" : userID },
->>>>>>> dev-gamification
-        success: function(){
-          window.location.href ="/mydashboard.jsp";
+        success: function(responseString){
+          window.location.href = responseString;
         },
         error: function(jqXHR, textStatus, errorThrown) {
           console.log(textStatus, errorThrown);

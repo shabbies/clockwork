@@ -63,7 +63,8 @@ public class UserManager {
         int goodRating = ((Double)userHash.get("good_rating")).intValue();
         String referralID = (String)userHash.get("referral_id");
         int referredUsers = ((Double)userHash.get("referred_users")).intValue(); 
-        User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating, referralID, referredUsers);
+        boolean hasConfirmed = (Boolean)userHash.get("verified");
+        User user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating, referralID, referredUsers, hasConfirmed);
         return user;
     }
     
