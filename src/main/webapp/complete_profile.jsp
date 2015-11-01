@@ -151,14 +151,20 @@
 <jsp:include page="_footer.jsp" />
 
 <script>
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    
+    var today = new Date();
+    var max_date = monthNames[today.getMonth()] + " " + today.getDate() + ", " + today.getFullYear();
     $("#dob-date").daterangepicker({
         locale: {
             format: 'MMMM D, YYYY'
         },
-        dateLimit: {
-            "days": 6
-        },
-        singleDatePicker: true
+        singleDatePicker: true,
+        showDropdowns: true,
+        minDate: "January 1, 1915",
+        maxDate: max_date
     }, function(start, end, label) {
         var years = moment().diff(start, 'years');
         if (years < 15){
