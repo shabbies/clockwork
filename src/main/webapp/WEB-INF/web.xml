@@ -180,6 +180,10 @@
         <servlet-name>LoginAfterConfirmationServlet</servlet-name>
         <servlet-class>servlet.LoginAfterConfirmationServlet</servlet-class>
     </servlet>
+    <servlet>  
+        <servlet-name>SendConfirmationEmailServlet</servlet-name>
+        <servlet-class>servlet.SendConfirmationEmailServlet</servlet-class>
+    </servlet>
 
 
 
@@ -331,5 +335,9 @@
     <servlet-mapping>
         <servlet-name>LoginAfterConfirmationServlet</servlet-name>
         <url-pattern>/LoginAfterConfirmationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendConfirmationEmailServlet</servlet-name>
+        <url-pattern>/SendConfirmationEmailServlet</url-pattern>
     </servlet-mapping>
 </web-app>    

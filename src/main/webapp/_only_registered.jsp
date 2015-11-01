@@ -9,6 +9,9 @@ if (currentUser == null){
 } else if (!currentUser.getHasConfirmed()){
     unauthorisedRedirect = "/unconfirmed.jsp";
     unauthorised = true;
+    if (request.getRequestURI().indexOf("unconfirmed.jsp") != -1){
+        unauthorised = false;
+    }
 } 
 
 if (unauthorised){
