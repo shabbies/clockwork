@@ -13,13 +13,10 @@
                             <h3 class="text-center" style="color: black;
                                 text-transform: uppercase;
                                 font-family: 'Raleway', sans-serif;
-                                font-weight: 700;"><small style="font-weight: 500; color: black;"><strong>Register now and </strong><br/></small>Stand a chance to win a PS4!</h3>
-                            <form class="form form-signup" action="/ContestRegisterServlet" method="POST" role="form">
-                             
-                                <div class="row" style="padding:20px;">
-                                    <img src="https://psmedia.playstation.com/is/image/psmedia/ps4-system-imageblock-vs-us-19jun15?$TwoColumn_Image$" style="width:200px"/>
-                                </div>
-                            </form>
+                                font-weight: 700;"><small style="font-weight: 500; color: black;"><strong>Register now and </strong><br/></small>Stand a chance to win a PS4!*</h3>
+                            <div class="row" style="padding:20px;">
+                                <img src="https://psmedia.playstation.com/is/image/psmedia/ps4-system-imageblock-vs-us-19jun15?$TwoColumn_Image$" style="width:200px"/>
+                            </div>
                             
                             <div class="row text-center" style="padding-top:10px">
                                 <div class="col-centered" style="max-width:300px; ">
@@ -31,6 +28,10 @@
                                     </a>
                                 </div>
                             </div>
+                            <small style="color: black;" class="text-left">
+                                *You need to complete your profile in order to be eligible for the draw<br/>
+                                <a href="contest_terms.jsp">Terms and Conditions apply </a>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -72,7 +73,7 @@
                                 
                                 <div class="form-group form-group-lg col-md-12"> 
                                     <div class="input-group text-center" style="display: block;"> 
-                                        <label id="terms_link"><input type="checkbox" name="tc-checkbox" required/> &nbsp; I agree to the <a href="#"> terms of use </a></label>
+                                        <label id="terms_link"><input type="checkbox" name="tc-checkbox" required/> &nbsp; I agree to the <a href="/terms.jsp"> terms of use </a></label>
                                     </div> 
                                 </div>
 

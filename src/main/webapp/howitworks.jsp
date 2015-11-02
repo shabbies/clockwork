@@ -76,7 +76,7 @@
                     </li>
                     <li><a href="#">Privacy Policy</a>
                     </li>
-                    <li><a href="#">Terms of Use</a>
+                    <li><a href="/terms.jsp">Terms of Use</a>
                     </li>
                 </ul>
             </div>
