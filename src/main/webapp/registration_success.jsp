@@ -30,11 +30,23 @@
     $(document).ready(function(){
         window.setTimeout(function(){
             $.ajax({
-                url: '/StoreSessionVariableServlet',
-                data: { "message": "Please login to access your account!"},
+                url: '/LogoutServlet',
+                data: { 
+                    "message": "Please login to access your account!",
+                    "currentUser": null
+                },
                 type: 'POST',
                 success: function(data) {
-                    window.location.replace("/login.jsp"); 
+                    $.ajax({
+                        url: '/StoreSessionVariableServlet',
+                        data: { 
+                            "message": "Please login to access your account!"
+                        },
+                        type: 'POST',
+                        success: function(data) {
+                            window.location.replace("/login.jsp");     
+                        }
+                    });
                 }
             });
         }, 2000);  
