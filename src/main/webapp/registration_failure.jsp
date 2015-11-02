@@ -16,9 +16,9 @@
                 <div class="panel-body text-dark" >
 
                     <h3>There seems to be an error with the your registration!</h3>
-                    <h4>You will be redirected shortly.</h4>
 
-                    <button id="send-confirmation" class="btn btn-lg btn-primary btn-srad" style="margin-top:20px">Click here to be redirected</button>
+                    <h4><small>your verification email might have expired! click below to resend a new one!</small></h4>
+                    <button id="resend-confirmation" class="btn btn-lg btn-primary btn-srad">Resend verification email</button>
                 </div>
             </div>
         </div>
