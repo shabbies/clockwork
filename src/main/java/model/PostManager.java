@@ -187,9 +187,6 @@ public class PostManager {
                     hiredList.add(post);
                     break;
                 case "completed":
-                    System.out.println(post.getHeader());
-                    System.out.println(post.getRating());
-                    System.out.println(post.getComment());
                     completedList.add(post);
                     break;
             }
