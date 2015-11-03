@@ -1297,8 +1297,9 @@ body {
     padding-top: 10px;
 }
 
-.pricing-div{
+.pricing-div, .pricing-div a{
     color:black;
+    text-decoration: none;
 }
 
 .pricing-header{
@@ -1715,4 +1716,22 @@ pre{
     -moz-user-select: none; /* mozilla browsers */
     -khtml-user-select: none; /* webkit (konqueror) browsers */
     -ms-user-select: none; /* IE10+ */
+}
+
+.terms-text{
+    font-size: small;
+    padding-bottom: 10px;
+}
+
+.terms-table td{
+    padding: 10px;
+    vertical-align: top;
+}
+
+.border-bottom{
+    border-bottom: 1px solid gray;
+}
+
+.padding-top{
+    padding-top: 10px;
 }

@@ -4,30 +4,32 @@
 <header class="main">
     <div class="header-full-content">
         <div class="header-content-inner">
-            <h1 class="text-center">Our Pricing</h1>
+            <h2 class="text-center">Our Pricing</h2>
             
             <div class="row row-centered pricing-div">
                 <div class="col-md-3 col-lg-3">
                     
                     <!-- PRICE ITEM -->
-                    <div class="panel price panel-black">
-                        <div class="panel-heading text-center">
-                            <h3>OPEN BETA</h3>
+                    <a href='/register_employer.jsp'>
+                        <div class="panel price panel-black">
+                            <div class="panel-heading text-center">
+                                <h3>OPEN BETA</h3>
+                            </div>
+                            <div class="panel-body text-center">
+                                <span class="pricing-header"><strong>FREE</strong></span>
+                            </div>
+                            <ul class="list-group list-group-flush text-center">
+                                <li class="list-group-item"><i class="icon-ok text-danger"></i> Unlimited Posting</li>
+                                <li class="list-group-item"><i class="icon-ok text-danger"></i> Unlimited Hires</li>
+                                <li class="list-group-item"><i class="icon-ok text-danger"></i> Email support</li>
+                                <li class="list-group-item"><i class="icon-ok text-danger"></i> Personalised Start Up Usage Guide </li>
+                                <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
+                            </ul>
+                            <div class="panel-footer">
+                                <button  class="btn btn-lg btn-block btn-primary" id="beta_buy">TRY NOW!</button>
+                            </div>
                         </div>
-                        <div class="panel-body text-center">
-                            <span class="pricing-header"><strong>FREE</strong></span>
-                        </div>
-                        <ul class="list-group list-group-flush text-center">
-                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Unlimited Posting</li>
-                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Unlimited Hires</li>
-                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Email support</li>
-                            <li class="list-group-item"><i class="icon-ok text-danger"></i> Personalised Start Up Usage Guide </li>
-                            <li class="list-group-item"><i class="icon-ok text-danger"></i> &nbsp; </li>
-                        </ul>
-                        <div class="panel-footer">
-                            <a href="/register_employer.jsp" class="btn btn-lg btn-block btn-primary" id="beta_buy">TRY NOW!</a>
-                        </div>
-                    </div>
+                    </a>
                     <!-- /PRICE ITEM -->
                     
                     
@@ -51,7 +53,7 @@
                             <li class="list-group-item"><i class="icon-ok text-danger"></i> No Featured Posting</li>
                         </ul>
                         <div class="panel-footer">
-                            <button class="btn btn-lg btn-block btn-primary" id="silver_plan_buy">BUY NOW!</button>
+                            <button class="btn btn-lg btn-block btn-primary" id="silver_plan_buy" disabled>BUY NOW!</button>
                         </div>
                     </div>
                     <!-- /PRICE ITEM -->
@@ -77,7 +79,7 @@
                             <li class="list-group-item"><i class="icon-ok text-info"></i> Featured Pay-Per-Post</li>
                         </ul>
                         <div class="panel-footer">
-                            <button class="btn btn-lg btn-block btn-primary" id="gold_plan_buy">BUY NOW!</button>
+                            <button class="btn btn-lg btn-block btn-primary" id="gold_plan_buy" disabled>BUY NOW!</button>
                         </div>
                     </div>
                     <!-- /PRICE ITEM -->
@@ -103,7 +105,7 @@
                             <li class="list-group-item"><i class="icon-ok text-success"></i> 2 Free Featured Post / Month</li>
                         </ul>
                         <div class="panel-footer">
-                            <button class="btn btn-lg btn-block btn-primary" id="platinum_plan_buy">BUY NOW!</button>
+                            <button class="btn btn-lg btn-block btn-primary" id="platinum_plan_buy" disabled>BUY NOW!</button>
                         </div>
                     </div>
                     <!-- /PRICE ITEM -->
@@ -154,4 +156,5 @@
        $("#platinum_plan_subscription").submit(); 
     });
 </script>
+<jsp:include page="_anchor.jsp" />
 <jsp:include page="_footer.jsp" />

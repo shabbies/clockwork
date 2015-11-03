@@ -208,5 +208,6 @@ if (postController.getEmployerReviewingJobs().size() != 0){
 </div>
 </div>
 </header>
+<jsp:include page="_anchor.jsp" />
 <jsp:include page="_footer.jsp" />
 <jsp:include page="_javascript_checker.jsp" />

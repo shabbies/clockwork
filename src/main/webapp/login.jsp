@@ -103,4 +103,5 @@ window.fbAsyncInit = function() {
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 </script>
+<jsp:include page="_anchor.jsp" />
 <jsp:include page="_footer.jsp" />
