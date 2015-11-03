@@ -259,7 +259,7 @@ String jobDateString = jobDate.toString();
 
 </script>
 
-
+<hr class="grey grey-border">
 <jsp:include page="_anchor.jsp" />
 <jsp:include page="_footer.jsp" />
 

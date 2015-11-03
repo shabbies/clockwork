@@ -20,6 +20,7 @@ if (appliedJobsMap == null || appliedJobsStatusMap == null || completedJobs == n
 <%} else { 
 session.removeAttribute("appliedJobsMap");
 session.removeAttribute("appliedJobsStatusMap");
+session.getAttribute("completedJobsList");
 }%>
 <header class="main">
 <div class="header-full-content">

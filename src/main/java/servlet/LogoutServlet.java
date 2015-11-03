@@ -24,26 +24,31 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
-        if (appController == null){
-            APIManager apiManager = appController.getAPIManager();
-            String URL = apiManager.getEPLogout();
-            CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpDelete httpDelete = new HttpDelete(URL);
-            httpDelete.setHeader("Accept", "application/json");
-            CloseableHttpResponse response2 = httpClient.execute(httpDelete);
+        try {
+            if (appController == null){
+                APIManager apiManager = appController.getAPIManager();
+                String URL = apiManager.getEPLogout();
+                CloseableHttpClient httpClient = HttpClients.createDefault();
+                HttpDelete httpDelete = new HttpDelete(URL);
+                httpDelete.setHeader("Accept", "application/json");
+                CloseableHttpResponse response2 = httpClient.execute(httpDelete);
 
-            try {
-                HttpEntity entity = response2.getEntity();
-                EntityUtils.consume(entity);
-            } finally {
-                response2.close();
+                try {
+                    HttpEntity entity = response2.getEntity();
+                    EntityUtils.consume(entity);
+                } finally {
+                    response2.close();
+                }
             }
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            String message = "You have successfully logged out.";
+            session.setAttribute("message", message);
+            session.removeAttribute("currentUser");
+            session.removeAttribute("appController");
+            response.sendRedirect("/index.jsp");
         }
-        String message = "You have successfully logged out.";
-        session.setAttribute("message", message);
-        session.removeAttribute("currentUser");
-        session.removeAttribute("appController");
-        response.sendRedirect("/index.jsp");
     }
 
 }
