@@ -143,25 +143,25 @@ public class PostManager {
         return post.getApplicantCount();
     }
     
-    public HashMap <Integer, Post> loadAppliedJobsMap(String JSONString) throws ParseException {
-        HashMap <Integer, Post> appliedJobsMap = new HashMap <Integer, Post> ();
-        Gson gson = new Gson();
-        Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
-        ArrayList <HashMap<String, Object>> postsHash = gson.fromJson(JSONString, listType);
-        for (HashMap <String, Object> postHash : postsHash){
-            int postID = ((Double)postHash.get("id")).intValue();
-            Post post = postMap.get(postID);
-            String applicationStatus = (String)postHash.get("status");
-            if (post == null){
-                String postString = gson.toJson(postHash);
-                post = createNewPostFromJSON(postString);
-                appliedJobsMap.put(post.getId(), post);
-            }
-            applicationPostStatus.put(post.getId(), applicationStatus);
-            appliedJobsMap.put(post.getId(), post);
-        }
-        return appliedJobsMap;
-    }
+//    public HashMap <Integer, Post> loadAppliedJobsMap(String JSONString) throws ParseException {
+//        HashMap <Integer, Post> appliedJobsMap = new HashMap <Integer, Post> ();
+//        Gson gson = new Gson();
+//        Type listType = new TypeToken<ArrayList<HashMap<String, Object>>>(){}.getType();
+//        ArrayList <HashMap<String, Object>> postsHash = gson.fromJson(JSONString, listType);
+//        for (HashMap <String, Object> postHash : postsHash){
+//            int postID = ((Double)postHash.get("id")).intValue();
+//            Post post = postMap.get(postID);
+//            String applicationStatus = (String)postHash.get("status");
+//            if (post == null){
+//                String postString = gson.toJson(postHash);
+//                post = createNewPostFromJSON(postString);
+//                appliedJobsMap.put(post.getId(), post);
+//            }
+//            applicationPostStatus.put(post.getId(), applicationStatus);
+//            appliedJobsMap.put(post.getId(), post);
+//        }
+//        return appliedJobsMap;
+//    }
     
     public void loadAppliedJobs(String JSONString) throws ParseException {
         Gson gson = new Gson();
@@ -173,13 +173,8 @@ public class PostManager {
         ArrayList <Post> hiredList = new ArrayList <Post> ();
         ArrayList <Post> completedList = new ArrayList <Post> ();
         for (HashMap <String, Object> postHash : postsHash){
-            int postID = ((Double)postHash.get("id")).intValue();
-            Post post = postMap.get(postID);
-            if (post == null){
-                String postString = gson.toJson(postHash);
-                post = createNewPostFromJSON(postString);
-                postMap.put(post.getId(), post);
-            }
+            String postString = gson.toJson(postHash);
+            Post post = createNewPostFromJSON(postString);
             String applicationStatus = (String)postHash.get("status");
             switch (applicationStatus){
                 case "pending":
@@ -192,6 +187,9 @@ public class PostManager {
                     hiredList.add(post);
                     break;
                 case "completed":
+                    System.out.println(post.getHeader());
+                    System.out.println(post.getRating());
+                    System.out.println(post.getComment());
                     completedList.add(post);
                     break;
             }

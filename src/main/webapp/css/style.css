@@ -21,6 +21,9 @@ hr.grey {
     margin-top: 20px;
     margin-bottom: 20px;
     border: 0;
+}
+
+hr.grey-border{
     border-top: 1px solid #eee;
 }
 
@@ -374,7 +377,7 @@ header {
 }
 
 .main{
-    min-height: 100%; 
+    min-height: 93%; 
     background-color: #ac1d39; 
     background-image:none;
 }
@@ -382,7 +385,7 @@ header {
 header .header-content, header .header-full-content {
     position: relative;
     width: 100%;
-    padding: 60px 15px;
+    padding: 50px 15px;
     text-align: center;
 }
 
