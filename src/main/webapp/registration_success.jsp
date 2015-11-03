@@ -24,6 +24,7 @@
 </div>
 </header>
 
+<jsp:include page="_anchor.jsp" />
 <jsp:include page="_footer.jsp" />
 
 <script>
@@ -32,8 +33,7 @@
             $.ajax({
                 url: '/LogoutServlet',
                 data: { 
-                    "message": "Please login to access your account!",
-                    "currentUser": null
+                    "message": "Please login to access your account!"
                 },
                 type: 'POST',
                 success: function(data) {

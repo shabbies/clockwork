@@ -86,4 +86,5 @@ session.removeAttribute("unreadList");
 
 </div>
 </header>
+<jsp:include page="_anchor.jsp" />
 <jsp:include page="_footer.jsp" />

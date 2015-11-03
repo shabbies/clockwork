@@ -2,87 +2,75 @@
 <%@include file="_nav.jsp"%>
 
 <header class="main">
-    <div class="header-full-content">
-        <div class="header-content-inner">
-            <h1 class="text-center">Terms and Conditions</h1>
-            <div class="text-left">
-            At Clockworksg.com, we understand that your privacy is important and we endeavour to protect your personal information. As used in this Privacy Policy, &#34;personal information&#34; means information such as: your name; mailing address; email address; telephone number; your location or other personal information that may be supplied by you or collected about you as required by us. We hope that this Policy helps you to understand how we handle and use any personal data after collection. <br/><br/>
+<div class="header-full-content">
+<div class="header-content-inner">
+<div class="text-left">
+<div class="row">
+<div class="col-md-6 col-md-offset-3">
+<div class="panel panel-default">
+<div class="panel-body text-dark" >
+    
+<h3 class="text-center"><b>Terms of Use</b></h3>
+    
+<p class="terms-text border-bottom padding-top"><b>Please read these Terms and Conditions (the "Terms") carefully before using Clockwork.sg (the "Application") operated by Kruro Private Ltd (the "Company").
+</b></p>
 
-            Clockworksg.com uses this information for internal business and administrative purposes which includes improving our products and service offerings, and enhancing our customer service level.<br/><br/>
-
-            Clockworksg.com will use your personal data from time to time to send you notices about special information, new programmes, and other similar information.<br/><br/>
-
-            Clockworksg.com will reveal your personal information including your name, contact number and relevant work experience to Employers of job listings to which you have applied to and accepted their offer. Outside of the scope of our described operations, Clockworksg.com will not reveal your personal information to any other third-party unless required by law.<br/><br/>
-
-            Clockworksg.com does not sell, trade or rent your personal information to others.<br/><br/>
-
-            Clockworksg.com understands and respects the privacy of individuals. Personal information is collected with your consent. The purpose for collecting this information varies depending upon your request and will include:<br/>
-
-            helping us to improve our service to you;<br/>
-
-            processing your application and/or registration and/or enquiry;<br/>
-
-            informing you of upcoming events;<br/>
-
-            updating your records in our databases; monitoring and maintaining a copy of your record of previous job transactions (including all information arising from comments, reviews and messages posted by third-party individuals to your or relating to your account);<br/>
-
-            planning the provision of new features;<br/>
-
-            monitoring and enhancing the provision of new features; and purposes incidental to each or all of the above.<br/><br/>
-
-            Facebook Connect<br/>
-            You can log in to our site using sign-in services such as Facebook Connect. These services will authenticate your identity and provide you the option to share certain personal information with us such as your name and email address to pre-populate our sign up form. Such services give you the option to post information about your activities on this Web site to your profile page to share with others within your network.<br/><br/>
-
-            When you provide information from your social media profile, it can help enable us to do things like (1) give you exclusive content, (2) personalize your online experience with us within and outside our applications or websites, and (3) contact you through the social networking sites or directly with the latest news, special offerings, and rewards. By doing so, you consent to the use of this information in accordance with this Privacy Policy.<br/><br/>
-
-            When you post information on public forums or similar functions at our Services, or when you interact with our Services through social networking sites (depending on your privacy settings), social media plug-ins or similar applications, this information could be seen by anyone on the Internet. Therefore, we cannot prevent further use of this information. You can control what data you share through privacy settings available on some social networking sites. For more information about how you can customize your privacy settings and how social networking sites handle your personal information, please refer to their privacy help guides, privacy policies and terms of use.<br/><br/>
-
-            If you delete your profile from a third-party service, such as Facebook, information that has been shared with Clockworksg.com from that service may still be retained by Clockworksg.com. If you do not wish for us to retain such information, please contact us.<br/><br/>
-
-            Use of cookies<br/>
-            Clockworksg.com uses "cookies", which are text files placed on your computer, to help the website analyse how users use the site. The information generated by the cookie about your use of the website (including your IP address) will be transmitted to and stored by Clockworksg.com on our servers. Clockworksg.com will use this information for the purpose of providing location relevant information to you. Clockworksg.com may also transfer this information to third parties where required to do so by law, or where such third parties process the information on Clockworksg.com's behalf. You may refuse the use of cookies by selecting the appropriate settings on your browser, however please note that if you do this you may not be able to use the full functionality of this website. By using this website, you consent to the processing of data about you by Clockworksg.com in the manner and for the purposes set out above.<br/><br/>
-
-            Google Analytics<br/>
-            This website uses Google Analytics, a web analytics service provided by Google, Inc. ("Google"). Google Analytics uses "cookies", which are text files placed on your computer, to help the website analyse how users use the site. The information generated by the cookie about your use of the website (including your IP address) will be transmitted to and stored by Google on servers in the United States. Google will use this information for the purpose of evaluating your use of the website, compiling reports on website activity for website operators and providing other services relating to website activity and internet usage. Google may also transfer this information to third parties where required to do so by law, or where such third parties process the information on Google's behalf. Google will not associate your IP address with any other data held by Google. You may refuse the use of cookies by selecting the appropriate settings on your browser, however please note that if you do this you may not be able to use the full functionality of this website. By using this website, you consent to the processing of data about you by Google in the manner and for the purposes set out above.<br/><br/>
-
-            Although every reasonable effort has been made to ensure that all personal information will be so protected, Clockworksg.com cannot be responsible for any unauthorised use or misuse of such information and from risks which are inherent in all internet communications.<br/><br/>
-
-            Clockworksg.com reserves the right to change this Policy with or without notice from time to time.
-            </div>
-        </div>
-    </div>
+<table class="terms-text terms-table">
+    <tr>
+        <td><b>1.</b></td>
+        <td>Your access to and use of the Application is conditioned on your acceptance of and compliance with these Terms.</td>
+    </tr>
+    <tr>
+        <td><b>2.</b></td>
+        <td>These Terms apply to all visitors, users and any other persons who access or use the Application. By accessing or using the Application, you shall be deemed by law to have given your consent and agreement to be bound by these Terms. You shall be denied access to the Application on any disagreement with the Terms.</td>
+    </tr>
+    <tr>
+        <td><b>3.</b></td>
+        <td>The Company may terminate or suspend access to the Application immediately, without prior notice or liability, for any reason whatsoever, including but not limited to, any breach of the terms herein.</td>
+    </tr>
+    <tr>
+        <td><b>4.</b></td>
+        <td>All provisions of the Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability. </td>
+    </tr>
+    <tr>
+        <td><b>5.</b></td>
+        <td>The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services.</td>
+    </tr>
+    <tr>
+        <td><b>6.</b></td>
+        <td>The Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services.</td>
+    </tr>
+    <tr>
+        <td><b>7.</b></td>
+        <td>The Company's failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.</td>
+    </tr>
+    <tr>
+        <td><b>8.</b></td>
+        <td>If any of the Terms herein is held to be invalid or unenforceable by the Court, the remaining provisions of these Terms shall remain effective.</td>
+    </tr>
+    <tr>
+        <td><b>9.</b></td>
+        <td>The Company shall reserve the right, at our sole discretion, to modify or replace these Terms at from time to time. </td>
+    </tr>
+    <tr>
+        <td><b>10.</b></td>
+        <td>You will be notified of any material revision of the above Terms within 30 days. The Company shall reserve the sole discretion to determine what constitute material change. By continuing to access or use The Company's Application after those revisions become effective, you are deemed to have agreed to be bound by the revised terms.</td>
+    </tr>
+    <tr>
+        <td><b>11.</b></td>
+        <td>The Terms herein shall be governed by the laws of Singapore, without regard to its conflict of law provisions. </td>
+    </tr>
+    
+</table>
+<p class="terms-text padding-top text-center"><i> Clockworksg.com reserves the right to change the Terms with or without notice from time to time.</i></p>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
 
-<footer style="background-color: white; color: black;">
-    
-<hr class="grey" style="background-color: white;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-xs-4">
-                <span class="copyright">Copyright &#169; Clockwork 2015</span>
-            </div>
-            <div class="col-md-4 col-xs-4">
-                <ul class="list-inline social-buttons text-center">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4 col-xs-4">
-                <ul class="list-inline quicklinks pull-right">
-                    <li><a href="/faq.jsp">FAQ</a>
-                    </li>
-                    <li><a href="#">Privacy Policy</a>
-                    </li>
-                    <li><a href="#">Terms of Use</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-    
+<jsp:include page="_anchor.jsp" />
 <jsp:include page="_footer.jsp" />

@@ -45,7 +45,11 @@
 
                                 </div>
 
-
+                                <div class="form-group form-group-lg col-md-12"> 
+                                    <div class="input-group text-center" style="display: block;"> 
+                                        <label id="terms_link"><input type="checkbox" name="tc-checkbox" required/> &nbsp; I agree to the <a href="/terms.jsp"> terms of use </a> and <a href="/privacy_policy.jsp"> privacy policy </a></label>
+                                    </div> 
+                                </div>
 
                                 <input type="hidden" name="account_type" value="employer">
                                 <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Create Account"/>
@@ -58,4 +62,5 @@
     </div>
 </header>
 <jsp:include page="_javascript_checker.jsp" />
+<jsp:include page="_anchor.jsp" />
 <jsp:include page="_footer.jsp" />
