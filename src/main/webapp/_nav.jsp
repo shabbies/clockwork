@@ -17,18 +17,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 
-                <% if (currentUser == null){ %>
-                <!--
-                <li><a class="page-scroll" href="/register_job_seeker.jsp">Work <i class="fa fa-fw fa-bell hidden"></i></a></li>
-                <li><a class="page-scroll" href="/create_post.jsp">Hire</a></li>
-                -->
-                <% } else {  %>
-                <% String link = (currentUser.getAccountType().equals("job_seeker"))? "/mydashboard.jsp": "/dashboard.jsp";%>
+                <% if (currentUser != null){
+                String link = (currentUser.getAccountType().equals("job_seeker"))? "/mydashboard.jsp": "/dashboard.jsp";%>
                 <li><a class="page-scroll" href="<%= link %>">My Dashboard</a></li>
-                    <% } %>
-                
+                <% } %>
+                <% if (currentUser == null) { %>
                 <li><a class="page-scroll" href="/howitworks.jsp">How it works</a></li>
+                <% } %>
+                <%  if (currentUser == null || currentUser.getAccountType().equals("employer")){ %>
                 <li><a class="page-scroll" href="/pricing.jsp">Pricing Plans</a></li>
+                <% } %>
                     <% if (currentUser == null){ %>
                 <li><button class="btn btn-primary wow tada" onclick="location.href='/login.jsp'">Login / Register</button></li>
                     <% } else {  %>
