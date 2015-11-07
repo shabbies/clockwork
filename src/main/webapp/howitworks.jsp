@@ -35,7 +35,7 @@
                             <dd>"Create an Account. It's easy!"</dd>
                             <div class="leftArrow" style="top: 100px;"></div>
                             <dt><i class="fa fa-pencil"></i> Create a job posting</dt>
-                            <dd>"Expect job seeekers to apply for your competitively priced job postings."</dd>
+                            <dd>"Expect job seekers to apply for your competitively priced job postings."</dd>
                             <div class="rightArrow" style="top:250px;"></div>
                             <dt><i class="fa fa-star"></i> Review applicants</dt>
                             <dd>"Find out who suits your company the most."</dd>

@@ -361,6 +361,24 @@ session.removeAttribute("matchMap");
             }  
         }
     });
+    
+    window.onbeforeunload = function() {
+        var before_nav_warning = false;
+        $(".user_comment").each(function() {
+            if($(this).val() !== ""){
+                before_nav_warning = true;
+            }
+        });
+        $(".score").each(function() {
+            alert($(this).data("score"));
+            if($(this).data("score") !== 2){
+                before_nav_warning = true;
+            }
+        });
+        if (before_nav_warning){
+            return "You have pending ratings / comments yet to submit!";
+        }
+    }
 </script>
     
     

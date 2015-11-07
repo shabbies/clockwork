@@ -54,7 +54,7 @@
                                     <label for="register-email" class="control-label">Email Address</label> 
                                     <div class="input-group"> 
                                         <div class="input-group-addon"><i class="fa fa-envelope fa-lg fa-fw"></i></div> 
-                                        <input id="register-email" class="form-control" type="email" placeholder="Email address" name="email" required> 
+                                        <input id="register-email" class="form-control" type="email" placeholder="Email Address" name="email" required> 
                                     </div> 
                                 </div>
 

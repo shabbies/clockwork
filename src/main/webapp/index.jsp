@@ -255,16 +255,9 @@ String jobDateString = jobDate.toString();
 
         // END SEARCH BAR CSS / JS
 
-        //AJAX FOR SEARCHING (FOR BOOKMARKING)
-
 </script>
 
 <hr class="grey grey-border">
 <jsp:include page="_anchor.jsp" />
 <jsp:include page="_footer.jsp" />
-
-
-
-
-
 

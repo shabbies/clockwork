@@ -19,7 +19,7 @@
                                     <label for="register-company" class="control-label">Company Name</label> 
                                     <div class="input-group"> 
                                         <div class="input-group-addon"><i class="fa fa-building fa-lg fa-fw"></i></div> 
-                                        <input id="register-company" class="form-control" type="text" placeholder="Company Name..." name="username" required> 
+                                        <input id="register-company" class="form-control" type="text" placeholder="Company Name" name="username" required> 
                                     </div> 
                                 </div>
 
