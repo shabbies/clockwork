@@ -157,11 +157,11 @@
             var start_date = new Date(job_details.data("cdate"));
             var end_date = new Date(job_details.data("cdateend"));
             start_date.setHours(0);
-            while (start_date <= end_date){
-                var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
-                calendar_dates[start_date_string] = {title: "", start: start_date_string, color: '#ee4054'};
-                start_date.setDate(start_date.getDate() + 1);
-            }
+            end_date.setDate(end_date.getDate() + 1);
+            
+            var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
+            var end_date_string = end_date.getFullYear() + "-" + ("0" + (end_date.getMonth() + 1)).slice(-2) + "-" + ("0" + end_date.getDate()).slice(-2);
+            
             $('#calendar').fullCalendar({
                 editable: false,
                 allDayDefault: true,
@@ -184,28 +184,14 @@
                                     var events = [];
                                     obj = JSON.parse(doc);
                                     $(obj).each(function() {
-                                        var title = $(this).attr('title');
-                                        var start = $(this).attr("job_date");
-                                        var color = $(this).attr("color");
-                                        calendar_dates[start] = {
-                                            title: "",
-                                            start: start,
-                                            color: color
-                                        };
+                                        var event_obj = new Object();
+                                        event_obj.title = $(this).attr('title');
+                                        event_obj.start = $(this).attr("job_date");
+                                        event_obj.end = $(this).attr("end_date");
+                                        event_obj.color = $(this).attr("color");
+                                        events.push(event_obj);
                                     });
-
-                                    var start_date = new Date(job_details.data("cdate"));
-                                    var end_date = new Date(job_details.data("cdateend"));
-                                    start_date.setHours(0);
-                                    while (start_date <= end_date){
-                                        var start_date_string = start_date.getFullYear() + "-" + ("0" + (start_date.getMonth() + 1)).slice(-2) + "-" + ("0" + start_date.getDate()).slice(-2);
-                                        calendar_dates[start_date_string] = {title: "", start: start_date_string, color: '#ee4054'};
-                                        start_date.setDate(start_date.getDate() + 1);
-                                    }
-
-                                    for (var key in calendar_dates){
-                                        events.push(calendar_dates[key]);
-                                    }
+                                    
                                     callback(events);
                                 },
                                 error: function(jqXHR, textStatus, errorThrown) {
@@ -228,10 +214,17 @@
                 <%  } %>
                 },
                 eventAfterRender: function(event, element, view) {
-                    $(element).css('height','30px');
+                    $(element).css('height','10px');
                     $(element).css('font-weight','700');
                 }
             });
+            
+            var new_event = new Object();
+            new_event.start = start_date_string;
+            new_event.end = end_date_string;
+            new_event.color = "#ee4054";
+            new_event.title = headerText;
+            $("#calendar").fullCalendar( 'renderEvent', new_event, true );
             
             $('#calendar').fullCalendar( 'gotoDate', new Date(job_details.data("cdate")));
             

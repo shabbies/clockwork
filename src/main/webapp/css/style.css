@@ -1043,6 +1043,10 @@ body {
     background-color: #028482;
 }
 
+.label-clash{
+    background-color: #38ACEC;
+}
+
 .fc-content{
     font-size: 80%;
 }
@@ -1704,6 +1708,15 @@ pre{
     text-transform: uppercase;
     font-family: 'Raleway', sans-serif;
     font-weight: 1000;
+}
+
+.quiz-unclickable{
+    pointer-events: none;
+}
+
+.quiz-greyed-out{
+    border: 5px solid #A9A9A9;
+    background: #DCDCDC;
 }
 
 .limited-event-banner{

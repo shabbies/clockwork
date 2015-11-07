@@ -114,6 +114,8 @@
                                 linkURL = "/listing.jsp?id=" + post_id;
                             } else if (content.indexOf("a new rating") !== -1){
                                 linkURL = "/all_ratings.jsp";
+                            } else if (content.indexOf("review") !== -1){
+                                linkURL = "/review_applicants.jsp?id=" + post_id;
                             } else {
                                 <% if (currentUser.getAccountType().equals("job_seeker")){%>
                                 linkURL = "/mydashboard.jsp";
