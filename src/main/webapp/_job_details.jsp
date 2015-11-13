@@ -198,20 +198,8 @@
                                     console.log(textStatus, errorThrown);
                                 }
                             });
-                    <%  } else { %>
-                            var events = [];
-                            for (var key in calendar_dates){
-                                events.push(calendar_dates[key]);
-                            }
-                            callback(events);
                     <%  }
-                    } else { %>
-                        var events = [];
-                        for (var key in calendar_dates){
-                            events.push(calendar_dates[key]);
-                        }
-                        callback(events);
-                <%  } %>
+                    } %>
                 },
                 eventAfterRender: function(event, element, view) {
                     $(element).css('height','10px');

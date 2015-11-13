@@ -104,9 +104,9 @@ String jobDateString = jobDate.toString();
                 </span>
             </div>
 
-            <div class="row">
+            <div class="row" style="position: absolute; bottom: 60px;">
                 <div class="col-xs-12">
-                    <h5 class="font-normal"><%=post.getDescription()%></h5>
+                    <h5 class="font-normal"><strong class="primary"><%=post.getDuration()%> day(s)</strong> Starting on <%=post.getJobDateString()%></h5>
                 </div>
             </div>
         </div>
