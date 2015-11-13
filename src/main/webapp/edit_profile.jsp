@@ -122,7 +122,7 @@
         
         <div class="panel panel-default">
           <div class="panel-body">
-                <div class="form-group col-sm-6 text-left col-md-offset-3"> 
+                <div class="form-group col-md-6 text-left col-md-offset-3"> 
                     <label for="referral_code" class="control-label">Referral Code</label> 
                     <input id="referral_code" class="form-control" value="<%=currentUser.getReferralID()%>" type="text" disabled> 
                 </div>
@@ -130,8 +130,8 @@
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     Link has been copied to your clipboard!
                 </div>
-              <input id="referral_link_copy" class="btn btn-lg btn-warning btn-srad" value="Copy Referral Link">
-              <a href="whatsapp://send" data-text="Take a look at this awesome website:" data-href="" class="wa_btn wa_btn_s">Share</a>
+              <input id="referral_link_copy" class="btn btn-lg btn-warning btn-srad visible-md-inline-block visible-lg-inline-block" value="Copy Referral Link">
+              <a href="whatsapp://send?text=http://www.mydomain.com" data-text="" data-href="" class="wa_btn wa_btn_s visible-xs-inline-block visible-sm-inline-block" style="display:none;">Share</a>
           </div>
         </div>
     </div>
