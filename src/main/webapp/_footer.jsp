@@ -9,6 +9,7 @@
 <script src="js/wow.min.js"></script>
 <script src="js/jquery.dotdotdot.min.js"></script>
 <script src="js/bootstrap-switch.js"></script>
+<script type="text/javascript"> if(typeof wabtn4fg==="undefined")   {wabtn4fg=1;h=document.head||document.getElementsByTagName("head")[0],s=document.createElement("script");s.type="text/javascript";s.src="/js/whatsapp.js";h.appendChild(s)}</script>
 
 <!-- Custom Theme JavaScript -->
 <script src="js/clockwork.js"></script>

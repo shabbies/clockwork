@@ -131,6 +131,7 @@
                     Link has been copied to your clipboard!
                 </div>
               <input id="referral_link_copy" class="btn btn-lg btn-warning btn-srad" value="Copy Referral Link">
+              <a href="whatsapp://send" data-text="Take a look at this awesome website:" data-href="" class="wa_btn wa_btn_s" style="display:none">Share</a>
           </div>
         </div>
     </div>

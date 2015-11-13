@@ -1233,7 +1233,7 @@ body {
 }
 #notificationsBody {
     /*padding: 10px 0px 0px 0px !important;  */
-    min-height:300px;
+    padding-bottom: 20px;
     max-height: 300px;
     overflow: scroll;
 }
@@ -1750,4 +1750,10 @@ pre{
 
 .padding-top{
     padding-top: 10px;
+}
+
+.unclickable{
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
 }
