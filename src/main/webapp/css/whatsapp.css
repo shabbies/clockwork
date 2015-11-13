@@ -17,7 +17,6 @@ body, html {
 .wa_btn {
     background-image: url('button.svg');
     border: 1px solid rgba(0, 0, 0, 0.1);
-    display: inline-block !important;
     position: relative;
     font-family: Arial, sans-serif;
     letter-spacing: .4px;
@@ -52,4 +51,16 @@ body, html {
     background-size: 20px;
     background-position: 5px 5px;
     padding: 8px 6px 8px 30px;
+}
+
+.wa_btn_l:hover,
+.wa_btn_l:visited,
+.wa_btn:hover,
+.wa_btn:visited,
+.wa_btn_s:hover,
+.wa_btn_s:visited,
+.wa_btn_m:hover,
+.wa_btn_m:visited {
+    text-decoration: none;
+    color: white;
 }
