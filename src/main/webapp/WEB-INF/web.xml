@@ -184,6 +184,22 @@
         <servlet-name>SendConfirmationEmailServlet</servlet-name>
         <servlet-class>servlet.SendConfirmationEmailServlet</servlet-class>
     </servlet>
+    <servlet>  
+        <servlet-name>GetAllApplicantsServlet</servlet-name>
+        <servlet-class>servlet.GetAllApplicantsServlet</servlet-class>
+    </servlet>
+    <servlet>  
+        <servlet-name>FavouriteUserServlet</servlet-name>
+        <servlet-class>servlet.FavouriteUserServlet</servlet-class>
+    </servlet>
+    <servlet>  
+        <servlet-name>UnfavouriteUserServlet</servlet-name>
+        <servlet-class>servlet.UnfavouriteUserServlet</servlet-class>
+    </servlet>
+    <servlet>  
+        <servlet-name>SendNotificationServlet</servlet-name>
+        <servlet-class>servlet.SendNotificationServlet</servlet-class>
+    </servlet>
 
 
 
@@ -339,5 +355,21 @@
     <servlet-mapping>
         <servlet-name>SendConfirmationEmailServlet</servlet-name>
         <url-pattern>/SendConfirmationEmailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetAllApplicantsServlet</servlet-name>
+        <url-pattern>/GetAllApplicantsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FavouriteUserServlet</servlet-name>
+        <url-pattern>/FavouriteUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnfavouriteUserServlet</servlet-name>
+        <url-pattern>/UnfavouriteUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendNotificationServlet</servlet-name>
+        <url-pattern>/SendNotificationServlet</url-pattern>
     </servlet-mapping>
 </web-app>    

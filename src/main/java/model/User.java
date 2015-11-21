@@ -3,6 +3,7 @@ package model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class User {
     private int id;
@@ -22,6 +23,7 @@ public class User {
     private String referralID;
     private int referredUsers;
     private boolean hasConfirmed;
+    private HashMap <String, Integer> scoreMap;
 
     public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating, String referralID, int referredUsers, boolean hasConfirmed) {
         this.id = id;
@@ -41,13 +43,31 @@ public class User {
         this.referralID = referralID;
         this.referredUsers = referredUsers;
         this.hasConfirmed = hasConfirmed;
+        scoreMap = null;
     }
 
-    public User(String email, String accountType) {
+    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating, String referralID, int referredUsers, boolean hasConfirmed, HashMap<String, Integer> scoreMap) {
+        this.id = id;
+        this.username = username;
         this.email = email;
         this.accountType = accountType;
-        username = null;
+        this.authenticationToken = authenticationToken;
+        this.address = address;
+        this.contactNumber = contactNumber;
+        this.dateOfBirth = dateOfBirth;
+        this.avatar = avatar;
+        this.nationality = nationality;
+        this.gender = gender;
+        this.badRating = badRating;
+        this.neutralRating = neutralRating;
+        this.goodRating = goodRating;
+        this.referralID = referralID;
+        this.referredUsers = referredUsers;
+        this.hasConfirmed = hasConfirmed;
+        this.scoreMap = scoreMap;
     }
+
+    
     
     public String getUsername() {
         return username;
@@ -176,5 +196,9 @@ public class User {
     
     public boolean getHasConfirmed(){
         return hasConfirmed;
+    }
+
+    public HashMap<String, Integer> getScoreMap() {
+        return scoreMap;
     }
 }

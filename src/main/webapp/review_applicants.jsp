@@ -10,7 +10,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 
-<%@ page buffer="16kb" %>
+<%@ page buffer="32kb" %>
 <%  String postID = request.getParameter("id");
 ArrayList <User> hiredList = (ArrayList <User>)session.getAttribute("hiredList");
 ArrayList <User> completedList = (ArrayList <User>)session.getAttribute("completedList");
@@ -74,8 +74,9 @@ session.removeAttribute("matchMap");
                 <tbody> 
                     <%  if (hiredList.size() > 0){   
                             for (User user : hiredList){ 
+                                HashMap <String, Integer> scoreMap = user.getScoreMap();
                                 Match match = matchMap.get(user.getId());%>
-                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"> 
+                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'> 
                                     <td><%=user.getUsername()%></td>
                                     <td>Completed</td>
                                     <td align="center">
@@ -118,8 +119,9 @@ session.removeAttribute("matchMap");
                 <tbody> 
                     <%  if (completedList.size() > 0){   
                             for (User user : completedList){ 
+                            HashMap <String, Integer> scoreMap = user.getScoreMap();
                             Match match = matchMap.get(user.getId());%>
-                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"> 
+                                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'> 
                                     <td><%=user.getUsername()%></td>
                                     <td>Reviewed</td>
                                     <td align="left">

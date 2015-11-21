@@ -260,4 +260,12 @@ public class PostManager {
             retrievedList.remove(post);
         }
     }
+    
+    public ArrayList <Post> getApplicableJobs(){
+        ArrayList <Post> returnList = new ArrayList <Post> ();
+        returnList.addAll(publishedMap.get("listed"));
+        returnList.addAll(publishedMap.get("applied"));
+        
+        return returnList;
+    }
 }
