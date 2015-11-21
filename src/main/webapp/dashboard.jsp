@@ -14,15 +14,6 @@ if (publishedList == null){ %>
 <jsp:forward page="/GetAllListedJobsServlet" />
 <%} else { 
 session.removeAttribute("publishedList");
-}       
-if (currentUser == null){
-session.setAttribute("error", "Please login or register first before viewing your job applications!");
-response.sendRedirect("/login.jsp");
-return;
-} else if (!currentUser.getAccountType().equals("employer")){
-session.setAttribute("error", "Only employers can view job applications!");
-response.sendRedirect("/index.jsp");
-return;
 }%>
 
 <header class="main">

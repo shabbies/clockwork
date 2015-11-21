@@ -17,7 +17,7 @@
                 <span>What would you like to do today?</span>
             </div>
             <a href="/edit_profile.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-plus"></i> Update My Profile</a>
-            <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-male"></i> View my past employees</a>
+            <a href="/applicant_history.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-male"></i> View my past employees</a>
             <a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-book"></i> View my Achived Jobs</a>
         </div>
     </div>

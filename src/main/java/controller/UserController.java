@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import model.ApplicantHistory;
 import model.Badge;
 import model.BadgeManager;
 import model.Question;
@@ -107,5 +108,9 @@ public class UserController {
     
     public ArrayList <Question> loadQuestionList(String JSONString){
         return questionManager.loadQuestionsList(JSONString);
+    }
+    
+    public ArrayList <ApplicantHistory> loadApplicantHistoryList(String JSONString){
+        return userManager.loadApplicantHistoryList(JSONString);
     }
 }
