@@ -72,7 +72,7 @@
             <%=history.getStatus()%>
         </td>
         <td>
-            <button class="btn btn-accept btn-srad col-md-6 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Invite to Job 
+            <button class="btn btn-accept btn-srad dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Invite to Job 
                 <i class="fa fa-arrow-circle-right"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-right invitejob-dropdown-menu">
