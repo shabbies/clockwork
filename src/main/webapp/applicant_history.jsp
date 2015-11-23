@@ -154,7 +154,8 @@
             success: function(resultString) {
                 $("#message").html(resultString);
                 $("#message").parent().show();
-                $(".dropdown-menu").hide();
+                $(".dropdown-toggle").attr("aria-expanded", false);
+                $(".dropdown-toggle").parent().removeClass("open");
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);

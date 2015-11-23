@@ -19,7 +19,7 @@
             </a>
         </div>
         <div class="col-xs-4 text-center quiz-takeorder"> 
-            <a href="quiz/take_order" class="col-xs-12 text-left quiz-inner incomplete">
+            <a href="GetQuizServlet?type=order_taking" class="col-xs-12 text-left quiz-inner">
                 <img src="img/menus1.png" class="quiz-takeorder-icon quiz-icon col-xs-4"/>
                 <h3 class="col-xs-8 inner-words">
                     <div>Order Taking</div>
@@ -28,7 +28,7 @@
             </a>
         </div>
         <div class="col-xs-4 text-center quiz-barista"> 
-            <a href="quiz/barista" class="col-xs-12 text-left quiz-inner incomplete">
+            <a href="GetQuizServlet?type=barista" class="col-xs-12 text-left quiz-inner">
                 <img src="img/tea24.png" class="quiz-barista-icon quiz-icon col-xs-4"/>
                 <h3 class="col-xs-8 inner-words">
                     <div>Barista</div>
@@ -37,7 +37,7 @@
             </a>
         </div>
         <div class="col-xs-4 text-center quiz-selling"> 
-            <a href="quiz/selling" class="col-xs-12 text-left quiz-inner incomplete">
+            <a href="GetQuizServlet?type=selling" class="col-xs-12 text-left quiz-inner">
                 <img src="img/speaker15.png" class="quiz-selling-icon quiz-icon col-xs-4"/>
                 <h3 class="col-xs-8 inner-words">
                     <div>Selling</div>
@@ -46,7 +46,7 @@
             </a>
         </div>
         <div class="col-xs-4 text-center quiz-kitchen"> 
-            <a href="quiz/kitchen" class="col-xs-12 text-left quiz-inner incomplete">
+            <a href="GetQuizServlet?type=kitchen" class="col-xs-12 text-left quiz-inner">
                 <img src="img/chef19.png" class="quiz-kitchen-icon quiz-icon col-xs-4"/>
                 <h3 class="col-xs-8 inner-words">
                     <div>Kitchen</div>
@@ -55,7 +55,7 @@
             </a>
         </div>
         <div class="col-xs-4 text-center quiz-bartender"> 
-            <a href="quiz/bartender" class="col-xs-12 text-left quiz-inner incomplete">
+            <a href="GetQuizServlet?type=bartender" class="col-xs-12 text-left quiz-inner">
                 <img src="img/drink24.png" class="quiz-bartender-icon quiz-icon col-xs-4"/>
                 <h3 class="col-xs-8 inner-words">
                     <div>Bartender</div>
@@ -64,7 +64,7 @@
             </a>
         </div>
         <div class="col-xs-4 text-center quiz-service"> 
-            <a href="quiz/serice" class="col-xs-12 text-left quiz-inner incomplete">
+            <a href="GetQuizServlet?type=service" class="col-xs-12 text-left quiz-inner">
                 <img src="img/covered16.png" class="quiz-service-icon quiz-icon col-xs-4"/>
                 <h3 class="col-xs-8 inner-words">
                     <div>Service</div>
@@ -73,7 +73,7 @@
             </a>
         </div>
         <div class="col-xs-4 text-center quiz-cashier"> 
-            <a href="quiz/cashier" class="col-xs-12 text-left quiz-inner incomplete">
+            <a href="GetQuizServlet?type=cashier" class="col-xs-12 text-left quiz-inner">
                 <img src="img/cashier3.png" class="quiz-cashier-icon quiz-icon col-xs-4"/>
                 <h3 class="col-xs-8 inner-words">
                     <div>Cashier</div>
