@@ -47,6 +47,9 @@ $('.form_complete_profile').on('submit', function() {
         return false;
     }
     
+    if($(".dob-error").attr("style") !== "display:none;"){
+        return false;
+    }
 });
 
 function isNumber(evt) {

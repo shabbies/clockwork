@@ -122,7 +122,7 @@
         
         <div class="panel panel-default">
           <div class="panel-body">
-                <div class="form-group col-sm-6 text-left col-md-offset-3"> 
+                <div class="form-group col-md-6 text-left col-md-offset-3"> 
                     <label for="referral_code" class="control-label">Referral Code</label> 
                     <input id="referral_code" class="form-control" value="<%=currentUser.getReferralID()%>" type="text" disabled> 
                 </div>
@@ -130,7 +130,8 @@
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     Link has been copied to your clipboard!
                 </div>
-              <input id="referral_link_copy" class="btn btn-lg btn-warning btn-srad" value="Copy Referral Link">
+              <input id="referral_link_copy" class="btn btn-lg btn-warning btn-srad visible-md-inline-block visible-lg-inline-block" value="Copy Referral Link">
+              <a href="whatsapp://send" data-text="How are you spending this holiday? Sign up at Clockwork to find a short job now! " data-href="http://www.clockworksg.com/register_job_seeker.jsp?rf=<%=currentUser.getReferralID()%>" class="btn btn-lg btn-whatsapp btn-srad"><i class="fa fa-whatsapp"></i>  Share</a>
           </div>
         </div>
     </div>

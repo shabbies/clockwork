@@ -40,7 +40,7 @@ int id = question.getId();
         </div>
     </div>
 </div>
-            
+
 <div id="choice_a" class="panel panel-default col-md-6 quiz-unselected-answer quiz-choice" data-choice="a">
     <div class="panel-body">
         <div class="col-xs-1 quiz-question quiz-answer">A</div>
@@ -116,6 +116,10 @@ int id = question.getId();
     $("#submit").click(function(){
         if (selected_answer === ""){
             selected_answer = $(this).data("answer");
+            if(selected_answer === ""){
+                alert("Please select an answer before proceeding!");
+                return false;
+            }
             var correct_answer = "<%=question.getAnswer()%>";
             if (selected_answer !== correct_answer){
                 $("#choice_" + correct_answer).addClass("quiz-selected-answer");
@@ -128,6 +132,12 @@ int id = question.getId();
                 score++;
                 correct_questions += qid + ",";
             }
+            $(".quiz-choice").each(function(){
+                $(this).addClass("quiz-unclickable");
+                if (!($(this).hasClass("quiz-selected-answer") || $(this).hasClass("wrong-answer"))){
+                    $(this).addClass("quiz-greyed-out");
+                }
+            });
             $("#submit").addClass("hidden");
             $("#next").removeClass("hidden");
         } else {

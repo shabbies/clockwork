@@ -75,4 +75,8 @@ public class PostController {
         Post post = getPost(postID);
         return postManager.checkIfJobApplied(post);
     }
+    
+    public ArrayList <Post> getApplicableJobs(){
+        return postManager.getApplicableJobs();
+    }
 }

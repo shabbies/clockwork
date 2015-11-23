@@ -37,6 +37,10 @@ public class APIManager {
     String EPQuiz = "/api/v1/gamify/get_quiz";
     String EPRecordQuiz = "/api/v1/gamify/record_quiz";
     String EPSendConfirmationEmail = "/api/v1/users/send_confirmation_email";
+    String EPAllApplicants = "/api/v1/users/get_applicants";
+    String EPFavouriteUser = "/api/v1/users/favourite";
+    String EPUnfavouriteUser = "/api/v1/users/unfavourite";
+    String EPSendNotification = "/api/v1/notifications/send_notification";
     
     public APIManager(String mode){
         if (mode.equals("production")){
@@ -190,6 +194,22 @@ public class APIManager {
     
     public String getEPSendConfirmationEmail(){
         return prefix + EPSendConfirmationEmail;
+    }
+    
+    public String getEPAllApplicants(){
+        return prefix + EPAllApplicants;
+    }
+    
+    public String getEPFavouriteUser(){
+        return prefix + EPFavouriteUser;
+    }
+    
+    public String getEPUnfavouriteUser(){
+        return prefix + EPUnfavouriteUser;
+    }
+    
+    public String getEPSendNotification(){
+        return prefix + EPSendNotification;
     }
     
     public String getPrefix(){

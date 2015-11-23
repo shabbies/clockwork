@@ -115,7 +115,7 @@
     <div class="form-group col-sm-6 text-left"> 
         <label for="dob-date" class="control-label">Date of Birth*</label> 
         <div class="input-group"> 
-            <div class="input-group-addon"><i class="fa fa-calendar fa-lg fa-fw" id="dob-date-icon"></i></div> 
+            <div class="input-group-addon" id="dob-icon"><i class="fa fa-calendar fa-lg fa-fw" id="dob-date-icon"></i></div> 
                 <% if (currentUser.getDateOfBirth() == null){ %>
             <input id="dob-date" class="form-control" type="text" name="dob_date" required> 
             <% } else { %>
@@ -173,6 +173,16 @@
             $("#dob-date").css("box-shadow", "none");
             $(".dob-error").removeAttr("style");
             $("#dob-date").val("");
+            $("#dob-icon").css("border", "1px solid #ee4054");
+            $("#dob-icon").css("background-color", "#ee4054");
+            $("#dob-icon").css("color", "#fff");
+        } else {
+            $("#dob-icon").css("border", "");
+            $("#dob-icon").css("background-color", "");
+            $("#dob-icon").css("color", "");
+            $("#dob-date").css("border", "" );
+            $("#dob-date").css("box-shadow", "");
+            $(".dob-error").attr("style", "display:none;");
         }
     }); 
     

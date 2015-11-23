@@ -1,7 +1,7 @@
 package servlet;
 
 import controller.AppController;
-import controller.PostController;
+import controller.UserController;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -14,14 +14,12 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import java.io.StringWriter;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import model.APIManager;
-import model.Post;
+import model.ApplicantHistory;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
@@ -29,7 +27,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
-public class GetAllListedJobsServlet extends HttpServlet {
+public class GetAllApplicantsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -41,8 +39,8 @@ public class GetAllListedJobsServlet extends HttpServlet {
         String token = currentUser.getAuthenticationToken();
         AppController appController = (AppController)session.getAttribute("appController");
         APIManager apiManager = appController.getAPIManager();
-        String URL = apiManager.getEPListedJobs();
-        PostController postController = appController.getPostController();
+        String URL = apiManager.getEPAllApplicants();
+        UserController userController = appController.getUserController();
         
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(URL);
@@ -54,32 +52,22 @@ public class GetAllListedJobsServlet extends HttpServlet {
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
 
         HttpEntity entity = null;
-        ArrayList <Post> publishedList = null;
-        try {
-            entity = httpResponse.getEntity();
-            StringWriter writer = new StringWriter();
-            InputStream readingStream = entity.getContent();
-            IOUtils.copy(readingStream, writer, "UTF-8");
-            String responseString = writer.toString();
-            if(httpResponse.getStatusLine().getStatusCode() == 200){
-                publishedList = postController.loadPublishedPostList(responseString);
-            } else {
-                String error = "A system error has occurred, please try again";
-                session.setAttribute("error", error);
-                response.sendRedirect("/index.jsp");
-                return;
-            }
-        } catch (ParseException e){
-            String error = "A system error has occurred, please contact the administrator";
+        ArrayList <ApplicantHistory> applicantHistoryList = null;
+        entity = httpResponse.getEntity();
+        StringWriter writer = new StringWriter();
+        InputStream readingStream = entity.getContent();
+        IOUtils.copy(readingStream, writer, "UTF-8");
+        String responseString = writer.toString();
+        if(httpResponse.getStatusLine().getStatusCode() == 200){
+            applicantHistoryList = userController.loadApplicantHistoryList(responseString);
+        } else {
+            String error = "A system error has occurred, please try again";
             session.setAttribute("error", error);
             response.sendRedirect("/index.jsp");
             return;
-        } finally {
-            EntityUtils.consume(entity);
-            httpResponse.close();
         }
-        session.setAttribute("publishedList", publishedList);
-        response.sendRedirect("/dashboard.jsp");
+        session.setAttribute("applicantHistoryList", applicantHistoryList);
+        response.sendRedirect("/applicant_history.jsp");
     }
 
 }

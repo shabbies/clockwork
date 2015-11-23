@@ -8,6 +8,14 @@
 String genre = (String)session.getAttribute("genre");
 HashMap <String, String> nameMap = new HashMap <String, String> ();
 nameMap.put("clean_up", "Clean Up");
+nameMap.put("order_taking", "Order Taking");
+nameMap.put("barista", "Barista");
+nameMap.put("selling", "Selling");
+nameMap.put("kitchen", "Kitchen");
+nameMap.put("bartender", "Bartender");
+nameMap.put("service", "Service");
+nameMap.put("cashier", "Cashier");
+
 
 session.removeAttribute("question1");
 session.removeAttribute("question2");

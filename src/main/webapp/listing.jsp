@@ -6,7 +6,8 @@
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
 <%@ page import="java.util.ArrayList" %>
-<%@ page buffer="16kb" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page buffer="32kb" %>
 <%  String postID = request.getParameter("id");
 appController = (AppController)session.getAttribute("appController");
 ArrayList <User> applicantList = (ArrayList <User>)session.getAttribute("applicantList");
@@ -73,8 +74,9 @@ session.removeAttribute("offeredList");}%>
                 <%  if (applicantList != null){
                         if (applicantList.size() > 0){   
                             for (User user : applicantList){ 
-                                applicantListUID.add(user.getId());%>
-                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">  
+                                applicantListUID.add(user.getId());
+                                HashMap <String, Integer> scoreMap = user.getScoreMap();%>
+                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'>  
                     <td><%=user.getUsername()%></td>
                     <td>
                         <div class="ratings">
@@ -122,9 +124,10 @@ session.removeAttribute("offeredList");}%>
 
                 <% if (offeredList != null){ %>
                 <% if (offeredList.size() > 0) {%>
-                <% for (User user : offeredList){ %>
+                <% for (User user : offeredList){ 
+                HashMap <String, Integer> scoreMap = user.getScoreMap();%>
 
-                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">  
+                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'>  
                     <td><%=user.getUsername()%></td>
                     <td>
                         <div class="ratings">
@@ -169,9 +172,9 @@ session.removeAttribute("offeredList");}%>
             <tbody> 
                 <% if (hiredList != null){ %>
                 <% if (hiredList.size() > 0){ %>
-                <% for (User user : hiredList){ %>
-
-                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">
+                <% for (User user : hiredList){ 
+                HashMap <String, Integer> scoreMap = user.getScoreMap();%>
+                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'>
                     <td><%=user.getUsername()%></td>
                     <td>
                         <div class="ratings">

@@ -689,10 +689,30 @@ fieldset[disabled] .btn-primary.active {
 .btn-facebook.focus,
 .btn-facebook:active,
 .btn-facebook.active,
-.open > .dropdown-toggle.btn-primary {
+.open > .dropdown-toggle.btn-facebook {
     border-color: #355088;
     color: #fff;
     background-color: #355088;
+}
+
+.btn-whatsapp{
+    border-color: #4ec7c4;
+    color: white;
+    background-color: #4ec7c4;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+}
+
+.btn-whatsapp:hover,
+.btn-whatsapp:focus,
+.btn-whatsapp.focus,
+.btn-whatsapp:active,
+.btn-whatsapp.active,
+.open > .dropdown-toggle.btn-whatsapp {
+    border-color: #3A9492;
+    color: #fff;
+    background-color: #3A9492;
 }
 
 .btn-reject {
@@ -1043,6 +1063,10 @@ body {
     background-color: #028482;
 }
 
+.label-clash{
+    background-color: #38ACEC;
+}
+
 .fc-content{
     font-size: 80%;
 }
@@ -1229,7 +1253,7 @@ body {
 }
 #notificationsBody {
     /*padding: 10px 0px 0px 0px !important;  */
-    min-height:300px;
+    padding-bottom: 20px;
     max-height: 300px;
     overflow: scroll;
 }
@@ -1276,6 +1300,7 @@ body {
     border-radius: 4px;
     display: inline-block;
     width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 
@@ -1706,6 +1731,15 @@ pre{
     font-weight: 1000;
 }
 
+.quiz-unclickable{
+    pointer-events: none;
+}
+
+.quiz-greyed-out{
+    border: 5px solid #A9A9A9;
+    background: #DCDCDC;
+}
+
 .limited-event-banner{
     height: 150px;
     position: absolute;
@@ -1738,3 +1772,48 @@ pre{
 .padding-top{
     padding-top: 10px;
 }
+
+.unclickable{
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+}
+
+.table-users{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.table-users td{
+    vertical-align: middle !important;
+}
+
+.fav-star{
+    color: #DCDCDC;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.fav-star:active,
+.fav-star:hover,
+.fav-star:target{
+    color: #FBB917;
+    transform: scale(1.4);
+}
+
+.fav-star-selected{
+    color: #FBB917;
+    cursor: pointer;
+}
+
+.invitejob-dropdown-menu{
+    top: inherit;
+}
+
+.invitejob-dropdown-text{
+    font-size: small;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
