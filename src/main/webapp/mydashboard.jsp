@@ -41,7 +41,7 @@ session.getAttribute("completedJobsList");
                         <th>Job</th>
                         <th>Company</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th class="hidden-xs">Action</th>
                     </tr>
                 </thead>
 
@@ -70,20 +70,32 @@ session.getAttribute("completedJobsList");
                         <td><%=post.getHeader()%></td>
                         <td><%=post.getCompany()%></td>
                         <% if (status.equals("pending")) {%>
-                            <td><span class="badge db-default-badge">Pending</span></td>
-                            <td><a class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>">Withdraw</a></td>
-                        <% } else if (status.equals("offered")){ %>
-                            <td><span class="badge db-default-badge offered">Offered</span></td>
                             <td>
+                                <span class="badge db-default-badge">Pending</span>
+                                <a class="btn btn-primary withdraw-job visible-xs" data-postid="<%=post.getId()%>">Withdraw</a>
+                            </td>
+                            <td class="hidden-xs"><a class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>">Withdraw</a></td>
+                        <% } else if (status.equals("offered")){ %>
+                            <td>
+                                <span class="badge db-default-badge offered">Offered</span>
+                                <div class="btn-group visible-xs" role="group" aria-label="...">
+                                    <a class="btn btn-accept accept-job" style="width: 75px;" data-postid="<%=post.getId()%>">Accept</a>
+                                    <a class="btn btn-reject withdraw-job" style="width: 75px;" data-postid="<%=post.getId()%>">Reject</a>
+                                </div>
+                            </td>
+                            <td class="hidden-xs">
                                 <div class="btn-group" role="group" aria-label="...">
                                     <a class="btn btn-accept accept-job" style="width: 75px;" data-postid="<%=post.getId()%>">Accept</a>
                                     <a class="btn btn-reject withdraw-job" style="width: 75px;" data-postid="<%=post.getId()%>">Reject</a>
                                 </div>
                                 <!--<a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a>-->
                             </td>
-                        <% } else {%>
-                            <td><span class="badge db-default-badge success">Hired</span></td>
-                            <td><button class="btn btn-warning" id="open-jobModal">Job Details</button></td>
+                        <% } else { %>
+                            <td>
+                                <span class="badge db-default-badge success">Hired</span>
+                                <button class="btn btn-warning visible-xs" id="open-jobModal">Job Details</button>
+                            </td>
+                            <td class="hidden-xs"><button class="btn btn-warning" id="open-jobModal">Job Details</button></td>
                         <% } %>
                     </tr>  
                         <% }

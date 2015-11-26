@@ -138,7 +138,7 @@ if (postController.getEmployerReviewingJobs().size() != 0){
                     <div class="input-group-addon pay-type-selector btn-warning" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" id="day">
                         <strong>/day</strong>
                     </div>
-                    <input id="pay-switch" type="checkbox" class="switch" name="pay-type" data-on-text="/hour" data-off-text="/day" checked hidden/>
+                    <input id="pay-switch" type="checkbox" class="switch form-group" name="pay-type" data-on-text="/hour" data-off-text="/day" checked hidden/>
                 </div> 
             </div>
         </tr>
