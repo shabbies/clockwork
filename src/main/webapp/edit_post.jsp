@@ -95,7 +95,7 @@
                         <div class="input-group-addon pay-type-selector btn-warning" style="border-top-right-radius: 4px; border-bottom-right-radius: 4px;" id="day">
                             <strong>/day</strong>
                         </div>
-                        <input id="pay-switch" type="checkbox" class="switch" name="pay-type" data-on-text="/hour" data-off-text="/day" checked hidden/>
+                        <input id="pay-switch" type="checkbox" class="form-group switch" name="pay-type" data-on-text="/hour" data-off-text="/day" checked hidden/>
                     </div> 
                 </div>
                 <!--<div class="form-group form-group-lg col-md-6 text-left"> 

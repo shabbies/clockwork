@@ -60,7 +60,6 @@ public class CreatePostServlet extends HttpServlet {
         String jobDateString = (String)request.getParameter("job_date");
         String startDateString = jobDateString.substring(0, jobDateString.indexOf("-") - 1);
         String endDateString = jobDateString.substring(jobDateString.indexOf("-") + 2);
-//        String endDateString = (String)request.getParameter("job_end");
         String payType = "hour"; // on or null
         if (request.getParameter("pay-type") == null){
             payType = "day";
@@ -135,7 +134,6 @@ public class CreatePostServlet extends HttpServlet {
             InputStream readingStream = entity.getContent();
             IOUtils.copy(readingStream, writer, "UTF-8");
             String responseString = writer.toString();
-            System.out.println(responseString);
             String error = null;
             switch (statusCode){
                 case 401:
