@@ -132,6 +132,7 @@
                 </div>
               <input id="referral_link_copy" class="btn btn-lg btn-warning btn-srad hidden-xs" value="Copy Referral Link">
               <a href="whatsapp://send" data-text="How are you spending this holiday? Sign up at Clockwork to find a short job now! " data-href="http://www.clockworksg.com/register_job_seeker.jsp?rf=<%=currentUser.getReferralID()%>" class="btn btn-lg btn-whatsapp btn-srad visible-xs"><i class="fa fa-whatsapp"></i>  Share</a>
+              <a href="whatsapp://send" data-text="Take a look at this awesome website:" data-href="" class="wa_btn wa_btn_s">Share</a>
           </div>
         </div>
     </div>
