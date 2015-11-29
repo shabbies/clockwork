@@ -695,7 +695,7 @@ fieldset[disabled] .btn-primary.active {
     background-color: #355088;
 }
 
-.btn-whatsapp{
+.wa_btn{
     border-color: #4ec7c4;
     color: white;
     background-color: #4ec7c4;
@@ -704,12 +704,12 @@ fieldset[disabled] .btn-primary.active {
     transition: all .35s;
 }
 
-.btn-whatsapp:hover,
-.btn-whatsapp:focus,
-.btn-whatsapp.focus,
-.btn-whatsapp:active,
-.btn-whatsapp.active,
-.open > .dropdown-toggle.btn-whatsapp {
+.wa_btn:hover,
+.wa_btn:focus,
+.wa_btn.focus,
+.wa_btn:active,
+.wa_btn.active,
+.open > .dropdown-toggle.wa_btn {
     border-color: #3A9492;
     color: #fff;
     background-color: #3A9492;
