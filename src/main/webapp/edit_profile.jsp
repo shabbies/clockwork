@@ -131,7 +131,7 @@
                     Link has been copied to your clipboard!
                 </div>
               <input id="referral_link_copy" class="btn btn-lg btn-warning btn-srad hidden-xs" value="Copy Referral Link">
-              <a href="whatsapp://send" data-text="How are you spending this holiday? Sign up at Clockwork to find a short job now! " data-href="http://www.clockworksg.com/register_job_seeker.jsp?rf=<%=currentUser.getReferralID()%>" class="btn btn-lg btn-whatsapp btn-srad visible-xs wa_btn wa_btn_s"><i class="fa fa-whatsapp"></i>  Share</a>
+              <a href="whatsapp://send" data-text="How are you spending this holiday? Sign up at Clockwork to find a short job now! " data-href="http://www.clockworksg.com/register_job_seeker.jsp?rf=<%=currentUser.getReferralID()%>" class="btn btn-lg btn-whatsapp btn-srad wa_btn wa_btn_s"><i class="fa fa-whatsapp"></i>  Share</a>
           </div>
         </div>
     </div>
