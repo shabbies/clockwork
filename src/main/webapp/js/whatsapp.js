@@ -90,7 +90,7 @@
      */
     WASHAREBTN.prototype.addStyling = function () {
         var s = document.createElement("style"),
-            c = "[[minified_css]]";
+            c = ".wa_btn{border-color:#4ec7c4;color:#fff;background-color:#4ec7c4;-webkit-transition:all .35s;-moz-transition:all .35s;transition:all .35s}.open>.dropdown-toggle.wa_btn,.wa_btn.active,.wa_btn.focus,.wa_btn:active,.wa_btn:focus,.wa_btn:hover{border-color:#3A9492;color:#fff;background-color:#3A9492}";
 
         s.type = "text/css";
         if (s.styleSheet) {
