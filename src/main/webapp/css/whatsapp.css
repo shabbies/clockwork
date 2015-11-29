@@ -1,0 +1,35 @@
+/**
+ * WhatsApp Sharing Button
+ * https://github.com/kriskbx/whatsapp-sharing/
+ *
+ * Copyright (c) 2015 by Kris Siepert
+ *
+ * Licensed under the MIT license.
+ */
+
+body, html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.wa_btn{
+    border-color: #4ec7c4;
+    color: white;
+    background-color: #4ec7c4;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+}
+
+.wa_btn:hover,
+.wa_btn:focus,
+.wa_btn.focus,
+.wa_btn:active,
+.wa_btn.active,
+.open > .dropdown-toggle.wa_btn {
+    border-color: #3A9492;
+    color: #fff;
+    background-color: #3A9492;
+}
