@@ -90,7 +90,7 @@
      */
     WASHAREBTN.prototype.addStyling = function () {
         var s = document.createElement("style"),
-            c = "[[minified_css]]";
+            c = ".wa_btn{border-color:#4ec7c4;color:#fff;background-color:#4ec7c4;transition:all .35s;font-family:Raleway,sans-serif;-webkit-font-smoothing:antialiased}.btn-srad{border-radius:4px}.btn{border:0;text-transform:uppercase;font-weight:900;display:inline-block;margin-bottom:0;text-align:center;white-space:nowrap;vertical-align:middle;touch-action:manipulation;cursor:pointer;user-select:none;background-image:none}.btn-group-lg>.btn,.btn-lg{padding:10px 16px;font-size:18px;line-height:1.3333333}a{text-decoration:none}";
 
         s.type = "text/css";
         if (s.styleSheet) {
@@ -98,6 +98,16 @@
         } else {
             s.appendChild(document.createTextNode(c));
         }
+        return s;
+    };
+    
+    WASHAREBTN.prototype.addFont = function () {
+        var s = document.createElement("style"),
+            href = "https://fonts.googleapis.com/css?family=Raleway:400,800,600,500,700,300,200,100,900";
+
+        s.type = "text/css";
+        s.href = href;
+        
         return s;
     };
 
@@ -134,8 +144,8 @@
     WASHAREBTN.prototype.setIframeAttributes = function (b) {
         var i = document.createElement('iframe');
 
-        i.width = 1;
-        i.height = 1;
+        i.width = 250;
+        i.height = 50;
         i.button = b;
         i.style.border = 0;
         i.style.overflow = "hidden";
@@ -155,6 +165,7 @@
         return function () {
             this.contentDocument.body.appendChild(this.button);
             this.contentDocument.getElementsByTagName('head')[0].appendChild(root.WASHAREBTN.addStyling());
+            this.contentDocument.getElementsByTagName('head')[0].appendChild(root.WASHAREBTN.addFont());
 
             var meta = document.createElement('meta');
             meta.setAttribute('charset', 'utf-8');
