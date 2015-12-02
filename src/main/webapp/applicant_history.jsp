@@ -50,6 +50,7 @@
     <% User user = history.getUser();
         HashMap <String, Integer> scoreMap = user.getScoreMap();
         String avatar = user.getAvatar();
+        ArrayList <Integer> ongoingJobs = history.getOngoingJobs();
         if (avatar == null){ avatar = "img/user-placeholder.jpg";}%>
     <tr class="open-profileModal" data-id="<%=user.getId()%>" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'>  
         <% if (history.isFavourite()){ %>
@@ -78,9 +79,11 @@
             <ul class="dropdown-menu dropdown-menu-right invitejob-dropdown-menu">
                 <li class="invitejob-dropdown-text">Select a job below to invite</li>
                 <li role="separator" class="divider"></li>
-                <% for (Post post : postList) { %>
-                <li><a href="#" data-id="<%=post.getId()%>" class="post_id"><%=post.getHeader()%></a></li>
-                <% } %>
+                <%  for (Post post : postList) { 
+                        if (!ongoingJobs.contains(post.getId())){%> 
+                            <li><a href="#" data-id="<%=post.getId()%>" class="post_id"><%=post.getHeader()%></a></li>
+                    <%  } %> 
+                <%  } %>
             </ul>
         </td>
     </tr>

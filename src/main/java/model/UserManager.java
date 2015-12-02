@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -112,9 +113,15 @@ public class UserManager {
         for (HashMap <String, Object> historyHash : historyList){
             String status = (String)historyHash.get("status");
             boolean isFavourite = (Boolean)historyHash.get("is_favourite");
+            ArrayList <Integer> ongoingJobs = new ArrayList <Integer> ();
+            ArrayList <Double> ongoingJobsFloat = (ArrayList <Double>)historyHash.get("ongoing_jobs");
+            for (Double ongoing : ongoingJobsFloat){
+                int each = ongoing.intValue();
+                ongoingJobs.add(each);
+            }
             String historyString = gson.toJson(historyHash);
             User user = createUserFromJSON(historyString);
-            ApplicantHistory applicantHistory = new ApplicantHistory(user, status, isFavourite);
+            ApplicantHistory applicantHistory = new ApplicantHistory(user, status, isFavourite, ongoingJobs);
             applicantHistoryList.add(applicantHistory);
         }
         return applicantHistoryList;

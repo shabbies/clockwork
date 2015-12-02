@@ -34,19 +34,20 @@ session.removeAttribute("scoreMap");}%>
                 </thead>
 
                 <tbody> 
-                    <% for (String key : scoreMap.keySet()) {%>
+                    <% for (String key : scoreMap.keySet()) {
+                        String quizExt = key.replaceAll(" ", "_").toLowerCase();%>
                     <tr>
                         <td><%=key%></td>
                         <td><%=scoreMap.get(key)%></td>
                         <td>
-                            <a href="/improve.jsp" class="btn btn-primary incomplete"> Improve </a>
+                            <a href="/GetQuizServlet?type=<%=quizExt%>" class="btn btn-primary"> Do <%=key%> quizzes! </a>
                         </td>
                     </tr>
                     <% } %>
                 </tbody>
             </table>
             <div>
-                <a href="/gamify_categories.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Improve your Score!</a>
+                <a href="/gamify_categories.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Do quizzes!</a>
                 <a href="/badges.jsp" class="btn btn-warning"> <i class="fa fa-fw fa-trophy"></i>View My Badges </a>
             </div>
         </div> 
