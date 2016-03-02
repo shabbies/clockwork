@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" href="/index.jsp">clockwork</a>
+            <a class="navbar-brand page-scroll" href="/index.jsp">Workiki</a>
         </div>
         
         <!-- Collect the nav links, forms, and other content for toggling -->

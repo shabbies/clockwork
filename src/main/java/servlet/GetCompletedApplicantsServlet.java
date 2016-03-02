@@ -16,6 +16,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.io.StringWriter;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,17 +67,25 @@ public class GetCompletedApplicantsServlet extends HttpServlet {
             if(httpResponse.getStatusLine().getStatusCode() == 201){
                 HashMap<Integer, Match> matchedUsers = matchController.loadMatchMap(responseString);
                 session.setAttribute("matchMap", matchedUsers);
-                if (location.equals("reviewing")){
-                    response.sendRedirect("/review_applicants.jsp?id=" + postID);
-                } else {
-                    response.sendRedirect("/complete_job.jsp?id=" + postID);
+                switch (location) {
+                    case "reviewing":
+                        response.sendRedirect("/review_applicants.jsp?id=" + postID);
+                        return;
+                    case "listing":
+                        session.setAttribute("matchMap", matchController.getPostMatchMap(Integer.parseInt(postID)));
+                        response.sendRedirect("/listing.jsp?id=" + postID);
+                        return;
+                    default:
+                        response.sendRedirect("/complete_job.jsp?id=" + postID);
+                        return;
                 }
-                return;
             } else {
                 session.setAttribute("error", responseString);
                 response.sendRedirect("/index.jsp");
                 return;
             }
+        } catch (ParseException e){
+        
         } finally {
             EntityUtils.consume(entity);
             httpResponse.close();
