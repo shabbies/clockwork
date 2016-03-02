@@ -200,6 +200,14 @@
         <servlet-name>SendNotificationServlet</servlet-name>
         <servlet-class>servlet.SendNotificationServlet</servlet-class>
     </servlet>
+    <servlet>  
+        <servlet-name>CheckInServlet</servlet-name>
+        <servlet-class>servlet.CheckInServlet</servlet-class>
+    </servlet>
+    <servlet>  
+        <servlet-name>CheckOutServlet</servlet-name>
+        <servlet-class>servlet.CheckOutServlet</servlet-class>
+    </servlet>
 
 
 
@@ -371,5 +379,13 @@
     <servlet-mapping>
         <servlet-name>SendNotificationServlet</servlet-name>
         <url-pattern>/SendNotificationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckInServlet</servlet-name>
+        <url-pattern>/CheckInServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOutServlet</servlet-name>
+        <url-pattern>/CheckOutServlet</url-pattern>
     </servlet-mapping>
 </web-app>    

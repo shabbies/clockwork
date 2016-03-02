@@ -5,6 +5,7 @@
     
 <%@ page import="model.User"%>
 <%@ page import="model.Post"%>
+<%@ page import="model.Match"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page buffer="32kb" %>
@@ -14,6 +15,7 @@ ArrayList <User> applicantList = (ArrayList <User>)session.getAttribute("applica
 ArrayList <User> offeredList = (ArrayList <User>)session.getAttribute("offeredList");
 ArrayList <User> hiredList = (ArrayList <User>)session.getAttribute("hiredList");
 ArrayList <Integer> applicantListUID = new ArrayList <Integer> ();
+HashMap <Integer, Match> matchMap = (HashMap <Integer, Match>)session.getAttribute("matchMap");
 String formURL = "/GetPostServlet?id=" + postID + "&location=listing";
 Post post = (Post)session.getAttribute("post");
 if (post == null){ %>
@@ -163,9 +165,7 @@ session.removeAttribute("offeredList");}%>
             <thead> 
                 <tr> 
                     <th>Name</th>
-                    <th>Rating</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th colspan="3">Action</th>
                 </tr>
             </thead>
 
@@ -176,15 +176,28 @@ session.removeAttribute("offeredList");}%>
                 HashMap <String, Integer> scoreMap = user.getScoreMap();%>
                 <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'>
                     <td><%=user.getUsername()%></td>
-                    <td>
-                        <div class="ratings">
-                            <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
-                            <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
-                            <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
-                        </div>
-                    </td>
-                    <td>Hired</td>
                     <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
+                    <td>
+                        <% if (matchMap.get(user.getId()).getStartTime() == null){ %>
+                        <form action="/CheckInServlet" method="POST" class="display-inline">
+                            <input type="hidden" name="post_id" value="<%=postID%>" />
+                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
+                            <input type="submit" value="Check In" class="btn btn-success" />
+                        </form>
+                        <% } else { %>
+                        Checked in at: <strong style="color: green;"><%=matchMap.get(user.getId()).getFormattedStartTime()%></strong>
+                        <% } %>
+                    </td>
+                    <td><% if (matchMap.get(user.getId()).getEndTime() == null){ %>
+                        <form action="/CheckOutServlet" method="POST" class="display-inline">
+                            <input type="hidden" name="post_id" value="<%=postID%>" />
+                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
+                            <input type="submit" value="Check Out" class="btn btn-primary" />
+                        </form>
+                        <% } else { %>
+                        Checked out at: <strong style="color: maroon;"><%=matchMap.get(user.getId()).getFormattedEndTime()%></strong>
+                        <% } %>
+                    </td>
                 </tr>
                 <% } %>
                 <% } else { %>

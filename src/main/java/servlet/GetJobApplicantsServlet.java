@@ -69,8 +69,8 @@ public class GetJobApplicantsServlet extends HttpServlet {
                     session.setAttribute("hiredList", applicantMap.get("hired"));
                     session.setAttribute("applicantList", applicantMap.get("pending"));
                     session.setAttribute("offeredList", applicantMap.get("offered"));
-                    response.sendRedirect("/listing.jsp?id=" + postID);
-                    return;
+                    RequestDispatcher rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=listing");
+                    rd.forward(request, response);
                 } else if (location.equals("reviewing")){
                     session.setAttribute("hiredList", applicantMap.get("hired"));
                     session.setAttribute("completedList", applicantMap.get("completed"));

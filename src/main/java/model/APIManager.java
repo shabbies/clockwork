@@ -41,6 +41,8 @@ public class APIManager {
     String EPFavouriteUser = "/api/v1/users/favourite";
     String EPUnfavouriteUser = "/api/v1/users/unfavourite";
     String EPSendNotification = "/api/v1/notifications/send_notification";
+    String EPCheckIn = "/api/v1/posts/check_in";
+    String EPCheckOut = "/api/v1/posts/check_out";
     
     public APIManager(String mode){
         if (mode.equals("production")){
@@ -210,6 +212,14 @@ public class APIManager {
     
     public String getEPSendNotification(){
         return prefix + EPSendNotification;
+    }
+    
+    public String getEPCheckIn(){
+        return prefix + EPCheckIn;
+    }
+    
+    public String getEPCheckOut(){
+        return prefix + EPCheckOut;
     }
     
     public String getPrefix(){

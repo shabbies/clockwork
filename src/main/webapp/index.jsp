@@ -68,7 +68,7 @@ for (Post post : postList){
 String jobDateString = jobDate.toString();
 %>
 
-<div class="col-lg-4">
+<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
 
     <%  String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
         if(currentUser != null){
@@ -80,11 +80,30 @@ String jobDateString = jobDate.toString();
                 ownjob = "true";
             }
         } %> 
-
-    <div class="job-entry <%=jobEditStyle%>">
-        <div class="job-entry-desc">
+        <%  String salary = "$" + post.getSalary();%>
+        <%  String type = ""; %>
+    <div class="job-entry <%=jobEditStyle%> open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>" data-id="<%=post.getId()%>" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>">
+        <div class="job-image">
+            <img class="img-inner img-responsive" src="https://d1du115wj2d9xz.cloudfront.net/api/file/ag9SWFSeRoa9vdjCkbTF/convert?rotate=exif&amp;w=500&amp;h=500&amp;fit=crop&amp;align=center&amp;format=jpg&amp;quality=85" >
+            <p class="job-entry-price-flag" style="color: white; font-size: 24px;">
+                <span class="job-entry-price <%= jobEditColor %>"><%=salary%></span>
+            </p>
+            <p class="job-entry-price-type-flag" style="color: white; font-size: 24px;">
+                <%if (post.getPayType().equals("hour")){
+                        type += "per hour";
+                    } else {
+                        type += "per day";
+                    } %>
+                <span class="job-entry-price <%= jobEditColor %>"><%=type%></span>
+            </p>
+            <div class="col-sm-5 col-sm-offset-7 col-xs-4 col-xs-offset-8">
+                <% String avatarPath = (post.getAvatarPath() == null) ? "img/user-placeholder.jpg" : post.getAvatarPath();%>
+                <img class="img-avatar pull-right img-responsive img-circle img-responsive-ie" src="<%=avatarPath%>">
+            </div>
+        </div>
+        <div class="job-entry-desc row-centered">
             <div class="row">
-                <div class="col-xs-9">
+                <div class="col-xs-12">
                     <h4><strong><%=post.getHeader()%></strong></h4>
                     <h5><%=post.getCompany()%>
                     </h5>
@@ -93,18 +112,9 @@ String jobDateString = jobDate.toString();
                         <%=post.getLocation()%>
                     </h5>
                 </div>
-                <span class="job-entry-price pull-right primary <%= jobEditColor %>">
-                    <% String salary = "$" + post.getSalary();
-                        if (post.getPayType().equals("hour")){
-                            salary += " / hr";
-                        } else {
-                            salary += " / day";
-                        }%>
-                    <strong><%=salary%></strong>
-                </span>
             </div>
 
-            <div class="row" style="position: absolute; bottom: 60px;">
+            <div class="row">
                 <div class="col-xs-12">
                     <h5 class="font-normal"><strong class="primary"><%=post.getDuration()%> day(s)</strong> Starting on <%=post.getJobDateString()%></h5>
                 </div>
@@ -112,7 +122,7 @@ String jobDateString = jobDate.toString();
         </div>
 
 
-        <div class="row job-entry-apply <%=jobStyle%> open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>" data-id="<%=post.getId()%>" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>">
+        <div class="job-entry-apply <%=jobStyle%> open-job-modal">
 
             <!--
             <div class="col-xs-6"> 
@@ -254,7 +264,10 @@ String jobDateString = jobDate.toString();
         });
 
         // END SEARCH BAR CSS / JS
-
+        
+        $(".test").click(function(){
+            $(".open-job-modal").click();
+        });
 </script>
 
 <hr class="grey grey-border">
