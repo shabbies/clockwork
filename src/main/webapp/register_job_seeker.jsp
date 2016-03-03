@@ -116,9 +116,9 @@ function facebookLogin() {
 window.fbAsyncInit = function() {
     if (window.location.href.toString().indexOf("staging") > -1){
         FB.init({
-            appId      : '1657218827890648',
+            appId      : '512331005624440',
             xfbml      : true,
-            version    : 'v2.4'
+            version    : 'v2.5'
         });
     } else {
         FB.init({

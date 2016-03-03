@@ -13,8 +13,7 @@
         <%@include file="_message.jsp"%>
 
         <div class="text-center login-logo">
-            <img src="img/cw.png" alt="" class="img-responsive" />
-            <h3 class="text-center text-dark">Time to Earn Money</h3>
+            <img src="img/workiki_logo_v1.png" alt="" class="img-responsive" style="width: 200px; margin-left: auto; margin-right: auto;"/>
         </div>
 
 
