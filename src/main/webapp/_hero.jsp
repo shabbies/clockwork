@@ -5,7 +5,7 @@
             <div class="header-content-btn">
                 <!--<a href="/register_job_seeker.jsp" id="btnwork" class="btn btn-primary btn-xl">Find Work (Register now)</a>
                 <a href="/create_post.jsp" id="btnjob" class="btn btn-primary btn-xl">Post your Job (It's free)</a>-->
-                <h2 class="tagline"> Work finding made easier </h2>
+                <h2 class="tagline"> Event jobs made easy </h2>
             </div>
         </div>
     </div>
