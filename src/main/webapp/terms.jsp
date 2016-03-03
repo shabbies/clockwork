@@ -12,7 +12,7 @@
     
 <h3 class="text-center"><b>Terms of Use</b></h3>
     
-<p class="terms-text border-bottom padding-top"><b>Please read these Terms and Conditions (the "Terms") carefully before using Clockwork.sg (the "Application") operated by Kruro Private Ltd (the "Company").
+<p class="terms-text border-bottom padding-top"><b>Please read these Terms and Conditions (the "Terms") carefully before using Workiki.com (the "Application") operated by Kruro Private Ltd (the "Company").
 </b></p>
 
 <table class="terms-text terms-table">
@@ -62,7 +62,7 @@
     </tr>
     
 </table>
-<p class="terms-text padding-top text-center"><i> Clockworksg.com reserves the right to change the Terms with or without notice from time to time.</i></p>
+<p class="terms-text padding-top text-center"><i> Workiki.com reserves the right to change the Terms with or without notice from time to time.</i></p>
 </div>
 </div>
 </div>

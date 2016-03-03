@@ -12,17 +12,17 @@
     
 <h3 class="text-center"><b>Contest (Terms and Conditions)</b></h3>
     
-<p class="terms-text border-bottom padding-top"><b>This set of terms and conditions applies to the contest title "PS4 Registration Draw"
+<p class="terms-text border-bottom padding-top"><b>This set of terms and conditions applies to the contest title "iPad Mini 2 Registration Draw"
 </b></p>
 
 <table class="terms-text terms-table">
     <tr>
         <td><b>1.</b></td>
-        <td>The promoter is: Clockworksg.com whose current office is at Singapore Management University, 70 Stamford Road, Singapore 178901.</td>
+        <td>The promoter is: Workiki.com whose current office is at Singapore Management University, 70 Stamford Road, Singapore 178901.</td>
     </tr>
     <tr>
         <td><b>2.</b></td>
-        <td>Employees of Clockworksg.com or their family members or anyone else connected in any way with the contest or helping to set up the contest shall not be permitted to enter the contest.</td>
+        <td>Employees of Workiki.com or their family members or anyone else connected in any way with the contest or helping to set up the contest shall not be permitted to enter the contest.</td>
     </tr>
     <tr>
         <td><b>3.</b></td>
@@ -30,11 +30,11 @@
     </tr>
     <tr>
         <td><b>4.</b></td>
-        <td>Route to entry for the contest and details of how to enter are via <a href="/register_job_seeker.jsp">http://clockworksmu.herokuapp.com/register_job_seeker.jsp </a></td>
+        <td>Route to entry for the contest and details of how to enter are via <a href="/register_job_seeker.jsp">http://www.workiki.com/register_job_seeker.jsp </a></td>
     </tr>
     <tr>
         <td><b>5.</b></td>
-        <td>Closing date for entry will be 12 November 2015. After this date no further entries to the contest will be permitted.</td>
+        <td>Closing date for entry will be 1st April 2016. After this date no further entries to the contest will be permitted.</td>
     </tr>
     <tr>
         <td><b>6.</b></td>
@@ -42,15 +42,15 @@
     </tr>
     <tr>
         <td><b>7.</b></td>
-        <td>The rules of the contest and the prize for each winner are as follows: Anyone that successfully registers for a Jobseeker account within the contest period stands a chance to win the prize as stated by Clockworksg in the registration page. Duplicated accounts, invalid email and mobile number will result in the void of the right to win in the contest.</td>
+        <td>The rules of the contest and the prize for each winner are as follows: Anyone that successfully registers for a Job Seeker account within the contest period stands a chance to win the prize as stated by Workiki in the registration page. Duplicated accounts, invalid email and mobile number will result in the void of the right to win in the contest.</td>
     </tr>
     <tr>
         <td><b>8.</b></td>
-        <td>Clockworksg.com reserves the right to cancel or amend the contest and these terms and conditions without notice in the event of a catastrophe, war, civil or military disturbance, act of God or any actual or anticipated breach of any applicable law or regulation or any other event outside of the Clockworksg.com's control. Any changes to the contest will be notified to entrants as soon as possible by Clockworksg.com.</td>
+        <td>Workiki.com reserves the right to cancel or amend the contest and these terms and conditions without notice in the event of a catastrophe, war, civil or military disturbance, act of God or any actual or anticipated breach of any applicable law or regulation or any other event outside of the Workiki.com's control. Any changes to the contest will be notified to entrants as soon as possible by Workiki.com.</td>
     </tr>
     <tr>
         <td><b>9.</b></td>
-        <td>Clockworksg.com is not responsible for inaccurate prize details supplied to any entrant by any third party connected with this contest. </td>
+        <td>Workiki.com is not responsible for inaccurate prize details supplied to any entrant by any third party connected with this contest. </td>
     </tr>
     <tr>
         <td><b>10.</b></td>
@@ -58,7 +58,7 @@
     </tr>
     <tr>
         <td><b>11.</b></td>
-        <td>Winners will be chosen at random by software provided by Clockworksg.com from all entries received and verified by Clockworksg.com. </td>
+        <td>Winners will be chosen at random by software provided by Workiki.com from all entries received and verified by Workiki.com. </td>
     </tr>
     <tr>
         <td><b>12.</b></td>
@@ -66,15 +66,15 @@
     </tr>
     <tr>
         <td><b>13.</b></td>
-        <td>Clockworksg.com will notify the winner when and where the prize can be collected. </td>
+        <td>Workiki.com will notify the winner when and where the prize can be collected. </td>
     </tr>
     <tr>
         <td><b>14.</b></td>
-        <td>Clockworksg.com's decision in respect of all matters to do with the contest will be final and no correspondence will be entered into.</td>
+        <td>Workiki.com's decision in respect of all matters to do with the contest will be final and no correspondence will be entered into.</td>
     </tr>
     <tr>
         <td><b>15.</b></td>
-        <td>By entering this contest, an entrant is indicating his/her agreement to be bound by these terms and conditions and Clockworksg.com may collect, use and disclose your personal data, as provided in this entry form, for the purpose in accordance with the Personal Data Protection Act 2012 and our data protection policy, which is to administer this contest, including to contact you for the administration of prizes in relation to this contest. </td>
+        <td>By entering this contest, an entrant is indicating his/her agreement to be bound by these terms and conditions and Workiki.com may collect, use and disclose your personal data, as provided in this entry form, for the purpose in accordance with the Personal Data Protection Act 2012 and our data protection policy, which is to administer this contest, including to contact you for the administration of prizes in relation to this contest. </td>
     </tr>
     <tr>
         <td><b>16.</b></td>
@@ -86,7 +86,7 @@
     </tr>
     <tr>
         <td><b>18.</b></td>
-        <td>The winner&#39;s name will be announced 28 days after closing date on Clockworksg.com&#39;s social networking sites. </td>
+        <td>The winner&#39;s name will be announced 28 days after closing date on Workiki.com&#39;s social networking sites. </td>
     </tr>
     <tr>
         <td><b>19.</b></td>
@@ -94,7 +94,7 @@
     </tr>
     <tr>
         <td><b>20.</b></td>
-        <td>This promotion is in no way sponsored, endorsed or administered by, or associated with, Facebook, Twitter or any other Social Network. You are providing your information to Clockworksg.com and not to any other party. The information provided will be used in conjunction with the following Privacy Policy found at <a href="/privacy_policy.jsp">http://clockworksmu.herokuapp.com/privacy_policy.jsp</a>. </td>
+        <td>This promotion is in no way sponsored, endorsed or administered by, or associated with, Facebook, Twitter or any other Social Network. You are providing your information to Workiki.com and not to any other party. The information provided will be used in conjunction with the following Privacy Policy found at <a href="/privacy_policy.jsp">http://www.workiki.com/privacy_policy.jsp</a>. </td>
     </tr>
     
 </table>

@@ -68,7 +68,7 @@ for (Post post : postList){
 String jobDateString = jobDate.toString();
 %>
 
-<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 
     <%  String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
         if(currentUser != null){
@@ -84,7 +84,8 @@ String jobDateString = jobDate.toString();
         <%  String type = ""; %>
     <div class="job-entry <%=jobEditStyle%> open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>" data-id="<%=post.getId()%>" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>">
         <div class="job-image">
-            <img class="img-inner img-responsive" src="https://d1du115wj2d9xz.cloudfront.net/api/file/ag9SWFSeRoa9vdjCkbTF/convert?rotate=exif&amp;w=500&amp;h=500&amp;fit=crop&amp;align=center&amp;format=jpg&amp;quality=85" >
+            <% String avatarPath = (post.getAvatarPath() == null) ? "img/user-placeholder.jpg" : post.getAvatarPath();%>
+            <img class="img-inner img-responsive" src="<%=avatarPath%>" >
             <p class="job-entry-price-flag" style="color: white; font-size: 24px;">
                 <span class="job-entry-price <%= jobEditColor %>"><%=salary%></span>
             </p>
@@ -96,10 +97,6 @@ String jobDateString = jobDate.toString();
                     } %>
                 <span class="job-entry-price <%= jobEditColor %>"><%=type%></span>
             </p>
-            <div class="col-sm-5 col-sm-offset-7 col-xs-4 col-xs-offset-8">
-                <% String avatarPath = (post.getAvatarPath() == null) ? "img/user-placeholder.jpg" : post.getAvatarPath();%>
-                <img class="img-avatar pull-right img-responsive img-circle img-responsive-ie" src="<%=avatarPath%>">
-            </div>
         </div>
         <div class="job-entry-desc row-centered">
             <div class="row">

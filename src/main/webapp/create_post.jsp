@@ -87,7 +87,7 @@ if (postController.getEmployerReviewingJobs().size() != 0){
         <tr>    
             <div class="form-group col-md-12 text-left">
                 <label for="job-desc" class="control-label col-md-12">Job Description</label> 
-                <div class="col-md-12"> 
+<!--                <div class="col-md-12"> 
                     <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-service"/> &nbsp; Service</label>
                     <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-kitchen"/> &nbsp; Kitchen Crew</label>
                     <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-cleanup"/> &nbsp; Clean Up</label>
@@ -96,7 +96,7 @@ if (postController.getEmployerReviewingJobs().size() != 0){
                     <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-barista"/> &nbsp; Barista</label>
                     <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-cashier"/> &nbsp; Cashier</label>
                     <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-bartender"/> &nbsp; Bartender</label>
-                </div>
+                </div>-->
                 <% if (repopulate == null){%>
                 <pre class="col-md-12"><textarea id="job-desc" class="form-control form-group-lg job-desc" rows="3" name="description" rows="3" required></textarea></pre>
                 <%} else {%>

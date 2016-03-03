@@ -24,9 +24,9 @@
                 <% if (currentUser == null) { %>
                 <li><a class="page-scroll" href="/howitworks.jsp">How it works</a></li>
                 <% } %>
-                <%  if (currentUser == null || currentUser.getAccountType().equals("employer")){ %>
-                <li><a class="page-scroll" href="/pricing.jsp">Pricing Plans</a></li>
-                <% } %>
+                <%  // if (currentUser == null || currentUser.getAccountType().equals("employer")){ %>
+                <!--<li><a class="page-scroll" href="/pricing.jsp">Pricing Plans</a></li>-->
+                <% // } %>
                     <% if (currentUser == null){ %>
                 <li><button class="btn btn-primary wow tada" onclick="location.href='/login.jsp'">Login / Register</button></li>
                     <% } else {  %>
