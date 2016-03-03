@@ -11,14 +11,14 @@
                  
                     <dl>
 
-                        <dt>Q) What is Clockwork?</dt>
-                        <dd>Clockwork is a free online marketplace to match ad-hoc job-seekers with businesses. You can apply for job posts to indicate your interests to be hired for the businesses. </dd>
+                        <dt>Q) What is Workiki?</dt>
+                        <dd>Workiki is a free online marketplace to match ad-hoc job-seekers with businesses. You can apply for job posts to indicate your interests to be hired for the businesses. </dd>
 
-                        <dt>Q) Why should I use Clockwork?</dt>
+                        <dt>Q) Why should I use Workiki?</dt>
                         <dd>It is not only a platform for businesses to find ad-hoc jobs fast. This unique platform we created for you also allows for quick and fuss free application of a job, no more CVs, no more resumes, and if possible, no more interviews!   </dd>
 
-                        <dt>Q) What do I get for signing up with Clockwork??</dt>
-                        <dd>You will have access to a pool of youths who are looking for ad-hoc jobs in the F&B sector. Once you post a job, your job will get published on our site and people can start applying for them! Clockwork allows you to quickly source for pairs of hands to meet your business needs in a quick and efficient manner, so that you can focus on your business!
+                        <dt>Q) What do I get for signing up with Workiki?</dt>
+                        <dd>You will have access to a pool of youths who are looking for ad-hoc jobs. Once you post a job, your job will get published on our site and people can start applying for them! Workiki allows you to quickly source for pairs of hands to meet your business needs in a quick and efficient manner, so that you can focus on your business!
                     
                         <br /><br/>Still not convinced? <br /> <strong><a href="/register_employer.jsp" style="color: white;">Sign up for our free trial and give it a try now!</a></strong></dd>
 

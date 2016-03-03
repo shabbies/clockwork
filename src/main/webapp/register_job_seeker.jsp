@@ -13,19 +13,14 @@
                             <h3 class="text-center" style="color: black;
                                 text-transform: uppercase;
                                 font-family: 'Raleway', sans-serif;
-                                font-weight: 700;"><small style="font-weight: 500; color: black;"><strong>Register now and </strong><br/></small>Stand a chance to win a PS4!*</h3>
+                                font-weight: 700;"><small style="font-weight: 500; color: black;"><strong>Register now and </strong><br/></small>Stand a chance to <br />win an iPad Mini 2!*</h3>
                             <div class="row" style="padding:20px;">
-                                <img src="https://psmedia.playstation.com/is/image/psmedia/ps4-system-imageblock-vs-us-19jun15?$TwoColumn_Image$" style="width:200px"/>
+                                <img src="http://img.game.co.uk/ml2/2/8/1/0/281023_scr2_a.png" style="width:325px"/>
                             </div>
                             
                             <div class="row text-center" style="padding-top:10px">
                                 <div class="col-centered" style="max-width:300px; ">
-                                    <a href="https://geo.itunes.apple.com/sg/app/clockworksg/id1046206671?mt=8" style="float:left;display:inline-block;overflow:hidden;background:url(http://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg) no-repeat;width:165px;height:40px;"></a>
                                     
-                                    <a href="https://play.google.com/store/apps/details?id=com.sg.clockwork">
-                                        <img alt="Get it on Google Play"
-                                             src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
-                                    </a>
                                 </div>
                             </div>
                             <small style="color: black;" class="text-left">

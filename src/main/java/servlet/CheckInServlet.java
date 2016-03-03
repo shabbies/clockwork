@@ -23,17 +23,18 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
-public class WithdrawJobApplicationServlet extends HttpServlet {
+public class CheckInServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         int postID = Integer.parseInt(request.getParameter("post_id"));
+        int userID = Integer.parseInt(request.getParameter("user_id"));
         HttpSession session = request.getSession();
         AppController appController = (AppController)session.getAttribute("appController");
         APIManager apiManager = appController.getAPIManager();
-        String URL = apiManager.getEPWithdraw();
+        String URL = apiManager.getEPCheckIn();
         User currentUser = (User)session.getAttribute("currentUser");
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
@@ -43,6 +44,7 @@ public class WithdrawJobApplicationServlet extends HttpServlet {
         httpPost.setHeader("Authentication-Token", token);
         List <NameValuePair> nvps = new ArrayList <NameValuePair>();
         nvps.add(new BasicNameValuePair("post_id", "" + postID));
+        nvps.add(new BasicNameValuePair("user_id", "" + userID));
         nvps.add(new BasicNameValuePair("email", email));
 
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
@@ -50,14 +52,16 @@ public class WithdrawJobApplicationServlet extends HttpServlet {
         HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
-            if(httpResponse.getStatusLine().getStatusCode() == 200){
-                String message = "You have succssfully withdrawn your application for this job!";
+            if(httpResponse.getStatusLine().getStatusCode() == 201){
+                String message = "You have successfully checked in the user!";
                 session.setAttribute("message", message);
+                response.sendRedirect("/listing.jsp?id=" + postID);
+                return;
             } else {
                 String error = "A system error has occurred, please try again";
                 session.setAttribute("error", error);
             }
-            response.sendRedirect("/dashboard.jsp");
+            response.sendRedirect("/mydashboard.jsp");
         } finally {
             httpResponse.close();
             EntityUtils.consume(entity);

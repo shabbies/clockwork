@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-xs-4">
-                <span class="copyright">Copyright &#169; Clockwork 2015</span>
+                <span class="copyright">Copyright &#169; Workiki 2015</span>
             </div>
             <div class="col-md-4 col-xs-4">
                 <!--<ul class="list-inline social-buttons text-center">

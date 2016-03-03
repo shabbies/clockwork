@@ -12,7 +12,7 @@
     
 <h3 class="text-center"><b>Privacy Policy</b></h3>
     
-<p class="terms-text border-bottom padding-top"><b>Your privacy is important to us. The purpose of this Privacy Policy (this "Policy") is to inform you of how Clockworksg.com manages personal data in accordance with the Personal Data Protection Act 2012. Please take a moment to read this Privacy Policy so that you know and understand the purposes for which we collect, use and disclose your Personal Data. As used in this Privacy Policy, Personal Data refers to information such as: your name; mailing address; email address; telephone number; your location or other personal information that may be supplied by you or collected about you as required by us. We hope that this Policy helps you to understand how we handle and use any personal data after collection.</b></p>
+<p class="terms-text border-bottom padding-top"><b>Your privacy is important to us. The purpose of this Privacy Policy (this "Policy") is to inform you of how Workiki.com manages personal data in accordance with the Personal Data Protection Act 2012. Please take a moment to read this Privacy Policy so that you know and understand the purposes for which we collect, use and disclose your Personal Data. As used in this Privacy Policy, Personal Data refers to information such as: your name; mailing address; email address; telephone number; your location or other personal information that may be supplied by you or collected about you as required by us. We hope that this Policy helps you to understand how we handle and use any personal data after collection.</b></p>
 
 <table class="terms-text terms-table">
     <tr>
@@ -21,19 +21,19 @@
     </tr>
     <tr>
         <td><b>1.1</b></td>
-        <td colspan="2">Clockworksg.com uses this information for internal business and administrative purposes which includes improving our products and service offerings, and enhancing our customer service level. </td>
+        <td colspan="2">Workiki.com uses this information for internal business and administrative purposes which includes improving our products and service offerings, and enhancing our customer service level. </td>
     </tr>
     <tr>
         <td><b>1.2</b></td>
-        <td colspan="2">Clockworksg.com will use your personal data from time to time to send you notices about special information, new programmes, and other similar information.</td>
+        <td colspan="2">Workiki.com will use your personal data from time to time to send you notices about special information, new programmes, and other similar information.</td>
     </tr>
     <tr>
         <td><b>1.3</b></td>
-        <td colspan="2">Clockworksg.com will reveal your personal information including your name, contact number and relevant work experience to Employers of job listings to which you have applied to and accepted their offer. Outside of the scope of our described operations, Clockworksg.com will not reveal your personal information to any other third-party unless required by law.</td>
+        <td colspan="2">Workiki.com will reveal your personal information including your name, contact number and relevant work experience to Employers of job listings to which you have applied to and accepted their offer. Outside of the scope of our described operations, Workiki.com will not reveal your personal information to any other third-party unless required by law.</td>
     </tr>
     <tr>
         <td><b>1.4</b></td>
-        <td colspan="2">Clockworksg.com does not sell, trade or rent your personal information to others.
+        <td colspan="2">Workiki.com does not sell, trade or rent your personal information to others.
     </tr>
     <tr>
         <td><b>2.</b></td>
@@ -41,7 +41,7 @@
     </tr>
     <tr>
         <td><b>2.1</b></td>
-        <td colspan="2">Clockworksg.com understands and respects the privacy of individuals. Personal information is collected with your consent. The purpose for collecting this information varies depending upon your request and will include:</td>
+        <td colspan="2">Workiki.com understands and respects the privacy of individuals. Personal information is collected with your consent. The purpose for collecting this information varies depending upon your request and will include:</td>
     </tr>
     <tr>
         <td></td>
@@ -91,7 +91,7 @@
     </tr>
     <tr>
         <td><b>3.4</b></td>
-        <td colspan="2">If you delete your profile from a third-party service, such as Facebook, information that has been shared with Clockworksg.com from that service may still be retained by Clockworksg.com. If you do not wish for us to retain such information, please contact us.</td>
+        <td colspan="2">If you delete your profile from a third-party service, such as Facebook, information that has been shared with Workiki.com from that service may still be retained by Workiki.com. If you do not wish for us to retain such information, please contact us.</td>
     </tr>
     <tr>
         <td><b>4.</b></td>
@@ -99,15 +99,15 @@
     </tr>
     <tr>
         <td><b>4.1</b></td>
-        <td colspan="2">Clockworksg.com uses &quot;cookies&quot;, which are text files placed on your computer, to help the website analyse how users use the site. The information generated by the cookie about your use of the website (including your IP address) will be transmitted to and stored by Clockworksg.com on our servers.</td>
+        <td colspan="2">Workiki.com uses &quot;cookies&quot;, which are text files placed on your computer, to help the website analyse how users use the site. The information generated by the cookie about your use of the website (including your IP address) will be transmitted to and stored by Workiki.com on our servers.</td>
     </tr>
     <tr>
         <td><b>4.2</b></td>
-        <td colspan="2">Clockworksg.com will use this information for the purpose of providing location relevant information to you. </td>
+        <td colspan="2">Workiki.com will use this information for the purpose of providing location relevant information to you. </td>
     </tr>
     <tr>
         <td><b>4.3</b></td>
-        <td colspan="2">Clockworksg.com may also transfer this information to third parties where required to do so by law, or where such third parties process the information on Clockworksg.com&#39;s behalf. You may refuse the use of cookies by selecting the appropriate settings on your browser, however please note that if you do this you may not be able to use the full functionality of this website. By using this website, you consent to the processing of data about you by Clockworksg.com in the manner and for the purposes set out above.</td>
+        <td colspan="2">Workiki.com may also transfer this information to third parties where required to do so by law, or where such third parties process the information on Workiki.com&#39;s behalf. You may refuse the use of cookies by selecting the appropriate settings on your browser, however please note that if you do this you may not be able to use the full functionality of this website. By using this website, you consent to the processing of data about you by Workiki.com in the manner and for the purposes set out above.</td>
     </tr>
     <tr>
         <td><b>5.</b></td>
@@ -119,10 +119,10 @@
     </tr>
     <tr>
         <td><b>5.2</b></td>
-        <td colspan="2">Although every reasonable effort has been made to ensure that all personal information will be so protected, Clockworksg.com cannot be responsible for any unauthorised use or misuse of such information and from risks which are inherent in all internet communications.</td>
+        <td colspan="2">Although every reasonable effort has been made to ensure that all personal information will be so protected, Workiki.com cannot be responsible for any unauthorised use or misuse of such information and from risks which are inherent in all internet communications.</td>
     </tr>
 </table>
-<p class="terms-text padding-top text-center"><i> Clockworksg.com reserves the right to change this Policy with or without notice from time to time.</i></p>
+<p class="terms-text padding-top text-center"><i> Workiki.com reserves the right to change this Policy with or without notice from time to time.</i></p>
 </div>
 </div>
 </div>
