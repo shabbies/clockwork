@@ -18,9 +18,10 @@ ArrayList <Integer> applicantListUID = new ArrayList <Integer> ();
 HashMap <Integer, Match> matchMap = (HashMap <Integer, Match>)session.getAttribute("matchMap");
 String formURL = "/GetPostServlet?id=" + postID + "&location=listing";
 Post post = (Post)session.getAttribute("post");
-if (post == null){ %>
+if (session.getAttribute("post") == null || session.getAttribute("matchMap") == null){ %>
 <jsp:forward page="<%=formURL%>" />
 <% } else { 
+session.removeAttribute("matchMap");
 session.removeAttribute("post"); 
 session.removeAttribute("applicantList"); 
 session.removeAttribute("hiredList"); 

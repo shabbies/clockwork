@@ -56,8 +56,10 @@ public class MatchManager {
     public HashMap <Integer, Match> getPostMatchMap (int postID){
         HashMap <Integer, Match> returnMap = new HashMap <Integer, Match> ();
         ArrayList <Match> matchList = postMatchMap.get(postID);
-        for (Match match : matchList){
-            returnMap.put(match.getUserId(), match);
+        if (matchList != null){
+            for (Match match : matchList){
+                returnMap.put(match.getUserId(), match);
+            }
         }
         return returnMap;
     }

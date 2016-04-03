@@ -47,7 +47,6 @@ public class GetCompletedApplicantsServlet extends HttpServlet {
         APIManager apiManager = appController.getAPIManager();
         String URL = apiManager.getEPCompletedApplicants();
         MatchController matchController = appController.getMatchController();
-        
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
@@ -72,7 +71,9 @@ public class GetCompletedApplicantsServlet extends HttpServlet {
                         response.sendRedirect("/review_applicants.jsp?id=" + postID);
                         return;
                     case "listing":
-                        session.setAttribute("matchMap", matchController.getPostMatchMap(Integer.parseInt(postID)));
+                        if (!matchedUsers.keySet().isEmpty()){
+                            session.setAttribute("matchMap", matchController.getPostMatchMap(Integer.parseInt(postID)));
+                        }
                         response.sendRedirect("/listing.jsp?id=" + postID);
                         return;
                     default:
