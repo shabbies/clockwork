@@ -56,7 +56,7 @@ session.removeAttribute("publishedList");
                                     <td><span class="badge db-default-badge">No Applicant</span></td>
                                     <td><a href="<%=redirectURL%>" class="btn btn-warning">Edit Job</a></td>
                                 <% } else if (post.getStatus().equals("applied")){
-                                    String redirectURL = "/listing.jsp?id=" + post.getId(); %>
+                                    String redirectURL = "GetPostServlet?id=" + post.getId() + "&location=listing"; %>
                                     <td><span class="badge db-default-badge">Ongoing</span></td>
                                     <% int appCount = post.getApplicantCount(); 
                                     if(appCount > 0) { 

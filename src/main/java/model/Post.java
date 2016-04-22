@@ -2,8 +2,10 @@ package model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Post {
     
@@ -323,5 +325,18 @@ public class Post {
         return true;
     }
     
-    
+    public boolean onGoing(){
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Singapore");
+        Calendar calendar = Calendar.getInstance(timeZone);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date today = calendar.getTime();
+        if (today.equals(jobDate) || (today.after(jobDate) && today.before(endDate)) || today.equals(endDate)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

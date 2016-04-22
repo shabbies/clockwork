@@ -8,6 +8,12 @@
 <%@ page import="model.Match"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.util.TimeZone" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+
 <%@ page buffer="32kb" %>
 <%  String postID = request.getParameter("id");
 appController = (AppController)session.getAttribute("appController");
@@ -18,14 +24,14 @@ ArrayList <Integer> applicantListUID = new ArrayList <Integer> ();
 HashMap <Integer, Match> matchMap = (HashMap <Integer, Match>)session.getAttribute("matchMap");
 String formURL = "/GetPostServlet?id=" + postID + "&location=listing";
 Post post = (Post)session.getAttribute("post");
-if (post == null){ %>
+if (session.getAttribute("post") == null || session.getAttribute("matchMap") == null){ %>
 <jsp:forward page="<%=formURL%>" />
 <% } else { 
+session.removeAttribute("matchMap");
 session.removeAttribute("post"); 
 session.removeAttribute("applicantList"); 
 session.removeAttribute("hiredList"); 
 session.removeAttribute("offeredList");}%>
-    
 <header class="main">
 <div class="header-full-content">
     
@@ -59,6 +65,7 @@ session.removeAttribute("offeredList");}%>
 
 
 <div class="col-md-8">
+    <% if (!post.onGoing()){ %>
     <div class="panel panel-default">
         <div class="panel-heading"> 
             <h4>Your Applicants</h4> 
@@ -156,7 +163,7 @@ session.removeAttribute("offeredList");}%>
 
         </table>
     </div>
-
+    
     <div class="panel panel-default">
         <div class="panel-heading"> 
             <h4>Your Hired Applicants</h4> 
@@ -177,27 +184,6 @@ session.removeAttribute("offeredList");}%>
                 <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'>
                     <td><%=user.getUsername()%></td>
                     <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
-                    <td>
-                        <% if (matchMap.get(user.getId()).getStartTime() == null){ %>
-                        <form action="/CheckInServlet" method="POST" class="display-inline">
-                            <input type="hidden" name="post_id" value="<%=postID%>" />
-                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
-                            <input type="submit" value="Check In" class="btn btn-success" />
-                        </form>
-                        <% } else { %>
-                        Checked in at: <strong style="color: green;"><%=matchMap.get(user.getId()).getFormattedStartTime()%></strong>
-                        <% } %>
-                    </td>
-                    <td><% if (matchMap.get(user.getId()).getEndTime() == null){ %>
-                        <form action="/CheckOutServlet" method="POST" class="display-inline">
-                            <input type="hidden" name="post_id" value="<%=postID%>" />
-                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
-                            <input type="submit" value="Check Out" class="btn btn-primary" />
-                        </form>
-                        <% } else { %>
-                        Checked out at: <strong style="color: maroon;"><%=matchMap.get(user.getId()).getFormattedEndTime()%></strong>
-                        <% } %>
-                    </td>
                 </tr>
                 <% } %>
                 <% } else { %>
@@ -208,6 +194,83 @@ session.removeAttribute("offeredList");}%>
 
         </table>
     </div>
+    <% } else { %>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading"> 
+            <h4>Your Hired Applicants</h4> 
+        </div> 
+        <table class="table db-job-table review-table table-hover"> 
+            <thead> 
+                <tr> 
+                    <th>Name</th>
+                    <th colspan="4">
+                        <div class="col-md-12">
+                    <%  Date runningDate = post.getJobDate(); 
+                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                        while (!runningDate.after(post.getEndDate())){%>
+                            <button class="btn-primary btn-srad date-toggle" id="<%=df.format(runningDate)%>"><%= df.format(runningDate) %> </button>
+                    <%      Calendar cal = Calendar.getInstance();
+                            cal.setTime(runningDate);
+                            cal.add(Calendar.DATE, 1);
+                            runningDate = cal.getTime();
+                        } %>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody> 
+                <% if (hiredList != null){ %>
+                <% if (hiredList.size() > 0){ %>
+                <% for (User user : hiredList){ 
+                HashMap <String, Integer> scoreMap = user.getScoreMap();%>
+                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>' id="<%=user.getId()%>">
+                    <td><%=user.getUsername()%></td>
+                    <td class="check-in">
+                        <form action="/CheckInServlet" method="POST" class="check-in-form" style='display: inline;'>
+                            <input type="hidden" name="post_id" value="<%=postID%>" />
+                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
+                            <input type="submit" value="Check In" class="btn btn-success" />
+                        </form>
+                        <div class='check-in-text' style='display: inline;'>
+                            <% String checkInID = user.getId() + "_check_in"; %>
+                            Checked in at: <strong style="color: green;" id="<%=checkInID%>"></strong>
+                        </div>
+                    </td>
+                    <td class="check-out">
+                        <form action="/CheckOutServlet" method="POST" class="check-out-form" style='display: inline;'>
+                            <input type="hidden" name="post_id" value="<%=postID%>" />
+                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
+                            <input type="submit" value="Check Out" class="btn btn-primary" />
+                        </form>
+                        <div class='check-out-text' style='display: inline;'>
+                            <% String checkOutID = user.getId() + "_check_out"; %>
+                            Checked out at: <strong style="color: maroon;" id="<%=checkOutID%>"></strong>
+                        </div>
+                    </td>
+                    <td class="day-wage">
+                        <% String dayWage = user.getId() + "_day_wage"; %>
+                        <form action="/UpdateWageServlet" method="POST" style='display: inline;'>
+                            <input type="hidden" name="post_id" value="<%=postID%>" />
+                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
+                            <input type="hidden" name="date" id="wage_date" value="0" />
+                            <span>$</span><input type="number" name="salary" id="<%=dayWage%>" class="day-wage" min="0.01" step="0.01" max="2500" value="25.67">
+                            <input type="submit" value="Update" class="btn btn-success" />
+                        </form>
+                    </td>
+                    <td class="wage-filler">&nbsp;</td>
+                </tr>
+                <% } %>
+                <% } else { %>
+                <tr style="background-color: white;"><td colspan="4" class="text-center" style="cursor: default;">No Hired Applicants</td></tr>
+                <% } %>
+                <% } %>
+            </tbody>
+
+        </table>
+    </div>
+    <% } %>
 </div>
             
 </div>
@@ -361,6 +424,14 @@ session.removeAttribute("offeredList");}%>
     $(document).on("click", "button", function(e){
         e.stopPropagation();
     });
+    
+    $(document).on("click", "input", function(e){
+        e.stopPropagation();
+    });
+    
+    $(document).on("click", "span", function(e){
+        e.stopPropagation();
+    });
 </script>
 <!-- End of Hire Modal -->
     
@@ -395,7 +466,85 @@ session.removeAttribute("offeredList");}%>
             }
         });
     });
+    
+    $(document).on("click", ".date-toggle", function() {
+        var date = $(this).attr("id");
+        updateListing(date);
+        $(".btn-warning").addClass("btn-primary");
+        $(".btn-warning").removeClass("btn-warning");
+        $(this).removeClass("btn-primary");
+        $(this).addClass("btn-warning");
+    });
+    
+    function updateListing(date){
+        $.ajax({
+            url: "/UpdateListingServlet",
+            method: "POST",
+            dataType: "json",
+            data: {
+                "post_id" : <%= postID %>,
+                "date" : date
+            },
+            success: function(data){
+                $.each(data, function(index, element) {
+                    var check_in = element.split(",")[0];
+                    var check_out = element.split(",")[1];
+                    var day_wage = element.split(",")[2];
+                    if (check_in !== "null"){
+                        $("#" + index).children(".check-in").children(".check-in-text").show();
+                        $("#" + index).children(".check-in").children(".check-in-form").hide();
+                        $("#" + index).children(".check-in").children(".check-in-text").children("#" + index + "_check_in").html(check_in);
+                    } else {
+                        $("#" + index).children(".check-in").children(".check-in-text").hide();
+                        $("#" + index).children(".check-in").children(".check-in-form").show();
+                    }
+                    if (check_out !== "null"){
+                        $(".day-wage").show();
+                        $(".wage-filler").hide();
+                        $("#" + index).children(".check-out").children(".check-out-text").show();
+                        $("#" + index).children(".check-out").children(".check-out-form").hide();
+                        $("#" + index).children(".check-out").children(".check-out-text").children("#" + index + "_check_out").html(check_out);
+                    } else {
+                        $("#" + index).children(".check-out").children(".check-out-text").hide();
+                        $("#" + index).children(".check-out").children(".check-out-form").show();
+                        $(".day-wage").hide();
+                        $(".wage-filler").show();
+                    }
+                    $("#" + index + "_day_wage").val(day_wage);
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
+    
+    var date = null;
+    $(document).ready(function(){
+        var element = $(".date-toggle");
+        date = element.attr("id");
+        $("#" + date).addClass("btn-warning");
+        $("#" + date).removeClass("btn-primary");
+        updateListing(date);
+        $("#wage_date").val(date);
+    });
+    
+    $(".day-wage").change(function(){
+        var amount = parseFloat($(this).val()).toFixed(2);
+        $(this).val(amount);
+    });
 </script>
+
+<style>
+    span{
+        position:relative;
+        margin-right:-20px
+      }
+      input[type='number']{
+        padding-left:20px;
+        text-align:left;
+      }
+</style>
     
 <jsp:include page="_javascript_checker.jsp" />
 <jsp:include page="_anchor.jsp" />
