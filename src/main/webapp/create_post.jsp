@@ -60,8 +60,21 @@ if (postController.getEmployerReviewingJobs().size() != 0){
 <div class="col-md-8 col-md-offset-2">
 <div class="panel panel-default">
 <div class="panel-body">
-<form class="form form-post" action="/CreatePostServlet" method="POST" role="form">
+<form class="form form-post" action="/CreatePostServlet" method="POST" role="form" enctype="multipart/form-data">
     <table>
+        <tr>
+            <div class="form-group form-group-lg col-md-6 col-md-offset-3 text-left"> 
+                <label for="avatar" class="control-label ">Post Image</label> 
+                <div class="text-center padding-bottom">
+                    <% if (currentUser.getAvatar() == null){%>
+                    <img id="profile-pic" src="img/user-placeholder.jpg" alt="" class="db-post-pic modal-pic col-centered img-rounded img-responsive" />
+                    <% } else { %>
+                    <img id="profile-pic" src="<%=currentUser.getAvatar()%>" alt="" class="db-post-pic modal-pic col-centered img-rounded img-responsive" />
+                    <% } %>
+                </div>
+                <input id="avatar" class="form-control" type="file" name="image" accept="image/*">
+            </div>
+        </tr>
         <tr>
             <div class="form-group form-group-lg col-md-6 text-left"> 
                 <label for="job-title" class="control-label">Job Title</label> 
@@ -86,21 +99,11 @@ if (postController.getEmployerReviewingJobs().size() != 0){
         </tr>
         <tr>    
             <div class="form-group col-md-12 text-left">
-                <label for="job-desc" class="control-label col-md-12">Job Description</label> 
-<!--                <div class="col-md-12"> 
-                    <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-service"/> &nbsp; Service</label>
-                    <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-kitchen"/> &nbsp; Kitchen Crew</label>
-                    <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-cleanup"/> &nbsp; Clean Up</label>
-                    <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-ordertaking"/> &nbsp; Order Taking</label>
-                    <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-selling"/> &nbsp; Selling</label>
-                    <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-barista"/> &nbsp; Barista</label>
-                    <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-cashier"/> &nbsp; Cashier</label>
-                    <label class="col-md-3 genre unclickable"><input type="checkbox" id="checkbox-bartender"/> &nbsp; Bartender</label>
-                </div>-->
+                <label for="job-desc" class="control-label">Job Description</label> 
                 <% if (repopulate == null){%>
-                <pre class="col-md-12"><textarea id="job-desc" class="form-control form-group-lg job-desc" rows="3" name="description" rows="3" required></textarea></pre>
+                <pre><textarea id="job-desc" class="form-control form-group-lg job-desc" rows="3" name="description" rows="3" required></textarea></pre>
                 <%} else {%>
-                <pre class="col-md-12"><textarea id="job-desc" class="form-control form-group-lg col-md-12" rows="3" name="description" rows="3" required><%=repopulate[2]%></textarea></pre> <%}%>
+                <pre><textarea id="job-desc" class="form-control form-group-lg" rows="3" name="description" rows="3" required><%=repopulate[2]%></textarea></pre> <%}%>
             </div>
         </tr>
         <tr>
@@ -294,4 +297,5 @@ if (postController.getEmployerReviewingJobs().size() != 0){
             }
         }
     });
+    
 </script>

@@ -12,7 +12,7 @@
     
 <h3 class="text-center"><b>Terms of Use</b></h3>
     
-<p class="terms-text border-bottom padding-top"><b>Please read these Terms and Conditions (the "Terms") carefully before using Workiki.com (the "Application") operated by Kruro Private Ltd (the "Company").
+<p class="terms-text border-bottom padding-top"><b>Please read these Terms and Conditions (the "Terms") carefully before using Workiki.com (the "Application") operated by Workiro Private Ltd (the "Company").
 </b></p>
 
 <table class="terms-text terms-table">

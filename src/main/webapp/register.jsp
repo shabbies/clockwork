@@ -4,7 +4,7 @@
 <header class="main">
   <div class="header-content">
     <div class="header-content-inner">
-     <h1 class="text-center">Welcome to Clockwork!</h1>
+     <h1 class="text-center">Welcome to Workiki!</h1>
 
      <div class="row row-centered register-div">
       <div class="col-md-4 col-centered">
