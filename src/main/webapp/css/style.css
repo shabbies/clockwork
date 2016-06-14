@@ -1546,6 +1546,7 @@ pre{
     border: 0;
     background: none;
     font-family: inherit !important;
+    padding: 0;
 }
 
 .pay-type-selector{
@@ -1830,6 +1831,10 @@ pre{
     padding-top: 10px;
 }
 
+.padding-bottom{
+    padding-bottom: 10px;
+}
+
 .unclickable{
     -webkit-user-select: none; /* Chrome/Safari */        
     -moz-user-select: none; /* Firefox */
@@ -1874,3 +1879,10 @@ pre{
     padding-top: 10px;
 }
 
+.db-post-pic {
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: inline-block;
+  width: 200px;
+}

@@ -17,21 +17,22 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import model.APIManager;
 import model.User;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 
+@MultipartConfig
 public class CreatePostServlet extends HttpServlet {
 
     @Override
@@ -110,24 +111,37 @@ public class CreatePostServlet extends HttpServlet {
         String email = currentUser.getEmail();
         String token = currentUser.getAuthenticationToken();
         
+        Part imagePart = request.getPart("image");
+        byte[] imageByte = null;
+        if (imagePart != null){
+            imageByte = IOUtils.toByteArray(imagePart.getInputStream());
+        }
+        
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
-        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("header", StringEscapeUtils.escapeHtml(header)));
-        nvps.add(new BasicNameValuePair("salary", "" + salary));
-        nvps.add(new BasicNameValuePair("description", StringEscapeUtils.escapeHtml(description)));
-        nvps.add(new BasicNameValuePair("location", StringEscapeUtils.escapeHtml(location)));
-        nvps.add(new BasicNameValuePair("job_date",jobDate.toString()));
-        nvps.add(new BasicNameValuePair("end_date",endDate.toString()));
-        nvps.add(new BasicNameValuePair("email", email));
-        nvps.add(new BasicNameValuePair("start_time", startTime));
-        nvps.add(new BasicNameValuePair("end_time", endTime));
-        nvps.add(new BasicNameValuePair("pay_type", payType));
-
-        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        if (imageByte != null && imageByte.length != 0){
+            builder.addBinaryBody("image", imageByte, ContentType.create(imagePart.getContentType()), imagePart.getName());
+        }
+        builder.addTextBody("header", StringEscapeUtils.escapeHtml(header), ContentType.TEXT_PLAIN);
+        builder.addTextBody("salary", "" + salary, ContentType.TEXT_PLAIN);
+        builder.addTextBody("description", StringEscapeUtils.escapeHtml(description), ContentType.TEXT_PLAIN);
+        builder.addTextBody("location", StringEscapeUtils.escapeHtml(location), ContentType.TEXT_PLAIN);
+        builder.addTextBody("job_date", jobDate.toString(), ContentType.TEXT_PLAIN);
+        builder.addTextBody("end_date", endDate.toString(), ContentType.TEXT_PLAIN);
+        builder.addTextBody("email", email, ContentType.TEXT_PLAIN);
+        builder.addTextBody("start_time", startTime, ContentType.TEXT_PLAIN);
+        builder.addTextBody("end_time", endTime, ContentType.TEXT_PLAIN);
+        builder.addTextBody("pay_type", payType, ContentType.TEXT_PLAIN);
+        
+        HttpEntity entity = builder.build();
+        httpPost.setEntity(entity);
+        
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
-        HttpEntity entity = httpResponse.getEntity();
+        entity = httpResponse.getEntity();
         try {
             int statusCode = httpResponse.getStatusLine().getStatusCode();
             StringWriter writer = new StringWriter();

@@ -65,7 +65,7 @@ session.removeAttribute("offeredList");}%>
 
 
 <div class="col-md-8">
-    <% if (!post.onGoing()){ %>
+    <% if (post.onGoing()){ %>
     <div class="panel panel-default">
         <div class="panel-heading"> 
             <h4>Your Applicants</h4> 
