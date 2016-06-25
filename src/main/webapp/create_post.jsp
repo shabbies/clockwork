@@ -3,6 +3,7 @@
 <%@include file="_only_emp.jsp"%>
 
 <%@ page import="model.User"%>
+<%@ page import="model.Post"%>
 <%@ page import="controller.PostController"%>
 
 <%  
@@ -12,7 +13,8 @@ if (postController.getEmployerReviewingJobs().size() != 0){
     session.setAttribute("error", "Please submit your pending reviews before posting a new job!");
     response.sendRedirect("/dashboard.jsp");
     return;
-}%>
+}
+%>
 
 <!-- Initialising Google Places for location autofill -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>

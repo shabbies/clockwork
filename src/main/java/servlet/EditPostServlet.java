@@ -23,7 +23,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import model.APIManager;
 import model.Post;
 import model.User;
@@ -32,8 +34,12 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
+@MultipartConfig
 public class EditPostServlet extends HttpServlet {
 
     @Override
@@ -119,6 +125,13 @@ public class EditPostServlet extends HttpServlet {
             return;
         }
         
+        // retrieving image part
+        Part imagePart = request.getPart("image");
+        byte[] imageByte = null;
+        if (imagePart != null){
+            imageByte = IOUtils.toByteArray(imagePart.getInputStream());
+        }
+        
         // retrieve post object
         PostController postController = appController.getPostController();
         Post post = postController.getPost(postID);
@@ -126,22 +139,28 @@ public class EditPostServlet extends HttpServlet {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(URL);
         httpPost.setHeader("Authentication-Token", token);
-        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
-        nvps.add(new BasicNameValuePair("header", StringEscapeUtils.escapeHtml(header)));
-        nvps.add(new BasicNameValuePair("salary", "" + salary));
-        nvps.add(new BasicNameValuePair("description", StringEscapeUtils.escapeHtml(description)));
-        nvps.add(new BasicNameValuePair("location", StringEscapeUtils.escapeHtml(location)));
-        nvps.add(new BasicNameValuePair("job_date",jobDateString));
-        nvps.add(new BasicNameValuePair("end_date",endDateString));
-        nvps.add(new BasicNameValuePair("email", email));
-        nvps.add(new BasicNameValuePair("post_id", String.valueOf(postID)));
-        nvps.add(new BasicNameValuePair("start_time", jobStartTime));
-        nvps.add(new BasicNameValuePair("end_time", jobEndTime));
-        nvps.add(new BasicNameValuePair("pay_type", payType));
         
-        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        if (imageByte != null && imageByte.length != 0){
+            builder.addBinaryBody("image", imageByte, ContentType.create(imagePart.getContentType()), imagePart.getName());
+        }
+        builder.addTextBody("header", StringEscapeUtils.escapeHtml(header), ContentType.TEXT_PLAIN);
+        builder.addTextBody("salary", "" + salary, ContentType.TEXT_PLAIN);
+        builder.addTextBody("description", StringEscapeUtils.escapeHtml(description), ContentType.TEXT_PLAIN);
+        builder.addTextBody("location", StringEscapeUtils.escapeHtml(location), ContentType.TEXT_PLAIN);
+        builder.addTextBody("job_date", jobDateString, ContentType.TEXT_PLAIN);
+        builder.addTextBody("end_date", endDateString, ContentType.TEXT_PLAIN);
+        builder.addTextBody("email", email, ContentType.TEXT_PLAIN);
+        builder.addTextBody("post_id", String.valueOf(postID), ContentType.TEXT_PLAIN);
+        builder.addTextBody("start_time", jobStartTime, ContentType.TEXT_PLAIN);
+        builder.addTextBody("end_time", jobEndTime, ContentType.TEXT_PLAIN);
+        builder.addTextBody("pay_type", payType, ContentType.TEXT_PLAIN);
+        
+        HttpEntity entity = builder.build();
+        httpPost.setEntity(entity);
+        
         CloseableHttpResponse httpResponse = httpclient.execute(httpPost);
-        HttpEntity entity = null;
         try {
             entity = httpResponse.getEntity();
             int statusCode = httpResponse.getStatusLine().getStatusCode();

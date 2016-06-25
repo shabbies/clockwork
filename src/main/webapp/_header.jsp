@@ -70,12 +70,3 @@
     <% } %>
 </head>
 <body id="page-top">
-    
-<script>
- window.onload=function(){
-     $(function(){
-         if(window.location.protocol==="https:")
-             window.location.protocol="http";
-     });
- }
- </script>
