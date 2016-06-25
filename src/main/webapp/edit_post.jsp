@@ -51,9 +51,18 @@
 <div class="col-md-8 col-md-offset-2">
 <div class="panel panel-default">
 <div class="panel-body">
-    <form class="form form-post" action="/EditPostServlet" method="POST" role="form">
+    <form class="form form-post" action="/EditPostServlet" method="POST" role="form" enctype="multipart/form-data">
         <input type="text" name="post_id" value="<%=post.getId()%>" hidden />
         <table>
+            <tr>
+                <div class="form-group form-group-lg col-md-6 col-md-offset-3 text-left"> 
+                    <label for="avatar" class="control-label ">Post Image</label> 
+                    <div class="text-center padding-bottom">
+                        <img id="profile-pic" src="<%=post.getAvatarPath()%>" alt="" class="db-post-pic modal-pic col-centered img-rounded img-responsive" />
+                    </div>
+                    <input id="avatar" class="form-control" type="file" name="image" accept="image/*">
+                </div>
+            </tr>
             <tr>
                 <div class="form-group form-group-lg col-md-6 text-left"> 
                     <label for="job-title" class="control-label">Job Title</label> 
