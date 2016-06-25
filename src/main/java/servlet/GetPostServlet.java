@@ -74,7 +74,7 @@ public class GetPostServlet extends HttpServlet {
         RequestDispatcher rd = null;
         switch (location) {
             case "post":
-                request.setAttribute("facebookURL", "http://www.clockworksg.com/post.jsp?id=" + postID);
+                request.setAttribute("facebookURL", "http://www.workiki.com/post.jsp?id=" + postID);
                 request.setAttribute("facebookTitle", post.getHeader() + " at " + post.getCompany());
                 request.setAttribute("facebookImage", post.getAvatarPath());
                 rd = request.getRequestDispatcher("/post.jsp?id=" + postID);
