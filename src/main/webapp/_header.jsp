@@ -65,8 +65,8 @@
     <meta property="og:url"         content="<%=request.getAttribute("facebookURL")%>" />
     <meta property="og:description" content="Have fun working at Workiki!" />
     <meta property="og:image"       content="<%=request.getAttribute("facebookImage")%>" />
-    <meta property="og:image:width" content="300"/>
-    <meta property="og:image:height" content="200"/>
+    <meta property="og:image:width" content="200"/>
+    <meta property="og:image:height" content="100"/>
     <% } %>
 </head>
 <body id="page-top">
