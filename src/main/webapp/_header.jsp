@@ -64,18 +64,9 @@
     <meta property="og:title"       content="<%=request.getAttribute("facebookTitle")%>" />
     <meta property="og:url"         content="<%=request.getAttribute("facebookURL")%>" />
     <meta property="og:description" content="Have fun working at Workiki!" />
-    <meta property="og:image"       content="https://s3-ap-southeast-1.amazonaws.com/media.clockworksmu.herokuapp.com/app/public/assets/logos/workiki_logo_v1.png" />
-    <meta property="og:image:width" content="300"/>
-    <meta property="og:image:height" content="200"/>
+    <meta property="og:image"       content="<%=request.getAttribute("facebookImage")%>" />
+    <meta property="og:image:width" content="200"/>
+    <meta property="og:image:height" content="100"/>
     <% } %>
 </head>
 <body id="page-top">
-    
-<script>
- window.onload=function(){
-     $(function(){
-         if(window.location.protocol==="https:")
-             window.location.protocol="http";
-     });
- }
- </script>
