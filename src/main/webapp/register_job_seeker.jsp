@@ -7,6 +7,10 @@
             <h3 class="text-center">Register your job seeker account here!</h3>
             <div class="row">
                 <div class="col-md-6">
+                    <span class="expired-event">
+                        <strong class="display-inline" style="color: red;">Sorry!</strong>
+                        <small>you missed it</small>
+                    </span>
                     <img src="/img/limited_event_banner.png" class="limited-event-banner"/>
                     <div class="panel panel-default">
                         <div class="panel-body">
