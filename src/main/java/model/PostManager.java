@@ -100,6 +100,7 @@ public class PostManager {
         ArrayList <Post> reviewingList = new ArrayList <Post> ();
         ArrayList <Post> completedList = new ArrayList <Post> ();
         ArrayList <Post> expiredList = new ArrayList <Post> ();
+        ArrayList <Post> ongoingList = new ArrayList <Post> ();
  
         for (Post post : fullPostList){
             String status = post.getStatus();
@@ -119,6 +120,9 @@ public class PostManager {
                 case "expired":
                     expiredList.add(post);
                     break;
+                case "ongoing":
+                    ongoingList.add(post);
+                    break;
             }
         }
         
@@ -127,8 +131,10 @@ public class PostManager {
         publishedMap.put("reviewing", reviewingList);
         publishedMap.put("completed", completedList);
         publishedMap.put("expired", expiredList);
+        publishedMap.put("ongoing", ongoingList);
         
         ArrayList <Post> returningList = new ArrayList <Post> ();
+        returningList.addAll(ongoingList);
         returningList.addAll(reviewingList);
         returningList.addAll(appliedList);
         returningList.addAll(listedList);
