@@ -46,6 +46,9 @@ public class CompleteProfileServlet extends HttpServlet {
         String username = request.getParameter("username");
         String contactNumberString = request.getParameter("contact_number");
         String nationality = request.getParameter("nationality");
+        String nric = request.getParameter("nric");
+        String qualification = request.getParameter("qualification");
+        String description = request.getParameter("description");
         String gender = request.getParameter("gender");
         int contactNumber = 0;
         if (contactNumberString != null){
@@ -101,6 +104,15 @@ public class CompleteProfileServlet extends HttpServlet {
         if (nationality != null){
             builder.addTextBody("nationality", nationality, ContentType.TEXT_PLAIN);
         }
+        if (nric != null){
+            builder.addTextBody("nric", nric, ContentType.TEXT_PLAIN);
+        }
+        if (qualification != null){
+            builder.addTextBody("qualification", qualification, ContentType.TEXT_PLAIN);
+        }
+        if (description != null){
+            builder.addTextBody("description", description, ContentType.TEXT_PLAIN);
+        }
         if (gender != null){
             builder.addTextBody("gender", gender, ContentType.TEXT_PLAIN);
         }
@@ -116,7 +128,6 @@ public class CompleteProfileServlet extends HttpServlet {
         httpPost.setEntity(entity);
         
         CloseableHttpResponse response2 = httpclient.execute(httpPost);
-        User user;
         
         try {
             entity = response2.getEntity();

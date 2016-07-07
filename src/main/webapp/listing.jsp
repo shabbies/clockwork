@@ -534,16 +534,6 @@ session.removeAttribute("offeredList");}%>
     });
 </script>
 
-<style>
-    span{
-        position:relative;
-        margin-right:-20px
-      }
-      input[type='number']{
-        padding-left:20px;
-        text-align:left;
-      }
-</style>
     
 <jsp:include page="_javascript_checker.jsp" />
 <jsp:include page="_anchor.jsp" />
