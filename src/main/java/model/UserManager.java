@@ -67,6 +67,8 @@ public class UserManager {
         String referralID = (String)userHash.get("referral_id");
         int referredUsers = ((Double)userHash.get("referred_users")).intValue(); 
         boolean hasConfirmed = (Boolean)userHash.get("verified");
+        String qualification = (String)userHash.get("qualification");
+        String description = (String)userHash.get("description");
         User user = null;
         if (userHash.get("quiz_score") != null){
             int scoreCleanUp = ((Double)userHash.get("clean_up")).intValue();
@@ -86,9 +88,9 @@ public class UserManager {
             scoreMap.put("bartender", scoreBartender);
             scoreMap.put("service", scoreService);
             scoreMap.put("cashier", scoreCashier);
-            user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating, referralID, referredUsers, hasConfirmed, scoreMap);
+            user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating, referralID, referredUsers, hasConfirmed, scoreMap, qualification, description);
         } else {
-            user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating, referralID, referredUsers, hasConfirmed);
+            user = new User(id, username, email, accountType, authenticationToken, address, contactNumber, dateOfBirth, avatar, nationality, gender, badRating, neutralRating, goodRating, referralID, referredUsers, hasConfirmed, qualification, description);
         }
         return user;
     }

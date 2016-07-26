@@ -47,6 +47,31 @@
                         <% } %>
                     </div>
 
+                    <div class="form-group col-sm-6 text-left"> 
+                        <label for="avatar" class="control-label">Profile Picture</label> 
+                        <input id="avatar" class="form-control" type="file" name="avatar" accept="image/*">
+                    </div>
+                    
+                    <div class="form-group col-sm-6 text-left"> 
+                        <label for="qualification" class="control-label">Highest Qualification*</label> 
+                        <select id="qualification" class="form-control" name="qualification" required>
+                            <option>PSLE</option>
+                            <option>N' Levels</option>
+                            <option>O' Levels</option>
+                            <option>A' Levels</option>
+                            <option>Diploma</option>
+                            <option>NITEC</option>
+                            <option>Higher NITEC</option>
+                            <option>Degree</option>
+                            <option>Others</option>
+                            <option selected="selected" disabled="disabled">Please select your qualification</option>
+                        </select>
+
+                        <div class="qualification-error col-md-12 profile_error" style="display: none;">  
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+                            Please select your qualification!
+                        </div>
+                    </div>
 
                     <div class="form-group col-sm-12 text-left"> 
 
@@ -63,7 +88,7 @@
                     </div>
 
                     <div class="form-group col-sm-12 text-left"> 
-                        <label for="street-address" class="control-label">Street Address*</label> 
+                        <label for="street-address" class="control-label">Home Address*</label> 
                         <% if (currentUser.getAddress() == null){ %>
                         <input id="street-address" class="form-control" type="text" name="address" required> 
                         <% } else { %>
@@ -71,8 +96,8 @@
                     </div>
 
                     <div class="form-group col-sm-12 text-left"> 
-                        <label for="avatar" class="control-label">Profile Picture</label> 
-                        <input id="avatar" class="form-control" type="file" name="avatar" accept="image/*">
+                        <label for="description" class="control-label">Description <small style='padding-left: 20px;'>Tell us a bit more about yourself!</small></label> 
+                        <pre><textarea id="description" class="form-control" type="text" name="description" rows='3' placeholder="I am a 18 year old student from [School], and I'm really interested in working!"></textarea></pre>
                     </div>
 
                     <input class="btn btn-lg btn-primary btn-srad" type="submit" value="Update Profile">
@@ -192,5 +217,10 @@
         copyTextToClipboard(text);
         $(".link-copied-text").show();
         $("#referral_code").css("border", "1px solid #5cb85c");
+    });
+    
+    $(document).ready(function(){
+       $('#qualification').val("<%= currentUser.getQualification() %>");
+       $('#description').val("<%= currentUser.getDescription() %>");
     });
 </script>

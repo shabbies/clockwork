@@ -19,6 +19,8 @@
                         <strong class="col-md-5 user_profile_content"> Email</strong><div id="modalEmail" class="col-md-7 user_profile_content"></div>
                         <strong class="col-md-5 user_profile_content"> Gender</strong><div id="modalGender" class="col-md-7 user_profile_content"></div>
                         <strong class="col-md-5 user_profile_content"> Nationality</strong><div id="modalNationality" class="col-md-7 user_profile_content"></div>
+                        <strong class="col-md-5 user_profile_content"> Qualification</strong><div id="modalQualification" class="col-md-7 user_profile_content"></div>
+                        <strong class="col-md-5 user_profile_content"> Description</strong><div id="modalDescription" class="col-md-7 user_profile_content"></div>
                         <strong class="col-md-5 user_profile_content"> Ratings</strong>
                         <div id="modalRating" class="col-md-7 user_profile_content">
                             <div class="display-inline">
@@ -56,6 +58,8 @@
         var goodText = $(this).data('good');
         var neutralText = $(this).data('neutral');
         var badText = $(this).data('bad');
+        var qualification = $(this).data('qualification');
+        var description = $(this).data('description');
         
         $('#modalName').html("<strong>"+nameText+"</strong>");
         if (typeof contactText === 'undefined'){
@@ -78,6 +82,8 @@
         $("#modalGoodRating").html(goodText);
         $("#modalNeutralRating").html(neutralText);
         $("#modalBadRating").html(badText);
+        $("#modalQualification").html(qualification);
+        $("#modalDescription").html(description);
         
         $('#profileModal').modal('show');
     });

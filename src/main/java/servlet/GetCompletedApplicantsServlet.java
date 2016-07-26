@@ -76,6 +76,9 @@ public class GetCompletedApplicantsServlet extends HttpServlet {
                         }
                         response.sendRedirect("/listing.jsp?id=" + postID);
                         return;
+                    case "manage":
+                        response.sendRedirect("/manage_workers.jsp?id=" + postID);
+                        return;
                     default:
                         response.sendRedirect("/complete_job.jsp?id=" + postID);
                         return;

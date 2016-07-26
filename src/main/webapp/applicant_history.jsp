@@ -52,7 +52,7 @@
         String avatar = user.getAvatar();
         ArrayList <Integer> ongoingJobs = history.getOngoingJobs();
         if (avatar == null){ avatar = "img/user-placeholder.jpg";}%>
-    <tr class="open-profileModal" data-id="<%=user.getId()%>" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'>  
+    <tr class="open-profileModal" data-id="<%=user.getId()%>" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>"  data-qualification="<%=user.getQualification()%>" data-description="<%=user.getDescription()%>">  
         <% if (history.isFavourite()){ %>
         <td class="text-center fav-star fav-star-selected">
         <% } else { %>

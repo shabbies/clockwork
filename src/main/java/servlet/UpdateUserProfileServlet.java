@@ -55,6 +55,8 @@ public class UpdateUserProfileServlet extends HttpServlet {
             }
         }
         String address = (String)request.getParameter("address");
+        String qualification = (String)request.getParameter("qualification");
+        String description = (String)request.getParameter("description");
         
         Part avatarPart = request.getPart("avatar");
         byte[] avatarByte = null;
@@ -110,6 +112,12 @@ public class UpdateUserProfileServlet extends HttpServlet {
         }
         if (contactNumber != 0){
             builder.addTextBody("contact_number", String.valueOf(contactNumber), ContentType.TEXT_PLAIN);
+        }
+        if (qualification != null){
+            builder.addTextBody("qualification", String.valueOf(qualification), ContentType.TEXT_PLAIN);
+        }
+        if (description != null){
+            builder.addTextBody("description", String.valueOf(description), ContentType.TEXT_PLAIN);
         }
         if (oldPassword != null && newPassword != null && newPasswordConfirmation != null){
             builder.addTextBody("old_password", oldPassword, ContentType.TEXT_PLAIN);
