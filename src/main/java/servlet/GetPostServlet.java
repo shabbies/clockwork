@@ -84,6 +84,7 @@ public class GetPostServlet extends HttpServlet {
                 response.sendRedirect("/edit_post.jsp?id=" + postID);
                 return;
             case "listing":
+            case "manage":
             case "completed":
             case "reviewing":
                 rd = request.getRequestDispatcher("/GetJobApplicantsServlet?id=" + postID + "&location=" + location);

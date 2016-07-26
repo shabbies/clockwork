@@ -24,8 +24,10 @@ public class User {
     private int referredUsers;
     private boolean hasConfirmed;
     private HashMap <String, Integer> scoreMap;
+    private String qualification;
+    private String description;
 
-    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating, String referralID, int referredUsers, boolean hasConfirmed) {
+    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating, String referralID, int referredUsers, boolean hasConfirmed, String qualification, String description) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -44,9 +46,11 @@ public class User {
         this.referredUsers = referredUsers;
         this.hasConfirmed = hasConfirmed;
         scoreMap = null;
+        this.qualification = qualification;
+        this.description = description;
     }
 
-    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating, String referralID, int referredUsers, boolean hasConfirmed, HashMap<String, Integer> scoreMap) {
+    public User(int id, String username, String email, String accountType, String authenticationToken, String address, int contactNumber, Date dateOfBirth, String avatar, String nationality, char gender, int badRating, int neutralRating, int goodRating, String referralID, int referredUsers, boolean hasConfirmed, HashMap<String, Integer> scoreMap, String qualification, String description) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -65,6 +69,8 @@ public class User {
         this.referredUsers = referredUsers;
         this.hasConfirmed = hasConfirmed;
         this.scoreMap = scoreMap;
+        this.qualification = qualification;
+        this.description = description;
     }
 
     
@@ -201,4 +207,22 @@ public class User {
     public HashMap<String, Integer> getScoreMap() {
         return scoreMap;
     }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    
 }

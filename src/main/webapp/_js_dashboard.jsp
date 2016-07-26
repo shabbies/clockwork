@@ -36,6 +36,7 @@
             </a>
             <a href="/all_ratings.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-star"></i> View my Ratings</a>
             <!--<a href="#" class="btn btn-primary btn-block incomplete"><i class="fa fa-fw fa-book"></i> View my Archived Jobs</a>-->
+            <a href="/js_chat.jsp" class="btn btn-primary btn-block"><i class="fa fa-fw fa-comments"></i> Chat with Employers</a>
         </div>
     </div>
 </div>

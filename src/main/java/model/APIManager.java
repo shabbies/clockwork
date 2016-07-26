@@ -44,6 +44,9 @@ public class APIManager {
     String EPCheckIn = "/api/v1/posts/check_in";
     String EPCheckOut = "/api/v1/posts/check_out";
     String EPUpdateWage = "/api/v1/posts/update_salary";
+    String EPGetChatMessages = "/api/v1/chat/get_messages";
+    String EPNewChatMessage = "/api/v1/chat/new_message";
+    String EPGetJSChatrooms = "/api/v1/chat/get_js_chatrooms";
     
     public APIManager(String mode){
         if (mode.equals("production")){
@@ -225,6 +228,18 @@ public class APIManager {
     
     public String getEPUpdateWage(){
         return prefix + EPUpdateWage;
+    }
+    
+    public String getEPGetChatMessages(){
+        return prefix + EPGetChatMessages;
+    }
+    
+    public String getEPNewChatMessage(){
+        return prefix + EPNewChatMessage;
+    }
+    
+    public String getEPGetJSChatrooms(){
+        return prefix + EPGetJSChatrooms;
     }
     
     public String getPrefix(){

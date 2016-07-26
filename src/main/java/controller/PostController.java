@@ -3,15 +3,19 @@ package controller;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import model.Message;
+import model.MessageManager;
 import model.Post;
 import model.PostManager;
 
 public class PostController {
 
     private PostManager postManager;
+    private MessageManager messageManager; 
     
     public PostController(){
         postManager = new PostManager();
+        messageManager = new MessageManager();
     }
     
     public ArrayList <Post> loadPostList(String JSONString) throws ParseException {
@@ -78,5 +82,9 @@ public class PostController {
     
     public ArrayList <Post> getApplicableJobs(){
         return postManager.getApplicableJobs();
+    }
+    
+    public ArrayList <Message> loadChatMessages(String JSONString) throws ParseException {
+        return messageManager.createMessageArrayFromJSON(JSONString);
     }
 }

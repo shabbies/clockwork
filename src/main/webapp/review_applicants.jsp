@@ -66,7 +66,7 @@ session.removeAttribute("matchMap");
                 <thead> 
                     <tr style="cursor: default;"> 
                         <th>Name</th>
-                        <th>Status</th>
+                        <th class="hidden-xs">Status</th>
                         <th style="text-align: center;">Rating</th>
                         <th>Action</th>
                     </tr>
@@ -78,7 +78,7 @@ session.removeAttribute("matchMap");
                                 Match match = matchMap.get(user.getId());%>
                                 <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'> 
                                     <td><%=user.getUsername()%></td>
-                                    <td>Completed</td>
+                                    <td class="hidden-xs">Completed</td>
                                     <td align="center">
                                         <div id="<%=user.getId()%>" class="score" data-score="2">
                                             <img class="ratings_icon" id="rating_good" src="/img/good.png"/>
@@ -111,7 +111,7 @@ session.removeAttribute("matchMap");
                 <thead> 
                     <tr style="cursor: default;"> 
                         <th>Name</th>
-                        <th>Status</th>
+                        <th class="hidden-xs">Status</th>
                         <th>Rating</th>
                         <th>Action</th>
                     </tr>
@@ -123,7 +123,7 @@ session.removeAttribute("matchMap");
                             Match match = matchMap.get(user.getId());%>
                                 <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-cleanup='<%=scoreMap.get("cleanUp")%>' data-ordertaking='<%=scoreMap.get("orderTaking")%>' data-barista='<%=scoreMap.get("barista")%>' data-selling='<%=scoreMap.get("selling")%>' data-kitchen='<%=scoreMap.get("kitchen")%>' data-bartender='<%=scoreMap.get("bartender")%>' data-service='<%=scoreMap.get("service")%>' data-cashier='<%=scoreMap.get("cashier")%>'> 
                                     <td><%=user.getUsername()%></td>
-                                    <td>Reviewed</td>
+                                    <td class="hidden-xs">Reviewed</td>
                                     <td align="left">
                                         <div id="<%=user.getId()%>">
                                             <% int rating = match.getRating();%>

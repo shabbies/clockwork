@@ -43,8 +43,6 @@ public class UpdateListingServlet extends HttpServlet {
             String dailyWage = checkHash.get("day_wage");
             returnMap.put(Integer.toString(key), checkIn + "," + checkOut + "," + dailyWage);
         }
-        
         out.println(gson.toJson(returnMap));
     }
-
 }
