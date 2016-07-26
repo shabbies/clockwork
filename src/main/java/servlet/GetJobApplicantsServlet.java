@@ -65,21 +65,31 @@ public class GetJobApplicantsServlet extends HttpServlet {
                 IOUtils.copy(readingStream, writer, "UTF-8");
                 String responseString = writer.toString();
                 HashMap<String, ArrayList <User>> applicantMap = userController.loadPostApplicants(responseString);
-                if (location.equals("listing")){
-                    session.setAttribute("hiredList", applicantMap.get("hired"));
-                    session.setAttribute("applicantList", applicantMap.get("pending"));
-                    session.setAttribute("offeredList", applicantMap.get("offered"));
-                    RequestDispatcher rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=listing");
-                    rd.forward(request, response);
-                } else if (location.equals("reviewing")){
-                    session.setAttribute("hiredList", applicantMap.get("hired"));
-                    session.setAttribute("completedList", applicantMap.get("completed"));
-                    RequestDispatcher rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=reviewing");
-                    rd.forward(request, response);
-                } else {
-                    session.setAttribute("completedList", applicantMap.get("completed"));
-                    RequestDispatcher rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=completed");
-                    rd.forward(request, response);
+                RequestDispatcher rd = null;
+                switch (location){
+                    case "listing":
+                        session.setAttribute("hiredList", applicantMap.get("hired"));
+                        session.setAttribute("applicantList", applicantMap.get("pending"));
+                        session.setAttribute("offeredList", applicantMap.get("offered"));
+                        rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=listing");
+                        rd.forward(request, response);
+                        break;
+                    case "reviewing":
+                        session.setAttribute("hiredList", applicantMap.get("hired"));
+                        session.setAttribute("completedList", applicantMap.get("completed"));
+                        rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=reviewing");
+                        rd.forward(request, response);
+                        break;
+                    case "manage":
+                        session.setAttribute("hiredList", applicantMap.get("hired"));
+                        rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=manage");
+                        rd.forward(request, response);
+                        break;
+                    default:
+                        session.setAttribute("completedList", applicantMap.get("completed"));
+                        rd = request.getRequestDispatcher("/GetCompletedApplicantsServlet?id=" + postID + "&location=completed");
+                        rd.forward(request, response);
+                        break;
                 }
             } else {
                 String error = "A system error has occurred, please try again";

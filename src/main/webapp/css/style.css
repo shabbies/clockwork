@@ -223,6 +223,11 @@ aside {
     .navbar-default .nav>li>a:focus {
         color: rgba(255,255,255,.7);
     }
+    
+    .navbar-default .nav > li > span > a,
+    .navbar-default .nav > li > span > a:focus {
+        color: white;
+    }
 
     .navbar-default .nav > li>a:hover,
     .navbar-default .nav>li>a:focus:hover {
@@ -252,6 +257,12 @@ aside {
     .navbar-default.affix .nav > li>a,
     .navbar-default.affix .nav>li>a:focus {
         color: #222;
+    }
+    
+    .navbar-default.affix .nav > li > span > a,
+    .navbar-default.affix .nav > li > span > a:focus {
+        color: #eb123a;
+        font-weight: 800;
     }
 
     .navbar-default.affix .nav > li>a:hover,
@@ -895,6 +906,112 @@ body {
     margin-bottom: inherit;
 }
 
+.chat-panel {
+    color: black;
+    height: 350px;
+    padding-bottom: 100px;
+}
+
+.chat-panel-header {
+    background-color: #eee;
+    padding-left: 16px;
+    padding-right: 15px;
+    font-weight: bolder;
+    text-align: left;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.chat-body {
+    margin-top: 20px;
+    height: 90%;
+    overflow: scroll;
+}
+
+.no-conversation-text{
+    vertical-align: middle;
+    line-height: 150px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.chat-body-input {
+    border-radius: 5px;
+    background-clip: padding-box;
+    width: inherit;
+    background-color: #fff;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-width: 0;
+    border-color: #fff;
+    border-width: 1px;
+    border-style: solid;
+    box-sizing: border-box;
+    padding-right: 16px;
+    padding-left: 10px;
+}
+
+.chat-body-input-panel {
+    background-color: #eee;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    position: absolute;
+    bottom: 0px;
+    width: 95%;
+    margin-bottom: 10px;
+}
+
+.chat-other-profile-panel {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.chat-my-profile-panel {
+    padding-left: 0px;
+    padding-right: 15px;
+}
+
+
+.chat-other-profile{
+    width: 30px;
+}
+
+.chat-my-profile{
+    width: 30px;
+}
+
+.chat-other-text-panel {
+    text-align: left;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.chat-my-text-panel {
+    text-align: right;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.chat-text-content {
+    padding-left: 0px;
+    padding-right: 10px;
+}
+
+.chat-text-timestamp {
+    font-size: smaller;
+    padding-right: 0px;
+    text-align: right;
+    padding-left: 0px;
+    color: #A9A9A9;
+}
+
+.single-response-panel {
+    margin-bottom: 10px;
+    overflow: auto;
+}
 
 .db-user-info{
     color:#000;
@@ -1880,11 +1997,11 @@ pre{
 }
 
 .db-post-pic {
-  padding: 4px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  display: inline-block;
-  width: 200px;
+    padding: 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: inline-block;
+    width: 200px;
 }
 
 .expired-event{
@@ -1903,4 +2020,267 @@ pre{
     vertical-align: middle;
     display: inline-block;
     line-height: 500px;
+}
+
+.panel-body-listing-info{
+    max-height: 300px;
+    overflow: scroll;
+}
+
+.js-chat-body {
+    color: black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height: 650px;
+}
+
+.js-chat-side-panel {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently not supported by any browser */
+    border-right: 1px solid #DCDCDC; 
+    border-left: 1px solid #DCDCDC;
+    overflow: auto;
+    height: 557px;
+    border-bottom: 1px solid #DCDCDC;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+
+.js-chat-side-panel-details {
+    border-bottom: 1px solid #DCDCDC;
+    padding: 10px 10px 10px 20px;
+}
+
+@media only screen and (max-width: 480px) {
+    .js-chat-side-panel-details {
+        border-bottom: 1px solid #DCDCDC;
+        padding: 10px 0px 10px 0px;
+        font-size: smaller;
+    }
+    
+    .js-chat-side-panel-details > div {
+        overflow: hidden;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+.js-chat-side-panel-details:focus,
+.js-chat-side-panel-details:hover {
+    background-color: #FAFAFA;
+    cursor: pointer;
+}
+
+.js-chat-side-panel-details.active{
+    background-color: #ededed;
+}
+
+.js-chat-side-panel-details > img{
+    max-height: 50px;
+    max-width: 50px;
+    float: left;
+    border-radius: 100px;
+}
+
+.js-chat-side-panel-details > div {
+    overflow: hidden;
+    padding-left: 20px;
+}
+
+.js-chat-side-panel-details > div > strong {
+    float: left;
+}
+
+.js-chat-side-panel-details > div > small {
+    float: left;
+    clear: left;
+}
+
+#start-column {
+    text-align: center;
+    color: #ee4054;
+    text-transform: uppercase;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    vertical-align: middle;
+    position: relative;
+    min-height: 500px;
+}
+
+#start-column > div {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+}
+
+.worker-panel {
+    overflow: auto;
+    color: black;
+    position: relative;
+}
+
+.worker-panel > .header {
+    text-align: left;
+    font-weight: 700;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 10px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently not supported by any browser */
+    cursor: default;
+}
+
+@media (min-width: 480px) {
+    .worker-panel > .header > .date-label {
+        float: left;
+        width: 40%;
+        height: 34px;
+        line-height: 34px;
+        text-align: right;
+        padding-right: 20px;
+        cursor: pointer;
+    }
+    
+    .worker-panel > .header > #job-date {
+        float: left;
+        width: 30%;
+        cursor: pointer;
+    }
+    
+    .worker-details-bar > .day-wage > form > input {
+        width: 35%;
+        float: left;
+    }
+    
+    
+    .worker-details-bar > .day-wage > form > .btn {
+        float: left;
+        min-width: 85px;
+        width: 30%;
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .worker-panel > .header > .date-label {
+        float: left;
+        width: 20%;
+        line-height: 34px;
+        text-align: right;
+        padding-right: 20px;
+        cursor: pointer;
+    }
+    
+    .worker-panel > .header > #job-date {
+        float: left;
+        width: 70%;
+        cursor: pointer;
+    }
+    
+    .worker-details-bar > .day-wage > form > input {
+        width: 70%;
+        float: left;
+    }
+    
+    .worker-details-bar > .day-wage > form > .btn {
+        margin-top: 10px;
+        float: left;
+        min-width: 85px;
+        width: 30%;
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (max-width: 666px) {
+    .worker-details-bar > .day-wage > form > input {
+        width: 70%;
+        float: left;
+    }
+    
+    .worker-details-bar > .day-wage > form > .btn {
+        margin-top: 10px;
+        float: left;
+        min-width: 85px;
+        width: 30%;
+        margin-left: 10px;
+    }
+}
+
+.worker-panel > .name-header {
+    line-height: 34px;
+}
+
+.worker-panel > .worker-details-bar {
+    padding: 20px 0px;
+    cursor: pointer;
+    text-align: left;
+    align-items: center;
+    display: flex;
+}
+
+.worker-panel > .worker-details-bar:hover {
+    background-color: #DCDCDC;
+}
+    
+.worker-details-bar > .day-wage > form > span {
+    float: left;
+    line-height: 34px;
+    margin-right: 10px;
+}
+
+.worker-details-bar > .mobile-check {
+    text-align: center;
+}
+
+.worker-details-bar > .mobile-check > .mobile-check-in{
+    width: 105px;
+}
+
+.listing-panel {
+    overflow: auto;
+    color: black;
+    position: relative;
+}
+
+.listing-panel > .header {
+    text-align: left;
+    font-weight: 700;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 10px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently not supported by any browser */
+    cursor: default;
+}
+
+.listing-panel > .listing-details-bar {
+    padding: 20px 0px;
+    cursor: pointer;
+    text-align: left;
+    align-items: center;
+    display: flex;
+}
+
+.listing-panel > .no-applicants-bar {
+    padding: 20px 0px;
+}
+
+.listing-panel > .listing-details-bar:hover {
+    background-color: #DCDCDC;
+}
+
+.listing-panel > .listing-details-bar > div > .ratings {
+    margin-left: -10px;
+    margin-right: -10px;
 }

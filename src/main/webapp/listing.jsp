@@ -41,7 +41,7 @@ session.removeAttribute("offeredList");}%>
     
 <div class="col-md-4">
     <div class="panel panel-default">
-        <div class="panel-body db-user">
+        <div class="panel-body db-user panel-body-listing-info">
             <% appController = (AppController)session.getAttribute("appController");
                 if (!appController.getEnvironment().equals("production")){
                     String expirePostURL = appController.getAPIManager().getPrefix() + "/api/v1/posts/dev_expire_post?id=" + post.getId(); %>
@@ -61,215 +61,139 @@ session.removeAttribute("offeredList");}%>
             </div> 
         </div>
     </div>
+    <div class="col-md-12 panel chat-panel">
+        <div class="col-md-12 chat-panel-header">
+            Chat <small> with your hires </small>
+        </div>
+        <%@include file="_chat.jsp"%>     
+    </div>
 </div>
 
 
 <div class="col-md-8">
-    <% if (!post.onGoing()){ %>
-    <div class="panel panel-default">
+    <div class="panel panel-default listing-panel">
         <div class="panel-heading"> 
             <h4>Your Applicants</h4> 
         </div> 
-        <table class="table db-job-table review-table table-hover"> 
-            <thead> 
-                <tr> 
-                    <th>Name</th>
-                    <th>Rating</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody> 
-                <%  if (applicantList != null){
-                        if (applicantList.size() > 0){   
-                            for (User user : applicantList){ 
-                                applicantListUID.add(user.getId());%>
-                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" >  
-                    <td><%=user.getUsername()%></td>
-                    <td>
-                        <div class="ratings">
-                            <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
-                            <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
-                            <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
-                        </div>
-                    </td>
-                    <td>Pending</td>
-                    <td><button id="open_offer_job_modal" class="btn btn-success" data-postid="<%=postID%>" data-userid="<%=user.getId()%>">Offer Job</button>
-                    </td>
-                </tr>
-                <% } %>
-                <% if (applicantList.size() > 0) { %>
-                <tr style="background-color: white;">
-                    <td style="cursor: default;"></td>
-                    <td style="cursor: default;"></td>
-                    <td style="cursor: default;"></td>
-                    <td style="cursor: default;"><button class="btn btn-lg btn-primary" id="open_offer_all_job_modal" data-postid="<%=post.getId()%>"><span class="badge"><%=applicantList.size()%></span> Offer All </button></td>
-                </tr>
-                <%}%>
-                <% } else { %>
-                <tr style="background-color: white;"><td style="cursor: default;" colspan="4" class="text-center">No New Applicants</td></tr>
-                <% } %>
-                <% } %>    
-            </tbody>
-
-        </table>
+        
+        <div class="col-xs-12 header">
+            <div class="col-xs-3 header hidden-xs">Name</div>
+            <div class="col-xs-3 header hidden-xs">Rating</div>
+            <div class="col-xs-3 header hidden-xs">Status</div>
+            <div class="col-xs-3 header hidden-xs">Action </div>
+            
+            <div class="col-xs-4 header visible-xs">Name</div>
+            <div class="col-xs-4 header visible-xs">Rating</div>
+            <div class="col-xs-4 header visible-xs">Action </div>
+        </div>
+        <%  if (applicantList != null){
+            if (applicantList.size() > 0){   
+            for (User user : applicantList){ 
+                applicantListUID.add(user.getId());%>
+        <div class="open-profileModal col-xs-12 listing-details-bar" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-qualification="<%=user.getQualification()%>" data-description="<%=user.getDescription()%>" >  
+            <div class="col-sm-3 col-xs-4"><%=user.getUsername()%></div>
+            <div class="col-sm-3 col-xs-4">
+                <div class="ratings">
+                    <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
+                    <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
+                    <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
+                </div>
+            </div>
+            <div class="hidden-xs col-sm-3">Pending</div>
+            <div class="col-sm-3 col-xs-4">
+                <button id="open_offer_job_modal" class="btn btn-success" data-postid="<%=postID%>" data-userid="<%=user.getId()%>">Offer Job</button>
+            </div>
+        </div>
+        <% } %>
+        <% if (applicantList.size() > 0) { %>
+        <div class="col-xs-12">
+            <button class="btn btn-primary" id="open_offer_all_job_modal" data-postid="<%=post.getId()%>"><span class="badge"><%=applicantList.size()%></span> Offer All </button>
+        </div>
+        <%}%>
+        <% } else { %>
+        <div class="col-xs-12 no-applicants-bar">No New Applicants</div>
+        <% } %>
+        <% } %>   
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default listing-panel">
         <div class="panel-heading"> 
             <h4>Your Offered Applicants</h4> 
         </div> 
-        <table class="table db-job-table review-table table-hover"> 
-            <thead> 
-                <tr> 
-                    <th>Name</th>
-                    <th>Rating</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody> 
+        
+        <div class="col-xs-12 header">
+            <div class="col-xs-3 header hidden-xs">Name</div>
+            <div class="col-xs-3 header hidden-xs">Rating</div>
+            <div class="col-xs-3 header hidden-xs">Status</div>
+            <div class="col-xs-3 header hidden-xs">Action </div>
+            
+            <div class="col-xs-4 header visible-xs">Name</div>
+            <div class="col-xs-4 header visible-xs">Rating</div>
+            <div class="col-xs-4 header visible-xs">Action </div>
+        </div>
 
-                <% if (offeredList != null){ %>
-                <% if (offeredList.size() > 0) {%>
-                <% for (User user : offeredList){ 
-                HashMap <String, Integer> scoreMap = user.getScoreMap();%>
+        <% if (offeredList != null){ %>
+        <% if (offeredList.size() > 0) {%>
+        <% for (User user : offeredList){ 
+        HashMap <String, Integer> scoreMap = user.getScoreMap();%>
 
-                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" >  
-                    <td><%=user.getUsername()%></td>
-                    <td>
-                        <div class="ratings">
-                            <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
-                            <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
-                            <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
-                        </div>
-                    </td>
-                    <td>Offered</td>
-                    <td>
-                        <form action="/WithdrawOfferServlet" method="POST" class="display-inline">
-                            <input type="hidden" name="post_id" value="<%=postID%>" />
-                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
-                            <input type="submit" value="Withdraw Offer" class="btn btn-danger" />
-                        </form>
-                    </td>
-                </tr>
-                <% } %>
-                <% } else { %>
-                <tr style="background-color: white;"><td colspan="4" class="text-center" style="cursor: default;">No Offers Given</td></tr>
-                <% }
+        <div class="open-profileModal listing-details-bar col-xs-12" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" >  
+            <div class="col-sm-3 col-xs-4"><%=user.getUsername()%></div>
+            <div class="col-sm-3 col-xs-4">
+                <div class="ratings">
+                    <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
+                    <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
+                    <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
+                </div>
+            </div>
+            <div class="col-sm-3 hidden-xs">Offered</div>
+            <div class="col-sm-3 col-xs-4">
+                <form action="/WithdrawOfferServlet" method="POST" class="display-inline">
+                    <input type="hidden" name="post_id" value="<%=postID%>" />
+                    <input type="hidden" name="user_id" value="<%=user.getId()%>" />
+                    <input type="submit" value="Cancel" class="btn btn-danger" />
+                </form>
+            </div>
+        </div>
+        <% } %>
+        <% } else { %>
+        <div class="col-xs-12 no-applicants-bar">No Offers Given</div>
+        <% }
         } %>
-            </tbody>
-
-        </table>
     </div>
     
-    <div class="panel panel-default">
+    <div class="panel panel-default listing-panel">
         <div class="panel-heading"> 
             <h4>Your Hired Applicants</h4> 
         </div> 
-        <table class="table db-job-table review-table table-hover"> 
-            <thead> 
-                <tr> 
-                    <th>Name</th>
-                    <th colspan="3">Action</th>
-                </tr>
-            </thead>
-
-            <tbody> 
-                <% if (hiredList != null){ %>
-                <% if (hiredList.size() > 0){ %>
-                <% for (User user : hiredList){ 
-                HashMap <String, Integer> scoreMap = user.getScoreMap();%>
-                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" >
-                    <td><%=user.getUsername()%></td>
-                    <td><a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>">View Profile</a></td>
-                </tr>
-                <% } %>
-                <% } else { %>
-                <tr style="background-color: white;"><td colspan="4" class="text-center" style="cursor: default;">No Hired Applicants</td></tr>
-                <% } %>
-                <% } %>
-            </tbody>
-
-        </table>
+        <div class="col-xs-12 header">
+            <div class="col-xs-4 header hidden-xs">Name</div>
+            <div class="col-xs-4 header hidden-xs">Rating</div>
+            <div class="col-xs-4 header hidden-xs">Action </div>
+        </div>
+        <% if (hiredList != null){ %>
+        <% if (hiredList.size() > 0){ %>
+        <% for (User user : hiredList){ 
+        HashMap <String, Integer> scoreMap = user.getScoreMap();%>
+        <div class="open-profileModal listing-details-bar col-xs-12" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-qualification="<%=user.getQualification()%>" data-description="<%=user.getDescription()%>" >
+            <div class="col-xs-4"><%=user.getUsername()%></div>
+            <div class="col-xs-4">
+                <div class="ratings">
+                    <%=user.getGoodRating()%> <img src="/img/good.png" class="listing_ratings"/>
+                    <%=user.getNeutralRating()%> <img src="/img/neutral.png" class="listing_ratings"/>
+                    <%=user.getBadRating()%> <img src="/img/bad.png" class="listing_ratings"/>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <a href="#" id="hire_button" class="btn btn-warning open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" data-qualification="<%=user.getQualification()%>" data-description="<%=user.getDescription()%>">View</a>
+            </div>
+        </div>
+        <% } %>
+        <% } else { %>
+        <div class="col-xs-12 no-applicants-bar">No Hired Applicants</div>
+        <% } %>
+        <% } %>
     </div>
-    <% } else { %>
-    
-    <div class="panel panel-default">
-        <div class="panel-heading"> 
-            <h4>Your Hired Applicants</h4> 
-        </div> 
-        <table class="table db-job-table review-table table-hover"> 
-            <thead> 
-                <tr> 
-                    <th>Name</th>
-                    <th colspan="4">
-                        <div class="col-md-12">
-                    <%  Date runningDate = post.getJobDate(); 
-                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                        while (!runningDate.after(post.getEndDate())){%>
-                            <button class="btn-primary btn-srad date-toggle" id="<%=df.format(runningDate)%>"><%= df.format(runningDate) %> </button>
-                    <%      Calendar cal = Calendar.getInstance();
-                            cal.setTime(runningDate);
-                            cal.add(Calendar.DATE, 1);
-                            runningDate = cal.getTime();
-                        } %>
-                        </div>
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody> 
-                <% if (hiredList != null){ %>
-                <% if (hiredList.size() > 0){ %>
-                <% for (User user : hiredList){ 
-                HashMap <String, Integer> scoreMap = user.getScoreMap();%>
-                <tr class="open-profileModal" data-name="<%= user.getUsername()%>" data-gender="<%=user.getGender()%>" data-nationality="<%=user.getNationality()%>" data-email="<%= user.getEmail()%>" data-contact="<%= String.valueOf(user.getContactNumber())%>" data-avatar="<%=user.getAvatar()%>" data-good="<%=user.getGoodRating()%>" data-neutral="<%=user.getNeutralRating()%>" data-bad="<%=user.getBadRating()%>" id="<%=user.getId()%>">
-                    <td><%=user.getUsername()%></td>
-                    <td class="check-in">
-                        <form action="/CheckInServlet" method="POST" class="check-in-form" style='display: inline;'>
-                            <input type="hidden" name="post_id" value="<%=postID%>" />
-                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
-                            <input type="submit" value="Check In" class="btn btn-success" />
-                        </form>
-                        <div class='check-in-text' style='display: inline;'>
-                            <% String checkInID = user.getId() + "_check_in"; %>
-                            Checked in at: <strong style="color: green;" id="<%=checkInID%>"></strong>
-                        </div>
-                    </td>
-                    <td class="check-out">
-                        <form action="/CheckOutServlet" method="POST" class="check-out-form" style='display: inline;'>
-                            <input type="hidden" name="post_id" value="<%=postID%>" />
-                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
-                            <input type="submit" value="Check Out" class="btn btn-primary" />
-                        </form>
-                        <div class='check-out-text' style='display: inline;'>
-                            <% String checkOutID = user.getId() + "_check_out"; %>
-                            Checked out at: <strong style="color: maroon;" id="<%=checkOutID%>"></strong>
-                        </div>
-                    </td>
-                    <td class="day-wage">
-                        <% String dayWage = user.getId() + "_day_wage"; %>
-                        <form action="/UpdateWageServlet" method="POST" style='display: inline;'>
-                            <input type="hidden" name="post_id" value="<%=postID%>" />
-                            <input type="hidden" name="user_id" value="<%=user.getId()%>" />
-                            <input type="hidden" name="date" id="wage_date" value="0" />
-                            <span>$</span><input type="number" name="salary" id="<%=dayWage%>" class="day-wage" min="0.01" step="0.01" max="2500" value="25.67">
-                            <input type="submit" value="Update" class="btn btn-success" />
-                        </form>
-                    </td>
-                    <td class="wage-filler">&nbsp;</td>
-                </tr>
-                <% } %>
-                <% } else { %>
-                <tr style="background-color: white;"><td colspan="4" class="text-center" style="cursor: default;">No Hired Applicants</td></tr>
-                <% } %>
-                <% } %>
-            </tbody>
-
-        </table>
-    </div>
-    <% } %>
 </div>
             
 </div>
@@ -464,73 +388,6 @@ session.removeAttribute("offeredList");}%>
                 console.log(textStatus, errorThrown);
             }
         });
-    });
-    
-    $(document).on("click", ".date-toggle", function() {
-        var date = $(this).attr("id");
-        updateListing(date);
-        $(".btn-warning").addClass("btn-primary");
-        $(".btn-warning").removeClass("btn-warning");
-        $(this).removeClass("btn-primary");
-        $(this).addClass("btn-warning");
-    });
-    
-    function updateListing(date){
-        $.ajax({
-            url: "/UpdateListingServlet",
-            method: "POST",
-            dataType: "json",
-            data: {
-                "post_id" : <%= postID %>,
-                "date" : date
-            },
-            success: function(data){
-                $.each(data, function(index, element) {
-                    var check_in = element.split(",")[0];
-                    var check_out = element.split(",")[1];
-                    var day_wage = element.split(",")[2];
-                    if (check_in !== "null"){
-                        $("#" + index).children(".check-in").children(".check-in-text").show();
-                        $("#" + index).children(".check-in").children(".check-in-form").hide();
-                        $("#" + index).children(".check-in").children(".check-in-text").children("#" + index + "_check_in").html(check_in);
-                    } else {
-                        $("#" + index).children(".check-in").children(".check-in-text").hide();
-                        $("#" + index).children(".check-in").children(".check-in-form").show();
-                    }
-                    if (check_out !== "null"){
-                        $(".day-wage").show();
-                        $(".wage-filler").hide();
-                        $("#" + index).children(".check-out").children(".check-out-text").show();
-                        $("#" + index).children(".check-out").children(".check-out-form").hide();
-                        $("#" + index).children(".check-out").children(".check-out-text").children("#" + index + "_check_out").html(check_out);
-                    } else {
-                        $("#" + index).children(".check-out").children(".check-out-text").hide();
-                        $("#" + index).children(".check-out").children(".check-out-form").show();
-                        $(".day-wage").hide();
-                        $(".wage-filler").show();
-                    }
-                    $("#" + index + "_day_wage").val(day_wage);
-                });
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
-            }
-        });
-    }
-    
-    var date = null;
-    $(document).ready(function(){
-        var element = $(".date-toggle");
-        date = element.attr("id");
-        $("#" + date).addClass("btn-warning");
-        $("#" + date).removeClass("btn-primary");
-        updateListing(date);
-        $("#wage_date").val(date);
-    });
-    
-    $(".day-wage").change(function(){
-        var amount = parseFloat($(this).val()).toFixed(2);
-        $(this).val(amount);
     });
 </script>
 

@@ -46,7 +46,7 @@
                     if (currentUser.getAccountType().equals("employer")){
                         profileUpdateLink = "/edit_profile.jsp";
                     }%>
-                <li><span><a href="<%=profileUpdateLink%>" class="page-scroll" style="color: white;">Welcome, <%=currentUser.getUsername()%></a></span></li>
+                <li><span><a href="<%=profileUpdateLink%>" class="page-scroll">Welcome, <%=currentUser.getUsername()%></a></span></li>
                 <li><button class="btn btn-primary wow tada" onclick="$('#logout_form').submit();">Logout</button></li>
                     <% } %>
             </ul>

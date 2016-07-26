@@ -1,7 +1,7 @@
 <%@include file="_header.jsp"%>
 <%@include file="_nav.jsp"%>
 
-<header class="main">
+<header class="main" style="padding-left: 10px; padding-right: 10px;">
     <div class="header-full-content">
         <div class="header-content-inner">
             <h2 class="text-center">Frequently Asked Questions</h2>

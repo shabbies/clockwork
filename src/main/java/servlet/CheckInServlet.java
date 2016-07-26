@@ -55,7 +55,7 @@ public class CheckInServlet extends HttpServlet {
             if(httpResponse.getStatusLine().getStatusCode() == 201){
                 String message = "You have successfully checked in the user!";
                 session.setAttribute("message", message);
-                response.sendRedirect("/listing.jsp?id=" + postID);
+                response.sendRedirect("/manage_workers.jsp?id=" + postID);
                 return;
             } else {
                 String error = "A system error has occurred, please try again";

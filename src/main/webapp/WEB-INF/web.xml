@@ -216,6 +216,18 @@
         <servlet-name>UpdateWageServlet</servlet-name>
         <servlet-class>servlet.UpdateWageServlet</servlet-class>
     </servlet>
+    <servlet>  
+        <servlet-name>GetChatMessages</servlet-name>
+        <servlet-class>servlet.GetChatMessages</servlet-class>
+    </servlet>
+    <servlet>  
+        <servlet-name>NewChatMessage</servlet-name>
+        <servlet-class>servlet.NewChatMessage</servlet-class>
+    </servlet>
+    <servlet>  
+        <servlet-name>GetJSChatrooms</servlet-name>
+        <servlet-class>servlet.GetJSChatrooms</servlet-class>
+    </servlet>
 
 
 
@@ -403,5 +415,17 @@
     <servlet-mapping>
         <servlet-name>UpdateWageServlet</servlet-name>
         <url-pattern>/UpdateWageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetChatMessages</servlet-name>
+        <url-pattern>/GetChatMessages</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewChatMessage</servlet-name>
+        <url-pattern>/NewChatMessage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetJSChatrooms</servlet-name>
+        <url-pattern>/GetJSChatrooms</url-pattern>
     </servlet-mapping>
 </web-app>    

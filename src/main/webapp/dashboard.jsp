@@ -7,7 +7,6 @@
 
 <%@include file="_job_details.jsp"%>
 <%@ page buffer="32kb" %>
-
 <%  
 ArrayList <Post> publishedList = (ArrayList <Post>)session.getAttribute("publishedList"); 
 if (publishedList == null){ %>
@@ -34,8 +33,8 @@ session.removeAttribute("publishedList");
                         <thead> 
                             <tr> 
                                 <th>Job</th>
-                                <th>Date</th>
-                                <th>Status</th>
+                                <th class="hidden-xs">Date</th>
+                                <th class="hidden-xs">Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -50,14 +49,14 @@ session.removeAttribute("publishedList");
                                 }%>
                             <tr class="open-job-modal" data-userid="0" data-jobstatus="<%= post.getStatus() %>" data-ownjob="" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
                                 <td><%=post.getHeader()%></td>
-                                <td><%=post.getJobDateString()%></td>   
+                                <td class="hidden-xs"><%=post.getJobDateString()%></td>   
                                 <% if (post.getStatus().equals("listed")){
                                     String redirectURL = "/edit_post.jsp?id=" + post.getId(); %>
-                                    <td><span class="badge db-default-badge">No Applicant</span></td>
+                                    <td class="hidden-xs"><span class="badge db-default-badge">No Applicant</span></td>
                                     <td><a href="<%=redirectURL%>" class="btn btn-warning">Edit Job</a></td>
-                                <% } else if (post.getStatus().equals("applied") || post.getStatus().equals("ongoing")){
+                                <% } else if (post.getStatus().equals("applied")) {
                                     String redirectURL = "GetPostServlet?id=" + post.getId() + "&location=listing"; %>
-                                    <td><span class="badge db-default-badge">Ongoing</span></td>
+                                    <td class="hidden-xs"><span class="badge db-default-badge">Hiring</span></td>
                                     <% int appCount = post.getApplicantCount(); 
                                     if(appCount > 0) { 
                                         if (appCount == 1){%>
@@ -69,14 +68,18 @@ session.removeAttribute("publishedList");
                                         <td><a href="<%=redirectURL%>" class="btn btn-primary"> Click to View</a></td>
                                     <% } %>
                                 <% } else if (post.getStatus().equals("expired")){ %>
-                                    <td><span class="badge db-default-badge">Expired</span></td>
+                                    <td class="hidden-xs"><span class="badge db-default-badge">Expired</span></td>
                                     <td><button class="btn btn-danger incomplete" disabled> Archive</button></td>
                                 <% } else if (post.getStatus().equals("reviewing")){ %>
-                                    <td><span class="badge db-default-badge">Pending Review</span></td>
+                                    <td class="hidden-xs"><span class="badge db-default-badge">Pending Review</span></td>
                                     <% String formedURL = "review_applicants.jsp?id=" + post.getId();%>
-                                    <td><a href="<%=formedURL%>" class="btn btn-info"> Rate Applicants</a></td>
+                                    <td><a href="<%=formedURL%>" class="btn btn-info"> Rate Applicants</a></td> 
+                                <% } else if (post.getStatus().equals("ongoing")){%>    
+                                    <td class="hidden-xs"><span class="badge db-default-badge">Ongoing</span></td>
+                                    <% String formedURL = "manage_workers.jsp?id=" + post.getId();%>
+                                    <td><a href="<%=formedURL%>" class="btn btn-facebook"> Manage</a></td> 
                                 <% } else {%>
-                                    <td><span class="badge db-default-badge">Completed</span></td>
+                                    <td class="hidden-xs"><span class="badge db-default-badge">Completed</span></td>
                                     <% String formedURL = "complete_job.jsp?id=" + post.getId();%>
                                     <td><a href="<%=formedURL%>" class="btn btn-success"> View Feedback</a></td>
                                 <% } %>
