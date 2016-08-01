@@ -6496,6 +6496,13 @@ button.close {
     display: inline-block !important;
   }
 }
+
+@media (max-width: 400) {
+    .hidden-xxs {
+        display: none !important;
+    }
+}
+
 @media (max-width: 767px) {
   .hidden-xs {
     display: none !important;

@@ -85,7 +85,9 @@ String jobDateString = jobDate.toString();
     <div class="job-entry <%=jobEditStyle%> open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>" data-id="<%=post.getId()%>" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>">
         <div class="job-image">
             <% String avatarPath = (post.getAvatarPath() == null) ? "img/user-placeholder.jpg" : post.getAvatarPath();%>
-            <img class="img-inner img-responsive" src="<%=avatarPath%>" >
+            <div class="img-inner-container">
+                <img class="img-inner img-responsive" src="<%=avatarPath%>" >
+            </div>
             <p class="job-entry-price-flag" style="color: white; font-size: 24px;">
                 <span class="job-entry-price <%= jobEditColor %>"><%=salary%></span>
             </p>
