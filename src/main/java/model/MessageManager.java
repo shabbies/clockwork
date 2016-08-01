@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 public class MessageManager {
     
@@ -30,6 +31,7 @@ public class MessageManager {
         
         String dateString = (String)userHash.get("created_at");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Singapore"));
         Date createdDate = df.parse(dateString);
         df = new SimpleDateFormat("d MMM");
         String dateOnly = df.format(createdDate);
