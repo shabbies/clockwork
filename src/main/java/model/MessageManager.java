@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 public class MessageManager {
     
@@ -34,6 +35,7 @@ public class MessageManager {
         df = new SimpleDateFormat("d MMM");
         String dateOnly = df.format(createdDate);
         df = new SimpleDateFormat("h:mm a");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Singapore"));
         String timeOnly = df.format(createdDate);
         Message message = new Message(id, sender, senderID, avatar, chatroomID, content, createdDate, dateOnly, timeOnly);
         return message;

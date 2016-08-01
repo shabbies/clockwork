@@ -84,6 +84,10 @@ aside {
     padding: 0;
 }
 
+.padding-10 {
+    padding: 10px;
+}
+
 
 .navbar-nav li span{
     cursor: default;
@@ -311,37 +315,47 @@ aside {
   cursor: pointer;
 }
 
+.job-image {
+    padding-top: 20px;
+}
+
+.img-inner-container{
+    height: 180px;
+    width: 180px;
+    text-align: center;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+}
+
 .img-inner{
     border-radius: 5px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    height: 253px;
-    width: 253px;
-    margin-left: auto;
-    margin-right: auto;
+    display: inline-block;
+    vertical-align: middle;
+    max-height: 180px;
+    max-width: 180px;
+    align-self: center;
 }
 
 @media(max-width:991px) {
     .img-inner{
         border-radius: 5px;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-        height: 328px;
-        width: 328px;
-        margin-left: auto;
-        margin-right: auto;
+        display: inline-block;
+        vertical-align: middle;
+        max-height: 180px;
+        max-width: 180px;
+        align-self: center;
     }
 }
 
 @media(max-width:1200px) and (min-width: 992px){
     .img-inner{
         border-radius: 5px;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-        height: 282px;
-        width: 282px;
-        margin-left: auto;
-        margin-right: auto;
+        display: inline-block;
+        vertical-align: middle;
+        max-height: 180px;
+        max-width: 180px;
+        align-self: center;
     }
 }
 
@@ -2283,4 +2297,93 @@ pre{
 .listing-panel > .listing-details-bar > div > .ratings {
     margin-left: -10px;
     margin-right: -10px;
+}
+
+.dashboard-panel {
+    overflow: auto;
+    color: black;
+    position: relative;
+}
+
+.dashboard-panel > .dashboard-details-bar {
+    padding: 10px 0px;
+    cursor: pointer;
+    text-align: left;
+    border-bottom: 1px solid #DDD;
+    align-items: center;
+    display: flex;
+}
+
+.dashboard-details-bar-no-highlight {
+    padding: 10px 0px;
+    text-align: left;
+    border-bottom: 1px solid #DDD;
+    align-items: center;
+    display: flex;
+}
+
+.dashboard-details-bar-no-highlight > div > button {
+    width: 100%;
+}
+
+.dashboard-panel > .dashboard-details-bar > div > .btn {
+    width: 100%;
+    text-align: center;
+}
+
+.dashboard-panel > .dashboard-details-bar > div > .btn-group {
+    width: 100%;
+}
+
+.dashboard-panel > .dashboard-details-bar > div > .btn-group > a{
+    width: 50%;
+}
+
+.dashboard-panel > .dashboard-details-bar:hover {
+    background-color: #DCDCDC;
+}
+
+.dashboard-panel > .header {
+    text-align: left;
+    font-weight: 700;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 10px;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently not supported by any browser */
+    cursor: default;
+}
+
+.dashboard-panel > .panel-heading {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently not supported by any browser */
+    cursor: default;
+}
+
+@media only screen and (max-width: 560px) {
+    .dashboard-panel > .dashboard-details-bar > div > .btn {
+        font-size: 10px;
+    }
+    
+    .dashboard-panel > .dashboard-details-bar > div > .btn-group > a {
+        font-size: 10px;
+        padding-left: 3px;
+    }
+    
+    .dashboard-details-bar-no-highlight,
+    .dashboard-panel > .dashboard-details-bar > div {
+        font-size: 12px;
+    }
+    
+    .dashboard-details-bar-no-highlight > div > button {
+        font-size: 11px;
+        padding-left: 4px;
+    }
 }
