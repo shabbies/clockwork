@@ -29,124 +29,102 @@ session.getAttribute("completedJobsList");
     
 <div class="row">
     <div class="col-md-8">
-        <div class="panel panel-default">
+        <div class="panel panel-default dashboard-panel">
             <div class="panel-heading"> 
-                <h4>Jobs you have applied for</h4> 
+                <h4>Applied</h4> 
             </div> 
 
-            <table class="table db-job-table table-hover"> 
+            <div class="col-xs-12 header">
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 header">Job</div>
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 header hidden-xxs">Company</div>
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 header hidden-md hidden-xs">Status</div>
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 header">Action </div>
+            </div>
+            <%  for (String status : appliedJobsMap.keySet()){
+                    ArrayList <Post> postList = appliedJobsMap.get(status);
+                    for (Post post : postList){
+                        String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
+                        if(currentUser != null){
+                            currentuserid = String.valueOf(currentUser.getId());
+                            if(currentUser.getUsername().equals(post.getCompany())){
+                                jobEditStyle =  "job-edit";
+                                jobStyle =  "job-entry-edit";
+                                jobEditColor = "job-edit-color";
+                                ownjob = "true";
+                            }
+                        } 
+                        String salary = "" + post.getSalary();
 
-                <thead> 
-                    <tr id="header-row"> 
-                        <th>Job</th>
-                        <th>Company</th>
-                        <th>Status</th>
-                        <th class="hidden-xs">Action</th>
-                    </tr>
-                </thead>
+                        if (post.getPayType().equals("hour")){
+                            salary += " / hr";
+                        } else {
+                            salary += " / day";
+                        } %>
+            <div class="open-job-modal col-xs-12 dashboard-details-bar" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4"><%=post.getHeader()%></div>
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4"><%=post.getCompany()%></div>
+                <% if (status.equals("pending")) {%>
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 hidden-md hidden-xs">
+                        <span class="badge db-default-badge">Pending</span>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4">
+                        <a class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>">Withdraw</a>
+                    </div>
+                <% } else if (status.equals("offered")){ %>
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 hidden-md hidden-xs">
+                        <span class="badge db-default-badge offered">Offered</span>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <a class="btn btn-accept accept-job" data-postid="<%=post.getId()%>">Accept</a>
+                            <a class="btn btn-reject withdraw-job" data-postid="<%=post.getId()%>">Reject</a>
+                        </div>
+                        <!--<a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a>-->
+                    </div>
+                <% } else { %>
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 hidden-md hidden-xs">
+                        <span class="badge db-default-badge success">Hired</span>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4"><button class="btn btn-warning" id="open-jobModal">Job Details</button></div>
+                <% } %>
+            </div>  
+                <% }
+            }
+            if (appliedJobsMap.isEmpty()){ %>
+                <div class="col-xs-12 no-applicants-bar">You have not applied for any job!</div>
+            <% } %>
 
-                <tbody> 
-                    <%  for (String status : appliedJobsMap.keySet()){
-                            ArrayList <Post> postList = appliedJobsMap.get(status);
-                            for (Post post : postList){
-                                String jobEditStyle = "", jobStyle = "", jobEditColor = "", ownjob = "", currentuserid="";
-                                if(currentUser != null){
-                                    currentuserid = String.valueOf(currentUser.getId());
-                                    if(currentUser.getUsername().equals(post.getCompany())){
-                                        jobEditStyle =  "job-edit";
-                                        jobStyle =  "job-entry-edit";
-                                        jobEditColor = "job-edit-color";
-                                        ownjob = "true";
-                                    }
-                                } 
-                                String salary = "" + post.getSalary();
-                                
-                                if (post.getPayType().equals("hour")){
-                                    salary += " / hr";
-                                } else {
-                                    salary += " / day";
-                                } %>
-                    <tr class="open-job-modal" data-userid="<%= currentuserid %>" data-jobstatus="<%= post.getStatus() %>" data-ownjob="<%= ownjob %>" data-header="<%= post.getHeader()%>" data-desc="<%=post.getDescription()%>" data-salary="$<%=salary%>" data-company="<%=post.getCompany()%>" data-location="<%=post.getLocation()%>" data-dateposted="<%=post.getJobDateString()%>" data-enddate="<%=post.getEndDateString()%>" data-cdate="<%=post.getJobDateStringForInput()%>" data-id="<%=post.getId()%>" data-applied="true" data-avatar="<%=post.getAvatarPath()%>" data-starttime="<%=post.getStartTime()%>" data-endtime="<%=post.getEndTime()%>" data-cdateend="<%=post.getJobEndDateStringForInput()%>"> 
-                        <td><%=post.getHeader()%></td>
-                        <td><%=post.getCompany()%></td>
-                        <% if (status.equals("pending")) {%>
-                            <td>
-                                <span class="badge db-default-badge">Pending</span>
-                                <a class="btn btn-primary withdraw-job visible-xs" data-postid="<%=post.getId()%>">Withdraw</a>
-                            </td>
-                            <td class="hidden-xs"><a class="btn btn-primary withdraw-job" data-postid="<%=post.getId()%>">Withdraw</a></td>
-                        <% } else if (status.equals("offered")){ %>
-                            <td>
-                                <span class="badge db-default-badge offered">Offered</span>
-                                <div class="btn-group visible-xs" role="group" aria-label="...">
-                                    <a class="btn btn-accept accept-job" style="width: 75px;" data-postid="<%=post.getId()%>">Accept</a>
-                                    <a class="btn btn-reject withdraw-job" style="width: 75px;" data-postid="<%=post.getId()%>">Reject</a>
-                                </div>
-                            </td>
-                            <td class="hidden-xs">
-                                <div class="btn-group" role="group" aria-label="...">
-                                    <a class="btn btn-accept accept-job" style="width: 75px;" data-postid="<%=post.getId()%>">Accept</a>
-                                    <a class="btn btn-reject withdraw-job" style="width: 75px;" data-postid="<%=post.getId()%>">Reject</a>
-                                </div>
-                                <!--<a class="btn btn-success accept-job" data-postid="<%=post.getId()%>">Accept Job Offer</a>-->
-                            </td>
-                        <% } else { %>
-                            <td>
-                                <span class="badge db-default-badge success">Hired</span>
-                                <button class="btn btn-warning visible-xs" id="open-jobModal">Job Details</button>
-                            </td>
-                            <td class="hidden-xs"><button class="btn btn-warning" id="open-jobModal">Job Details</button></td>
-                        <% } %>
-                    </tr>  
-                        <% }
-                    }
-                    if (appliedJobsMap.isEmpty()){ %>
-                        <tr class="text-center"><td colspan="4">You have not applied for any jobs</td></tr>
-                    <% } %>
-                    %>
-                </tbody>
-            </table>
-
-            <div>
+            <div class="col-xs-12 padding-10">
                 <a href="/index.jsp" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i> Search for a Job</a>
             </div>
         </div> 
 
-        <div class="panel panel-default">
+        <div class="panel panel-default dashboard-panel">
             <div class="panel-heading">
-                <h4 data-toggle="collapse" data-target="#pastJobs" aria-expanded="true" class="cursorpointer">Completed Jobs</h4>
+                <h4 aria-expanded="true">Completed</h4>
             </div>
-            <div id="pastJobs" class="panel-collapse" aria-expanded="true">
-                <% if (!completedJobs.isEmpty()){ %>
-                <table class="table db-job-table"> 
-
-                    <thead> 
-                        <tr> 
-                            <th>Job</th>
-                            <th>Company</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>  
-                        <% for (Post post : completedJobs){%>
-                        <tr>
-                            <td><%=post.getHeader()%></td>
-                            <td><%=post.getCompany()%></td>
-                            <td><span class="badge db-default-badge complete">Completed</span></td>
-                            <td>
-                                <button class="btn btn-info" id="open-ratingsModal" data-header="<%=post.getHeader()%>" data-company="<%=post.getCompany()%>" data-rating="<%=post.getRating()%>" data-comment="<%=post.getComment()%>">View Ratings</button>
-                            </td>
-                        </tr>
-                        <%}%>
-                    </tbody>
-
-                </table>
-                <% } else { %>
+            <div class="col-xs-12 header">
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 header">Job</div>
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 header hidden-xxs">Company</div>
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 header hidden-md hidden-xs">Status</div>
+                <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 header">Action </div>
+            </div>
+            <% if (!completedJobs.isEmpty()){ %> 
+                <% for (Post post : completedJobs){%>
+                <div class="dashboard-details-bar-no-highlight col-xs-12">
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4"><%=post.getHeader()%></div>
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4"><%=post.getCompany()%></div>
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4 hidden-md hidden-xs">
+                        <span class="badge db-default-badge complete">Completed</span>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-3 col-xs-4">
+                        <button class="btn btn-info" id="open-ratingsModal" data-header="<%=post.getHeader()%>" data-company="<%=post.getCompany()%>" data-rating="<%=post.getRating()%>" data-comment="<%=post.getComment()%>">View Ratings</button>
+                    </div>
+                </div>
+                <%}%>
+            <% } else { %>
                 <p style="color:black; padding-top: 10px;">You have not completed any jobs! Try finishing a job first!</p>
-                <% } %>
-            </div>
+            <% } %>
         </div>
     </div>
 
