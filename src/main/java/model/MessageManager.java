@@ -31,11 +31,11 @@ public class MessageManager {
         
         String dateString = (String)userHash.get("created_at");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        df.setTimeZone(TimeZone.getTimeZone("Asia/Singapore"));
         Date createdDate = df.parse(dateString);
         df = new SimpleDateFormat("d MMM");
         String dateOnly = df.format(createdDate);
         df = new SimpleDateFormat("h:mm a");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Singapore"));
         String timeOnly = df.format(createdDate);
         Message message = new Message(id, sender, senderID, avatar, chatroomID, content, createdDate, dateOnly, timeOnly);
         return message;
