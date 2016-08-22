@@ -208,6 +208,14 @@
         <servlet-name>CheckOutServlet</servlet-name>
         <servlet-class>servlet.CheckOutServlet</servlet-class>
     </servlet>
+    <servlet>  
+        <servlet-name>UpdateListingServlet</servlet-name>
+        <servlet-class>servlet.UpdateListingServlet</servlet-class>
+    </servlet>
+    <servlet>  
+        <servlet-name>UpdateWageServlet</servlet-name>
+        <servlet-class>servlet.UpdateWageServlet</servlet-class>
+    </servlet>
 
 
 
@@ -387,5 +395,13 @@
     <servlet-mapping>
         <servlet-name>CheckOutServlet</servlet-name>
         <url-pattern>/CheckOutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateListingServlet</servlet-name>
+        <url-pattern>/UpdateListingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateWageServlet</servlet-name>
+        <url-pattern>/UpdateWageServlet</url-pattern>
     </servlet-mapping>
 </web-app>    

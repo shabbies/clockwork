@@ -1,9 +1,6 @@
 package model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.HashMap;
 
 public class Match {
     private int userId;
@@ -11,17 +8,15 @@ public class Match {
     private int rating;
     private String comment;
     private String status;
-    private Date startTime;
-    private Date endTime;
+    private HashMap <String, HashMap <String, String>> timings;
 
-    public Match(int userId, int postId, int rating, String comment, String status, Date startTime, Date endTime) {
+    public Match(int userId, int postId, int rating, String comment, String status, HashMap timings) {
         this.userId = userId;
         this.postId = postId;
         this.rating = rating;
         this.comment = comment;
         this.status = status;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.timings = timings;
     }
 
     public int getUserId() {
@@ -64,31 +59,23 @@ public class Match {
         this.status = status;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public HashMap <String, HashMap <String, String>> getTimings(){
+        return timings;
     }
     
-    public String getFormattedStartTime() {
-        DateFormat df = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
-        return df.format(startTime);
+    public String getStartTime(String date) {
+        return timings.get(date).get("check_in");
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setStartTime(String date, String startTime) {
+        timings.get(date).put("check_in", startTime);
     }
 
-    public Date getEndTime() {
-        return endTime;
-    }
-    
-    public String getFormattedEndTime() {
-        DateFormat df = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
-        return df.format(endTime);
+    public String getEndTime(String date) {
+        return timings.get(date).get("check_out");
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setEndTime(String date, String endTime) {
+        timings.get(date).put("check_out", endTime);
     }
-    
-    
 }

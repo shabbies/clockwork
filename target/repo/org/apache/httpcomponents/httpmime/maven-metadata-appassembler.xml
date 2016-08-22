@@ -7,6 +7,10 @@
     <versions>
       <version>4.5</version>
     </versions>
+<<<<<<< HEAD
     <lastUpdated>20160403075622</lastUpdated>
+=======
+    <lastUpdated>20160822191820</lastUpdated>
+>>>>>>> debugging
   </versioning>
 </metadata>
