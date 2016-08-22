@@ -3,13 +3,9 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class MatchManager {
     private HashMap <Integer, Match> matchMap;                  // userid, match
@@ -47,10 +43,8 @@ public class MatchManager {
             rating = ((Double)matchHash.get("user_rating")).intValue();
         }
         String comment = (String)matchHash.get("comments");
-        DateFormat df = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
-        Date startTime = (matchHash.get("job_start_time") == null) ? null : df.parse((String)matchHash.get("job_start_time"));
-        Date endTime = (matchHash.get("job_end_time") == null) ? null : df.parse((String)matchHash.get("job_end_time"));
-        return new Match(userID, postID, rating, comment, status, startTime, endTime);
+        HashMap <String, Object> timingsHash = gson.fromJson(gson.toJson(matchHash.get("job_timings")), hashType);
+        return new Match(userID, postID, rating, comment, status, timingsHash);
     }
     
     public HashMap <Integer, Match> getPostMatchMap (int postID){
